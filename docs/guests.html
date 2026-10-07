@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="zh-Hant"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>訂婚賓客對照表</title>
+<meta name="description" content="Barry ♥ Winnie 訂婚宴 接待・禮金桌・帶位用賓客對照表（已填名單），宮廷紅金可列印版。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Serif+TC:wght@500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{--red:#8B1A1A;--wine:#6E1414;--gold:#C9A24B;--gold-d:#A8822F;
+    --gold-l:#F3E7C8;--cream:#FBF6EA;--ink:#2B1D12;--line:#D8C9A6;}
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#efe6d2;color:var(--ink);font-family:"Noto Serif TC",serif;}
+  .wrap{max-width:960px;margin:0 auto;padding:24px 16px 60px;}
+  .cover{text-align:center;padding:34px 20px 26px;margin-bottom:22px;
+    background:linear-gradient(160deg,#7d1616,#8B1A1A 55%,#6E1414);
+    border:2px solid var(--gold);border-radius:14px;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.18);}
+  .cover .ey{font-family:"Cormorant Garamond",serif;letter-spacing:.42em;font-size:14px;color:var(--gold-l);text-transform:uppercase;}
+  .cover h1{font-weight:900;font-size:33px;margin:10px 0 6px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .cover .names{font-family:"Cormorant Garamond",serif;font-size:22px;letter-spacing:.14em;color:var(--gold-l);}
+  .cover .meta{margin-top:12px;font-size:13px;color:#f0ddc0;letter-spacing:.2em;}
+  .cover .rule{width:70px;height:2px;background:var(--gold);margin:14px auto 0;}
+  .stats{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:18px 0 26px;}
+  .stat{background:var(--cream);border:1px solid var(--line);border-radius:10px;padding:10px 18px;text-align:center;min-width:120px;}
+  .stat b{display:block;font-size:24px;color:var(--red);font-weight:900;}
+  .stat span{font-size:12px;color:var(--wine);}
+  .staff{background:var(--gold-l);border:1px solid var(--gold);border-radius:10px;
+    padding:10px 16px;margin:0 0 24px;font-size:13px;color:var(--wine);text-align:center;}
+  .sec-h{font-weight:900;color:var(--red);font-size:22px;margin:30px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--gold);}
+  .sec-h .en{font-family:"Cormorant Garamond",serif;color:var(--gold-d);font-size:15px;letter-spacing:.2em;margin-left:10px;}
+  .card{background:#fff;border:1.5px solid var(--gold);border-radius:12px;padding:12px 16px 14px;margin:0 0 16px;box-shadow:0 4px 14px rgba(0,0,0,.06);break-inside:avoid;}
+  .card.main{border-width:2.5px;background:#fffdf6;}
+  .card-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding-bottom:7px;margin-bottom:7px;border-bottom:1px dashed var(--line);}
+  .tname{font-weight:900;font-size:21px;color:var(--red);}
+  .tname .badge{font-size:12px;background:var(--gold);color:#4a2a08;padding:2px 8px;border-radius:10px;vertical-align:middle;margin-left:6px;}
+  .tloc{font-size:13px;color:var(--wine);}
+  .tcount{margin-left:auto;font-size:14px;color:var(--ink);font-weight:700;}
+  table{width:100%;border-collapse:collapse;}
+  .seat th,.seat td{border:1px solid var(--line);padding:6px 8px;font-size:14px;}
+  .seat th{background:var(--gold-l);color:var(--wine);font-weight:700;}
+  .seat .num{width:48px;text-align:center;color:#9a7b3f;}
+  .seat .nm{width:24%;font-weight:600;} .seat .rel{width:30%;}
+  .seat .ph{color:#c4b48f;}
+  .seat tbody td{height:26px;}
+  .sheet{background:#fff;border:1.5px solid var(--gold);border-radius:12px;padding:14px 16px;margin:0 0 18px;break-inside:avoid;}
+  .sheet-title{font-weight:900;color:var(--red);font-size:19px;margin-bottom:6px;display:flex;align-items:baseline;gap:12px;}
+  .sheet-title .pg{font-size:13px;color:var(--gold-d);font-weight:600;}
+  .hint{font-size:12px;color:var(--wine);margin:0 0 10px;font-style:italic;}
+  .gift th,.gift td{border:1px solid var(--line);padding:6px 8px;font-size:13.5px;}
+  .gift th{background:var(--gold-l);color:var(--wine);}
+  .gift .g-nm{width:20%;font-weight:600;} .gift .g-rel{width:24%;}
+  .gift .g-tb{width:14%;text-align:center;} .gift .g-pax{width:9%;text-align:center;}
+  .gift .g-amt{width:20%;} .gift .g-ck{width:9%;text-align:center;}
+  .gift tbody td{height:28px;}
+  .lk-wrap{display:flex;gap:14px;}
+  .lookup{flex:1;}
+  .lookup th,.lookup td{border:1px solid var(--line);padding:5px 8px;font-size:13.5px;}
+  .lookup th{background:var(--gold-l);color:var(--wine);}
+  .lookup .l-nm{font-weight:600;} .lookup .l-tb{width:42%;}
+  .foot{text-align:center;color:var(--wine);font-size:12px;margin-top:30px;letter-spacing:.12em;}
+  .foot .glyph{color:var(--gold-d);margin:0 6px;}
+  @media print{
+    html,body{background:#fff;} .wrap{max-width:none;padding:0;}
+    .cover,.card,.sheet,.stat,.staff,th,td{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .card,.sheet{box-shadow:none;page-break-inside:avoid;}
+    .cover{box-shadow:none;}
+    @page{size:A4;margin:12mm;}
+  }
+</style></head>
+<body><div class="wrap">
+  <div class="cover">
+    <div class="ey">Seating &amp; Reception Guide</div>
+    <h1>訂婚宴 ・ 賓客對照表</h1>
+    <div class="names">BARRY &amp; WINNIE</div>
+    <div class="rule"></div>
+    <div class="meta">幸福登機門　GATE 2F　・　FLIGHT BW1011　・　2026.10.11　台南</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>13</b><span>桌次</span></div>
+    <div class="stat"><b>84</b><span>名單組數</span></div>
+    <div class="stat"><b>約 122</b><span>預估入席人數</span></div>
+  </div>
+  <div class="staff">工作人員（Amy（主持人）、音控（音控）、妃妃（新秘）、新秘助手（新秘助手））安排於「睡美人」桌。</div>
+
+  <div class="sec-h">① 依桌次 <span class="en">BY TABLE ・ 帶位・桌卡</span></div>
+  
+<section class="card main">
+  <div class="card-head">
+    <div class="tname">王位 <span class="badge">主桌</span></div>
+    <div class="tloc">主桌・舞台正前方中央</div>
+    <div class="tcount">本桌 10 位</div>
+  </div>
+  <table class="seat">
+    <thead><tr><th class="num">座位</th><th class="nm">姓名</th>
+    <th class="rel">關係／稱謂</th><th class="note">備註</th></tr></thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm">戴婉錡</td><td class="rel">新娘</td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm">戴建勳</td><td class="rel">新娘爸爸</td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm">郭乃華</td><td class="rel">新娘媽媽</td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm">林碧霞</td><td class="rel">新娘外婆</td><td class="note">吃素</td></tr>
+<tr><td class="num">5</td><td class="nm">戴蔡美惠</td><td class="rel">新娘奶奶</td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm">羅聖明</td><td class="rel">新郎</td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm">羅茂松</td><td class="rel">新郎爸爸</td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm">張秀緞</td><td class="rel">新郎媽媽</td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm">張坤輝</td><td class="rel">新郎阿公</td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm">羅茂騰</td><td class="rel">新郎叔叔</td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="card ">
+  <div class="card-head">
+    <div class="tname">獅子王</div>
+    <div class="tloc">左／中區</div>
+    <div class="tcount">本桌 10 位</div>
+  </div>
+  <table class="seat">
+    <thead><tr><th class="num">座位</th><th class="nm">姓名</th>
+    <th class="rel">關係／稱謂</th><th class="note">備註</th></tr></thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm">蔡文成</td><td class="rel">女方爸爸那邊舅公</td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm"><span class="ph">—</span></td><td class="rel">女方爸爸那邊嬸婆</td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm">戴淑娟</td><td class="rel">女方小姑姑</td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm"><span class="ph">—</span></td><td class="rel">戴淑娟老公</td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm"><span class="ph">—</span></td><td class="rel">堂哥/堂弟/堂姐</td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm">戴建洲</td><td class="rel">女方叔叔</td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm"><span class="ph">—</span></td><td class="rel">女方嬸嬸</td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm"><span class="ph">—</span></td><td class="rel">堂哥/堂弟</td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm">戴淑秋</td><td class="rel">女方大姑姑</td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm"><span class="ph">—</span></td><td class="rel">女方大姑丈</td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="card ">
+  <div class="card-head">
+    <div class="tname">天外奇蹟</div>
+    <div class="tloc">左／中區</div>
+    <div class="tcount">本桌 10 位</div>
+  </div>
+  <table class="seat">
+    <thead><tr><th class="num">座位</th><th class="nm">姓名</th>
+    <th class="rel">關係／稱謂</th><th class="note">備註</th></tr></thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm">林燦生</td><td class="rel">女方舅公</td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm"><span class="ph">—</span></td><td class="rel">林燦生親戚</td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm">林浩生</td><td class="rel">女方舅公</td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm"><span class="ph">—</span></td><td class="rel">林浩生親戚</td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm">林素霞</td><td class="rel">女方姨婆</td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm"><span class="ph">—</span></td><td class="rel">林素霞親戚</td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm">林春霞</td><td class="rel">女方姨婆</td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm"><span class="ph">—</span></td><td class="rel">林春霞親戚</td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm">林麗霞</td><td class="rel">女方姨婆</td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm"><span class="ph">—</span></td><td class="rel">林麗霞親戚</td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="card ">
+  <div class="card-head">
+    <div class="tname">睡美人</div>
+    <div class="tloc">左／中區</div>
+    <div class="tcount">本桌 9 位</div>
+  </div>
+  <table class="seat">
+    <thead><tr><th class="num">座位</th><th class="nm">姓名</th>
+    <th class="rel">關係／稱謂</th><th class="note">備註</th></tr></thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm">郭乃瑜</td><td class="rel">女方阿姨</td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm">郭祐任</td><td class="rel">女方舅舅</td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm">張雅嵐</td><td class="rel">女方舅媽</td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm">郭丁綺</td><td class="rel">女方表妹</td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm"><span class="ph">—</span></td><td class="rel">郭丁綺男友</td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm">Amy</td><td class="rel">主持人</td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm"><span class="ph">—</span></td><td class="rel">音控</td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm">妃妃</td><td class="rel">新秘</td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm"><span class="ph">—</span></td><td class="rel">新秘助手</td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="card ">
+  <div class="card-head">
+    <div class="tname">小美人魚</div>
+    <div class="tloc">左／中區</div>
+    <div class="tcount">本桌 8 位</div>
+  </div>
+  <table class="seat">
+    <thead><tr><th class="num">座位</th><th class="nm">姓名</th>
+    <th class="rel">關係／稱謂</th><th class="note">備註</th></tr></thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm">郭乃萍</td><td class="rel">女方阿姨</td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm">吳宗鴻</td><td class="rel">女方姨丈</td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm">吳慧儀</td><td class="rel">吳宗鴻姊姊</td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm"><span class="ph">—</span></td><td class="rel">吳慧儀老公</td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm"><span class="ph">—</span></td><td class="rel">吳慧儀女兒</td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm">吳誼萱</td><td class="rel">女方表妹</td><td class="note">禮金桌</td></tr>
+<tr><td class="num">7</td><td class="nm">吳瑞臻</td><td class="rel">女方表妹</td><td class="note">禮金桌</td></tr>
+<tr><td class="num">8</td><td class="nm">吳芷瑋</td><td class="rel">女方表妹</td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="card ">
+  <div class="card-head">
+    <div class="tname">花木蘭</div>
+    <div class="tloc">左／中區</div>
+    <div class="tcount">本桌 7 位</div>
+  </div>
+  <table class="seat">
+    <thead><tr><th class="num">座位</th><th class="nm">姓名</th>
+    <th class="rel">關係／稱謂</th><th class="note">備註</th></tr></thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm">趙銘輝/Ollie</td><td class="rel">共同朋友</td><td class="note">伴郎</td></tr>
+<tr><td class="num">2</td><td class="nm">劉良謙</td><td class="rel">共同朋友</td><td class="note">伴郎</td></tr>
+<tr><td class="num">3</td><td class="nm">李佳諭/Linda</td><td class="rel">共同朋友</td><td class="note">伴娘</td></tr>
+<tr><td class="num">4</td><td class="nm">劉彥伯/Paul</td><td class="rel">女方前同事</td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm">Cecile</td><td class="rel">女方前同事</td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm">李俊儀/Gemma</td><td class="rel">女方前同事</td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm">林怡真/Amanda</td><td class="rel">女方前同事</td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="card ">
+  <div class="card-head">
+    <div class="tname">熊的傳說</div>
+    <div class="tloc">左／中區</div>
+    <div class="tcount">本桌 10 位</div>
+  </div>
+  <table class="seat">
+    <thead><tr><th class="num">座位</th><th class="nm">姓名</th>
+    <th class="rel">關係／稱謂</th><th class="note">備註</th></tr></thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm">施定仁</td><td class="rel">女方爸爸朋友</td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm"><span class="ph">—</span></td><td class="rel">施定仁老婆</td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm">江明陽</td><td class="rel">女方爸爸朋友</td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm"><span class="ph">—</span></td><td class="rel">江明陽老婆</td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm">許明炳</td><td class="rel">女方爸爸朋友</td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm"><span class="ph">—</span></td><td class="rel">許明炳老婆</td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm">鄭淙銘</td><td class="rel">女方爸爸朋友</td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm"><span class="ph">—</span></td><td class="rel">鄭淙銘老婆</td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm">高凰文</td><td class="rel">女方爸爸朋友</td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm"><span class="ph">—</span></td><td class="rel">高凰文老婆</td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="card ">
+  <div class="card-head">
+    <div class="tname">金銀島</div>
+    <div class="tloc">左／中區</div>
+    <div class="tcount">本桌 7 位</div>
+  </div>
+  <table class="seat">
+    <thead><tr><th class="num">座位</th><th class="nm">姓名</th>
+    <th class="rel">關係／稱謂</th><th class="note">備註</th></tr></thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm">楊理翔</td><td class="rel">女方朋友</td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm"><span class="ph">—</span></td><td class="rel">楊理翔女友/女方朋友</td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm">侯亮宇</td><td class="rel">女方朋友</td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm"><span class="ph">—</span></td><td class="rel">侯亮宇女友</td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm">蘇晉威</td><td class="rel">女方朋友</td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm">吳尚曄</td><td class="rel">女方朋友</td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm"><span class="ph">—</span></td><td class="rel">吳尚曄女友</td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="card ">
+  <div class="card-head">
+    <div class="tname">美女與野獸</div>
+    <div class="tloc">右區</div>
+    <div class="tcount">本桌 9 位</div>
+  </div>
+  <table class="seat">
+    <thead><tr><th class="num">座位</th><th class="nm">姓名</th>
+    <th class="rel">關係／稱謂</th><th class="note">備註</th></tr></thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm">羅秋香</td><td class="rel">男方姑姑</td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm"><span class="ph">—</span></td><td class="rel">羅秋香老公</td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm">羅秀琴</td><td class="rel">男方姑姑</td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm">張文達</td><td class="rel">羅秀琴老公</td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm">羅冬燮</td><td class="rel">男方堂伯父</td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm"><span class="ph">—</span></td><td class="rel">羅冬燮老婆</td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm">羅家豐</td><td class="rel">男方堂伯父</td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm"><span class="ph">—</span></td><td class="rel">羅家豐老婆</td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm">羅時逢</td><td class="rel">司機叔叔</td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="card ">
+  <div class="card-head">
+    <div class="tname">仙履奇緣</div>
+    <div class="tloc">右區</div>
+    <div class="tcount">本桌 9 位</div>
+  </div>
+  <table class="seat">
+    <thead><tr><th class="num">座位</th><th class="nm">姓名</th>
+    <th class="rel">關係／稱謂</th><th class="note">備註</th></tr></thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm">羅聖評</td><td class="rel">新郎哥哥</td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm">羅婕寧</td><td class="rel">新郎姊姊</td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm">張峻維</td><td class="rel">羅秋香小孩</td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm">張峻源</td><td class="rel">羅秋香小孩</td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm">張峻愷</td><td class="rel">羅秋香小孩</td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm">張育綾</td><td class="rel">羅秀琴小孩</td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm">張育真</td><td class="rel">羅秀琴小孩</td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm">陳宏益</td><td class="rel">親戚小孩</td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm">陳思語</td><td class="rel">羅榮興小孩</td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="card ">
+  <div class="card-head">
+    <div class="tname">阿拉丁</div>
+    <div class="tloc">右區</div>
+    <div class="tcount">本桌 10 位</div>
+  </div>
+  <table class="seat">
+    <thead><tr><th class="num">座位</th><th class="nm">姓名</th>
+    <th class="rel">關係／稱謂</th><th class="note">備註</th></tr></thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm">何宜庭</td><td class="rel">女方朋友</td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm"><span class="ph">—</span></td><td class="rel">何宜庭男友</td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm">陳昭宇</td><td class="rel">女方朋友</td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm">李宜軒</td><td class="rel">女方朋友</td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm">張文瑜</td><td class="rel">共同朋友</td><td class="note">伴娘</td></tr>
+<tr><td class="num">6</td><td class="nm">小澤</td><td class="rel">女方朋友</td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm">洪嘉駿/雜草</td><td class="rel">共同朋友</td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm"><span class="ph">—</span></td><td class="rel">雜草女友</td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm">黃炳曄</td><td class="rel">女方朋友</td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm">Jojo</td><td class="rel">女方朋友</td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="card ">
+  <div class="card-head">
+    <div class="tname">變身國王</div>
+    <div class="tloc">右區</div>
+    <div class="tcount">本桌 10 位</div>
+  </div>
+  <table class="seat">
+    <thead><tr><th class="num">座位</th><th class="nm">姓名</th>
+    <th class="rel">關係／稱謂</th><th class="note">備註</th></tr></thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm">張敏珠</td><td class="rel">男方阿姨</td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm">陳銘鳳</td><td class="rel">張敏珠老公</td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm">陳中佑</td><td class="rel">張敏珠兒子</td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm">陳麗絲</td><td class="rel">張敏珠女兒</td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm">張添吉</td><td class="rel">男方舅舅</td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm">黃彩朋</td><td class="rel">張添吉老婆</td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm">張睿善</td><td class="rel">張添吉兒子</td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm">張雅茹</td><td class="rel">男方表妹</td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm">姜義璽</td><td class="rel">張雅茹老公</td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm">姜禮豪</td><td class="rel">張雅茹兒子</td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="card ">
+  <div class="card-head">
+    <div class="tname">冰雪奇緣</div>
+    <div class="tloc">右區</div>
+    <div class="tcount">本桌 9 位</div>
+  </div>
+  <table class="seat">
+    <thead><tr><th class="num">座位</th><th class="nm">姓名</th>
+    <th class="rel">關係／稱謂</th><th class="note">備註</th></tr></thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm">立苓</td><td class="rel">女方朋友</td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm">周琬玲</td><td class="rel">女方朋友</td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm"><span class="ph">—</span></td><td class="rel">周琬玲老公</td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm">楊雅筑</td><td class="rel">女方朋友</td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm">楊亞霖</td><td class="rel">女方朋友</td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm"><span class="ph">—</span></td><td class="rel">楊亞霖男友</td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm">楊建成</td><td class="rel">女方朋友</td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm">張晉瑋</td><td class="rel">女方朋友</td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm">謝坤森</td><td class="rel">女方朋友</td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+  <div class="sec-h">② 禮金桌核對表 <span class="en">GIFT DESK</span></div>
+  <div class="sheet">
+    <div class="sheet-title">禮金桌核對表</div>
+    <p class="hint">依桌次排序。「組數」為報名人數，收禮金時可核對同行人數；金額與打勾欄當天填寫。末尾留白供臨時賓客。</p>
+    <table class="gift">
+      <thead><tr><th class="g-nm">姓名</th><th class="g-rel">關係／稱謂</th><th class="g-tb">桌次</th>
+      <th class="g-pax">組數</th><th class="g-amt">紅包金額</th><th class="g-ck">✓</th></tr></thead>
+      <tbody>
+<tr><td class="g-nm">戴婉錡</td><td class="g-rel">女方-本人</td><td class="g-tb">王位</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">戴建勳</td><td class="g-rel">女方-爸爸</td><td class="g-tb">王位</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">郭乃華</td><td class="g-rel">女方-媽媽</td><td class="g-tb">王位</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">林碧霞</td><td class="g-rel">女方-外婆</td><td class="g-tb">王位</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">戴蔡美惠</td><td class="g-rel">女方-奶奶</td><td class="g-tb">王位</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">羅聖明</td><td class="g-rel">男方-本人</td><td class="g-tb">王位</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">羅茂松</td><td class="g-rel">男方-爸爸</td><td class="g-tb">王位</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">張秀緞</td><td class="g-rel">男方-媽媽</td><td class="g-tb">王位</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">張坤輝</td><td class="g-rel">男方-阿公</td><td class="g-tb">王位</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">羅茂騰</td><td class="g-rel">男方-叔叔</td><td class="g-tb">王位</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">蔡文成</td><td class="g-rel">女方-舅公</td><td class="g-tb">獅子王</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">戴淑娟</td><td class="g-rel">女方-小姑姑</td><td class="g-tb">獅子王</td><td class="g-pax">3</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">戴淑秋</td><td class="g-rel">女方-大姑姑</td><td class="g-tb">獅子王</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">戴建洲</td><td class="g-rel">女方-叔叔</td><td class="g-tb">獅子王</td><td class="g-pax">3</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">林燦生</td><td class="g-rel">女方-舅公</td><td class="g-tb">天外奇蹟</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">林浩生</td><td class="g-rel">女方-舅公</td><td class="g-tb">天外奇蹟</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">林素霞</td><td class="g-rel">女方-姨婆</td><td class="g-tb">天外奇蹟</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">林春霞</td><td class="g-rel">女方-姨婆</td><td class="g-tb">天外奇蹟</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">林麗霞</td><td class="g-rel">女方-姨婆</td><td class="g-tb">天外奇蹟</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">郭乃瑜</td><td class="g-rel">女方-阿姨</td><td class="g-tb">睡美人</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">郭祐任</td><td class="g-rel">女方-舅舅</td><td class="g-tb">睡美人</td><td class="g-pax">4</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">張雅嵐</td><td class="g-rel">女方-舅媽</td><td class="g-tb">睡美人</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">郭丁綺</td><td class="g-rel">女方-表妹</td><td class="g-tb">睡美人</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">吳慧儀</td><td class="g-rel">女方-姨丈的姊姊</td><td class="g-tb">小美人魚</td><td class="g-pax">3</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">吳宗鴻</td><td class="g-rel">女方-姨丈</td><td class="g-tb">小美人魚</td><td class="g-pax">8</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">郭乃萍</td><td class="g-rel">女方-阿姨</td><td class="g-tb">小美人魚</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">吳誼萱</td><td class="g-rel">女方-表妹</td><td class="g-tb">小美人魚</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">吳瑞臻</td><td class="g-rel">女方-表妹</td><td class="g-tb">小美人魚</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">吳芷瑋</td><td class="g-rel">女方-表妹</td><td class="g-tb">小美人魚</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">趙銘輝</td><td class="g-rel">伴郎</td><td class="g-tb">花木蘭</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">劉良謙</td><td class="g-rel">伴郎</td><td class="g-tb">花木蘭</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">李佳諭</td><td class="g-rel">伴娘</td><td class="g-tb">花木蘭</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">劉彥伯</td><td class="g-rel">女方-同事</td><td class="g-tb">花木蘭</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">Cecile</td><td class="g-rel">女方-同事</td><td class="g-tb">花木蘭</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">李俊儀/Gemma</td><td class="g-rel">女方-同事</td><td class="g-tb">花木蘭</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">林怡真/Amanda</td><td class="g-rel">女方-同事</td><td class="g-tb">花木蘭</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">施定仁</td><td class="g-rel">女方-家長朋友</td><td class="g-tb">熊的傳說</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">江明陽</td><td class="g-rel">女方-家長朋友</td><td class="g-tb">熊的傳說</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">許明炳</td><td class="g-rel">女方-家長朋友</td><td class="g-tb">熊的傳說</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">鄭淙銘</td><td class="g-rel">女方-家長朋友</td><td class="g-tb">熊的傳說</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">高凰文</td><td class="g-rel">女方-家長朋友</td><td class="g-tb">熊的傳說</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">楊理翔</td><td class="g-rel">女方-朋友</td><td class="g-tb">金銀島</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">侯亮宇</td><td class="g-rel">女方-朋友</td><td class="g-tb">金銀島</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">蘇晉威</td><td class="g-rel">女方-朋友</td><td class="g-tb">金銀島</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">吳尚曄</td><td class="g-rel">女方-朋友</td><td class="g-tb">金銀島</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">羅秋香</td><td class="g-rel">男方-姑姑</td><td class="g-tb">美女與野獸</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">羅秀琴</td><td class="g-rel">男方-姑姑</td><td class="g-tb">美女與野獸</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">羅冬燮</td><td class="g-rel">男方-堂伯父</td><td class="g-tb">美女與野獸</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">羅家豐</td><td class="g-rel">男方-堂伯父</td><td class="g-tb">美女與野獸</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">羅時逢</td><td class="g-rel">男方-司機叔叔</td><td class="g-tb">美女與野獸</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">羅聖評</td><td class="g-rel">男方-哥哥</td><td class="g-tb">仙履奇緣</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">羅婕寧</td><td class="g-rel">男方-姊姊</td><td class="g-tb">仙履奇緣</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">張峻維</td><td class="g-rel">男方-親戚</td><td class="g-tb">仙履奇緣</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">張峻源</td><td class="g-rel">男方-親戚</td><td class="g-tb">仙履奇緣</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">張峻愷</td><td class="g-rel">男方-親戚</td><td class="g-tb">仙履奇緣</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">張育綾</td><td class="g-rel">男方-親戚</td><td class="g-tb">仙履奇緣</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">張育真</td><td class="g-rel">男方-親戚</td><td class="g-tb">仙履奇緣</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">陳宏益</td><td class="g-rel">男方-親戚</td><td class="g-tb">仙履奇緣</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">陳思語</td><td class="g-rel">男方-親戚</td><td class="g-tb">仙履奇緣</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">何宜庭</td><td class="g-rel">女方-朋友</td><td class="g-tb">阿拉丁</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">陳昭宇</td><td class="g-rel">女方-朋友</td><td class="g-tb">阿拉丁</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">李宜軒</td><td class="g-rel">女方-朋友</td><td class="g-tb">阿拉丁</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">張文瑜</td><td class="g-rel">伴娘</td><td class="g-tb">阿拉丁</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">小澤</td><td class="g-rel">女方-朋友</td><td class="g-tb">阿拉丁</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">洪嘉駿/雜草</td><td class="g-rel">雙方-朋友</td><td class="g-tb">阿拉丁</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">黃炳曄</td><td class="g-rel">女方-朋友</td><td class="g-tb">阿拉丁</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">Jojo</td><td class="g-rel">女方-朋友</td><td class="g-tb">阿拉丁</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">張敏珠</td><td class="g-rel">男方-阿姨</td><td class="g-tb">變身國王</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">陳銘鳳</td><td class="g-rel">男方-姨丈</td><td class="g-tb">變身國王</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">陳中佑</td><td class="g-rel">男方-親戚</td><td class="g-tb">變身國王</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">陳麗絲</td><td class="g-rel">男方-親戚</td><td class="g-tb">變身國王</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">張添吉</td><td class="g-rel">男方-舅舅</td><td class="g-tb">變身國王</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">黃彩朋</td><td class="g-rel">男方-舅媽</td><td class="g-tb">變身國王</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">張睿善</td><td class="g-rel">男方-表弟</td><td class="g-tb">變身國王</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">張雅茹</td><td class="g-rel">男方-表妹</td><td class="g-tb">變身國王</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">姜義璽</td><td class="g-rel">男方-表妹夫</td><td class="g-tb">變身國王</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">姜禮豪</td><td class="g-rel">男方-表姪</td><td class="g-tb">變身國王</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">立苓/LiLing</td><td class="g-rel">女方-朋友</td><td class="g-tb">冰雪奇緣</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">周琬玲</td><td class="g-rel">女方-朋友</td><td class="g-tb">冰雪奇緣</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">楊雅筑</td><td class="g-rel">女方-朋友</td><td class="g-tb">冰雪奇緣</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">楊亞霖</td><td class="g-rel">女方-朋友</td><td class="g-tb">冰雪奇緣</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">楊建成</td><td class="g-rel">女方-朋友</td><td class="g-tb">冰雪奇緣</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">張晉瑋</td><td class="g-rel">女方-朋友</td><td class="g-tb">冰雪奇緣</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm">謝坤森</td><td class="g-rel">女方-朋友</td><td class="g-tb">冰雪奇緣</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-h">③ 賓客查詢表 <span class="en">NAME → TABLE ・ 依姓名</span></div>
+  <div class="sheet">
+    <div class="sheet-title">賓客查詢表<span class="pg">依姓名排序　共 84 筆</span></div>
+    <p class="hint">賓客報名字即可查到桌次。同行親友（如「○○老公／女友／小孩」）與主要賓客同桌，請一起帶位。</p>
+    <div class="lk-wrap">
+      <table class="lookup"><thead><tr><th class="l-nm">姓名</th><th class="l-tb">桌次</th></tr></thead>
+        <tbody><tr><td class="l-nm">蔡文成</td><td class="l-tb">獅子王</td></tr>
+<tr><td class="l-nm">Cecile</td><td class="l-tb">花木蘭</td></tr>
+<tr><td class="l-nm">陳中佑</td><td class="l-tb">變身國王</td></tr>
+<tr><td class="l-nm">陳宏益</td><td class="l-tb">仙履奇緣</td></tr>
+<tr><td class="l-nm">陳思語</td><td class="l-tb">仙履奇緣</td></tr>
+<tr><td class="l-nm">陳昭宇</td><td class="l-tb">阿拉丁</td></tr>
+<tr><td class="l-nm">陳銘鳳</td><td class="l-tb">變身國王</td></tr>
+<tr><td class="l-nm">陳麗絲</td><td class="l-tb">變身國王</td></tr>
+<tr><td class="l-nm">戴婉錡</td><td class="l-tb">王位</td></tr>
+<tr><td class="l-nm">戴建勳</td><td class="l-tb">王位</td></tr>
+<tr><td class="l-nm">戴建洲</td><td class="l-tb">獅子王</td></tr>
+<tr><td class="l-nm">戴淑娟</td><td class="l-tb">獅子王</td></tr>
+<tr><td class="l-nm">戴淑秋</td><td class="l-tb">獅子王</td></tr>
+<tr><td class="l-nm">戴蔡美惠</td><td class="l-tb">王位</td></tr>
+<tr><td class="l-nm">高凰文</td><td class="l-tb">熊的傳說</td></tr>
+<tr><td class="l-nm">郭丁綺</td><td class="l-tb">睡美人</td></tr>
+<tr><td class="l-nm">郭乃瑜</td><td class="l-tb">睡美人</td></tr>
+<tr><td class="l-nm">郭乃華</td><td class="l-tb">王位</td></tr>
+<tr><td class="l-nm">郭乃萍</td><td class="l-tb">小美人魚</td></tr>
+<tr><td class="l-nm">郭祐任</td><td class="l-tb">睡美人</td></tr>
+<tr><td class="l-nm">何宜庭</td><td class="l-tb">阿拉丁</td></tr>
+<tr><td class="l-nm">洪嘉駿/雜草</td><td class="l-tb">阿拉丁</td></tr>
+<tr><td class="l-nm">侯亮宇</td><td class="l-tb">金銀島</td></tr>
+<tr><td class="l-nm">黃彩朋</td><td class="l-tb">變身國王</td></tr>
+<tr><td class="l-nm">黃炳曄</td><td class="l-tb">阿拉丁</td></tr>
+<tr><td class="l-nm">姜禮豪</td><td class="l-tb">變身國王</td></tr>
+<tr><td class="l-nm">姜義璽</td><td class="l-tb">變身國王</td></tr>
+<tr><td class="l-nm">江明陽</td><td class="l-tb">熊的傳說</td></tr>
+<tr><td class="l-nm">Jojo</td><td class="l-tb">阿拉丁</td></tr>
+<tr><td class="l-nm">李佳諭</td><td class="l-tb">花木蘭</td></tr>
+<tr><td class="l-nm">李俊儀/Gemma</td><td class="l-tb">花木蘭</td></tr>
+<tr><td class="l-nm">李宜軒</td><td class="l-tb">阿拉丁</td></tr>
+<tr><td class="l-nm">立苓/LiLing</td><td class="l-tb">冰雪奇緣</td></tr>
+<tr><td class="l-nm">林怡真/Amanda</td><td class="l-tb">花木蘭</td></tr>
+<tr><td class="l-nm">林春霞</td><td class="l-tb">天外奇蹟</td></tr>
+<tr><td class="l-nm">林浩生</td><td class="l-tb">天外奇蹟</td></tr>
+<tr><td class="l-nm">林燦生</td><td class="l-tb">天外奇蹟</td></tr>
+<tr><td class="l-nm">林碧霞</td><td class="l-tb">王位</td></tr>
+<tr><td class="l-nm">林素霞</td><td class="l-tb">天外奇蹟</td></tr>
+<tr><td class="l-nm">林麗霞</td><td class="l-tb">天外奇蹟</td></tr>
+<tr><td class="l-nm">劉彥伯</td><td class="l-tb">花木蘭</td></tr>
+<tr><td class="l-nm">劉良謙</td><td class="l-tb">花木蘭</td></tr></tbody></table>
+      <table class="lookup"><thead><tr><th class="l-nm">姓名</th><th class="l-tb">桌次</th></tr></thead>
+        <tbody><tr><td class="l-nm">羅冬燮</td><td class="l-tb">美女與野獸</td></tr>
+<tr><td class="l-nm">羅婕寧</td><td class="l-tb">仙履奇緣</td></tr>
+<tr><td class="l-nm">羅家豐</td><td class="l-tb">美女與野獸</td></tr>
+<tr><td class="l-nm">羅時逢</td><td class="l-tb">美女與野獸</td></tr>
+<tr><td class="l-nm">羅秀琴</td><td class="l-tb">美女與野獸</td></tr>
+<tr><td class="l-nm">羅秋香</td><td class="l-tb">美女與野獸</td></tr>
+<tr><td class="l-nm">羅聖明</td><td class="l-tb">王位</td></tr>
+<tr><td class="l-nm">羅聖評</td><td class="l-tb">仙履奇緣</td></tr>
+<tr><td class="l-nm">羅茂松</td><td class="l-tb">王位</td></tr>
+<tr><td class="l-nm">羅茂騰</td><td class="l-tb">王位</td></tr>
+<tr><td class="l-nm">施定仁</td><td class="l-tb">熊的傳說</td></tr>
+<tr><td class="l-nm">蘇晉威</td><td class="l-tb">金銀島</td></tr>
+<tr><td class="l-nm">吳宗鴻</td><td class="l-tb">小美人魚</td></tr>
+<tr><td class="l-nm">吳尚曄</td><td class="l-tb">金銀島</td></tr>
+<tr><td class="l-nm">吳慧儀</td><td class="l-tb">小美人魚</td></tr>
+<tr><td class="l-nm">吳瑞臻</td><td class="l-tb">小美人魚</td></tr>
+<tr><td class="l-nm">吳芷瑋</td><td class="l-tb">小美人魚</td></tr>
+<tr><td class="l-nm">吳誼萱</td><td class="l-tb">小美人魚</td></tr>
+<tr><td class="l-nm">小澤</td><td class="l-tb">阿拉丁</td></tr>
+<tr><td class="l-nm">謝坤森</td><td class="l-tb">冰雪奇緣</td></tr>
+<tr><td class="l-nm">許明炳</td><td class="l-tb">熊的傳說</td></tr>
+<tr><td class="l-nm">楊亞霖</td><td class="l-tb">冰雪奇緣</td></tr>
+<tr><td class="l-nm">楊建成</td><td class="l-tb">冰雪奇緣</td></tr>
+<tr><td class="l-nm">楊理翔</td><td class="l-tb">金銀島</td></tr>
+<tr><td class="l-nm">楊雅筑</td><td class="l-tb">冰雪奇緣</td></tr>
+<tr><td class="l-nm">張坤輝</td><td class="l-tb">王位</td></tr>
+<tr><td class="l-nm">張峻愷</td><td class="l-tb">仙履奇緣</td></tr>
+<tr><td class="l-nm">張峻源</td><td class="l-tb">仙履奇緣</td></tr>
+<tr><td class="l-nm">張峻維</td><td class="l-tb">仙履奇緣</td></tr>
+<tr><td class="l-nm">張敏珠</td><td class="l-tb">變身國王</td></tr>
+<tr><td class="l-nm">張文瑜</td><td class="l-tb">阿拉丁</td></tr>
+<tr><td class="l-nm">張晉瑋</td><td class="l-tb">冰雪奇緣</td></tr>
+<tr><td class="l-nm">張添吉</td><td class="l-tb">變身國王</td></tr>
+<tr><td class="l-nm">張睿善</td><td class="l-tb">變身國王</td></tr>
+<tr><td class="l-nm">張秀緞</td><td class="l-tb">王位</td></tr>
+<tr><td class="l-nm">張育真</td><td class="l-tb">仙履奇緣</td></tr>
+<tr><td class="l-nm">張育綾</td><td class="l-tb">仙履奇緣</td></tr>
+<tr><td class="l-nm">張雅嵐</td><td class="l-tb">睡美人</td></tr>
+<tr><td class="l-nm">張雅茹</td><td class="l-tb">變身國王</td></tr>
+<tr><td class="l-nm">趙銘輝</td><td class="l-tb">花木蘭</td></tr>
+<tr><td class="l-nm">鄭淙銘</td><td class="l-tb">熊的傳說</td></tr>
+<tr><td class="l-nm">周琬玲</td><td class="l-tb">冰雪奇緣</td></tr></tbody></table>
+    </div>
+  </div>
+
+  <div class="foot">BARRY <span class="glyph">&#10022;</span> WINNIE<span class="glyph">&#10022;</span>幸福登機門　TAINAN 10&middot;11</div>
+</div></body></html>

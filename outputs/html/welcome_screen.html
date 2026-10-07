@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>迎賓循環畫面 · 宮廷走廊</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#e6c576;--gold-soft:#f6e6b6;--red:#5c0d15;--red2:#7d1420;--cream:#faf1df;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#000;font-family:"Noto Serif TC",serif;overflow:hidden;}
+  .wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#000;}
+  .stage{position:relative;aspect-ratio:16/9;width:min(100vw,177.78vh);height:auto;overflow:hidden;}
+  .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.8s ease;}
+  .slide.on{opacity:1;}
+
+  /* ===== Slide 1 · 紅金宮廷走廊（無字） ===== */
+  .hall{
+    background:
+      radial-gradient(30% 42% at 50% 45%, rgba(255,226,150,.95) 0%, rgba(255,190,110,.5) 22%, rgba(150,40,30,.25) 46%, rgba(0,0,0,0) 70%),
+      radial-gradient(120% 120% at 50% 46%, #7d1420 0%, #4c0b12 45%, #2a060a 100%);
+  }
+  .arches{position:absolute;inset:0;}
+  .arch{position:absolute;left:50%;transform:translateX(-50%);
+    border:2px solid rgba(230,197,118,.75);
+    border-radius:50% 50% 0 0 / 62% 62% 0 0;
+    background:linear-gradient(180deg, rgba(124,20,32,.0), rgba(70,12,18,.25));
+    box-shadow:0 0 18px rgba(255,190,110,.15), inset 0 0 26px rgba(0,0,0,.35);}
+  .carpet{position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+    width:66%;height:32%;
+    background:linear-gradient(180deg, rgba(200,60,50,.0), rgba(150,25,30,.85));
+    clip-path:polygon(42% 0, 58% 0, 100% 100%, 0 100%);
+    box-shadow:0 0 40px rgba(255,180,100,.2);}
+  .carpet::before,.carpet::after{content:"";position:absolute;top:0;bottom:0;width:2px;background:rgba(230,197,118,.5);}
+  .carpet::before{left:42%;transform:skewX(-20deg);transform-origin:top;}
+  .carpet::after{right:42%;transform:skewX(20deg);transform-origin:top;}
+  .lantern{position:absolute;left:50%;transform:translateX(-50%);border-radius:50%;
+    background:radial-gradient(circle, rgba(255,224,150,.95), rgba(255,190,110,0) 70%);
+    animation:flick 3.6s ease-in-out infinite;}
+  .core{position:absolute;left:50%;top:41%;transform:translate(-50%,-50%);width:16%;aspect-ratio:1;border-radius:50%;
+    background:radial-gradient(circle, rgba(255,238,190,.9), rgba(255,200,120,0) 70%);filter:blur(2px);animation:pulse 6s ease-in-out infinite;}
+  .drape{position:absolute;top:0;bottom:0;width:16%;
+    background:linear-gradient(90deg, rgba(90,13,21,.9), rgba(90,13,21,0));}
+  .drape.l{left:0;} .drape.r{right:0;transform:scaleX(-1);}
+  .frame{position:absolute;inset:2.6% 1.8%;border:1.5px solid rgba(230,197,118,.5);border-radius:8px;pointer-events:none;}
+  .frame::before{content:"";position:absolute;inset:8px;border:1px solid rgba(230,197,118,.25);border-radius:5px;}
+  .vig{position:absolute;inset:0;background:radial-gradient(120% 92% at 50% 46%, rgba(0,0,0,0) 52%, rgba(0,0,0,.6) 100%);}
+  .spark{position:absolute;width:3px;height:3px;border-radius:50%;background:#ffe9b8;
+    box-shadow:0 0 8px 2px rgba(255,220,150,.85);animation:tw 4s ease-in-out infinite;}
+  .mote{position:absolute;width:9px;height:9px;border-radius:50%;
+    background:radial-gradient(circle, rgba(255,224,160,.9), rgba(255,200,120,0) 70%);animation:rise linear infinite;}
+  @keyframes flick{0%,100%{opacity:1;}50%{opacity:.55;}}
+  @keyframes pulse{0%,100%{opacity:.8;transform:translate(-50%,-50%) scale(1);}50%{opacity:1;transform:translate(-50%,-50%) scale(1.1);}}
+  @keyframes tw{0%,100%{opacity:.15;transform:scale(.7);}50%{opacity:1;transform:scale(1.1);}}
+  @keyframes rise{0%{transform:translateY(0);opacity:0;}12%{opacity:.9;}100%{transform:translateY(-46vh);opacity:0;}}
+
+  /* 走廊盡頭・婚紗照金框 */
+  .portal{position:absolute;left:50%;top:41%;transform:translate(-50%,-50%);z-index:3;width:13%;}
+  .pglow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:250%;aspect-ratio:1;border-radius:50%;z-index:-1;
+    background:radial-gradient(circle, rgba(255,232,175,.85), rgba(255,200,120,0) 66%);filter:blur(3px);animation:pulse 6s ease-in-out infinite;}
+  .pframe{position:relative;width:100%;aspect-ratio:3/4;border:3px solid var(--gold-soft);
+    border-radius:50% 50% 8px 8px/38% 38% 8px 8px;overflow:hidden;background:#3a0a10;
+    box-shadow:0 0 26px rgba(255,200,120,.55), inset 0 0 16px rgba(0,0,0,.45);}
+  .pframe::after{content:"";position:absolute;inset:5px;border:1px solid rgba(230,197,118,.7);border-radius:inherit;pointer-events:none;}
+  .crown{position:absolute;left:50%;top:-4.2vh;transform:translateX(-50%);font-size:3.8vh;color:var(--gold-soft);text-shadow:0 0 12px rgba(255,200,120,.7);}
+  .photo{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    color:rgba(246,230,182,.65);font-size:1.7vh;letter-spacing:.14em;text-align:center;line-height:1.7;
+    background:linear-gradient(180deg,#4a0d14,#2c0710);}
+  .photo span{font-size:1.2vh;opacity:.6;margin-top:.5vh;letter-spacing:.1em;}
+
+  /* ===== Slide 2 · 大賽提醒（紅金） ===== */
+  .contest{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+    color:var(--cream);padding:0 8%;
+    background:radial-gradient(120% 110% at 50% 12%, #7d1420 0%, #4c0b12 52%, #2a060a 100%);}
+  .crest{font-size:4.4vh;letter-spacing:.4em;color:var(--gold-soft);margin-bottom:1.2vh;}
+  .title2{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:4.8vh;color:var(--gold-soft);letter-spacing:.06em;}
+  .big{font-size:3.4vh;color:#fff;font-weight:600;margin:1.8vh 0 .8vh;letter-spacing:.06em;}
+  .body2{font-size:2.5vh;color:#f0e6d2;line-height:1.9;max-width:76%;}
+  .body2 b{color:var(--gold-soft);}
+  .pillrow{display:flex;gap:1.4vh;margin-top:2.4vh;flex-wrap:wrap;justify-content:center;}
+  .pill{border:1px solid rgba(230,197,118,.6);border-radius:30px;padding:.8vh 2.1vh;font-size:2vh;color:var(--gold-soft);}
+  .cframe{position:absolute;inset:2.6% 1.8%;border:1.5px solid rgba(230,197,118,.4);border-radius:8px;pointer-events:none;}
+
+  .dots{position:absolute;bottom:2.2vh;left:0;right:0;display:flex;gap:1vh;justify-content:center;z-index:5;}
+  .dot{width:1vh;height:1vh;border-radius:50%;background:rgba(230,197,118,.3);transition:.4s;}
+  .dot.on{background:var(--gold);transform:scale(1.25);}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="stage">
+
+  <!-- Slide 1 · 走廊 -->
+  <div class="slide hall on" data-dur="11000">
+    <div class="drape l"></div><div class="drape r"></div>
+    <div class="arches" id="arches"></div>
+    <div class="carpet"></div>
+    <div class="portal">
+      <div class="pglow"></div>
+      <div class="pframe"><div class="crown">♛</div><div class="photo">婚 紗 照<br><span>在此換上你們的照片</span></div></div>
+    </div>
+    <div class="vig"></div>
+    <div class="frame"></div>
+  </div>
+
+  <!-- Slide 2 · 大賽提醒 -->
+  <div class="slide contest" data-dur="7000">
+    <div class="crest">👑</div>
+    <div class="title2">Dresscode 華麗大賽</div>
+    <div class="big">今晚，用心打扮就有獎！</div>
+    <div class="body2">入場已領到<b>票卡＋2 張貼紙</b>。看到盛裝到位的賓客，就把貼紙貼到他的票卡上（不能貼自己）。<br><b>送客前公布得獎、頒迪士尼小獎。</b></div>
+    <div class="pillrow"><span class="pill">最佳宮廷華麗</span><span class="pill">最有氣勢長輩</span><span class="pill">最佳親子／情侶</span></div>
+    <div class="cframe"></div>
+  </div>
+
+  <div class="dots"><span class="dot on"></span><span class="dot"></span></div>
+</div>
+</div>
+
+<script>
+  // 層層拱廊往盡頭退去
+  const A=document.getElementById('arches');
+  const N=8, floor=72, vpY=41;   // floor line % / vanishing y %
+  for(let i=0;i<N;i++){
+    const t=i/(N-1);                 // 0 外 → 1 內
+    const w=78 - t*66;               // 寬 %
+    const h=64 - t*52;               // 高 %
+    const bottom=(100-floor) + t*(floor-vpY-4); // 往消失點抬高
+    const el=document.createElement('div');
+    el.className='arch';
+    el.style.width=w+'%';
+    el.style.height=h+'%';
+    el.style.bottom=bottom+'%';
+    el.style.borderColor='rgba(230,197,118,'+(0.35+t*0.5)+')';
+    A.appendChild(el);
+    // 吊燈：每隔一拱一盞
+    if(i%2===0 && i<N-1){
+      const s=8-i*0.8;
+      const lan=document.createElement('div');
+      lan.className='lantern';
+      lan.style.width=s+'vh'; lan.style.height=s+'vh';
+      lan.style.bottom=(bottom+h-3)+'%';
+      lan.style.animationDelay=(Math.random()*3)+'s';
+      A.appendChild(lan);
+    }
+  }
+  // 星點 + 上飄光點
+  const hall=document.querySelector('.hall');
+  for(let i=0;i<40;i++){const s=document.createElement('div');s.className='spark';
+    s.style.left=(15+Math.random()*70)+'%';s.style.top=(20+Math.random()*55)+'%';
+    s.style.animationDelay=(Math.random()*4)+'s';hall.appendChild(s);}
+  for(let i=0;i<12;i++){const m=document.createElement('div');m.className='mote';
+    m.style.left=(20+Math.random()*60)+'%';m.style.bottom=(20+Math.random()*20)+'%';
+    const d=7+Math.random()*6;m.style.animationDuration=d+'s';m.style.animationDelay=(Math.random()*d)+'s';
+    m.style.opacity=.5+Math.random()*.4;hall.appendChild(m);}
+
+  // 輪播
+  const slides=[...document.querySelectorAll('.slide')];
+  const dots=[...document.querySelectorAll('.dot')];
+  let idx=0;
+  function next(){
+    slides[idx].classList.remove('on'); dots[idx].classList.remove('on');
+    idx=(idx+1)%slides.length;
+    slides[idx].classList.add('on'); dots[idx].classList.add('on');
+    setTimeout(next, +slides[idx].dataset.dur||8000);
+  }
+  setTimeout(next, +slides[0].dataset.dur||11000);
+</script>
+</body>
+</html>

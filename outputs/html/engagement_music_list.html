@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>訂婚・迪士尼音樂總表</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#c9a24b;--gold-soft:#e4cd8f;--ink:#2a2320;--navy:#1c2438;--cream:#faf6ee;--paper:#fffdf8;--line:#e6dcc4;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Noto Serif TC",serif;color:var(--ink);
+    background:radial-gradient(circle at 20% 0%, #22304f 0%, #161d30 55%, #0f1424 100%);padding:40px 16px 80px;line-height:1.7;}
+  .sheet{max-width:940px;margin:0 auto;background:var(--paper);box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;overflow:hidden;border:1px solid #d9c99a;}
+  header{background:linear-gradient(160deg,#1c2438,#2b3654 70%);color:var(--cream);text-align:center;padding:50px 30px 44px;position:relative;border-bottom:3px solid var(--gold);}
+  header::before,header::after{content:"";position:absolute;left:50%;transform:translateX(-50%);width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+  header::before{top:24px;} header::after{bottom:20px;}
+  .crest{font-size:26px;letter-spacing:.4em;color:var(--gold-soft);margin-bottom:6px;}
+  header h1{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:clamp(26px,5vw,44px);letter-spacing:.05em;margin:6px 0 4px;}
+  header .zh{font-size:21px;letter-spacing:.3em;color:var(--gold-soft);margin-bottom:14px;}
+  header .meta{font-size:13px;letter-spacing:.13em;color:#c8cfe0;}
+  header .meta span{color:var(--gold-soft);}
+  .body{padding:38px clamp(20px,5vw,54px) 30px;}
+  .lead{background:var(--cream);border:1px solid var(--line);border-left:4px solid var(--gold);padding:18px 22px;border-radius:4px;margin-bottom:30px;font-size:14.5px;color:#4a4038;}
+  .lead b{color:var(--navy);}
+  h2.sec{font-family:"Cormorant Garamond",serif;color:var(--navy);font-size:15px;letter-spacing:.22em;text-transform:uppercase;display:flex;align-items:center;gap:13px;margin:30px 0 14px;font-weight:600;}
+  h2.sec .clk{font-size:13px;color:#8a2b1c;letter-spacing:.05em;}
+  h2.sec::before{content:"♪";color:var(--gold);font-size:14px;}
+  h2.sec::after{content:"";flex:1;height:1px;background:var(--line);}
+  .blk{border:1px solid var(--line);border-radius:6px;margin-bottom:16px;overflow:hidden;background:var(--paper);}
+  .blk-head{background:linear-gradient(90deg,#f3ead4,#faf5e7);padding:9px 16px;border-bottom:1px solid var(--line);font-size:14.5px;font-weight:700;color:var(--navy);}
+  .blk-body{padding:6px 16px 12px;}
+  .item{padding:9px 0;border-top:1px dashed #efe7d3;}
+  .item:first-child{border-top:none;}
+  .tag{display:inline-block;border-radius:20px;padding:1px 9px;font-size:10.5px;letter-spacing:.06em;margin-right:8px;vertical-align:1.5px;}
+  .tag.p{background:#8a2b1c;color:#f7e6c9;}
+  .tag.a{background:#e8dcbb;color:#6a5325;}
+  .song{color:var(--navy);font-weight:700;}
+  .src{color:#8a7a52;font-size:12.5px;}
+  .why{display:block;color:#5a4f40;font-size:13px;margin-top:2px;}
+  ul.tracks{list-style:none;margin:2px 0 0;}
+  ul.tracks li{padding:4px 0 4px 20px;position:relative;font-size:13.5px;}
+  ul.tracks li::before{content:"♫";position:absolute;left:0;color:var(--gold);font-size:11px;top:6px;}
+  ul.tracks li b{color:var(--navy);}
+  .tip{color:#8a7a52;font-size:12.5px;margin-top:8px;}
+  .rnote{background:#fbf3df;border:1px solid #e0cd97;border-radius:6px;padding:14px 18px;margin-top:14px;font-size:13px;color:#5a4a2c;}
+  .rnote b{color:#8a2b1c;}
+  footer{text-align:center;padding:24px;color:#9a8f7a;font-size:12px;letter-spacing:.1em;border-top:1px solid var(--line);background:var(--cream);}
+  footer span{color:var(--gold);}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header>
+    <div class="crest">♛ ♪</div>
+    <div class="zh">訂 婚 · 迪 士 尼 音 樂 總 表</div>
+    <h1>Music Menu</h1>
+    <div class="meta">全程迪士尼 · <span>每段多首選項＋推薦原因</span>　|　<span class="tag p" style="margin:0">主打</span> <span class="tag a" style="margin:0">備選</span></div>
+  </header>
+
+  <div class="body">
+    <div class="lead">
+      這是一份<b>可以挑的音樂菜單</b>：每個環節給主打＋備選，附上為什麼適合。全程<b>迪士尼</b>、用電影原聲／器樂版；<b>旁白、致詞、詔書時音樂壓低（ducking）</b>，人聲永遠優先。<b>版權：現場播一次沒問題；影片要上網分享再換免版稅版。</b>
+    </div>
+
+    <!-- 迎賓 -->
+    <h2 class="sec">迎賓・開場前入座　<span class="clk">～12:30 前</span></h2>
+    <div class="blk">
+      <div class="blk-head">迪士尼器樂・低音量循環（背景，不搶戲）</div>
+      <div class="blk-body">
+        <ul class="tracks">
+          <li><b>When You Wish Upon a Star</b> <span class="src">鋼琴</span>／<b>A Dream Is a Wish Your Heart Makes</b> <span class="src">仙履奇緣</span>／<b>So This Is Love</b> <span class="src">仙履奇緣</span></li>
+          <li><b>Part of Your World</b>／<b>Kiss the Girl</b>（爵士）<span class="src">小美人魚</span>／<b>A Whole New World</b> <span class="src">阿拉丁・器樂</span></li>
+          <li><b>Beauty and the Beast</b>（鋼琴）／<b>Colors of the Wind</b>／<b>Can You Feel the Love Tonight</b>（器樂）／<b>Married Life</b> <span class="src">天外奇蹟</span></li>
+        </ul>
+        <div class="tip">為什麼：純器樂、旋律好聽又不搶話，把賓客慢慢帶進城堡氛圍。懶人法：Spotify／YouTube 搜「Disney Piano Collection」或「Disney Jazz」直接循環。</div>
+      </div>
+    </div>
+
+    <!-- 序幕 -->
+    <h2 class="sec">序幕影片　<span class="clk">12:30</span></h2>
+    <div class="blk">
+      <div class="blk-body">
+        <div class="item"><span class="tag p">主打</span><span class="song">《When You Wish Upon a Star》</span> <span class="src">音樂盒→管弦樂</span><span class="why">迪士尼片頭招牌旋律，一下就「故事要開始了」，跟仿片頭畫面完美咬合。</span></div>
+        <div class="item"><span class="tag a">備選</span><span class="song">《A Dream Is a Wish Your Heart Makes》</span> <span class="src">仙履奇緣</span><span class="why">夢幻、扣「許願／童話」開場，想柔一點就用它。</span></div>
+        <div class="item"><span class="tag a">備選</span><span class="song">《Once Upon a Dream》</span> <span class="src">睡美人</span><span class="why">「once upon a…」的童話語感，優雅鋪陳。</span></div>
+      </div>
+    </div>
+
+    <!-- 進場① -->
+    <h2 class="sec">進場 ① 伴郎伴娘　<span class="clk">12:33</span></h2>
+    <div class="blk"><div class="blk-body">
+      <div class="item"><span class="tag p">主打</span><span class="song">《Be Our Guest》</span> <span class="src">美女與野獸</span><span class="why">本來就是城堡管家「歡迎光臨」的歌，侍從團開場破題神切。</span></div>
+      <div class="item"><span class="tag a">備選</span><span class="song">《Friend Like Me》</span> <span class="src">阿拉丁</span><span class="why">浮誇又熱鬧，四人炒氣氛更嗨。</span></div>
+      <div class="item"><span class="tag a">備選</span><span class="song">《Under the Sea》</span> <span class="src">小美人魚</span><span class="why">派對感十足、輕鬆歡樂，走俏皮路線。</span></div>
+    </div></div>
+
+    <!-- 進場② -->
+    <h2 class="sec">進場 ② 雙方父母</h2>
+    <div class="blk"><div class="blk-body">
+      <div class="item"><span class="tag p">主打</span><span class="song">《Once Upon a Dream》</span> <span class="src">睡美人・華爾滋</span><span class="why">華爾滋莊重優雅，父母＝國王皇后的排場，長輩有面子。</span></div>
+      <div class="item"><span class="tag a">備選</span><span class="song">《Beauty and the Beast》</span> <span class="src">器樂</span><span class="why">經典舞會弦樂，一樣體面（但敬酒也用貝兒曲，擇一避免重複）。</span></div>
+      <div class="item"><span class="tag a">備選</span><span class="song">《When You Wish Upon a Star》</span> <span class="src">管弦</span><span class="why">高貴溫暖，長輩聽來就是高級古典樂。</span></div>
+    </div></div>
+
+    <!-- 進場③ -->
+    <h2 class="sec">進場 ③ 新郎（對嘴 → 召喚）</h2>
+    <div class="blk"><div class="blk-body">
+      <div class="item"><span class="tag p">主打</span><span class="song">《I Just Can't Wait to Be King》</span> <span class="src">獅子王</span><span class="why">輕快詼諧、「即將登基」呼應新郎，對嘴超有戲。</span></div>
+      <div class="item"><span class="tag a">備選</span><span class="song">《You're Welcome》</span> <span class="src">海洋奇緣</span><span class="why">臭屁搞笑，對嘴耍寶絕配你們的歡樂調。</span></div>
+      <div class="item"><span class="tag a">備選</span><span class="song">《Go the Distance》</span> <span class="src">大力士</span><span class="why">想走帥氣熱血路線就這首。</span></div>
+      <div class="tip">歌尾「有請」手勢 → 交叉淡入新娘曲。</div>
+    </div></div>
+
+    <!-- 進場④ -->
+    <h2 class="sec">進場 ④ 新娘登場 → 中央相會</h2>
+    <div class="blk"><div class="blk-body">
+      <div class="item"><span class="tag p">主打</span><span class="song">「我們會以你為榮」</span> <span class="src">Honor to Us All・花木蘭（即「先把妳洗乾淨」那首）</span><span class="why">你們定案。同一首歡樂梳妝歌，取副歌「以你為榮」段配盛裝登場，全場會笑又有排場。</span></div>
+      <div class="item"><span class="tag a">備選</span><span class="song">《Reflection》</span> <span class="src">花木蘭</span><span class="why">同片、較優雅深情——但少了歡樂梗，只在你想收斂時才換。</span></div>
+    </div></div>
+
+    <!-- 正式流程背景 -->
+    <h2 class="sec">揭幕・家長致詞・婚約詔書（背景）　<span class="clk">12:41</span></h2>
+    <div class="blk"><div class="blk-body">
+      <div class="item"><span class="tag p">主打</span><span class="song">《When You Wish Upon a Star》</span> <span class="src">器樂・低音量</span><span class="why">溫暖不搶戲，襯托人聲；致詞、詔書宣讀時再壓低。</span></div>
+      <div class="item"><span class="tag a">備選</span><span class="song">《A Whole New World》</span>／<span class="song">《Beauty and the Beast》</span> <span class="src">鋼琴</span><span class="why">一樣優雅的墊底，換口味用。</span></div>
+    </div></div>
+
+    <!-- 成長影片 -->
+    <h2 class="sec">成長影片（幽默版・不催淚）　<span class="clk">12:50</span></h2>
+    <div class="blk"><div class="blk-body">
+      <div class="item"><span class="tag p">主打</span><span class="song">《When Will My Life Begin》</span> <span class="src">魔髮奇緣</span><span class="why">具體單曲、輕快活潑、「人生要開始了」的期待感，當整支背景剛好，也扣樂佩線。</span></div>
+      <div class="item"><span class="tag a">備選</span><span class="song">《Life is a Highway》</span> <span class="src">汽車總動員</span><span class="why">一路長大的公路感、超歡樂。</span></div>
+      <div class="item"><span class="tag a">備選</span><span class="song">《I Wan'na Be Like You》</span> <span class="src">森林王子</span><span class="why">復古爵士、俏皮，很有生活喜感。</span></div>
+      <div class="item"><span class="tag a">備選</span><span class="song">現成「Disney Medley 組曲」</span> <span class="src">器樂串燒</span><span class="why">想一次涵蓋多首、不用自己剪：YouTube／Spotify 搜「Disney medley instrumental」，3–4 分鐘一鏡到底最省事。</span></div>
+      <div class="tip">「medley（組曲）」＝把多首串在一起的混編，不是單一首；上面前三個是具體單曲，最後一個是現成組曲。只有「謝謝爸媽」那一小段稍收柔，其餘保持輕快。</div>
+    </div></div>
+
+    <!-- 頒獎 -->
+    <h2 class="sec">頒獎・抽獎（金色禮服）　<span class="clk">~13:55</span></h2>
+    <div class="blk"><div class="blk-body">
+      <div class="item"><span class="tag p">揭曉／倒數</span><span class="song">《Zero to Hero》</span>前奏 <span class="src">大力士</span><span class="why">「一夜成名、變巨星」的英雄感，最能製造屏息期待（或用鼓聲 drumroll）。</span></div>
+      <div class="item"><span class="tag p">得獎上台</span><span class="song">《You're Welcome》</span> <span class="src">海洋奇緣</span><span class="why">「不用謝、我最棒」的臭屁感，配你們幽默絕配；要氣勢改《Zero to Hero》，要排場用《Friend Like Me》。</span></div>
+      <div class="item"><span class="tag p">合照收尾</span><span class="song">《Try Everything》</span> <span class="src">動物方城市</span><span class="why">最潮、全場嗨，「勇敢嘗試」剛好呼應大家用心打扮。</span></div>
+    </div></div>
+
+    <!-- 敬酒 -->
+    <h2 class="sec">敬酒（金色魚尾・華麗・逐桌）　<span class="clk">~13:25</span></h2>
+    <div class="blk"><div class="blk-body">
+      <div class="item"><span class="tag p">主打</span><span class="song">《A Whole New World》</span> <span class="src">阿拉丁</span><span class="why">大器華麗、人人會，配<b>金色魚尾</b>華麗禮服穿梭全場最有排場。</span></div>
+      <div class="item"><span class="tag a">備選</span><span class="song">《Part of Your World》</span> <span class="src">小美人魚</span><span class="why">「魚尾」的巧妙呼應（美人魚），旋律優美上揚。</span></div>
+      <div class="item"><span class="tag a">備選</span><span class="song">《Beauty and the Beast》</span> <span class="src">美女與野獸</span><span class="why">仍優雅溫柔，想慢一點時用。</span></div>
+      <div class="tip">不鎖公主——用禮服「華麗魚尾」的實際感覺選歌就好。</div>
+    </div></div>
+
+    <!-- 換裝空檔 -->
+    <h2 class="sec">換裝空檔・婚紗相簿（大家一起唱）　<span class="clk">13:00 / 14:05</span></h2>
+    <div class="blk"><div class="blk-body">
+      <div class="item"><span class="tag p">主打</span><span class="song">迪士尼合唱金曲・人聲版</span> <span class="src">大家會跟著唱</span><span class="why">換裝空檔沒有旁白，放<b>有歌詞、人人會唱</b>的迪士尼金曲，配婚紗相簿，讓大家邊吃邊哼、氣氛熱起來。</span></div>
+      <ul class="tracks">
+        <li><b>That's How You Know</b> <span class="src">曼哈頓奇緣</span>——「怎麼知道他愛你」歡樂大合唱，婚禮神搭</li>
+        <li><b>Can You Feel the Love Tonight</b> <span class="src">獅子王</span>——情歌經典，人人會</li>
+        <li><b>I'll Make a Man Out of You</b> <span class="src">花木蘭</span>——熱血好唱，呼應你們的花木蘭進場</li>
+        <li><b>Love Is an Open Door</b> <span class="src">冰雪奇緣</span>／<b>True Love's Kiss</b> <span class="src">曼哈頓奇緣</span>——可愛情侶對唱</li>
+        <li><b>Friend Like Me</b> <span class="src">阿拉丁</span>／<b>You'll Be in My Heart</b> <span class="src">泰山</span>——浮誇歡樂＋溫暖收</li>
+        <li><span class="src">安全牌（保證全場跟唱，但主題微妙）：</span><b>Let It Go</b> <span class="src">冰雪奇緣</span></li>
+      </ul>
+      <div class="tip">已避開主題不合婚禮的歌（Reflection＝惆悵、How Far I'll Go＝離家、We Don't Talk About Bruno＝家族八卦/不祥預言）。音量抓「中等、蓋過交談但不吵」；避開其他段落用過的歌以免重複。</div>
+    </div></div>
+
+    <!-- 片尾 -->
+    <h2 class="sec">謝幕 → 片尾影片　<span class="clk">~14:22</span></h2>
+    <div class="blk"><div class="blk-body">
+      <div class="item"><span class="tag p">主打</span><span class="song">《I See the Light》</span> <span class="src">魔髮奇緣</span><span class="why">片尾影片（未完待續・森林篇）配樂，無縫接送客。</span></div>
+    </div></div>
+
+    <!-- 送客 -->
+    <h2 class="sec">送客（樂佩・膚色花朵）　<span class="clk">14:30</span></h2>
+    <div class="blk"><div class="blk-body">
+      <div class="item"><span class="tag p">主打</span><span class="song">《Something That I Want》</span> <span class="src">魔髮奇緣片尾曲</span><span class="why">輕快俏皮的歡樂 pop，讓大家笑著蹦跳離場，收尾最對味（不鎖公主、純看歡樂感）。</span></div>
+      <div class="item"><span class="tag a">循環</span><span class="song">《Ever Ever After》</span> <span class="src">曼哈頓奇緣</span><span class="why">歌名就是「happily ever after」，歡樂 pop 收尾神曲。</span></div>
+      <div class="item"><span class="tag a">循環</span><span class="song">《Hakuna Matata》</span> <span class="src">獅子王</span><span class="why">無憂無慮、全場能跟著哼，最歡樂。</span></div>
+      <div class="item"><span class="tag a">循環</span><span class="song">《You've Got a Friend in Me》</span> <span class="src">玩具總動員</span><span class="why">溫暖又不肉麻，很適合「謝謝你來」。</span></div>
+    </div></div>
+
+    <div class="rnote">
+      <b>兩個共通提醒：</b>① <b>旁白／致詞／詔書時音樂 ducking 壓低</b>，人聲永遠優先。② <b>歌曲一律用電影原聲／器樂版</b>，長輩無違和、整場質感一致；音控依此表預排播放順序與淡入淡出。
+    </div>
+  </div>
+
+  <footer>♛ ♪　<span>訂婚・迪士尼音樂菜單</span>　·　迎賓 → 送客・每段多首＋原因　·　可依現場微調　♪ ♛</footer>
+</div>
+</body>
+</html>

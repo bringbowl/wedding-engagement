@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Engagement Entrance Script",
+  "schemaVersion": 1,
+  "description": "訂婚進場流程腳本（迪士尼舞會主題）：序幕影片旁白、四段進場（伴郎伴娘／雙方父母／新郎對嘴／新娘壓軸）的音樂、燈光、動線、主持人 cue，以及尾聲故事 MV 與製作備註。",
+  "mcpTools": [],
+  "mcpServerNames": []
+}
+</script>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>訂婚進場流程腳本 · 迪士尼舞會</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#c9a24b;
+    --gold-soft:#e4cd8f;
+    --ink:#2a2320;
+    --navy:#1c2438;
+    --cream:#faf6ee;
+    --paper:#fffdf8;
+    --line:#e6dcc4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:"Noto Serif TC",serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 20% 0%, #22304f 0%, #161d30 55%, #0f1424 100%);
+    padding:40px 16px 80px;
+    line-height:1.75;
+  }
+  .sheet{
+    max-width:920px;margin:0 auto;background:var(--paper);
+    box-shadow:0 30px 80px rgba(0,0,0,.45);
+    border-radius:6px;overflow:hidden;
+    border:1px solid #d9c99a;
+  }
+  /* ---- header ---- */
+  header{
+    background:linear-gradient(160deg,#1c2438,#2b3654 70%);
+    color:var(--cream);text-align:center;
+    padding:52px 30px 46px;position:relative;
+    border-bottom:3px solid var(--gold);
+  }
+  header::before,header::after{
+    content:"";position:absolute;left:50%;transform:translateX(-50%);
+    width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  }
+  header::before{top:26px;} header::after{bottom:22px;}
+  .crest{font-size:30px;letter-spacing:.5em;color:var(--gold-soft);margin-bottom:6px;}
+  header h1{
+    font-family:"Cormorant Garamond",serif;font-weight:600;
+    font-size:clamp(30px,6vw,50px);letter-spacing:.06em;line-height:1.15;margin:6px 0 4px;
+  }
+  header .zh{font-size:22px;letter-spacing:.35em;color:var(--gold-soft);margin-bottom:14px;}
+  header .meta{font-size:13.5px;letter-spacing:.15em;color:#c8cfe0;}
+  header .meta span{color:var(--gold-soft);}
+  /* ---- body ---- */
+  .body{padding:40px clamp(20px,5vw,54px) 30px;}
+  .lead{
+    background:var(--cream);border:1px solid var(--line);
+    border-left:4px solid var(--gold);
+    padding:20px 24px;border-radius:4px;margin-bottom:36px;font-size:15px;color:#4a4038;
+  }
+  .lead b{color:var(--navy);}
+  h2.sec{
+    font-family:"Cormorant Garamond",serif;color:var(--navy);
+    font-size:15px;letter-spacing:.28em;text-transform:uppercase;
+    display:flex;align-items:center;gap:14px;margin:38px 0 20px;font-weight:600;
+  }
+  h2.sec::before{content:"◆";color:var(--gold);font-size:11px;}
+  h2.sec::after{content:"";flex:1;height:1px;background:var(--line);}
+  /* timeline overview */
+  .flow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;}
+  .chip{
+    flex:1;min-width:120px;background:var(--navy);color:var(--cream);
+    border-radius:4px;padding:12px 10px;text-align:center;font-size:12.5px;position:relative;
+  }
+  .chip b{display:block;color:var(--gold-soft);font-size:13.5px;letter-spacing:.08em;margin-bottom:3px;}
+  .chip small{color:#aeb7cc;font-size:11px;}
+  /* segment card */
+  .seg{
+    border:1px solid var(--line);border-radius:6px;margin-bottom:18px;overflow:hidden;
+    background:var(--paper);
+  }
+  .seg-head{
+    display:flex;align-items:center;gap:14px;
+    background:linear-gradient(90deg,#f3ead4,#faf5e7);
+    padding:14px 20px;border-bottom:1px solid var(--line);
+  }
+  .num{
+    flex:none;width:34px;height:34px;border-radius:50%;
+    background:var(--navy);color:var(--gold-soft);
+    display:flex;align-items:center;justify-content:center;
+    font-family:"Cormorant Garamond",serif;font-size:19px;font-weight:600;
+  }
+  .seg-head .t{font-size:17px;font-weight:700;color:var(--navy);letter-spacing:.03em;}
+  .seg-head .dur{margin-left:auto;font-size:12px;color:#8a7a52;letter-spacing:.1em;white-space:nowrap;}
+  .seg-grid{display:grid;grid-template-columns:1fr;}
+  .row{display:grid;grid-template-columns:96px 1fr;border-top:1px solid #f0e9d8;}
+  .row:first-child{border-top:none;}
+  .row .k{
+    background:#faf6ec;padding:11px 14px;font-size:12px;color:#9a824a;
+    letter-spacing:.12em;font-weight:600;border-right:1px solid #f0e9d8;
+  }
+  .row .v{padding:11px 16px;font-size:14px;color:#3d352c;}
+  .song{color:var(--navy);font-weight:600;}
+  .cue{background:#fbfaf5;font-style:italic;color:#55493a;}
+  .v.cue::before{content:"「";color:var(--gold);} .v.cue::after{content:"」";color:var(--gold);}
+  /* narration block */
+  .narr{
+    background:linear-gradient(160deg,#1c2438,#2c3352);color:var(--cream);
+    border-radius:6px;padding:28px 30px;margin:6px 0 8px;
+    font-family:"Noto Serif TC",serif;line-height:2.15;font-size:15px;text-align:center;
+    border:1px solid #3a4568;
+  }
+  .narr .op{font-family:"Cormorant Garamond",serif;font-style:italic;color:var(--gold-soft);font-size:20px;display:block;margin-bottom:12px;letter-spacing:.05em;}
+  .narr .cl{font-family:"Cormorant Garamond",serif;font-style:italic;color:var(--gold-soft);font-size:19px;display:block;margin-top:14px;letter-spacing:.05em;}
+  .narr em{color:#fff;font-style:normal;}
+  /* notes */
+  .notes{background:var(--cream);border:1px solid var(--line);border-radius:6px;padding:22px 26px;margin-top:8px;}
+  .notes li{list-style:none;padding:7px 0 7px 26px;position:relative;font-size:13.5px;color:#4a4038;border-top:1px dashed #e4dbc4;}
+  .notes li:first-child{border-top:none;}
+  .notes li::before{content:"✦";position:absolute;left:0;color:var(--gold);}
+  .notes b{color:var(--navy);}
+  .tip{color:#8a7a52;font-size:12.5px;margin-top:5px;}
+  footer{
+    text-align:center;padding:26px;color:#9a8f7a;font-size:12px;letter-spacing:.1em;
+    border-top:1px solid var(--line);background:var(--cream);
+  }
+  footer span{color:var(--gold);}
+  @media(max-width:560px){
+    .row{grid-template-columns:78px 1fr;}
+    .chip{min-width:calc(50% - 8px);}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header>
+    <div class="crest">♛</div>
+    <div class="zh">訂 婚 進 場 流 程</div>
+    <h1>A Royal Disney Ball</h1>
+    <div class="meta">主題 · <span>歐洲宮廷 × 迪士尼金曲</span>　|　情緒曲線 · <span>歡迎 → 尊榮 → 驚喜 → 高潮</span></div>
+  </header>
+
+  <div class="body">
+    <div class="lead">
+      這是一份可直接交給<b>配音員與音控</b>的進場 cue 表。<b>進場全程採用預錄的「說故事旁白」，不開現場主持麥克風</b>，讓整段像一部迪士尼電影被娓娓道來、維持沉浸感。全場用「宮廷舞會」當視覺骨架、「迪士尼」當情感靈魂——長輩看到的是氣派古典，懂你們的朋友會發現處處是彩蛋。歌曲一律建議採用<b>電影管弦樂版本</b>，長輩聽起來就是高級古典樂，毫無違和。<br><span class="tip">＊文中「新人姓名／新郎／新娘」與《》歌曲皆可替換；音樂、時間為建議值，彩排後再微調。</span><br><span class="tip">＊旁白只當「引言」，講完即由音樂接手讓人行走，走多久都沒關係、時間保持彈性；音控依「旁白錄音清單」編號依序播放。</span>
+    </div>
+
+    <!-- overview -->
+    <h2 class="sec">Overview · 段落總覽</h2>
+    <div class="flow">
+      <div class="chip"><b>序幕</b>進場前影片<small>2–3 min</small></div>
+      <div class="chip"><b>①</b>伴郎伴娘<small>~1.5 min</small></div>
+      <div class="chip"><b>②</b>雙方父母<small>女方→男方 ~2 min</small></div>
+      <div class="chip"><b>③</b>新郎對嘴・召喚<small>~2 min</small></div>
+      <div class="chip"><b>④</b>新娘登場・相會<small>~2.5 min</small></div>
+      <div class="chip"><b>尾聲</b>故事 MV<small>~2.5 min</small></div>
+    </div>
+    <p class="tip" style="margin:6px 2px 0;">進場段落合計約 12–14 分鐘，節奏一路往上堆疊。</p>
+
+    <!-- prologue video -->
+    <h2 class="sec">序幕 · 進場前影片</h2>
+    <div class="seg">
+      <div class="seg-head"><span class="num">✧</span><span class="t">城堡開門・故事起源</span><span class="dur">2–3 分鐘</span></div>
+      <div class="seg-grid">
+        <div class="row"><div class="k">畫面</div><div class="v">音樂下，大螢幕播放。仿迪士尼片頭：城堡剪影 + 一道星軌劃過，化成兩位新人的名字。接續「一萬天」故事旁白，收在<span class="song">影片中一道華麗拱門亮起、畫面定在拱門</span>——與現場那道同款拱門呼應（從影片穿越到現實）→ 音樂轉換，第一組從拱門走出。</div></div>
+        <div class="row"><div class="k">場地</div><div class="v">現場入場<b>無門、只有拱門</b>：把拱門布置成「城堡拱門／時光之門」（<b>自備金色燈串＋花藝，燈串屬布置、全程亮著</b>，非場控燈光；底部可加乾冰）。<b>所有人皆從同一道拱門進場</b>，拱門像畫框把每個人框住，視覺統一、自帶儀式感。</div></div>
+        <div class="row"><div class="k">音樂</div><div class="v"><span class="song">《When You Wish Upon a Star》</span>音樂盒版起、漸轉管弦樂堆疊</div></div>
+        <div class="row"><div class="k">作用</div><div class="v">把「新娘出生第一萬天 × 迪士尼歌舞劇」的來由一次講清楚，讓後面所有迪士尼元素都有意義。</div></div>
+      </div>
+    </div>
+    <div class="narr">
+      <span class="op">Once upon a time…</span>
+      在一個女孩出生的第一萬天，<br>
+      有一個人，牽起她的手，<br>
+      帶她走進一座裝滿公主故事的<em>音樂城堡</em>。<br>
+      那一夜，貝兒、艾莎、茉莉、仙杜瑞拉輪番登場——<br>
+      而她沒有想到，最動人的那一部，<br>
+      是屬於<em>她自己</em>的故事。<br>
+      從那天起，他們一起唱過無數首歌；<br>
+      今天，這些歌，終於要在屬於他們的舞會裡響起。<br>
+      <span class="cl">Welcome to their Royal Disney Ball.</span>
+    </div>
+
+    <!-- segment 1 -->
+    <h2 class="sec">段落一 · 伴郎伴娘（4 位）</h2>
+    <div class="seg">
+      <div class="seg-head"><span class="num">1</span><span class="t">城堡侍從・歡迎光臨</span><span class="dur">約 1.5 分鐘</span></div>
+      <div class="seg-grid">
+        <div class="row"><div class="k">音樂</div><div class="v"><span class="song">《Be Our Guest》</span>（美女與野獸）— 本就是城堡管家歡迎賓客的歌，開場神切題</div></div>
+        <div class="row"><div class="k">成員</div><div class="v">伴郎 <b>Ollie</b>、<b>兩千</b>　|　伴娘 <b>文魚</b>、<b>Linda</b>（旁白 02 會逐一點名）</div></div>
+        <div class="row"><div class="k">動線</div><div class="v">2 位一組、分兩側（或前後）進場，走到定點時做一個整齊手勢／小 pose 即可，不必真跳舞。輕鬆炒熱氣氛、破題。</div></div>
+        <div class="row cue"><div class="k" style="background:#fbfaf5;">旁白 02（預錄）</div><div class="v cue">每一座城堡，都少不了最要好的夥伴。今夜，第一個從拱門走出、為這場舞會揭開序幕的，是新郎身邊最麻吉的兩位騎士——Ollie 與 兩千；還有一路守護公主的兩位閨蜜——文魚 與 Linda。</div></div>
+      </div>
+    </div>
+
+    <!-- segment 2 -->
+    <h2 class="sec">段落二 · 雙方父母</h2>
+    <div class="seg">
+      <div class="seg-head"><span class="num">2</span><span class="t">國王與皇后・尊榮入場</span><span class="dur">約 2 分鐘</span></div>
+      <div class="seg-grid">
+        <div class="row"><div class="k">音樂</div><div class="v"><span class="song">《Once Upon a Dream》</span>（睡美人）華爾滋版 — 優雅莊重，長輩體面（與敬酒曲不同，不重複）。<b>兩段進場共用這一首、全程不中斷</b>；女方走完、音樂延續，男方接著走。</div></div>
+        <div class="row"><div class="k">動線</div><div class="v"><b>女方父母先進場</b>，走到定點（主桌前或舞台定位），向全場點頭致意；<b>男方父母接著進場</b>，一同定位後入座。分兩段，讓兩家各自被好好介紹——這是給雙方長輩的高光。</div></div>
+        <div class="row cue"><div class="k" style="background:#fbfaf5;">旁白 03A（預錄・女方父母先）</div><div class="v cue">每一位公主的故事，都始於一個把她捧在手心的家。第一對走進這座城堡的，是陪著女主角長大的國王與皇后——新娘的爸爸和媽媽。掌聲，先獻給他們。</div></div>
+        <div class="row cue"><div class="k" style="background:#fbfaf5;">旁白 03B（預錄・男方父母後）</div><div class="v cue">而每一位王子的勇敢，背後也站著一對默默守護他的國王與皇后。接著登場的，是新郎的爸爸和媽媽——今晚，故事也想好好謝謝他們。</div></div>
+      </div>
+    </div>
+
+    <!-- segment 3 -->
+    <h2 class="sec">段落三・四 · 新郎召喚 → 新娘登場 → 中央相會（合體壓軸）</h2>
+    <div class="lead" style="margin:0 0 18px;background:#f6efdc;border-left-color:#b98a3a;">
+      這是一段<b>連動的合體壓軸</b>：新郎對嘴登場 → 歌快收時轉身「有請」→ 音樂交叉淡入新娘曲 → 新娘獨自登場（他不下場、站中央看著你）→ 中央相會牽手、一起走完定格。<b>他的俏皮 → 召喚 → 你的高光 → 兩人合體</b>，情緒一路往上。
+    </div>
+    <div class="seg">
+      <div class="seg-head"><span class="num">3</span><span class="t">未來的國王・對嘴登場 → 召喚公主</span><span class="dur">約 2 分鐘</span></div>
+      <div class="seg-grid">
+        <div class="row"><div class="k">音樂</div><div class="v"><span class="song">《I Just Can't Wait to Be King》</span>（獅子王）— 輕快、詼諧、「即將登基」呼應新郎身分；備選帥氣路線 <span class="song">《Go the Distance》</span>（大力士）</div></div>
+        <div class="row"><div class="k">重點</div><div class="v">新郎<b>不開口唱</b>，全程<b>對嘴＋走位</b>演出。大家預期新郎緊張僵硬，結果一進場就對嘴耍帥／搞笑——反差直接引爆全場。可安排 1–2 位伴郎當伴舞。</div></div>
+        <div class="row"><div class="k">收尾動作</div><div class="v"><b>不走到定位就結束</b>——歌快收時，新郎<b>轉身面向拱門、做一個「有請」的手勢</b>，把全場目光引到拱門上，像向全場宣告「我的公主要出場了」。</div></div>
+        <div class="row"><div class="k">音樂轉場</div><div class="v">在「有請」手勢當下，<b>《I Just Can't Wait to Be King》淡出，交叉淡入「我們會以你為榮」</b>（音控預設好 crossfade 點）</div></div>
+        <div class="row cue"><div class="k" style="background:#fbfaf5;">旁白 04（預錄）</div><div class="v cue">故事裡的王子，通常又帥又勇敢。而我們這一位……嗯，至少很有自信。掌聲先給他，讓他別緊張——</div></div>
+        <div class="row cue"><div class="k" style="background:#fbfaf5;">旁白 05（預錄）</div><div class="v cue">好，重點來了。他轉過身、指向那道拱門——再不請女主角出場，他大概要開始尬舞了。</div></div>
+      </div>
+    </div>
+    <div class="seg">
+      <div class="seg-head"><span class="num">4</span><span class="t">成為自己的公主・新中式登場 → 中央相會</span><span class="dur">約 2.5 分鐘</span></div>
+      <div class="seg-grid">
+        <div class="row"><div class="k">禮服</div><div class="v"><b>第一套・新中式</b> —— 對應迪士尼裡的東方公主花木蘭，把新中式框成整場的「花木蘭篇章」，不跳反而更有巧思</div></div>
+        <div class="row"><div class="k">音樂</div><div class="v"><span class="song">「我們會以你為榮」</span>（Honor to Us All・花木蘭；即「先把妳洗乾淨」那首）— 歡樂梳妝歌，配盛裝登場全場會笑；取副歌「以你為榮」段最有登場感</div></div>
+        <div class="row"><div class="k">登場</div><div class="v">新娘<b>從拱門、單獨華麗登場</b>（不安排父親牽手——交接手的儀式留給結婚）。用<b>「我們會以你為榮」前奏一下＋花瓣／薄煙／拱門乾冰</b>帶出歡樂氣勢，不靠燈光。</div></div>
+        <div class="row"><div class="k">新郎走位</div><div class="v"><b>他不下場</b>，站在舞台中央定點，<b>轉身看著你走過來</b>——他是全場第一個看見你的人，自然流露表情。</div></div>
+        <div class="row"><div class="k">相會・定格</div><div class="v">你走到中央時，兩人<b>相會、牽起手</b>（是「相遇」不是「交接」），<b>最後幾步一起走完、一起定格</b>；旁白 07 收尾後，接尾聲 MV。</div></div>
+        <div class="row cue"><div class="k" style="background:#fbfaf5;">旁白 06（預錄）</div><div class="v cue">這位女主角，盛裝登場——連花木蘭都要以她為榮。掌聲，獻給我們今晚最閃亮的新娘！</div></div>
+        <div class="row cue"><div class="k" style="background:#fbfaf5;">旁白 07（預錄）</div><div class="v cue">就這樣，兩隻卡通人物，正式湊成一對。接下來的故事……應該會很吵。</div></div>
+      </div>
+    </div>
+
+    <!-- outro video -->
+    <h2 class="sec">尾聲 · 進場後影片</h2>
+    <div class="seg">
+      <div class="seg-head"><span class="num">✧</span><span class="t">你們的故事 MV・迪士尼金曲總匯</span><span class="dur">約 2.5 分鐘</span></div>
+      <div class="seg-grid">
+        <div class="row"><div class="k">時機</div><div class="v">新人站定、全場入座後播放</div></div>
+        <div class="row"><div class="k">內容</div><div class="v">把你們的照片剪成一段<span class="song">迪士尼金曲總匯 MV</span>（呼應那齣歌舞劇），每換一首歌配一個人生階段。可把新郎剛剛對嘴的橋段延續進 MV，<b>首尾呼應</b>。</div></div>
+        <div class="row"><div class="k">收尾</div><div class="v">最後一格定格在你們的合照＋一句「Their story has just begun.」，主持人接續進入敬酒／用餐。</div></div>
+      </div>
+    </div>
+
+    <!-- dress chapters -->
+    <h2 class="sec">三套禮服 · 迪士尼篇章</h2>
+    <style>
+      .arc{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+      .ch{border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--paper);display:flex;flex-direction:column;}
+      .ch .top{padding:16px 16px 14px;text-align:center;color:var(--cream);}
+      .ch1 .top{background:linear-gradient(160deg,#7a1f2b,#a83545);}
+      .ch2 .top{background:linear-gradient(160deg,#9a7a1e,#d4af37);}
+      .ch3 .top{background:linear-gradient(160deg,#b98a86,#e0c3b8);}
+      .ch .stage{font-size:11px;letter-spacing:.25em;opacity:.9;}
+      .ch .dress{font-size:16px;font-weight:700;margin:5px 0 2px;}
+      .ch .who{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:18px;color:#fff;}
+      .ch .mid{padding:14px 16px;border-bottom:1px dashed var(--line);}
+      .ch .song2{color:var(--navy);font-weight:600;font-size:14px;}
+      .ch .bot{padding:13px 16px;font-size:13px;color:#4a4038;flex:1;}
+      .arcline{text-align:center;margin:16px 0 4px;font-family:"Cormorant Garamond",serif;font-style:italic;color:#8a7a52;font-size:16px;letter-spacing:.04em;}
+      @media(max-width:640px){.arc{grid-template-columns:1fr;}}
+    </style>
+    <div class="arc">
+      <div class="ch ch1">
+        <div class="top"><div class="stage">進 場</div><div class="dress">新中式</div><div class="who">花木蘭 · Mulan</div></div>
+        <div class="mid"><span class="song2">「我們會以你為榮」</span></div>
+        <div class="bot">東方的公主。用「我們會以你為榮」這首歡樂梳妝歌登場，盛裝又自帶喜感——一開場就定調你們的歡樂本色。</div>
+      </div>
+      <div class="ch ch2">
+        <div class="top"><div class="stage">敬 酒</div><div class="dress">金色魚尾・華麗亮片</div><div class="who">華麗魚尾</div></div>
+        <div class="mid"><span class="song2">《A Whole New World》</span><div class="tip" style="margin-top:4px;">備選：《Part of Your World》（呼應魚尾）</div></div>
+        <div class="bot">華麗金色魚尾禮服，穿梭全場敬酒最有排場。<b>不鎖公主</b>，用「華麗大器」的感覺選歌。</div>
+      </div>
+      <div class="ch ch3">
+        <div class="top"><div class="stage">送 客</div><div class="dress">膚色花朵澎裙</div><div class="who">歡樂 feel-good</div></div>
+        <div class="mid"><span class="song2">《Something That I Want》</span><div class="tip" style="margin-top:4px;">循環：Ever Ever After／Hakuna Matata</div></div>
+        <div class="bot">柔美花朵澎裙的空靈感。「看見光、迎向新世界」正是送客的心情——送賓客，也送你們自己走進新生活。</div>
+      </div>
+    </div>
+    <div class="arcline">成為自己　→　華麗綻放　→　走向光</div>
+
+    <!-- narration recording list -->
+    <h2 class="sec">旁白錄音清單 · 說書人預錄</h2>
+    <style>
+      .vo{border:1px solid var(--line);border-radius:6px;overflow:hidden;}
+      .vo .item{display:grid;grid-template-columns:60px 1fr;border-top:1px solid #f0e9d8;}
+      .vo .item:first-child{border-top:none;}
+      .vo .no{background:var(--navy);color:var(--gold-soft);display:flex;align-items:center;justify-content:center;font-family:"Cormorant Garamond",serif;font-size:20px;font-weight:600;}
+      .vo .txt{padding:13px 16px;}
+      .vo .line{font-size:14px;color:#2f2820;font-style:italic;}
+      .vo .line::before{content:"「";color:var(--gold);} .vo .line::after{content:"」";color:var(--gold);}
+      .vo .after{font-size:12px;color:#8a7a52;margin-top:5px;letter-spacing:.04em;}
+      .vo .after b{color:var(--navy);font-style:normal;}
+    </style>
+    <div class="vo">
+      <div class="item"><div class="no">01</div><div class="txt"><div class="line">在一個女孩出生的第一萬天，有一個人牽起她的手，帶她走進一座裝滿公主故事的音樂城堡……最動人的那一部，是屬於她自己的故事。歡迎來到他們的迪士尼舞會。</div><div class="after">序幕影片旁白（完整版見上方序幕）　→　<b>收在拱門亮起</b></div></div></div>
+      <div class="item"><div class="no">02</div><div class="txt"><div class="line">每一座城堡，都少不了最要好的夥伴。今夜，第一個從拱門走出、為這場舞會揭開序幕的，是新郎身邊最麻吉的兩位騎士——Ollie 與 兩千；還有一路守護公主的兩位閨蜜——文魚 與 Linda。</div><div class="after">→ 接《Be Our Guest》，伴郎伴娘從拱門進場</div></div></div>
+      <div class="item"><div class="no">03A</div><div class="txt"><div class="line">每一位公主的故事，都始於一個把她捧在手心的家。第一對走進這座城堡的，是陪著女主角長大的國王與皇后——新娘的爸爸和媽媽。掌聲，先獻給他們。</div><div class="after">→ 接《Once Upon a Dream》，<b>女方父母先進場</b>（音樂不中斷）</div></div></div>
+      <div class="item"><div class="no">03B</div><div class="txt"><div class="line">而每一位王子的勇敢，背後也站著一對默默守護他的國王與皇后。接著登場的，是新郎的爸爸和媽媽——今晚，故事也想好好謝謝他們。</div><div class="after">→ 同一首《Once Upon a Dream》延續，<b>男方父母接著進場</b></div></div></div>
+      <div class="item"><div class="no">04</div><div class="txt"><div class="line">故事裡的王子，通常又帥又勇敢。而我們這一位……嗯，至少很有自信。掌聲先給他，讓他別緊張——</div><div class="after">→ 接《I Just Can't Wait to Be King》，新郎對嘴登場</div></div></div>
+      <div class="item"><div class="no">05</div><div class="txt"><div class="line">好，重點來了。他轉過身、指向那道拱門——再不請女主角出場，他大概要開始尬舞了。</div><div class="after">→ 歌尾播放；隨即<b>交叉淡入「我們會以你為榮」</b></div></div></div>
+      <div class="item"><div class="no">06</div><div class="txt"><div class="line">這位女主角，盛裝登場——連花木蘭都要以她為榮。掌聲，獻給我們今晚最閃亮的新娘！</div><div class="after">→ 隨「我們會以你為榮」，新娘從拱門登場</div></div></div>
+      <div class="item"><div class="no">07</div><div class="txt"><div class="line">就這樣，兩隻卡通人物，正式湊成一對。接下來的故事……應該會很吵。</div><div class="after">→ 兩人中央相會定格；接尾聲 MV</div></div></div>
+    </div>
+    <p class="tip" style="margin:12px 2px 0;">錄音建議：溫暖、不疾不徐的「說書人」語氣；每句加一點空間殘響＋輕柔音樂床；每句可錄 2–3 個語氣版本再挑。可找專業配音員，或你們自己／長輩錄更有意義。</p>
+
+    <!-- production notes -->
+    <h2 class="sec">製作備註 · Checklist</h2>
+    <ul class="notes">
+      <li><b>對嘴要提早排練。</b>先選定副歌段落（30–45 秒最剛好），練口型與走位；當天音樂音量壓過人聲，破綻不易被發現。</li>
+      <li><b>音樂統一用管弦樂／電影原聲版。</b>長輩無違和，整場質感一致；請音控依 cue 表預先排好播放順序與淡入淡出。</li>
+      <li><b>進場全程用預錄旁白，不開現場主持麥克風。</b>照「旁白錄音清單」01–07 錄好，音控依編號依序播放；<b>旁白只當引言、講完由音樂接手讓人走</b>，時間保持彈性。後段敬酒、遊戲等功能性環節再交給現場主持人。</li>
+      <li><b>現場無法調整燈光——採全程常亮設計。</b>氣氛改由大螢幕影片、音樂、拱門裝飾（自備燈串屬布置、全程亮著）、乾冰／花瓣與走位營造，完全不依賴控燈。請確認<b>投影機夠亮、螢幕避開反光位置</b>（因無法關燈），並與音控走一次影片、音樂、走位的彩排。</li>
+      <li><b>影片長度控管。</b>序幕 2–3 分、尾聲 2.5 分內為佳，避免賓客久候冷場。</li>
+      <li><b>與結婚場做出區隔。</b>戒指（早上文定已完成）與交接手、個人誓詞皆保留給婚禮；訂婚主打「一萬天故事 × 新郎對嘴 × 舞會感」三大獨家記憶點。</li>
+    </ul>
+  </div>
+
+  <footer>♛　<span>A Royal Disney Ball</span>　·　訂婚進場流程腳本　·　可依現場再行微調　♛</footer>
+</div>
+</body>
+</html>

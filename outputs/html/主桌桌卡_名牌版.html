@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="zh-Hant"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>主桌桌卡（名牌版）</title>
+<meta name="description" content="Barry ♥ Winnie 訂婚宴 主桌桌卡・標準名牌尺寸，宮廷花紋底＋皇冠印徽，對折立式，可列印。">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Noto+Serif+TC:wght@600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{--red:#8B1A1A;--wine:#6E1414;--gold:#C9A24B;--gold-d:#A8822F;
+    --gold-l:#F3E7C8;--cream:#FBF6EA;--ink:#2B1D12;--fem:#B4476B;--mal:#2F5A7A;}
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#e9dcc2;color:var(--ink);font-family:"Noto Serif TC",serif;}
+  .note{max-width:720px;margin:0 auto;padding:18px 16px 4px;}
+  .note .box{background:#fff;border:1px solid var(--gold);border-left:5px solid var(--gold);
+    border-radius:10px;padding:12px 16px;font-size:13px;color:var(--wine);line-height:1.85;}
+  .note b{color:var(--red);}
+
+  .sheet{background:#fff;width:210mm;min-height:297mm;margin:16px auto;padding:12mm 12mm;
+    display:grid;grid-template-columns:repeat(2,85mm);grid-auto-rows:86mm;
+    justify-content:center;align-content:start;gap:6mm 8mm;box-shadow:0 6px 22px rgba(0,0,0,.12);}
+
+  .card{width:85mm;height:86mm;position:relative;break-inside:avoid;}
+  .half{height:43mm;overflow:hidden;}
+  .half.top .face{transform:rotate(180deg);}
+  .fold{height:0;border-top:1px dashed #cdb996;}
+
+  .face{position:relative;height:100%;padding:4.5mm 5mm;
+    border:1.4px solid var(--gold);background-color:var(--cream);
+    background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2246%22%20height%3D%2246%22%20viewBox%3D%220%200%2046%2046%22%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%23C9A24B%22%20stroke-width%3D%220.9%22%20opacity%3D%220.30%22%3E%0A%3Cpath%20d%3D%22M23%203%20L43%2023%20L23%2043%20L3%2023%20Z%22/%3E%0A%3Cpath%20d%3D%22M23%2012%20C28%2017%2C28%2017%2C23%2023%20C18%2017%2C18%2017%2C23%2012%20Z%22/%3E%0A%3Cpath%20d%3D%22M23%2034%20C28%2029%2C28%2029%2C23%2023%20C18%2029%2C18%2029%2C23%2034%20Z%22/%3E%0A%3Cpath%20d%3D%22M12%2023%20C17%2018%2C17%2018%2C23%2023%20C17%2028%2C17%2028%2C12%2023%20Z%22/%3E%0A%3Cpath%20d%3D%22M34%2023%20C29%2018%2C29%2018%2C23%2023%20C29%2028%2C29%2028%2C34%2023%20Z%22/%3E%0A%3C/g%3E%0A%3Cg%20fill%3D%22%23C9A24B%22%20opacity%3D%220.30%22%3E%0A%3Ccircle%20cx%3D%2223%22%20cy%3D%2223%22%20r%3D%221.1%22/%3E%0A%3Ccircle%20cx%3D%220%22%20cy%3D%220%22%20r%3D%221%22/%3E%3Ccircle%20cx%3D%2246%22%20cy%3D%220%22%20r%3D%221%22/%3E%0A%3Ccircle%20cx%3D%220%22%20cy%3D%2246%22%20r%3D%221%22/%3E%3Ccircle%20cx%3D%2246%22%20cy%3D%2246%22%20r%3D%221%22/%3E%0A%3C/g%3E%3C/svg%3E");background-size:23px 23px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+  .face::before{content:"";position:absolute;inset:1.3mm;border:0.7px solid rgba(201,162,75,.55);
+    pointer-events:none;}
+  .face.c{background-color:#fffdf6;border-color:var(--gold-d);}
+
+  /* crest */
+  .crest{width:15mm;height:15mm;border-radius:50%;border:1.3px solid var(--gold-d);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:rgba(255,255,255,.55);margin-bottom:1.6mm;line-height:1;}
+  .crest.filled{background:linear-gradient(160deg,#e9cf92,#C9A24B);border-color:#8a6a24;}
+  .cr-crown{font-size:11px;color:var(--gold-d);margin-bottom:.4mm;}
+  .crest.filled .cr-crown{color:#6e4e14;}
+  .cr-mono{font-family:"Cormorant Garamond",serif;font-weight:700;font-size:13px;color:var(--wine);
+    letter-spacing:.5px;}
+  .cr-mono span{color:var(--gold-d);margin:0 1px;font-size:10px;}
+  .crest.filled .cr-mono{color:#5a1010;} .crest.filled .cr-mono span{color:#7a5410;}
+  .cr-date{font-family:"Cormorant Garamond",serif;font-size:6.5px;letter-spacing:1px;color:var(--gold-d);margin-top:.3mm;}
+
+  .name{font-size:38px;font-weight:900;color:var(--red);letter-spacing:.04em;line-height:1.05;}
+  .face.c .name{color:#7a1414;}
+  .title{font-size:14px;color:var(--wine);margin-top:1.4mm;letter-spacing:.18em;}
+
+  .corner{position:absolute;bottom:2.4mm;font-size:8px;color:#a98f55;letter-spacing:.06em;
+    display:flex;align-items:center;gap:3px;font-family:"Cormorant Garamond",serif;}
+  .corner.l{left:4mm;}
+  .dot{width:6px;height:6px;border-radius:50%;display:inline-block;}
+  .dot.f{background:var(--fem);} .dot.m{background:var(--mal);}
+  .veg{position:absolute;top:3mm;right:3mm;font-size:9px;font-weight:700;color:#2e7d32;
+    border:1px solid #2e7d32;border-radius:50%;width:15px;height:15px;display:flex;
+    align-items:center;justify-content:center;background:#fff;}
+
+  @media print{
+    html,body{background:#fff;} .note{display:none;}
+    .sheet{box-shadow:none;margin:0;width:210mm;min-height:0;height:auto;padding:12mm;
+      page-break-after:always;break-after:page;}
+    .sheet:last-child{page-break-after:auto;break-after:auto;}
+    .card,.face,.half,.veg,.dot,.crest,.face::before{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    @page{size:A4 portrait;margin:0;}
+  }
+</style></head>
+<body>
+  <div class="note"><div class="box">
+    <b>名牌尺寸：</b>展開約 85×86mm、對折後 85×43mm（小巧站立）。每頁 6 張，共 2 頁。建議 <b>190–250g 卡紙</b>、A4 100% 不縮放。<br>
+    <b>對折：</b>沿中間淡色折線對折，折好正反兩面都是正的字。<br>
+    <b>設計：</b>宮廷金色花紋底＋ B&amp;W 皇冠印徽；新人為金色印徽、外婆有「素」標、左下角為帶位圖座號（<span style="color:var(--fem)">●</span>女方／<span style="color:var(--mal)">●</span>男方）。
+  </div></div>
+  <div class="sheet">
+<div class="card couple">
+      <div class="half top"><div class="face c">
+      <div class="crest filled">
+      <div class="cr-crown">&#9819;</div>
+      <div class="cr-mono">B<span>&amp;</span>W</div>
+      <div class="cr-date">10 &middot; 11</div>
+    </div>
+      <div class="name">戴婉錡</div>
+      <div class="title">新娘</div>
+      <div class="corner l"><span class="dot f"></span>1</div>
+      
+    </div></div>
+      <div class="fold"></div>
+      <div class="half bot"><div class="face c">
+      <div class="crest filled">
+      <div class="cr-crown">&#9819;</div>
+      <div class="cr-mono">B<span>&amp;</span>W</div>
+      <div class="cr-date">10 &middot; 11</div>
+    </div>
+      <div class="name">戴婉錡</div>
+      <div class="title">新娘</div>
+      <div class="corner l"><span class="dot f"></span>1</div>
+      
+    </div></div>
+    </div>
+<div class="card ">
+      <div class="half top"><div class="face ">
+      <div class="crest ">
+      <div class="cr-crown">&#9819;</div>
+      <div class="cr-mono">B<span>&amp;</span>W</div>
+      <div class="cr-date">10 &middot; 11</div>
+    </div>
+      <div class="name">戴建勳</div>
+      <div class="title">新娘爸爸</div>
+      <div class="corner l"><span class="dot f"></span>2</div>
+      
+    </div></div>
+      <div class="fold"></div>
+      <div class="half bot"><div class="face ">
+      <div class="crest ">
+      <div class="cr-crown">&#9819;</div>
+      <div class="cr-mono">B<span>&amp;</span>W</div>
+      <div class="cr-date">10 &middot; 11</div>
+    </div>
+      <div class="name">戴建勳</div>
+      <div class="title">新娘爸爸</div>
+      <div class="corner l"><span class="dot f"></span>2</div>
+      
+    </div></div>
+    </div>
+<div class="card ">
+      <div class="half top"><div class="face ">
+      <div class="crest ">
+      <div class="cr-crown">&#9819;</div>
+      <div class="cr-mono">B<span>&amp;</span>W</div>
+      <div class="cr-date">10 &middot; 11</div>
+    </div>
+      <div class="name">林碧霞</div>
+      <div class="title">新娘外婆</div>
+      <div class="corner l"><span class="dot f"></span>3</div>
+      <div class="veg">素</div>
+    </div></div>
+      <div class="fold"></div>
+      <div class="half bot"><div class="face ">
+      <div class="crest ">
+      <div class="cr-crown">&#9819;</div>
+      <div class="cr-mono">B<span>&amp;</span>W</div>
+      <div class="cr-date">10 &middot; 11</div>
+    </div>
+      <div class="name">林碧霞</div>
+      <div class="title">新娘外婆</div>
+      <div class="corner l"><span class="dot f"></span>3</div>
+      <div class="veg">素</div>
+    </div></div>
+    </div>
+<div class="card ">
+      <div class="half top"><div class="face ">
+      <div class="crest ">
+      <div class="cr-crown">&#9819;</div>
+      <div class="cr-mono">B<span>&amp;</span>W</div>
+      <div class="cr-date">10 &middot; 11</div>
+    </div>
+      <div class="name">戴蔡美惠</div>
+      <div class="title">新娘奶奶</div>
+      <div class="corner l"><span class="dot f"></span>4</div>
+      
+    </div></div>
+      <div class="fold"></div>
+      <div class="half bot"><div class="face ">
+      <div class="crest ">
+      <div class="cr-crown">&#9819;</div>
+      <div class="cr-mono">B<span>&amp;</span>W</div>
+      <div class="cr-date">10 &middot; 11</div>
+    </div>
+      <div class="name">戴蔡美惠</div>
+      <div class="title">新娘奶奶</div>
+      <div class="corner l"><span class="dot f"></span>4</div>
+      
+    </div></div>
+    </div>
+<div class="card ">
+      <div class="half top"><div class="face ">
+      <div class="crest ">
+      <div class="cr-crown">&#9819;</div>
+      <div class="cr-mono">B<span>&amp;</span>W</div>
+      <div class="cr-date">10 &middot; 11</div>
+    </div>
+      <div class="name">郭乃華</div>
+      <div class="title">新娘媽媽</div>
+      <div class="corner l"><span class="dot f"></span>5</div>
+      
+    </div></div>
+      <div class="fold"></div>
+      <div class="half bot"><div class="face ">
+      <div class="crest ">
+      <div class="cr-crown">&#9819;</div>
+      <div class="cr-mono">B<span>&amp;</span>W</div>
+      <div class="cr-date">10 &middot; 11</div>
+    </div>
+      <div class="name">郭乃華</div>
+      <div class="title">新娘媽媽</div>
+      <div class="corner l"><span class="dot f"></span>5</div>
+      
+    </div></div>
+    </div>
+<div class="card couple">
+      <div class="half top"><div class="face c">
+      <div class="crest filled">
+      <div class="cr-crown">&#9819;</div>
+      <div class="cr-mono">B<span>&amp;</span>W</div>
+      <div class="cr-date">10 &middot; 11</div>
+    </div>
+      <div class="name">羅聖明</div>
+      <div class="title">新郎</div>
+      <div class="corner l"><span class="dot m"></span>6</div>
+      
+    </div></div>
+      <div class="fold"></div>
+      <div class="half bot"><div class="face c">
+      <div class="crest filled">
+      <div class="cr-crown">&#9819;</div>
+      <div class="cr-mono">B<span>&amp;</span>W</div>
+      <div class="cr-date">10 &middot; 11</div>
+    </div>
+      <div class="name">羅聖明</div>
+      <div class="title">新郎</div>
+      <div class="corner l"><span class="dot m"></span>6</div>
+      
+    </div></div>
+    </div>
+</div>
+<div class="sheet">
+<div class="card ">
+      <div class="half top"><div class="face ">
+      <div class="crest ">
+      <div class="cr-crown">&#9819;</div>
+      <div class="cr-mono">B<span>&amp;</span>W</div>
+      <div class="cr-date">10 &middot; 11</div>
+    </div>
+      <div class="name">羅茂松</div>
+      <div class="title">新郎爸爸</div>
+      <div class="corner l"><span class="dot m"></span>7</div>
+      
+    </div></div>
+      <div class="fold"></div>
+      <div class="half bot"><div class="face ">
+      <div class="crest ">
+      <div class="cr-crown">&#9819;</div>
+      <div class="cr-mono">B<span>&amp;</span>W</div>
+      <div class="cr-date">10 &middot; 11</div>
+    </div>
+      <div class="name">羅茂松</div>
+      <div class="title">新郎爸爸</div>
+      <div class="corner l"><span class="dot m"></span>7</div>
+      
+    </div></div>
+    </div>
+<div class="card ">
+      <div class="half top"><div class="face ">
+      <div class="crest ">
+      <div class="cr-crown">&#9819;</div>
+      <div class="cr-mono">B<span>&amp;</span>W</div>
+      <div class="cr-date">10 &middot; 11</div>
+    </div>
+      <div class="name">張秀緞</div>
+      <div class="title">新郎媽媽</div>
+      <div class="corner l"><span class="dot m"></span>8</div>
+      
+    </div></div>
+      <div class="fold"></div>
+      <div class="half bot"><div class="face ">
+      <div class="crest ">
+      <div class="cr-crown">&#9819;</div>
+      <div class="cr-mono">B<span>&amp;</span>W</div>
+      <div class="cr-date">10 &middot; 11</div>
+    </div>
+      <div class="name">張秀緞</div>
+      <div class="title">新郎媽媽</div>
+      <div class="corner l"><span class="dot m"></span>8</div>
+      
+    </div></div>
+    </div>
+<div class="card ">
+      <div class="half top"><div class="face ">
+      <div class="crest ">
+      <div class="cr-crown">&#9819;</div>
+      <div class="cr-mono">B<span>&amp;</span>W</div>
+      <div class="cr-date">10 &middot; 11</div>
+    </div>
+      <div class="name">張坤輝</div>
+      <div class="title">新郎阿公</div>
+      <div class="corner l"><span class="dot m"></span>9</div>
+      
+    </div></div>
+      <div class="fold"></div>
+      <div class="half bot"><div class="face ">
+      <div class="crest ">
+      <div class="cr-crown">&#9819;</div>
+      <div class="cr-mono">B<span>&amp;</span>W</div>
+      <div class="cr-date">10 &middot; 11</div>
+    </div>
+      <div class="name">張坤輝</div>
+      <div class="title">新郎阿公</div>
+      <div class="corner l"><span class="dot m"></span>9</div>
+      
+    </div></div>
+    </div>
+<div class="card ">
+      <div class="half top"><div class="face ">
+      <div class="crest ">
+      <div class="cr-crown">&#9819;</div>
+      <div class="cr-mono">B<span>&amp;</span>W</div>
+      <div class="cr-date">10 &middot; 11</div>
+    </div>
+      <div class="name">羅茂騰</div>
+      <div class="title">新郎叔叔</div>
+      <div class="corner l"><span class="dot m"></span>10</div>
+      
+    </div></div>
+      <div class="fold"></div>
+      <div class="half bot"><div class="face ">
+      <div class="crest ">
+      <div class="cr-crown">&#9819;</div>
+      <div class="cr-mono">B<span>&amp;</span>W</div>
+      <div class="cr-date">10 &middot; 11</div>
+    </div>
+      <div class="name">羅茂騰</div>
+      <div class="title">新郎叔叔</div>
+      <div class="corner l"><span class="dot m"></span>10</div>
+      
+    </div></div>
+    </div>
+</div>
+</body></html>

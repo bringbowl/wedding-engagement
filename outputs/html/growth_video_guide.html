@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>成長影片・製作指南 · 真正的相簿</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#c9a24b;--gold-soft:#e4cd8f;--ink:#2a2320;--navy:#1c2438;
+    --cream:#faf6ee;--paper:#fffdf8;--line:#e6dcc4;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Noto Serif TC",serif;color:var(--ink);
+    background:radial-gradient(circle at 20% 0%, #22304f 0%, #161d30 55%, #0f1424 100%);
+    padding:40px 16px 80px;line-height:1.75;}
+  .sheet{max-width:920px;margin:0 auto;background:var(--paper);
+    box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;overflow:hidden;border:1px solid #d9c99a;}
+  header{background:linear-gradient(160deg,#1c2438,#2b3654 70%);color:var(--cream);text-align:center;
+    padding:50px 30px 44px;position:relative;border-bottom:3px solid var(--gold);}
+  header::before,header::after{content:"";position:absolute;left:50%;transform:translateX(-50%);
+    width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+  header::before{top:24px;} header::after{bottom:20px;}
+  .crest{font-size:26px;letter-spacing:.4em;color:var(--gold-soft);margin-bottom:6px;}
+  header h1{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:clamp(26px,5vw,42px);letter-spacing:.05em;margin:6px 0 4px;}
+  header .zh{font-size:21px;letter-spacing:.3em;color:var(--gold-soft);margin-bottom:14px;}
+  header .meta{font-size:13px;letter-spacing:.13em;color:#c8cfe0;}
+  header .meta span{color:var(--gold-soft);}
+  .body{padding:38px clamp(20px,5vw,54px) 30px;}
+  .lead{background:var(--cream);border:1px solid var(--line);border-left:4px solid var(--gold);
+    padding:20px 24px;border-radius:4px;margin-bottom:34px;font-size:15px;color:#4a4038;}
+  .lead b{color:var(--navy);}
+  h2.sec{font-family:"Cormorant Garamond",serif;color:var(--navy);font-size:15px;letter-spacing:.24em;
+    text-transform:uppercase;display:flex;align-items:center;gap:14px;margin:34px 0 18px;font-weight:600;}
+  h2.sec::before{content:"◆";color:var(--gold);font-size:11px;}
+  h2.sec::after{content:"";flex:1;height:1px;background:var(--line);}
+  .beat{border:1px solid var(--line);border-radius:6px;margin-bottom:14px;overflow:hidden;background:var(--paper);}
+  .beat-head{display:flex;align-items:center;gap:13px;background:linear-gradient(90deg,#f3ead4,#faf5e7);padding:12px 16px;border-bottom:1px solid var(--line);}
+  .no{flex:none;width:30px;height:30px;border-radius:50%;background:var(--navy);color:var(--gold-soft);display:flex;align-items:center;justify-content:center;font-family:"Cormorant Garamond",serif;font-size:16px;font-weight:600;}
+  .beat-head .t{font-size:15.5px;font-weight:700;color:var(--navy);}
+  .beat-head .dur{margin-left:auto;font-size:11.5px;color:#8a7a52;letter-spacing:.08em;}
+  .beat .in{padding:12px 16px;font-size:13.5px;color:#3d352c;}
+  .beat .in .card{background:#fbfaf5;border:1px dashed #e4dbc4;border-radius:5px;padding:8px 12px;margin-top:8px;font-style:italic;color:#6a5a3f;font-size:13px;}
+  .beat .in .card::before{content:"字卡　";font-style:normal;color:var(--gold);font-size:11px;letter-spacing:.1em;}
+  .notes{background:var(--cream);border:1px solid var(--line);border-radius:6px;padding:20px 24px;}
+  .notes li{list-style:none;padding:7px 0 7px 24px;position:relative;font-size:13.5px;color:#4a4038;border-top:1px dashed #e4dbc4;}
+  .notes li:first-child{border-top:none;}
+  .notes li::before{content:"✦";position:absolute;left:0;color:var(--gold);}
+  .notes b{color:var(--navy);}
+  .tip{color:#8a7a52;font-size:12.5px;margin-top:6px;}
+  footer{text-align:center;padding:24px;color:#9a8f7a;font-size:12px;letter-spacing:.1em;border-top:1px solid var(--line);background:var(--cream);}
+  footer span{color:var(--gold);}
+  @media(max-width:560px){.beat-head .dur{display:none;}}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header>
+    <div class="crest">📖 ❤</div>
+    <div class="zh">成 長 影 片 · 製 作 指 南</div>
+    <h1>The Real Album</h1>
+    <div class="meta">播放 · <span>12:50，新人退場換裝前（與父母一起看）</span>　|　長度 <span>約 3.5–4 分鐘</span></div>
+  </header>
+
+  <div class="body">
+    <div class="lead">
+      這支成長影片，是整套故事裡「<b>真正的相簿</b>」——序幕是<b>童話版的你們</b>、片尾是<b>闔上書走進森林</b>，中間這支把童話翻回<b>真實</b>。口吻走<b>幽默、不肉麻</b>的路線（你們<b>浪漫歸浪漫，但不愛煽情</b>——加上新娘的爸爸本身就是搞笑掛的）：用自嘲、吐槽、生活感的字卡，讓大家<b>笑著看完</b>；情感核心放在<b>中段一段「給家人的話」（預錄影片）</b>，結尾則輕快收在你們兩個。<br>
+      它播在 <b>12:50、新人退場換裝前</b>，你們和雙方父母都在場一起看——<b>中段「給家人的話」那段是全片的心</b>，但用幽默包起來、不用逼哭。
+    </div>
+
+    <h2 class="sec">建議結構 · 敘事順序</h2>
+
+    <div class="beat">
+      <div class="beat-head"><span class="no">1</span><span class="t">開場・雙方爸媽</span><span class="dur">~15 秒</span></div>
+      <div class="in">開場<b>不是你們</b>，是<b>雙方爸媽的照片</b>（可用你準備的爸媽當年交往帥照美照）。把「故事的起點」交給他們，一開場就有份量、又不煽情。
+        <div class="card">這不是今天的主角，但故事是從這裡開始的。</div>
+      </div>
+    </div>
+    <div class="beat">
+      <div class="beat-head"><span class="no">2</span><span class="t">新人寶寶時期</span><span class="dur">~40 秒</span></div>
+      <div class="in">接著出現你們兩個的<b>寶寶／小時候照片</b>（男女方交錯），一張約 2–3 秒，挑最好笑、最有戲的當梗。
+        <div class="card">而這兩個小傢伙，當年完全不知道有天會湊成一對。</div>
+      </div>
+    </div>
+    <div class="beat">
+      <div class="beat-head"><span class="no">3</span><span class="t">跟家人的合照</span><span class="dur">~40 秒</span></div>
+      <div class="in">你們一路長大、與<b>家人的合照</b>（爸媽、阿公阿嬤、兄弟姊妹）。這段鋪「被很多愛養大」的溫度。
+        <div class="card">被這麼多人的愛養大，才長成今天的我們。</div>
+      </div>
+    </div>
+    <div class="beat">
+      <div class="beat-head"><span class="no">▶</span><span class="t">穿插・給家人的一段話（預錄影片）</span><span class="dur">~40–60 秒</span></div>
+      <div class="in"><b>中間穿插一段你們預先錄好、對家人說的話。</b>這是全片的情感核心——家人本人在台下看到會最有感。放在中間剛好，不用等到最後才謝、也不會太沉重。真誠為主，可以帶一點你們的幽默（先吐槽再說真心話，最不尷尬）。
+        <div class="card">（兩人一起入鏡）爸、媽——這段話，我們想當著大家的面，好好說。</div>
+      </div>
+    </div>
+    <div class="beat">
+      <div class="beat-head"><span class="no">4</span><span class="t">交往 → 求婚 → 在一起</span><span class="dur">~60 秒</span></div>
+      <div class="in">這裡才進到<b>你們兩個</b>——怎麼認識、約會、一起唱歌、旅行、求婚那天。放最歡樂、最有笑點的生活照與短片，買花、打鬧全放進來。
+        <div class="card">然後，這兩隻湊成了一對——買花、約會、沒事一起飆迪士尼歌，每天打打鬧鬧，朋友都說我們像一對卡通人物。浪漫是真的，正經是不可能的。</div>
+      </div>
+    </div>
+    <div class="beat">
+      <div class="beat-head"><span class="no">5</span><span class="t">收尾字卡</span><span class="dur">~10 秒</span></div>
+      <div class="in">收在你們的合照，一句歡樂、往前看的字卡收尾（家人的情緒已在中段的錄影給足，這裡輕快收）。
+        <div class="card">兩家正式併成一家——概不退貨。接下來，一起吵吵鬧鬧、熱熱鬧鬧下去。</div>
+      </div>
+    </div>
+
+    <h2 class="sec">選照片與素材</h2>
+    <ul class="notes">
+      <li><b>兩家張數要平均。</b>男方女方照片數量盡量對等，避免一邊多很多——這點長輩很在意。</li>
+      <li><b>挑「有故事、清楚」的，不貪多。</b>每張 2–3 秒，全片約 30–50 張＋幾段短影片就夠；同一時期別放太多張。</li>
+      <li><b>照片翻拍要高解析。</b>老照片用掃描或翻拍 App 拍清楚，橫式（16:9）優先，直式可做背景模糊填滿。</li>
+      <li><b>生活抓拍 &gt; 擺拍。</b>真實、有表情、有互動的照片最動人，勝過制式沙龍照。</li>
+    </ul>
+
+    <h2 class="sec">音樂建議</h2>
+    <ul class="notes">
+      <li><b>走輕快俏皮、別鋪太滿。</b>幽默版建議用輕鬆的曲子（迪士尼輕快器樂、輕鬆鋼琴／烏克麗麗），情緒到中段「給家人的話」稍微收柔就好，不用一路催淚。</li>
+      <li><b>經典成長配樂：</b>《Up》的〈Married Life〉很神但偏催淚——你們走幽默路線的話當背景可以，只是別讓它把氣氛拉太傷感；想維持主題就用迪士尼輕快器樂。</li>
+      <li><b>版權同序幕：</b>現場播一次沒問題；若要上網分享，改用免版稅的抒情鋼琴／弦樂，避免被 Content-ID 判定。</li>
+    </ul>
+
+    <h2 class="sec">加分點子</h2>
+    <ul class="notes">
+      <li><b>爸媽的「當年照」是隱藏王牌。</b>交往時的帥照美照就是<b>開場「雙方爸媽」</b>那段的素材；也可以在<b>家人合照</b>段做「當年 vs 現在」對比——好笑又暖，全場都愛。</li>
+      <li><b>同姿勢對比照。</b>找一張小時候的照片，現在用同姿勢重拍一張並排——超催淚又好笑，社群也愛。</li>
+      <li><b>父母彩蛋。</b>偷偷錄雙方父母各說一句話（「我女兒／兒子小時候……」），接在你們「給家人的話」<b>之後</b>當回應、或剪進家人合照段，父母本人在台下看到會崩潰（好的那種）。</li>
+      <li><b>手寫字卡。</b>字卡用手寫感字體、簡短，標年份就好；關鍵幾張才配一句話，不要每張都寫。</li>
+    </ul>
+
+    <h2 class="sec">製作規格 · Checklist</h2>
+    <ul class="notes">
+      <li><b>長度 3.5–4 分鐘。</b>一半是長輩，太長會坐不住；情緒到位就收。</li>
+      <li><b>16:9、高解析、畫面亮＋對比高。</b>現場無法關燈，暗色畫面會被環境光洗掉；字級放大。</li>
+      <li><b>音量先測、現場先試播一次。</b>確認投影機夠亮、聲音夠大、字看得清楚。</li>
+      <li><b>素材要早點跟雙方父母要。</b>老照片最花時間，提前兩三週開口收集。</li>
+    </ul>
+  </div>
+
+  <footer>📖　<span>The Real Album · 成長影片製作指南</span>　·　序幕(童話) → 成長(真實) → 片尾(森林)　·　可依製作再行微調　📖</footer>
+</div>
+</body>
+</html>
