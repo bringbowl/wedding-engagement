@@ -2,7 +2,7 @@
 import html
 
 OWNER_COLORS = {
-    "新郎":"#2F5A7A", "新郎跟主婚人":"#2F5A7A", "新娘":"#B4476B", "新郎新娘":"#A8822F",
+    "新郎":"#2F5A7A", "新郎跟主婚人":"#2F5A7A", "新娘":"#B4476B", "新娘表妹":"#9C4A6E", "新郎新娘":"#A8822F",
     "伴郎":"#2E7D6B", "伴娘":"#7A4E9E", "文魚":"#7A4E9E", "Linda":"#9A4E86",
     "婚顧":"#6b6150", "大家一起":"#6b6150", "伴郎伴娘":"#8a5a2b",
 }
@@ -56,6 +56,11 @@ SECTIONS = [
    ("i","伴郎","各桌桌卡擺放"),
     ("i","新郎跟主婚人","主婚人別上胸花"),
  ]),
+ ("12:00", "宴席開始後", "AFTER BANQUET STARTS", "新娘表妹", [
+   ("i","新娘表妹","投票貼紙 / 禮金簿 / 筆電 / 文具 收到新娘房"),
+   ("i","新娘表妹","紅包給新娘三姨"),
+   ("i","新娘表妹","檢查沒有貴重物品後再離開"),
+ ]),
  ("結束後", "收尾清點", "WRAP-UP", "", [
    ("i","新娘","禮金清點"),
    ("i","大家一起","回收禮金桌物品"),
@@ -95,7 +100,7 @@ for badge,title,en,secowner,items in SECTIONS:
       {f'<div class="secownbar">{secpill}</div>' if secowner else ''}
       <div class="items">{''.join(rows)}</div></section>''')
 sections_html="\n".join(secs_html)
-LEG=[("新郎","新郎"),("新娘","新娘"),("伴郎","伴郎"),("伴娘","伴娘"),("文魚","文魚(伴娘)"),("新郎跟主婚人","新郎跟主婚人"),("Linda","Linda(伴娘)"),("婚顧","婚顧")]
+LEG=[("新郎","新郎"),("新娘","新娘"),("新娘表妹","新娘表妹"),("伴郎","伴郎"),("伴娘","伴娘"),("文魚","文魚(伴娘)"),("新郎跟主婚人","新郎跟主婚人"),("Linda","Linda(伴娘)"),("婚顧","婚顧")]
 legend="".join(f'<span class="lg">{pill(k)}<i>{html.escape(lbl)}</i></span>' for k,lbl in LEG)
 
 HTML=f'''<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">

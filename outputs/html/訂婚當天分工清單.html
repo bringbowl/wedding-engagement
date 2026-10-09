@@ -74,11 +74,11 @@
   </header>
   <div class="bar">
     <div class="prog"><div class="ptrack"><div class="pfill" id="pfill"></div></div>
-      <div class="plab"><span id="pnum">0</span> / 40 已完成</div></div>
+      <div class="plab"><span id="pnum">0</span> / 43 已完成</div></div>
     <button onclick="window.print()">列印</button>
     <button onclick="resetAll()">重置</button>
   </div>
-  <div class="legend"><span class="lg"><span class="own" style="background:#2F5A7A;">新郎</span><i>新郎</i></span><span class="lg"><span class="own" style="background:#B4476B;">新娘</span><i>新娘</i></span><span class="lg"><span class="own" style="background:#2E7D6B;">伴郎</span><i>伴郎</i></span><span class="lg"><span class="own" style="background:#7A4E9E;">伴娘</span><i>伴娘</i></span><span class="lg"><span class="own" style="background:#7A4E9E;">文魚</span><i>文魚(伴娘)</i></span><span class="lg"><span class="own" style="background:#2F5A7A;">新郎跟主婚人</span><i>新郎跟主婚人</i></span><span class="lg"><span class="own" style="background:#9A4E86;">Linda</span><i>Linda(伴娘)</i></span><span class="lg"><span class="own" style="background:#6b6150;">婚顧</span><i>婚顧</i></span></div>
+  <div class="legend"><span class="lg"><span class="own" style="background:#2F5A7A;">新郎</span><i>新郎</i></span><span class="lg"><span class="own" style="background:#B4476B;">新娘</span><i>新娘</i></span><span class="lg"><span class="own" style="background:#9C4A6E;">新娘表妹</span><i>新娘表妹</i></span><span class="lg"><span class="own" style="background:#2E7D6B;">伴郎</span><i>伴郎</i></span><span class="lg"><span class="own" style="background:#7A4E9E;">伴娘</span><i>伴娘</i></span><span class="lg"><span class="own" style="background:#7A4E9E;">文魚</span><i>文魚(伴娘)</i></span><span class="lg"><span class="own" style="background:#2F5A7A;">新郎跟主婚人</span><i>新郎跟主婚人</i></span><span class="lg"><span class="own" style="background:#9A4E86;">Linda</span><i>Linda(伴娘)</i></span><span class="lg"><span class="own" style="background:#6b6150;">婚顧</span><i>婚顧</i></span></div>
   <section class="sec">
       <div class="sec-h">
         <span class="badge">出發前</span>
@@ -111,17 +111,26 @@
     </section>
 <section class="sec">
       <div class="sec-h">
+        <span class="badge">12:00</span>
+        <span class="st"><span class="zh">宴席開始後</span><span class="en">AFTER BANQUET STARTS</span></span>
+        <span class="cnt" data-cnt>0/3</span>
+      </div>
+      <div class="secownbar"><span class="secown">全部：<span class="own" style="background:#9C4A6E;">新娘表妹</span></span></div>
+      <div class="items"><label class="item"><input type="checkbox" data-i="36"><span class="box"></span><span class="t">投票貼紙 / 禮金簿 / 筆電 / 文具 收到新娘房</span><span class="own" style="background:#9C4A6E;">新娘表妹</span></label><label class="item"><input type="checkbox" data-i="37"><span class="box"></span><span class="t">紅包給新娘三姨</span><span class="own" style="background:#9C4A6E;">新娘表妹</span></label><label class="item"><input type="checkbox" data-i="38"><span class="box"></span><span class="t">檢查沒有貴重物品後再離開</span><span class="own" style="background:#9C4A6E;">新娘表妹</span></label></div>
+    </section>
+<section class="sec">
+      <div class="sec-h">
         <span class="badge">結束後</span>
         <span class="st"><span class="zh">收尾清點</span><span class="en">WRAP-UP</span></span>
         <span class="cnt" data-cnt>0/4</span>
       </div>
       
-      <div class="items"><label class="item"><input type="checkbox" data-i="36"><span class="box"></span><span class="t">禮金清點</span><span class="own" style="background:#B4476B;">新娘</span></label><label class="item"><input type="checkbox" data-i="37"><span class="box"></span><span class="t">回收禮金桌物品</span><span class="own" style="background:#6b6150;">大家一起</span></label><label class="item"><input type="checkbox" data-i="38"><span class="box"></span><span class="t">尾款結算</span><span class="own" style="background:#B4476B;">新娘</span></label><label class="item"><input type="checkbox" data-i="39"><span class="box"></span><span class="t">工作人員紅包發放（伴郎伴娘記得來領）</span><span class="own" style="background:#B4476B;">新娘</span></label></div>
+      <div class="items"><label class="item"><input type="checkbox" data-i="39"><span class="box"></span><span class="t">禮金清點</span><span class="own" style="background:#B4476B;">新娘</span></label><label class="item"><input type="checkbox" data-i="40"><span class="box"></span><span class="t">回收禮金桌物品</span><span class="own" style="background:#6b6150;">大家一起</span></label><label class="item"><input type="checkbox" data-i="41"><span class="box"></span><span class="t">尾款結算</span><span class="own" style="background:#B4476B;">新娘</span></label><label class="item"><input type="checkbox" data-i="42"><span class="box"></span><span class="t">工作人員紅包發放（伴郎伴娘記得來領）</span><span class="own" style="background:#B4476B;">新娘</span></label></div>
     </section>
   <footer>BARRY <span class="g">&#10022;</span> WINNIE<span class="g">&#10022;</span>幸福登機門　TAINAN 10&middot;11</footer>
 </div>
 <script>
-  var KEY="bw_duty_v1", total=40;
+  var KEY="bw_duty_v1", total=43;
   var boxes=[].slice.call(document.querySelectorAll('input[type=checkbox]'));
   function load(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return {};}}
   function save(st){try{localStorage.setItem(KEY,JSON.stringify(st));}catch(e){}}
