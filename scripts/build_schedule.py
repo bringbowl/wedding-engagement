@@ -1285,7 +1285,7 @@ HTML = """<!doctype html>
             <div class="meta-row">
               <span class="m-label couple">新人備</span>
               <span class="m-text">
-                <b>六禮（聘禮桌擺放）：</b>1. 秘覓喜餅*24盒、2. 日禾春喜餅*24盒、3. 四色喜糖*2組、4. 香燭禮炮*2組、5. 男/女頭尾禮紅包、6. 男/女金飾、7. 小聘(現金)、8. 木盛盒*1<br>
+                <b>六禮（聘禮桌擺放）：</b>1. 覓蜜喜餅*24盒、2. 日禾春喜餅*24盒、3. 四色喜糖*2組、4. 香燭禮炮*2組、5. 男/女頭尾禮紅包、6. 男/女金飾、7. 小聘(現金)、8. 木盛盒*1<br>
                 <b>儀式另備：</b>男方長輩喝茶紅包*6、甜湯 1 碗
               </span>
             </div>
@@ -1415,7 +1415,7 @@ HTML = """<!doctype html>
           <div class="t-meta-box">
             <div class="meta-row">
               <span class="m-label couple">喜餅回禮</span>
-              <span class="m-text">中式秘覓 12 盒 ＋ 西式日禾春 12 盒（男方回禮帶回）</span>
+              <span class="m-text">中式覓蜜 12 盒 ＋ 西式日禾春 12 盒（男方回禮帶回）</span>
             </div>
           </div>
         </div>
@@ -1773,7 +1773,7 @@ HTML = """<!doctype html>
             <span class="cl-tag">自備物品</span>
           </div>
           <ul class="cl-items">
-            <li><span class="cl-dot">✦</span><b>六禮聘禮：</b>秘覓喜餅*24盒、日禾春喜餅*24盒、四色喜糖*2組、香燭禮炮*2組、頭尾禮紅包、男女金飾、小聘現金、木盛盒*1</li>
+            <li><span class="cl-dot">✦</span><b>六禮聘禮：</b>覓蜜喜餅*24盒、日禾春喜餅*24盒、四色喜糖*2組、香燭禮炮*2組、頭尾禮紅包、男女金飾、小聘現金、木盛盒*1</li>
             <li><span class="cl-dot">✦</span><b>儀式紅包：</b>男方長輩喝茶紅包*6包、壓桌錢紅包</li>
             <li><span class="cl-dot">✦</span><b>儀式物品：</b>甜湯 1 碗</li>
             <li><span class="cl-dot">✦</span><b>胸花佩戴：</b>新郎胸花*1、主婚人胸花*4</li>
