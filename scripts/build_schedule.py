@@ -1410,12 +1410,12 @@ HTML = """<!doctype html>
           </div>
           <div class="t-body">
             <b>儀式圓滿完成，新人回休息室收拾。</b>
-            <div class="notice-star">★ 提醒：預留中、西喜餅各 12 盒於新娘房（男方帶回）。</div>
+            <div class="notice-star">★ 提醒：預留中、西喜餅各 14 盒於新娘房（男方帶回）。</div>
           </div>
           <div class="t-meta-box">
             <div class="meta-row">
               <span class="m-label couple">喜餅回禮</span>
-              <span class="m-text">中式覓蜜 12 盒 ＋ 西式日禾春 12 盒（男方回禮帶回）</span>
+              <span class="m-text">中式覓蜜 14 盒 ＋ 西式日禾春 14 盒（男方回禮帶回）</span>
             </div>
           </div>
         </div>
