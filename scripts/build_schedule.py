@@ -1451,24 +1451,76 @@ HTML = """<!doctype html>
           </div>
         </div>
 
-        <!-- 11:30 迎賓 -->
-        <div class="t-card">
+        <!-- 11:30 - 12:00 迎賓接待 -->
+        <div class="t-card highlight">
           <div class="t-top">
-            <span class="t-time">11:30</span>
-            <span class="t-act">賓客迎賓 · 貼紙活動</span>
+            <span class="t-time">11:30 - 12:00</span>
+            <span class="t-act">賓客迎賓 · 簽到接待與帶位</span>
           </div>
           <div class="t-body">
-            <b>迎賓開始：</b>播放迎賓音樂、輪播婚紗照影片。
-            賓客於禮金桌簽到、領取喜餅，並於臉部貼上 <b>Dresscode 貼紙</b>準備稍後互動！
+            <b>迎賓開始：</b>播放輕快迎賓音樂、大螢幕輪播婚紗照影片。賓客陸續抵達會場，展開熱鬧迎賓接待！
+
+            <!-- 人員分工 -->
+            <div class="sub-section" style="margin-top: 10px;">
+              <div class="sub-sec-title">👥 現場人員迎賓分工職責</div>
+              <ul class="step-list" style="font-size: 13.5px;">
+                <li><b>🤵 新郎與主婚人：</b>於門口及接待區<b>熱情接待賓客</b>、寒暄致意與合影留念。</li>
+                <li><b>🚗 伴郎（Ollie、2千）：</b>負責<b>賓客帶位入座</b>，依據桌位對照圖引導親友至指定桌次。</li>
+                <li><b>🎀 伴娘（文魚、Linda）＆ 新娘表妹：</b>負責<b>簽到桌核心作業</b>：
+                  <div style="font-size: 12.5px; color: var(--wine); margin-top: 4px; line-height: 1.55;">
+                    ① 介紹「世界紙」簽到方式<br>
+                    ② 點名報到 ＆ 清點禮金<br>
+                    ③ 發放迎賓三大項（投票貼紙一人 2 張、喜餅依名冊、手機支架盲盒一人 1 個）<br>
+                    ④ 致電聯繫太晚到的人確認出席狀況與進度
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- 備註說明：簽到方式與三大項發放 -->
+            <div class="sub-section" style="margin-top: 10px;">
+              <div class="sub-sec-title">📝 簽到方式 ＆ 迎賓三大項領取詳細說明</div>
+              <ul class="step-list" style="font-size: 13px; line-height: 1.65;">
+                <li>
+                  <b>🌍 【簽到方式】獨一無二的世界紙簽名留念：</b><br>
+                  每位賓客挑選一張<b>獨一無二的世界紙</b>，拿筆簽名 ＋ 寫上祝福的話或想對新人說的話，寫完後再親手放進相簿裡珍藏！
+                </li>
+                <li>
+                  <b>🎟️ 【項目 ① 投票貼紙】Dresscode 大賞票選：</b><br>
+                  每位賓客<b>一人發放 2 張貼紙</b>，貼在身上或臉部，用來投給現場你覺得今天打扮最棒、最用心的人，午宴活動前三名有精美大賞獎品！
+                </li>
+                <li>
+                  <b>🍪 【項目 ② 喜餅發放】：</b><br>
+                  按照 <b>Excel 雲端表單</b> 登記名冊精確核對後發放（確認中式 / 西式 / 盒數）。
+                </li>
+                <li>
+                  <b>🎁 【項目 ③ 婚禮小物】手機支架藝術盲盒：</b><br>
+                  每位賓客<b>一人發放 1 個</b>手機支架盲盒！
+                  <div style="margin-top: 5px; padding: 7px 10px; background: rgba(255,255,255,0.75); border-radius: 6px; border: 1px dashed var(--gold); font-size: 12.5px; line-height: 1.6;">
+                    <b>🎭 共有 8 款人氣角色盲盒隨機抽取：</b><br>
+                    👑 <b>白雪公主</b> · 🎨 <b>梵高</b> · 🦪 <b>珍珠少女</b> · 🌹 <b>小王子</b><br>
+                    🌺 <b>佛里達</b> · ⏰ <b>達利</b> · 🤥 <b>皮諾丘</b> · 🧺 <b>小紅帽</b>
+                  </div>
+                </li>
+                <li>
+                  <b>📞 【太晚到名單電聯確認】：</b><br>
+                  接近 12:00 尚未報到之賓客，由伴娘／表妹致電聯繫，確認是否已在路途上，以利掌控開席時間。
+                </li>
+              </ul>
+            </div>
           </div>
           <div class="t-meta-box">
             <div class="meta-row">
-              <span class="m-label media">影音</span>
-              <span class="m-text">迎賓音樂 ＋ 婚紗輪播影片（筆電：Amy）</span>
+              <span class="m-label staff">人員分工</span>
+              <span class="m-text">新郎＆主婚人（接待）／伴郎（帶位）／伴娘＆新娘表妹（簽到、禮金、三大項發放、太晚到電聯）</span>
             </div>
             <div class="meta-row">
-              <span class="m-label couple">新人備</span>
-              <span class="m-text">Dresscode 臉部貼紙（接待禮金桌發放）</span>
+              <span class="m-label couple">迎賓必備</span>
+              <span class="m-text">世界紙簽名相簿＋筆、投票貼紙（一人2張）、喜餅（依名冊發放）、手機支架盲盒（一人1個，共8款角色）</span>
+            </div>
+            <div class="meta-row">
+              <span class="m-label media">影音</span>
+              <span class="m-text">迎賓音樂 ＋ 婚紗輪播影片（筆電播映：Amy）</span>
             </div>
           </div>
         </div>
@@ -1777,7 +1829,8 @@ HTML = """<!doctype html>
             <li><span class="cl-dot">✦</span><b>儀式紅包：</b>男方長輩喝茶紅包*6包、壓桌錢紅包</li>
             <li><span class="cl-dot">✦</span><b>儀式物品：</b>甜湯 1 碗</li>
             <li><span class="cl-dot">✦</span><b>胸花佩戴：</b>新郎胸花*1、主婚人胸花*4</li>
-            <li><span class="cl-dot">✦</span><b>迎賓活動：</b>Dresscode 臉部貼紙</li>
+            <li><span class="cl-dot">✦</span><b>簽到用品：</b>獨一無二世界紙、簽名筆、簽名相簿</li>
+            <li><span class="cl-dot">✦</span><b>迎賓三大項：</b>Dresscode 投票貼紙（一人 2 張）、喜餅（依表單名冊發放）、手機支架盲盒（一人 1 個，8款人氣角色）</li>
             <li><span class="cl-dot">✦</span><b>二進獎品：</b>3D立體拼裝書、教堂甜拼圖、45cm維尼熊</li>
             <li><span class="cl-dot">✦</span><b>活動獎金：</b>禮券紅包*6包</li>
             <li><span class="cl-dot">✦</span><b>送客甜點：</b>乖乖、巧克力</li>
@@ -1808,15 +1861,16 @@ HTML = """<!doctype html>
           </div>
           <ul class="cl-items">
             <li><span class="cl-dot">✦</span><b>婚禮主持兼音控：</b>Amy（筆電播映、儀式引導、流程掌控）</li>
+            <li><span class="cl-dot">✦</span><b>新郎與雙方主婚人：</b>11:30–12:00 門口接待區熱情接待賓客</li>
             <li><span class="cl-dot">✦</span><b>女方開妝新秘：</b>妃妃（06:15 抵達永康新娘家 setting，新娘＆媽媽梳化）</li>
             <li><span class="cl-dot">✦</span><b>男方開妝化妝師：</b>男方化妝師（02:50 抵達男方開妝）</li>
             <li><span class="cl-dot">✦</span><b>女方好命婆：</b>二姨 (郭乃萍)（牽引、奉茶、扶椅）</li>
             <li><span class="cl-dot">✦</span><b>男方媒人婆：</b>阿珠阿姨</li>
             <li><span class="cl-dot">✦</span><b>男方喝茶長輩：</b>爸爸、媽媽、阿公、堂伯父、叔叔、新郎</li>
             <li><span class="cl-dot">✦</span><b>代收紅包/壓桌錢：</b>文魚（伴娘）</li>
-            <li><span class="cl-dot">✦</span><b>禮金桌收尾：</b>新娘表妹（12:30 禮金簿/筆電/文具收至新娘房、紅包轉交新娘三姨）</li>
-            <li><span class="cl-dot">✦</span><b>伴郎組：</b>Ollie（趙銘輝）、2千（劉良謙）— 08:30 出發去新娘家搬東西、協助搬運禮服道具上車至會場</li>
-            <li><span class="cl-dot">✦</span><b>伴娘組：</b>文魚（張文瑜）、Linda（李佳諭）— 06:00 提早開妝、09:00 出發去漂亮議會廳提早就位</li>
+            <li><span class="cl-dot">✦</span><b>簽到桌接待＆收尾：</b>新娘表妹（11:30–12:00 協助伴娘簽到桌接待、12:30 禮金簿/筆電/文具收至新娘房、紅包轉交新娘三姨）</li>
+            <li><span class="cl-dot">✦</span><b>伴郎組：</b>Ollie（趙銘輝）、2千（劉良謙）— 08:30 出發去新娘家搬東西、11:30–12:00 賓客帶位入座</li>
+            <li><span class="cl-dot">✦</span><b>伴娘組：</b>文魚（張文瑜）、Linda（李佳諭）— 06:00 提早開妝、09:00 出發會場、11:30–12:00 簽到桌（介紹世界紙簽到、點名報到、清點禮金、發放三大項、太晚到電聯）</li>
             <li><span class="cl-dot">✦</span><b>婚禮攝影與錄影：</b>竺竺 ＆ 萊玥</li>
             <li><span class="cl-dot">✦</span><b>會場佈置：</b>法爾佈置</li>
           </ul>
