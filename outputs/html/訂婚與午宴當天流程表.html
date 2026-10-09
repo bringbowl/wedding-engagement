@@ -268,6 +268,227 @@
       border: 1px solid #BED7FB;
     }
 
+    /* Synchronized Comparison (男女方左右對照) */
+    .sync-legend-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+      position: sticky;
+      top: 56px;
+      z-index: 90;
+    }
+    .sync-legend-item {
+      padding: 9px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    .sync-legend-item.groom {
+      background: #EBF3FD;
+      color: #1557B0;
+      border: 1.5px solid #BED7FB;
+    }
+    .sync-legend-item.bride {
+      background: #FDF0EE;
+      color: #A51D24;
+      border: 1.5px solid #F5C2C7;
+    }
+    .sync-legend-sub {
+      font-size: 11px;
+      font-weight: normal;
+      opacity: .85;
+    }
+
+    .sync-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .sync-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 14px 15px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.03);
+      position: relative;
+      transition: border-color .15s;
+    }
+    .sync-card:hover {
+      border-color: var(--gold);
+    }
+    .sync-card.highlight {
+      border: 1.5px solid var(--gold);
+      background: linear-gradient(180deg, #FFFFFF 0%, #FCF9F2 100%);
+      box-shadow: 0 4px 16px rgba(201, 162, 75, 0.12);
+    }
+
+    .sync-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 11px;
+      padding-bottom: 9px;
+      border-bottom: 1px solid #F0E5D4;
+    }
+    .sync-time-pill {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--wine);
+      background: var(--cream);
+      border: 1px solid var(--gold);
+      padding: 3px 10px;
+      border-radius: 8px;
+      letter-spacing: .08em;
+      white-space: nowrap;
+    }
+    .sync-head-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--wine);
+      text-align: right;
+      letter-spacing: .02em;
+    }
+
+    .sync-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .sync-col {
+      border-radius: 10px;
+      padding: 11px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .sync-col.groom {
+      background: #F4F8FD;
+      border: 1px solid #D2E3FC;
+    }
+    .sync-col.bride {
+      background: #FDF5F4;
+      border: 1px solid #F9D5D1;
+    }
+
+    .sync-col-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+      margin-bottom: 2px;
+    }
+    .sync-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 5px;
+      letter-spacing: .03em;
+    }
+    .sync-badge.groom {
+      background: #1A73E8;
+      color: #fff;
+    }
+    .sync-badge.bride {
+      background: #D9383A;
+      color: #fff;
+    }
+    .sync-target {
+      font-size: 11px;
+      color: var(--gray-ink);
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sync-act-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: .01em;
+    }
+    .sync-col.groom .sync-act-name {
+      color: #1557B0;
+    }
+    .sync-col.bride .sync-act-name {
+      color: #A51D24;
+    }
+
+    .sync-desc-text {
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: #33261C;
+    }
+
+    .sync-pill-note {
+      margin-top: 4px;
+      font-size: 11px;
+      padding: 4px 7px;
+      border-radius: 5px;
+      background: rgba(255,255,255,0.85);
+      border: 1px dashed rgba(0,0,0,0.12);
+      color: var(--gray-ink);
+      line-height: 1.4;
+    }
+    .sync-pill-note b {
+      color: var(--wine);
+    }
+
+    @media (max-width: 480px) {
+      .sync-legend-bar {
+        gap: 6px;
+        top: 52px;
+      }
+      .sync-legend-item {
+        font-size: 12px;
+        padding: 6px 4px;
+      }
+      .sync-legend-sub {
+        font-size: 10px;
+      }
+      .sync-card {
+        padding: 11px 10px 12px;
+      }
+      .sync-cols {
+        gap: 6px;
+      }
+      .sync-col {
+        padding: 8px 7px;
+        gap: 4px;
+      }
+      .sync-time-pill {
+        font-size: 14.5px;
+        padding: 2px 7px;
+      }
+      .sync-head-title {
+        font-size: 12.5px;
+      }
+      .sync-act-name {
+        font-size: 12px;
+      }
+      .sync-desc-text {
+        font-size: 11px;
+        line-height: 1.4;
+      }
+      .sync-target {
+        display: none;
+      }
+      .sync-pill-note {
+        font-size: 10px;
+        padding: 3px 5px;
+      }
+    }
+
     /* Location Card */
     .loc-card {
       background: #FFFDF8;
@@ -642,7 +863,8 @@
       body { background: #fff; padding: 0; }
       .top-nav, .tabs-bar, .next-pane-btn, .foot-note, footer, .pre-arrival-banner { display: none !important; }
       .tab-pane { display: block !important; page-break-after: always; }
-      .t-card, .cl-box, .loc-card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+      .t-card, .sync-card, .cl-box, .loc-card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+      .sync-legend-bar { position: static !important; }
     }
   </style>
 </head>
@@ -681,21 +903,15 @@
     <!-- ==================== TAB 1: 抵達前梳化＆出發 ==================== -->
     <div id="tab-before" class="tab-pane active">
       <div class="pane-header">
-        <h2><span>🌅</span> 清晨 · 抵達前梳化 ＆ 移動出發</h2>
+        <h2><span>🌅</span> 清晨 · 男女方抵達前同步對照時程</h2>
         <span class="badge">02:50 - 09:50</span>
-      </div>
-
-      <!-- 女方專區 -->
-      <div class="party-title">
-        <span>👰 女方時程 · 永康新娘家 ➔ 漂亮議會廳</span>
-        <span class="party-badge bride">新娘＆女方親友</span>
       </div>
 
       <!-- 開妝地點卡片 -->
       <div class="loc-card">
         <div class="loc-head">
           <span class="loc-title">🏠 開妝地點 · 新娘家</span>
-          <span class="party-badge bride">女方集合點</span>
+          <span class="party-badge bride">女方開妝集合點</span>
         </div>
         <div class="loc-address">台南市永康區廣興街38巷25弄31號</div>
         <div class="loc-action-bar">
@@ -703,188 +919,291 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
             開啟 Google 地圖導航 ↗
           </a>
-          <span class="loc-vendor-note">新秘造型：<b>妃妃</b></span>
+          <span class="loc-vendor-note">新秘造型：<b>妃妃</b> · 伴娘：<b>文魚、Linda</b></span>
         </div>
       </div>
 
-      <div class="timeline">
-        <!-- 06:15 -->
-        <div class="t-card">
-          <div class="t-top">
-            <span class="t-time">06:15</span>
-            <span class="t-act">新秘抵達 · Setting</span>
-          </div>
-          <div class="t-body">
-            <b>新秘妃妃抵達新娘家。</b>
-            梳化工具擺設定位、化妝燈鏡就位，進行妝前保養打底準備。
-          </div>
-          <div class="t-meta-box">
-            <div class="meta-row">
-              <span class="m-label staff">人員</span>
-              <span class="m-text">新秘妃妃、新娘</span>
-            </div>
-            <div class="meta-row">
-              <span class="m-label couple">地點</span>
-              <span class="m-text">永康新娘家（台南市永康區廣興街38巷25弄31號）</span>
-            </div>
-          </div>
+      <!-- 左右對照指示欄 (Sticky) -->
+      <div class="sync-legend-bar">
+        <div class="sync-legend-item groom">
+          <span>🤵 男方時程</span>
+          <span class="sync-legend-sub">(新郎 · 伴郎 · 男方親友)</span>
         </div>
-
-        <!-- 06:30 - 09:15 -->
-        <div class="t-card highlight">
-          <div class="t-top">
-            <span class="t-time">06:30 - 09:15</span>
-            <span class="t-act">新娘妝髮造型</span>
-          </div>
-          <div class="t-body">
-            <b>新娘完整妝髮梳化（文定第一套新中式造型）。</b>
-            基礎保養、精緻底妝、眼妝修容、編髮造型。完妝後換穿文定禮服。
-            <div class="notice-star">★ 完妝時間預留充足，確保妝容服貼無瑕，穿著開扣或拉鍊衣物方便更換禮服。</div>
-          </div>
-          <div class="t-meta-box">
-            <div class="meta-row">
-              <span class="m-label staff">造型</span>
-              <span class="m-text">文定第 1 套造型（新中式紅色禮服）</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 07:00 - 09:00 -->
-        <div class="t-card">
-          <div class="t-top">
-            <span class="t-time">07:00 - 09:00</span>
-            <span class="t-act">新娘媽媽妝髮</span>
-          </div>
-          <div class="t-body">
-            <b>新娘媽媽妝髮梳化。</b>
-            媽媽粉底、彩妝及高雅髮型吹整，著宴會主婚人禮服。
-          </div>
-          <div class="t-meta-box">
-            <div class="meta-row">
-              <span class="m-label staff">人員</span>
-              <span class="m-text">新娘媽媽（主婚人）</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 09:30 -->
-        <div class="t-card highlight">
-          <div class="t-top">
-            <span class="t-time">09:30</span>
-            <span class="t-act">移動至宴會廳</span>
-          </div>
-          <div class="t-body">
-            <b>女方由新娘家出發，移動前往阿勇家漂亮議會廳。</b>
-            女方親友、伴娘（文魚、Linda）攜帶隨身急救包、禮服及物品出發。
-          </div>
-          <div class="t-meta-box">
-            <div class="meta-row">
-              <span class="m-label couple">隨身備</span>
-              <span class="m-text">新娘急救包、備用鞋、合約尾款、婚鞋、飾品盒</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 09:50 -->
-        <div class="t-card highlight">
-          <div class="t-top">
-            <span class="t-time">09:50</span>
-            <span class="t-act">進休息室 · 上頭飾調整妝髮</span>
-          </div>
-          <div class="t-body">
-            <b>新娘進漂亮議會廳新娘休息室。</b>
-            新秘妃妃協助佩戴文定精緻金屬髮飾、耳環，進行最後補妝與細節調整，準備迎接 10:25 文定儀式入座！
-            <div class="notice-star">★ 10:00 親友陸續抵達會場，10:25 長輩入座奉茶區，好命婆二姨準備引導新娘。</div>
-          </div>
-          <div class="t-meta-box">
-            <div class="meta-row">
-              <span class="m-label venue">地點</span>
-              <span class="m-text">漂亮議會廳 · 新娘休息室</span>
-            </div>
-            <div class="meta-row">
-              <span class="m-label staff">人員</span>
-              <span class="m-text">新娘、新秘妃妃、女方好命婆二姨 (郭乃萍)</span>
-            </div>
-          </div>
+        <div class="sync-legend-item bride">
+          <span>👰 女方時程</span>
+          <span class="sync-legend-sub">(新娘 · 伴娘 · 女方親友)</span>
         </div>
       </div>
 
-      <!-- 男方專區 -->
-      <div class="party-title" style="margin-top: 30px;">
-        <span>🤵 男方時程 · 男方開妝 ➔ 遊覽車隊發車</span>
-        <span class="party-badge groom">新郎＆男方親友</span>
-      </div>
-
-      <div class="timeline">
+      <!-- 同步對照時間軸 -->
+      <div class="sync-timeline">
         <!-- 02:50 -->
-        <div class="t-card">
-          <div class="t-top">
-            <span class="t-time">02:50</span>
-            <span class="t-act">化妝師抵達</span>
+        <div class="sync-card">
+          <div class="sync-head">
+            <span class="sync-time-pill">02:50</span>
+            <span class="sync-head-title">化妝師抵達男方處所</span>
           </div>
-          <div class="t-body">
-            <b>化妝師抵達男方處所。</b>
-            整理化妝用品與工具，確認新郎及男方長輩梳化次序與空間。
-          </div>
-          <div class="t-meta-box">
-            <div class="meta-row">
-              <span class="m-label staff">人員</span>
-              <span class="m-text">男方化妝師、新郎</span>
+          <div class="sync-cols">
+            <div class="sync-col groom">
+              <div class="sync-col-tag">
+                <span class="sync-badge groom">🤵 男方</span>
+                <span class="sync-target">新郎 / 化妝師</span>
+              </div>
+              <div class="sync-act-name">💄 化妝師抵達處所</div>
+              <div class="sync-desc-text">化妝師抵達男方處所，準備化妝用具與空間，確認新郎及男方長輩梳化次序。</div>
+            </div>
+            <div class="sync-col bride">
+              <div class="sync-col-tag">
+                <span class="sync-badge bride">👰 女方</span>
+                <span class="sync-target">新娘家</span>
+              </div>
+              <div class="sync-act-name">🌙 清晨休養生息</div>
+              <div class="sync-desc-text">新娘與女方家人清晨休養生息，確認今日文定流程與女方物資清單。</div>
             </div>
           </div>
         </div>
 
         <!-- 03:00 -->
-        <div class="t-card highlight">
-          <div class="t-top">
-            <span class="t-time">03:00</span>
-            <span class="t-act">男方開妝</span>
+        <div class="sync-card highlight">
+          <div class="sync-head">
+            <span class="sync-time-pill">03:00</span>
+            <span class="sync-head-title">男方開妝梳化</span>
           </div>
-          <div class="t-body">
-            <b>新郎及男方親友開妝。</b>
-            新郎修容、髮型抓整吹定、西裝整裝；男方長輩梳化打理。
-          </div>
-          <div class="t-meta-box">
-            <div class="meta-row">
-              <span class="m-label staff">對象</span>
-              <span class="m-text">新郎 Barry、男方主婚人長輩</span>
+          <div class="sync-cols">
+            <div class="sync-col groom">
+              <div class="sync-col-tag">
+                <span class="sync-badge groom">🤵 男方</span>
+                <span class="sync-target">新郎 Barry &amp; 長輩</span>
+              </div>
+              <div class="sync-act-name">✨ 男方開妝整裝</div>
+              <div class="sync-desc-text">新郎修容、髮型抓整吹定、西裝整裝；男方主婚人長輩梳化打理。</div>
+            </div>
+            <div class="sync-col bride">
+              <div class="sync-col-tag">
+                <span class="sync-badge bride">👰 女方</span>
+                <span class="sync-target">新娘</span>
+              </div>
+              <div class="sync-act-name">💧 晨間梳洗準備</div>
+              <div class="sync-desc-text">新娘晨間盥洗、妝前基礎保養，準備迎接後續開妝。</div>
             </div>
           </div>
         </div>
 
         <!-- 05:00 -->
-        <div class="t-card highlight">
-          <div class="t-top">
-            <span class="t-time">05:00</span>
-            <span class="t-act">遊覽車準時發車</span>
+        <div class="sync-card highlight">
+          <div class="sync-head">
+            <span class="sync-time-pill">05:00</span>
+            <span class="sync-head-title">遊覽車發車 ＆ 娘家場地準備</span>
           </div>
-          <div class="t-body">
-            <b>男方親友團集合，遊覽車準時發車南下台南！</b>
-            清點隨車聘禮與貴重物品，出發前往「阿勇家漂亮議會廳」。
-            <div class="notice-star">★ 隨車物資提醒：六禮聘禮（喜餅各24盒、四色喜糖、香燭禮炮、小聘現金、金飾盒、木盛盒）、男方長輩喝茶紅包（6包）。</div>
-          </div>
-          <div class="t-meta-box">
-            <div class="meta-row">
-              <span class="m-label couple">重要物資</span>
-              <span class="m-text">文定六禮聘禮、金飾盒、小聘現金、喝茶紅包*6</span>
+          <div class="sync-cols">
+            <div class="sync-col groom">
+              <div class="sync-col-tag">
+                <span class="sync-badge groom">🤵 男方</span>
+                <span class="sync-target">親友團 / 遊覽車</span>
+              </div>
+              <div class="sync-act-name">🚌 遊覽車準時發車</div>
+              <div class="sync-desc-text">男方親友集合，遊覽車準時發車南下台南！隨車清點文定六禮聘禮、金飾盒、小聘現金與長輩喝茶紅包（6包）。</div>
+              <div class="sync-pill-note"><b>隨車物品：</b>六禮喜餅各24盒、四色糖、香燭禮炮、小聘、金飾、喝茶紅包*6</div>
+            </div>
+            <div class="sync-col bride">
+              <div class="sync-col-tag">
+                <span class="sync-badge bride">👰 女方</span>
+                <span class="sync-target">新娘家</span>
+              </div>
+              <div class="sync-act-name">🏠 梳化場地就位</div>
+              <div class="sync-desc-text">永康新娘家整理梳化空間、化妝鏡燈與插座，準備迎接伴娘開妝與新秘抵達。</div>
             </div>
           </div>
         </div>
 
-        <!-- 09:30 預計抵達 -->
-        <div class="t-card">
-          <div class="t-top">
-            <span class="t-time">09:30</span>
-            <span class="t-act">抵達宴會廳 · 擺聘</span>
+        <!-- 06:00 -->
+        <div class="sync-card highlight">
+          <div class="sync-head">
+            <span class="sync-time-pill">06:00</span>
+            <span class="sync-head-title">伴娘提早開妝梳化</span>
           </div>
-          <div class="t-body">
-            <b>遊覽車隊抵達台南漂亮議會廳。</b>
-            協助卸載六禮聘禮，由主持人 Amy 引導擺放聘禮桌。男方長輩稍作休息，等待 10:25 儀式就位。
+          <div class="sync-cols">
+            <div class="sync-col groom">
+              <div class="sync-col-tag">
+                <span class="sync-badge groom">🤵 男方</span>
+                <span class="sync-target">遊覽車隊</span>
+              </div>
+              <div class="sync-act-name">🛣️ 高速公路南下中</div>
+              <div class="sync-desc-text">男方遊覽車及車隊高速公路順暢行駛前往台南。</div>
+            </div>
+            <div class="sync-col bride">
+              <div class="sync-col-tag">
+                <span class="sync-badge bride">👰 女方</span>
+                <span class="sync-target">伴娘組</span>
+              </div>
+              <div class="sync-act-name">🎀 伴娘開妝</div>
+              <div class="sync-desc-text"><b>伴娘（文魚、Linda）提早於 06:00 開妝梳化與著裝！</b>完妝後協助新娘著裝與清點準備物資。</div>
+              <div class="sync-pill-note"><b>伴娘行程：</b>06:00 開妝 ➔ 09:00 出發去宴會廳</div>
+            </div>
           </div>
-          <div class="t-meta-box">
-            <div class="meta-row">
-              <span class="m-label venue">地點</span>
-              <span class="m-text">阿勇家餐飲事業 - 漂亮議會廳（台南）</span>
+        </div>
+
+        <!-- 06:15 -->
+        <div class="sync-card">
+          <div class="sync-head">
+            <span class="sync-time-pill">06:15</span>
+            <span class="sync-head-title">新秘抵達永康娘家 Setting</span>
+          </div>
+          <div class="sync-cols">
+            <div class="sync-col groom">
+              <div class="sync-col-tag">
+                <span class="sync-badge groom">🤵 男方</span>
+                <span class="sync-target">遊覽車隊</span>
+              </div>
+              <div class="sync-act-name">☕ 車隊行駛整補</div>
+              <div class="sync-desc-text">男方車隊持續南下，依路況於休息站短暫整補。</div>
+            </div>
+            <div class="sync-col bride">
+              <div class="sync-col-tag">
+                <span class="sync-badge bride">👰 女方</span>
+                <span class="sync-target">新秘妃妃 &amp; 新娘</span>
+              </div>
+              <div class="sync-act-name">💄 新秘抵達（Setting）</div>
+              <div class="sync-desc-text"><b>新秘妃妃抵達新娘家。</b>梳化箱工具陳列定位、化妝鏡燈就位，新娘進行妝前保養打底。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 06:30 - 09:15 -->
+        <div class="sync-card highlight">
+          <div class="sync-head">
+            <span class="sync-time-pill">06:30 - 09:15</span>
+            <span class="sync-head-title">新娘 ＆ 媽媽精緻妝髮造型</span>
+          </div>
+          <div class="sync-cols">
+            <div class="sync-col groom">
+              <div class="sync-col-tag">
+                <span class="sync-badge groom">🤵 男方</span>
+                <span class="sync-target">車隊 / 伴郎</span>
+              </div>
+              <div class="sync-act-name">🛣️ 車隊南下 · 伴郎整裝</div>
+              <div class="sync-desc-text">男方親友遊覽車持續南下；伴郎準備 08:30 出發車輛與待載物資。</div>
+            </div>
+            <div class="sync-col bride">
+              <div class="sync-col-tag">
+                <span class="sync-badge bride">👰 女方</span>
+                <span class="sync-target">新娘 &amp; 媽媽</span>
+              </div>
+              <div class="sync-act-name">👰 新娘 ＆ 媽媽妝髮</div>
+              <div class="sync-desc-text">
+                <b>06:30–09:15 新娘妝髮：</b>第 1 套新中式紅色禮服造型，精緻底妝與編髮。<br>
+                <b>07:00–09:00 媽媽妝髮：</b>主婚人高雅妝髮吹整。
+              </div>
+              <div class="sync-pill-note">★ 完妝時間預留充足，著開扣/拉鍊衣物方便換穿禮服</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 08:30 -->
+        <div class="sync-card highlight">
+          <div class="sync-head">
+            <span class="sync-time-pill">08:30</span>
+            <span class="sync-head-title">伴郎出發去新娘家搬東西</span>
+          </div>
+          <div class="sync-cols">
+            <div class="sync-col groom">
+              <div class="sync-col-tag">
+                <span class="sync-badge groom">🤵 男方</span>
+                <span class="sync-target">伴郎組</span>
+              </div>
+              <div class="sync-act-name">🚗 伴郎出發搬東西</div>
+              <div class="sync-desc-text"><b>伴郎（Ollie、2千）準時出發前往新娘家！</b>協助搬運新娘禮服箱、婚禮道具、急救包及隨身物資。</div>
+              <div class="sync-pill-note"><b>伴郎行程：</b>08:30 出發 ➔ 永康新娘家協助搬運上車</div>
+            </div>
+            <div class="sync-col bride">
+              <div class="sync-col-tag">
+                <span class="sync-badge bride">👰 女方</span>
+                <span class="sync-target">新娘家</span>
+              </div>
+              <div class="sync-act-name">📦 妝髮收尾 · 集中物資</div>
+              <div class="sync-desc-text">新娘及媽媽梳化收尾；集中清點整理待搬運至漂亮議會廳的行李箱、禮服袋、合約尾款與道具，等待伴郎抵達。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 09:00 -->
+        <div class="sync-card highlight">
+          <div class="sync-head">
+            <span class="sync-time-pill">09:00</span>
+            <span class="sync-head-title">伴娘出發宴會廳 ＆ 伴郎抵達娘家搬運</span>
+          </div>
+          <div class="sync-cols">
+            <div class="sync-col groom">
+              <div class="sync-col-tag">
+                <span class="sync-badge groom">🤵 男方</span>
+                <span class="sync-target">伴郎組</span>
+              </div>
+              <div class="sync-act-name">📦 伴郎抵達娘家搬運</div>
+              <div class="sync-desc-text">伴郎抵達永康新娘家，協助將行李道具、婚紗箱等物資搬運上車，準備出發前往阿勇家漂亮議會廳。</div>
+            </div>
+            <div class="sync-col bride">
+              <div class="sync-col-tag">
+                <span class="sync-badge bride">👰 女方</span>
+                <span class="sync-target">伴娘組</span>
+              </div>
+              <div class="sync-act-name">🚗 伴娘出發去宴會廳</div>
+              <div class="sync-desc-text"><b>伴娘（文魚、Linda）09:00 準時出發前往宴會廳！</b>提早就位準備現場接待、桌位名牌引導與會場動線確認。</div>
+              <div class="sync-pill-note"><b>伴娘行程：</b>09:00 出發 ➔ 漂亮議會廳提早就位</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 09:30 -->
+        <div class="sync-card highlight">
+          <div class="sync-head">
+            <span class="sync-time-pill">09:30</span>
+            <span class="sync-head-title">遊覽車抵達會場 ＆ 女方出發移動</span>
+          </div>
+          <div class="sync-cols">
+            <div class="sync-col groom">
+              <div class="sync-col-tag">
+                <span class="sync-badge groom">🤵 男方</span>
+                <span class="sync-target">遊覽車隊 / 親友</span>
+              </div>
+              <div class="sync-act-name">🏛️ 遊覽車抵達會場 · 擺聘</div>
+              <div class="sync-desc-text">男方遊覽車隊抵達阿勇家漂亮議會廳。卸載六禮聘禮，由主持人 Amy 引導擺放聘禮桌。男方長輩稍作休息，等待 10:25 儀式就位。</div>
+              <div class="sync-pill-note"><b>地點：</b>阿勇家漂亮議會廳</div>
+            </div>
+            <div class="sync-col bride">
+              <div class="sync-col-tag">
+                <span class="sync-badge bride">👰 女方</span>
+                <span class="sync-target">新娘 / 女方親友</span>
+              </div>
+              <div class="sync-act-name">🚗 女方移動至宴會廳</div>
+              <div class="sync-desc-text">新娘完妝著新中式禮服，與女方家人由永康新娘家出發，攜帶隨身急救包、禮服及物品，移動前往阿勇家漂亮議會廳。</div>
+              <div class="sync-pill-note"><b>隨身備：</b>新娘急救包、合約尾款、婚鞋、飾品盒</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 09:50 -->
+        <div class="sync-card highlight">
+          <div class="sync-head">
+            <span class="sync-time-pill">09:50</span>
+            <span class="sync-head-title">新娘進休息室調整 ＆ 男方會場準備</span>
+          </div>
+          <div class="sync-cols">
+            <div class="sync-col groom">
+              <div class="sync-col-tag">
+                <span class="sync-badge groom">🤵 男方</span>
+                <span class="sync-target">男方長輩親友</span>
+              </div>
+              <div class="sync-act-name">🍵 會場休息 · 準備儀式</div>
+              <div class="sync-desc-text">男方親友會場休息寒暄；10:00 親友陸續抵達會場，10:25 長輩於奉茶區就位（6位長輩入座，備妥喝茶紅包）。</div>
+            </div>
+            <div class="sync-col bride">
+              <div class="sync-col-tag">
+                <span class="sync-badge bride">👰 女方</span>
+                <span class="sync-target">新娘 / 新秘 / 好命婆</span>
+              </div>
+              <div class="sync-act-name">👑 新娘進休息室 · 上頭飾</div>
+              <div class="sync-desc-text">新娘進漂亮議會廳新娘休息室。新秘妃妃佩戴文定精緻金屬髮飾、耳環，進行最後補妝調整。好命婆二姨 (郭乃萍) 就位，準備引導 10:25 文定奉茶入場！</div>
+              <div class="sync-pill-note">★ 10:25 好命婆二姨引導新娘端茶入場</div>
             </div>
           </div>
         </div>
@@ -906,8 +1225,8 @@
       <div class="pre-arrival-banner" onclick="switchTab('tab-before')">
         <div class="pab-icon">🌅</div>
         <div class="pab-content">
-          <div class="pab-title">抵達前清晨梳化＆出發速覽</div>
-          <div class="pab-desc">男方：02:50 化妝師抵達 · 03:00 開妝 · 05:00 遊覽車發車<br>女方：06:15 新秘抵達娘家 · 06:30-09:15 新娘妝髮 · 09:30 移動 · 09:50 休息室上頭飾</div>
+          <div class="pab-title">抵達前清晨梳化＆出發速覽（男女方左右對照）</div>
+          <div class="pab-desc">男方：02:50 化妝師抵達 · 03:00 開妝 · 05:00 發車 · 08:30 伴郎出發去新娘家搬東西<br>女方：06:00 伴娘開妝 · 06:15 新秘抵達 · 06:30 新娘妝髮 · 09:00 伴娘出發 · 09:30 移動</div>
         </div>
         <span class="pab-arrow">完整流程 ›</span>
       </div>
@@ -1461,8 +1780,8 @@
             <li><span class="cl-dot">✦</span><b>男方喝茶長輩：</b>爸爸、媽媽、阿公、堂伯父、叔叔、新郎</li>
             <li><span class="cl-dot">✦</span><b>代收紅包/壓桌錢：</b>文魚（伴娘）</li>
             <li><span class="cl-dot">✦</span><b>禮金桌收尾：</b>新娘表妹（12:30 禮金簿/筆電/文具收至新娘房、紅包轉交新娘三姨）</li>
-            <li><span class="cl-dot">✦</span><b>伴郎組：</b>Ollie（趙銘輝）、2千（劉良謙）</li>
-            <li><span class="cl-dot">✦</span><b>伴娘組：</b>文魚（張文瑜）、Linda（李佳諭）</li>
+            <li><span class="cl-dot">✦</span><b>伴郎組：</b>Ollie（趙銘輝）、2千（劉良謙）— 08:30 出發去新娘家搬東西、協助搬運禮服道具上車至會場</li>
+            <li><span class="cl-dot">✦</span><b>伴娘組：</b>文魚（張文瑜）、Linda（李佳諭）— 06:00 提早開妝、09:00 出發去漂亮議會廳提早就位</li>
             <li><span class="cl-dot">✦</span><b>婚禮攝影與錄影：</b>竺竺 ＆ 萊玥</li>
             <li><span class="cl-dot">✦</span><b>會場佈置：</b>法爾佈置</li>
           </ul>
