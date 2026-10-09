@@ -59,6 +59,7 @@ SECTIONS = [
    ("i","伴娘","無框畫、相簿、謝卡擺放"),
    ("i","伴郎","主桌桌卡擺放（對照主桌帶位圖）"),
    ("i","伴郎","各桌桌卡擺放"),
+    ("i","伴郎伴娘","主婚人別上胸花"),
  ]),
  ("結束後", "收尾清點", "WRAP-UP", "", [
    ("i","新娘","禮金清點"),
@@ -107,7 +108,7 @@ for badge,title,en,secowner,items in SECTIONS:
 
 sections_html="\n".join(secs_html)
 # legend
-LEG=[("新郎","新郎"),("新娘","新娘"),("伴郎","伴郎"),("伴娘","伴娘"),("文魚","文魚(伴娘)"),("Linda","Linda(伴娘)"),("婚顧","婚顧")]
+LEG=[("新郎","新郎"),("新娘","新娘"),("伴郎","伴郎"),("伴娘","伴娘"),("文魚","文魚(伴娘)"),("伴郎伴娘","伴郎伴娘"),("Linda","Linda(伴娘)"),("婚顧","婚顧")]
 legend="".join(f'<span class="lg">{pill(k)}<i>{html.escape(lbl)}</i></span>' for k,lbl in LEG)
 
 HTML=f'''<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">
