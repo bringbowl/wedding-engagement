@@ -657,7 +657,10 @@ HTML = """<!doctype html>
 <body>
   <div class="wrap">
     <div class="top-nav">
-      <a href="index.html" class="back-btn">‹ 返回工作台首頁</a>
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <a href="index.html" class="back-btn">‹ 返回工作台首頁</a>
+        <a href="https://docs.google.com/spreadsheets/d/1TasCO9KSlpflyi-poXNur0p5EYWLFvtHGZI3R7eKsYg/edit?gid=848591360#gid=848591360" target="_blank" rel="noopener" class="back-btn" style="color:var(--wine); font-weight:700; background:var(--cream); border-color:var(--gold);">📊 雲端試算表 ↗</a>
+      </div>
       <span class="update-tag">VER 2026/10/9</span>
     </div>
 

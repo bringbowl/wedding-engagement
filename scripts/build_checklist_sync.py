@@ -152,6 +152,10 @@ HTML=f'''<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">
   body.readonly .box{{opacity:.5;}} body.readonly .item{{cursor:default;}}
   footer{{text-align:center;color:var(--wine);font-size:11.5px;margin-top:22px;letter-spacing:.1em;}} footer .g{{color:var(--gold-d);margin:0 6px;}}
 </style></head><body><div class="wrap">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin:12px 0 6px; gap:8px; flex-wrap:wrap;">
+    <a href="index.html" style="display:inline-flex; align-items:center; gap:5px; font-size:12.5px; color:var(--wine); text-decoration:none; background:#fff; border:1px solid var(--line); padding:5px 12px; border-radius:999px; font-weight:600;">‹ 返回工作台首頁</a>
+    <a href="https://docs.google.com/spreadsheets/d/1TasCO9KSlpflyi-poXNur0p5EYWLFvtHGZI3R7eKsYg/edit?gid=848591360#gid=848591360" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:5px; font-size:12.5px; color:var(--wine); text-decoration:none; background:var(--cream); border:1px solid var(--gold); padding:5px 12px; border-radius:999px; font-weight:700;">📊 Google 試算表 ↗</a>
+  </div>
   <header>
     <div class="ey">Engagement Day &middot; Shared Live</div>
     <h1>訂婚當天 ・ 分工檢查清單</h1>

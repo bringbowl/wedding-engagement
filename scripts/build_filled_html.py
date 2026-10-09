@@ -222,8 +222,13 @@ HTML = f'''<!doctype html>
   .lookup .l-nm{{font-weight:600;}} .lookup .l-tb{{width:42%;}}
   .foot{{text-align:center;color:var(--wine);font-size:12px;margin-top:30px;letter-spacing:.12em;}}
   .foot .glyph{{color:var(--gold-d);margin:0 6px;}}
+  .top-nav{{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:8px;flex-wrap:wrap;}}
+  .nav-btn{{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--wine);text-decoration:none;background:#fff;border:1px solid var(--line);padding:6px 14px;border-radius:999px;font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,0.04);transition:all .15s;}}
+  .nav-btn.gsheet{{background:var(--cream);border-color:var(--gold);font-weight:700;}}
+  .nav-btn:hover{{background:var(--gold-l);border-color:var(--gold);}}
   @media print{{
     html,body{{background:#fff;}} .wrap{{max-width:none;padding:0;}}
+    .top-nav{{display:none !important;}}
     .cover,.card,.sheet,.stat,.staff,th,td{{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
     .card,.sheet{{box-shadow:none;page-break-inside:avoid;}}
     .cover{{box-shadow:none;}}
@@ -231,6 +236,11 @@ HTML = f'''<!doctype html>
   }}
 </style></head>
 <body><div class="wrap">
+  <div class="top-nav">
+    <a href="index.html" class="nav-btn">‹ 返回工作台首頁</a>
+    <a href="https://docs.google.com/spreadsheets/d/1TasCO9KSlpflyi-poXNur0p5EYWLFvtHGZI3R7eKsYg/edit?gid=848591360#gid=848591360" target="_blank" rel="noopener" class="nav-btn gsheet">📊 Google 試算表原始母檔 ↗</a>
+  </div>
+
   <div class="cover">
     <div class="ey">Seating &amp; Reception Guide</div>
     <h1>訂婚宴 ・ 賓客對照表</h1>
