@@ -963,10 +963,10 @@ HTML = """<!doctype html>
             <div class="sync-col bride">
               <div class="sync-col-tag">
                 <span class="sync-badge bride">👰 女方</span>
-                <span class="sync-target">新娘家</span>
+                <span class="sync-target">新娘</span>
               </div>
-              <div class="sync-act-name">🌙 清晨休養生息</div>
-              <div class="sync-desc-text">新娘與女方家人清晨休養生息，確認今日文定流程與女方物資清單。</div>
+              <div class="sync-act-name">🌙 熟睡充電中</div>
+              <div class="sync-desc-text">新娘熟睡補眠充電中，充足睡眠保持最佳好氣色（預計 05:40 起床）。</div>
             </div>
           </div>
         </div>
@@ -991,8 +991,8 @@ HTML = """<!doctype html>
                 <span class="sync-badge bride">👰 女方</span>
                 <span class="sync-target">新娘</span>
               </div>
-              <div class="sync-act-name">💧 晨間梳洗準備</div>
-              <div class="sync-desc-text">新娘晨間盥洗、妝前基礎保養，準備迎接後續開妝。</div>
+              <div class="sync-act-name">😴 熟睡補眠中</div>
+              <div class="sync-desc-text">新娘持續熟睡補眠中，為今日大日子養足精神體力。</div>
             </div>
           </div>
         </div>
@@ -1019,7 +1019,34 @@ HTML = """<!doctype html>
                 <span class="sync-target">新娘家</span>
               </div>
               <div class="sync-act-name">🏠 梳化場地就位</div>
-              <div class="sync-desc-text">永康新娘家整理梳化空間、化妝鏡燈與插座，準備迎接伴娘開妝與新秘抵達。</div>
+              <div class="sync-desc-text">永康娘家長輩先行整理梳化空間、化妝鏡燈與插座；新娘繼續補眠至 05:40。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 05:40 -->
+        <div class="sync-card highlight">
+          <div class="sync-head">
+            <span class="sync-time-pill">05:40</span>
+            <span class="sync-head-title">新娘起床 · 晨間盥洗保養</span>
+          </div>
+          <div class="sync-cols">
+            <div class="sync-col groom">
+              <div class="sync-col-tag">
+                <span class="sync-badge groom">🤵 男方</span>
+                <span class="sync-target">遊覽車隊</span>
+              </div>
+              <div class="sync-act-name">🛣️ 車隊南下行駛中</div>
+              <div class="sync-desc-text">男方遊覽車隊高速公路順暢行駛南下中。</div>
+            </div>
+            <div class="sync-col bride">
+              <div class="sync-col-tag">
+                <span class="sync-badge bride">👰 女方</span>
+                <span class="sync-target">新娘</span>
+              </div>
+              <div class="sync-act-name">⏰ 新娘起床 · 晨間盥洗</div>
+              <div class="sync-desc-text"><b>新娘睡飽起床！</b>晨間盥洗、妝前基礎保濕打底、享用簡單早餐補充元氣，準備迎接 06:00 伴娘開妝與 06:15 新秘妃妃抵達。</div>
+              <div class="sync-pill-note">★ 換穿開扣或拉鍊衣物，方便後續換穿新中式文定禮服</div>
             </div>
           </div>
         </div>
@@ -1234,7 +1261,7 @@ HTML = """<!doctype html>
         <div class="pab-icon">🌅</div>
         <div class="pab-content">
           <div class="pab-title">抵達前清晨梳化＆出發速覽（男女方左右對照）</div>
-          <div class="pab-desc">男方：02:50 化妝師抵達 · 03:00 開妝 · 05:00 發車 · 08:30 伴郎出發去新娘家搬東西<br>女方：06:00 伴娘開妝 · 06:15 新秘抵達 · 06:30 新娘妝髮 · 09:00 伴娘出發 · 09:30 移動</div>
+          <div class="pab-desc">男方：02:50 化妝師抵達 · 03:00 開妝 · 05:00 發車 · 08:30 伴郎出發去新娘家搬東西<br>女方：05:40 新娘起床 · 06:00 伴娘開妝 · 06:15 新秘抵達 · 06:30 新娘妝髮 · 09:00 伴娘出發 · 09:30 移動</div>
         </div>
         <span class="pab-arrow">完整流程 ›</span>
       </div>
