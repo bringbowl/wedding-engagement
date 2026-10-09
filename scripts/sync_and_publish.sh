@@ -7,6 +7,7 @@ python scripts/build_from_csv.py --fetch
 echo "=== 2. 重新產出賓客對照表、分工清單、主桌帶位圖 ==="
 python scripts/build_filled_html.py
 python scripts/build_checklist_sync.py
+python scripts/build_schedule.py
 python scripts/build_maintable.py
 python scripts/build_real.py
 
