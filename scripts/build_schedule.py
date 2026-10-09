@@ -1471,7 +1471,8 @@ HTML = """<!doctype html>
                     ① 介紹「世界紙」簽到方式<br>
                     ② 點名報到 ＆ 清點禮金<br>
                     ③ 發放迎賓三大項（投票貼紙一人 2 張、喜餅依名冊、手機支架盲盒一人 1 個）<br>
-                    ④ 致電聯繫太晚到的人確認出席狀況與進度
+                    ④ 桌上放 2 份喜帖 Demo 展示，供需要紀念的親友自由索取<br>
+                    ⑤ 致電聯繫太晚到的人確認出席狀況與進度
                   </div>
                 </li>
               </ul>
@@ -1479,7 +1480,7 @@ HTML = """<!doctype html>
 
             <!-- 備註說明：簽到方式與三大項發放 -->
             <div class="sub-section" style="margin-top: 10px;">
-              <div class="sub-sec-title">📝 簽到方式 ＆ 迎賓三大項領取詳細說明</div>
+              <div class="sub-sec-title">📝 簽到桌迎賓作業 ＆ 物品領取詳細說明</div>
               <ul class="step-list" style="font-size: 13px; line-height: 1.65;">
                 <li>
                   <b>🌍 【簽到方式】獨一無二的世界紙簽名留念：</b><br>
@@ -1503,6 +1504,10 @@ HTML = """<!doctype html>
                   </div>
                 </li>
                 <li>
+                  <b>💌 【喜帖 Demo 展示 ＆ 紀念索取】：</b><br>
+                  桌上陳列<b>放 2 份喜帖做 Demo 展示</b>，若有親友需要或想收藏留念，可以自由拿喜帖回去做紀念！
+                </li>
+                <li>
                   <b>📞 【太晚到名單電聯確認】：</b><br>
                   接近 12:00 尚未報到之賓客，由伴娘／表妹致電聯繫，確認是否已在路途上，以利掌控開席時間。
                 </li>
@@ -1512,11 +1517,11 @@ HTML = """<!doctype html>
           <div class="t-meta-box">
             <div class="meta-row">
               <span class="m-label staff">人員分工</span>
-              <span class="m-text">新郎＆主婚人（接待）／伴郎（帶位）／伴娘＆新娘表妹（簽到、禮金、三大項發放、太晚到電聯）</span>
+              <span class="m-text">新郎＆主婚人（接待）／伴郎（帶位）／伴娘＆新娘表妹（簽到、禮金、三大項發放、喜帖展示、太晚到電聯）</span>
             </div>
             <div class="meta-row">
               <span class="m-label couple">迎賓必備</span>
-              <span class="m-text">世界紙簽名相簿＋筆、投票貼紙（一人2張）、喜餅（依名冊發放）、手機支架盲盒（一人1個，共8款角色）</span>
+              <span class="m-text">世界紙簽名相簿＋筆、投票貼紙（一人2張）、喜餅（依名冊發放）、手機支架盲盒（一人1個，共8款角色）、喜帖 Demo 展示*2（供自由索取紀念）</span>
             </div>
             <div class="meta-row">
               <span class="m-label media">影音</span>
@@ -1829,7 +1834,7 @@ HTML = """<!doctype html>
             <li><span class="cl-dot">✦</span><b>儀式紅包：</b>男方長輩喝茶紅包*6包、壓桌錢紅包</li>
             <li><span class="cl-dot">✦</span><b>儀式物品：</b>甜湯 1 碗</li>
             <li><span class="cl-dot">✦</span><b>胸花佩戴：</b>新郎胸花*1、主婚人胸花*4</li>
-            <li><span class="cl-dot">✦</span><b>簽到用品：</b>獨一無二世界紙、簽名筆、簽名相簿</li>
+            <li><span class="cl-dot">✦</span><b>簽到用品：</b>獨一無二世界紙、簽名筆、簽名相簿、喜帖 Demo 展示*2（桌上展示供自由索取紀念）</li>
             <li><span class="cl-dot">✦</span><b>迎賓三大項：</b>Dresscode 投票貼紙（一人 2 張）、喜餅（依表單名冊發放）、手機支架盲盒（一人 1 個，8款人氣角色）</li>
             <li><span class="cl-dot">✦</span><b>二進獎品：</b>3D立體拼裝書、教堂甜拼圖、45cm維尼熊</li>
             <li><span class="cl-dot">✦</span><b>活動獎金：</b>禮券紅包*6包</li>
