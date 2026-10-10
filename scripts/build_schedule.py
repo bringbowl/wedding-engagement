@@ -1403,19 +1403,39 @@ HTML = """<!doctype html>
         </div>
 
         <!-- 11:00 回休息室 -->
-        <div class="t-card">
+        <div class="t-card highlight">
           <div class="t-top">
             <span class="t-time">11:00</span>
-            <span class="t-act">禮成 · 收拾整理</span>
+            <span class="t-act">禮成 · 物品收拾整理</span>
           </div>
           <div class="t-body">
-            <b>儀式圓滿完成，新人回休息室收拾。</b>
-            <div class="notice-star">★ 提醒：預留中、西喜餅各 14 盒於新娘房（男方帶回）。</div>
+            <b>儀式圓滿完成，新人回休息室收拾與準備後續流程。</b>
+
+            <!-- 喜餅分流整理 -->
+            <div class="sub-section" style="margin-top: 10px;">
+              <div class="sub-sec-title">🍪 儀式桌喜餅分流清點整理（共中式 24 盒 ＋ 西式 24 盒）</div>
+              <ul class="step-list" style="font-size: 13.5px; line-height: 1.7;">
+                <li>
+                  <b>🎁 男方喜餅回禮（各 14 盒）：</b><br>
+                  回禮中式（覓蜜）<b>14 盒</b> ＋ 西式（日禾春）<b>14 盒</b> 預留男方帶回。
+                  <span style="display: inline-block; font-size: 11.5px; font-weight: 700; color: #1557B0; background: #E8F0FE; border: 1px solid #BED7FB; padding: 1px 7px; border-radius: 4px; margin-left: 4px;">新郎負責</span>
+                </li>
+                <li>
+                  <b>🏠 女方喜餅留存（各 10 盒）：</b><br>
+                  儀式桌剩下中式（覓蜜）<b>10 盒</b> ＋ 西式（日禾春）<b>10 盒</b> 放回新娘房。
+                  <span style="display: inline-block; font-size: 11.5px; font-weight: 700; color: #0D652D; background: #E6F4EA; border: 1px solid #CEEAD6; padding: 1px 7px; border-radius: 4px; margin-left: 4px;">伴郎負責</span>
+                </li>
+              </ul>
+            </div>
           </div>
           <div class="t-meta-box">
             <div class="meta-row">
-              <span class="m-label couple">喜餅回禮</span>
+              <span class="m-label couple">回禮 (新郎)</span>
               <span class="m-text">中式覓蜜 14 盒 ＋ 西式日禾春 14 盒（男方回禮帶回）</span>
+            </div>
+            <div class="meta-row">
+              <span class="m-label staff">留存 (伴郎)</span>
+              <span class="m-text">中式覓蜜 10 盒 ＋ 西式日禾春 10 盒（放回新娘房）</span>
             </div>
           </div>
         </div>
@@ -1866,7 +1886,7 @@ HTML = """<!doctype html>
           </div>
           <ul class="cl-items">
             <li><span class="cl-dot">✦</span><b>婚禮主持兼音控：</b>Amy（筆電播映、儀式引導、流程掌控）</li>
-            <li><span class="cl-dot">✦</span><b>新郎與雙方主婚人：</b>11:30–12:00 門口接待區熱情接待賓客</li>
+            <li><span class="cl-dot">✦</span><b>新郎與雙方主婚人：</b>11:00 確認男方回禮喜餅中西各 14 盒預留、11:30–12:00 門口接待區熱情接待賓客</li>
             <li><span class="cl-dot">✦</span><b>女方開妝新秘：</b>妃妃（06:15 抵達永康新娘家 setting，新娘＆媽媽梳化）</li>
             <li><span class="cl-dot">✦</span><b>男方開妝化妝師：</b>男方化妝師（02:50 抵達男方開妝）</li>
             <li><span class="cl-dot">✦</span><b>女方好命婆：</b>二姨 (郭乃萍)（牽引、奉茶、扶椅）</li>
@@ -1874,7 +1894,7 @@ HTML = """<!doctype html>
             <li><span class="cl-dot">✦</span><b>男方喝茶長輩：</b>爸爸、媽媽、阿公、堂伯父、叔叔、新郎</li>
             <li><span class="cl-dot">✦</span><b>代收紅包/壓桌錢：</b>文魚（伴娘）</li>
             <li><span class="cl-dot">✦</span><b>簽到桌接待＆收尾：</b>新娘表妹（11:30–12:00 協助伴娘簽到桌接待、12:30 禮金簿/筆電/文具收至新娘房、紅包轉交新娘三姨）</li>
-            <li><span class="cl-dot">✦</span><b>伴郎組：</b>Ollie（趙銘輝）、2千（劉良謙）— 08:30 出發去新娘家搬東西、11:30–12:00 賓客帶位入座</li>
+            <li><span class="cl-dot">✦</span><b>伴郎組：</b>Ollie（趙銘輝）、2千（劉良謙）— 08:30 出發去新娘家搬東西、11:00 儀式後剩下中西各 10 盒喜餅放回新娘房、11:30–12:00 賓客帶位入座</li>
             <li><span class="cl-dot">✦</span><b>伴娘組：</b>文魚（張文瑜）、Linda（李佳諭）— 06:00 提早開妝、09:00 出發會場、11:30–12:00 簽到桌（介紹世界紙簽到、點名報到、清點禮金、發放三大項、太晚到電聯）</li>
             <li><span class="cl-dot">✦</span><b>婚禮攝影與錄影：</b>竺竺 ＆ 萊玥</li>
             <li><span class="cl-dot">✦</span><b>會場佈置：</b>法爾佈置</li>
