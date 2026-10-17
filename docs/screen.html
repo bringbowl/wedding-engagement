@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Barry &amp; Winnie · 森林動物大賽跑 12/12 婚禮大螢幕實況轉播</title>
+
+  <!-- Google Fonts 典雅字型 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Montserrat:wght@400;600;700;800;900&family=Noto+Serif+TC:wght@500;600;700;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
+  <!-- Firebase 9.23.0 SDK (即時連線全場手機步數與戰況) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #0d1710;
+      position: relative;
+      user-select: none;
+      font-family: 'Montserrat', 'Noto Serif TC', -apple-system, sans-serif;
+      color: #fff;
+    }
+
+    /* =========================================================
+       1. 16:9 全景沉浸式晨曦森林動態背景
+       ========================================================= */
+    .screen-stage {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .forest-bg {
+      position: absolute;
+      top: -5%;
+      left: -5%;
+      width: 110%;
+      height: 110%;
+      background-image: url("assets/master_forest.jpg"), url("assets/fairytale_forest_trail.jpg"), url("https://bringbowl.github.io/wedding-engagement/assets/master_forest.jpg");
+      background-size: cover;
+      background-position: center 36%;
+      animation: kenBurns 45s ease-in-out infinite alternate;
+      filter: brightness(0.82) contrast(1.12) saturate(1.15);
+    }
+
+    @keyframes kenBurns {
+      0% { transform: scale(1) translate(0, 0); }
+      50% { transform: scale(1.04) translate(-0.8%, -0.4%); }
+      100% { transform: scale(1.02) translate(0.8%, 0.4%); }
+    }
+
+    .sunbeams-breathing {
+      position: absolute;
+      inset: -10%;
+      background: radial-gradient(ellipse at 46% 30%, rgba(255, 230, 150, 0.22) 0%, rgba(240, 195, 100, 0.08) 45%, transparent 75%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      animation: godRaysDrift 14s ease-in-out infinite alternate;
+      z-index: 2;
+    }
+
+    @keyframes godRaysDrift {
+      0% { opacity: 0.55; transform: rotate(-1.5deg) scale(0.98); }
+      50% { opacity: 0.95; transform: rotate(1deg) scale(1.04); }
+      100% { opacity: 0.65; transform: rotate(0deg) scale(1.01); }
+    }
+
+    .light-mist-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 36%, rgba(240, 195, 110, 0.1) 0%, rgba(22, 38, 24, 0.35) 55%, rgba(8, 16, 10, 0.75) 100%);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    #particlesCanvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    /* 迷霧森林大螢幕全景飄移晨霧層 (Mist Forest Overlay) */
+    .screen-mist-frenzy-overlay {
+      position: absolute;
+      inset: -20%;
+      pointer-events: none;
+      z-index: 6;
+      display: none;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      background: radial-gradient(ellipse at 50% 50%, rgba(255, 248, 220, 0.35) 0%, rgba(200, 225, 245, 0.28) 45%, rgba(18, 32, 22, 0.5) 85%);
+      filter: blur(28px);
+      mix-blend-mode: screen;
+      animation: mistRoll 16s ease-in-out infinite alternate;
+    }
+
+    .screen-mist-frenzy-overlay.active {
+      display: block;
+      opacity: 1;
+    }
+
+    @keyframes mistRoll {
+      0% { transform: translate(-3%, -2%) scale(1); }
+      50% { transform: translate(4%, 3%) scale(1.08); }
+      100% { transform: translate(-2%, 4%) scale(1.03); }
+    }
+
+    /* =========================================================
+       2. 廣播級頂部戰況導覽條 (Broadcast Top Bar)
+       ========================================================= */
+    .broadcast-top-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      background: linear-gradient(180deg, rgba(8, 16, 10, 0.95) 0%, rgba(14, 26, 18, 0.85) 65%, transparent 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 36px;
+      z-index: 50;
+      border-bottom: 1px solid rgba(197, 155, 76, 0.3);
+    }
+
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .top-wedding-emblem {
+      font-size: 1.8rem;
+      filter: drop-shadow(0 2px 8px rgba(234, 179, 8, 0.6));
+      animation: emblemFloat 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes emblemFloat {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-3px); }
+    }
+
+    .top-title-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-main-title {
+      font-family: 'Cinzel', 'Noto Serif TC', serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #f7e7ce;
+      letter-spacing: 1.5px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .top-sub-tag {
+      font-size: 0.78rem;
+      color: #d1b187;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .top-bar-center {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .live-status-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(34, 197, 94, 0.16);
+      border: 1px solid rgba(34, 197, 94, 0.5);
+      border-radius: 30px;
+      padding: 5px 14px;
+      font-size: 0.8rem;
+      color: #86efac;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .pulse-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 10px #22c55e;
+      animation: livePulse 1.2s infinite;
+    }
+
+    @keyframes livePulse {
+      0% { transform: scale(0.9); opacity: 0.7; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.7; }
+    }
+
+    .top-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .stat-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .stat-badge-label {
+      font-size: 0.65rem;
+      color: #a8947d;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stat-badge-value {
+      font-family: 'Cinzel', monospace;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fef08a;
+      text-shadow: 0 0 12px rgba(250, 204, 21, 0.5);
+    }
+
+    /* =========================================================
+       3. 16:9 主戰況舞台分割版面 (Leaderboard + Sprint Arena)
+       ========================================================= */
+    .broadcast-main-stage {
+      position: absolute;
+      top: 80px;
+      bottom: 60px;
+      left: 36px;
+      right: 36px;
+      display: grid;
+      grid-template-columns: 460px 1fr;
+      gap: 28px;
+      z-index: 20;
+    }
+
+    /* 左側：大螢幕即時榜單 (Live Leaderboard Column) */
+    .leaderboard-column {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: rgba(10, 20, 14, 0.78);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid rgba(197, 155, 76, 0.4);
+      border-radius: 20px;
+      padding: 16px 18px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .column-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(197, 155, 76, 0.25);
+    }
+
+    .column-title {
+      font-family: 'Cinzel', 'Noto Serif TC', serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fef08a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .column-subtitle {
+      font-size: 0.72rem;
+      color: #c5a059;
+      font-weight: 600;
+    }
+
+    .rank-cards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+      justify-content: space-around;
+    }
+
+    .screen-rank-card {
+      background: rgba(22, 38, 26, 0.82);
+      border: 1.5px solid rgba(197, 155, 76, 0.3);
+      border-radius: 14px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .screen-rank-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      bottom: 0;
+      background: #c59b4c;
+    }
+
+    .screen-rank-card.rank-1 {
+      background: linear-gradient(135deg, rgba(65, 48, 16, 0.92) 0%, rgba(35, 25, 10, 0.92) 100%);
+      border: 2px solid #eab308;
+      box-shadow: 0 6px 20px rgba(234, 179, 8, 0.28);
+    }
+    .screen-rank-card.rank-1::before { background: #facc15; }
+
+    .screen-rank-card.rank-2 {
+      background: linear-gradient(135deg, rgba(40, 50, 58, 0.9) 0%, rgba(20, 26, 32, 0.9) 100%);
+      border: 1.5px solid #cbd5e1;
+    }
+    .screen-rank-card.rank-2::before { background: #94a3b8; }
+
+    .screen-rank-card.rank-3 {
+      background: linear-gradient(135deg, rgba(58, 38, 25, 0.9) 0%, rgba(30, 18, 12, 0.9) 100%);
+      border: 1.5px solid #d97706;
+    }
+    .screen-rank-card.rank-3::before { background: #b45309; }
+
+    .card-medal-badge {
+      font-size: 1.4rem;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card-animal-emoji {
+      font-size: 2rem;
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card-info-group {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card-team-title {
+      font-size: 0.96rem;
+      font-weight: 800;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-members-text {
+      font-size: 0.72rem;
+      color: #cbd5e1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+    }
+
+    .card-meter-box {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .card-meter-number {
+      font-family: 'Cinzel', monospace;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fef08a;
+      letter-spacing: 0.5px;
+    }
+
+    .card-meter-unit {
+      font-size: 0.7rem;
+      color: #d1b187;
+      font-weight: 600;
+    }
+
+    /* 右側：多跑道賽道奔馳即時實況 (Live Sprint Arena Column) */
+    .arena-column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: rgba(10, 20, 14, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid rgba(197, 155, 76, 0.4);
+      border-radius: 20px;
+      padding: 16px 20px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .arena-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(197, 155, 76, 0.25);
+    }
+
+    .arena-title {
+      font-family: 'Cinzel', 'Noto Serif TC', serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fef08a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .finish-line-goal {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: #f7e7ce;
+      background: rgba(234, 179, 8, 0.16);
+      border: 1px solid rgba(234, 179, 8, 0.4);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-weight: 700;
+    }
+
+    .lanes-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+      justify-content: space-around;
+      position: relative;
+    }
+
+    .sprint-lane {
+      position: relative;
+      height: 64px;
+      background: linear-gradient(90deg, rgba(32, 48, 36, 0.85) 0%, rgba(45, 62, 48, 0.7) 80%, rgba(68, 52, 28, 0.85) 100%);
+      border: 1.5px solid rgba(197, 155, 76, 0.35);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    /* 賽道木質紋理與泥土路標刻度線 */
+    .lane-ticks {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(90deg, transparent, transparent 48px, rgba(255, 255, 255, 0.05) 48px, rgba(255, 255, 255, 0.05) 50px);
+      pointer-events: none;
+    }
+
+    /* 終點線金色緞帶標記 */
+    .finish-gate {
+      position: absolute;
+      right: 18px;
+      top: 0;
+      bottom: 0;
+      width: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-left: 2px dashed rgba(234, 179, 8, 0.7);
+      background: linear-gradient(90deg, transparent, rgba(234, 179, 8, 0.15));
+      font-size: 1.1rem;
+      pointer-events: none;
+    }
+
+    .lane-team-label {
+      position: absolute;
+      left: 12px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.65);
+      letter-spacing: 0.5px;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 動態奔跑動物選手容器 */
+    .running-avatar-wrapper {
+      position: absolute;
+      left: 15%;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 10;
+    }
+
+    .avatar-icon-box {
+      font-size: 2.2rem;
+      animation: runnerBob 0.35s infinite alternate ease-in-out;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
+    }
+
+    @keyframes runnerBob {
+      0% { transform: translateY(0) rotate(-2deg); }
+      100% { transform: translateY(-6px) rotate(3deg); }
+    }
+
+    .avatar-speedlines {
+      position: absolute;
+      right: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      opacity: 0.75;
+      white-space: nowrap;
+      pointer-events: none;
+      animation: speedlineFlicker 0.2s infinite;
+    }
+
+    @keyframes speedlineFlicker {
+      0% { opacity: 0.4; }
+      100% { opacity: 0.85; }
+    }
+
+    .avatar-floating-tag {
+      background: rgba(15, 23, 18, 0.9);
+      border: 1px solid #eab308;
+      border-radius: 8px;
+      padding: 2px 7px;
+      font-family: 'Cinzel', monospace;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #fef08a;
+      white-space: nowrap;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    /* =========================================================
+       4. 迷霧森林最後衝刺 · 巨幅金色倒數計時框 (Mist Mode Banner)
+       ========================================================= */
+    .screen-mist-banner {
+      position: absolute;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, rgba(30, 20, 10, 0.96) 0%, rgba(55, 30, 15, 0.98) 100%);
+      border: 2.5px solid #eab308;
+      border-radius: 20px;
+      padding: 14px 32px;
+      display: none;
+      align-items: center;
+      gap: 24px;
+      z-index: 80;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.65), 0 0 36px rgba(234, 179, 8, 0.55);
+      animation: bannerPulse 1.2s infinite alternate;
+    }
+
+    .screen-mist-banner.active {
+      display: flex;
+    }
+
+    @keyframes bannerPulse {
+      0% { transform: translateX(-50%) scale(0.99); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(234, 179, 8, 0.4); }
+      100% { transform: translateX(-50%) scale(1.02); box-shadow: 0 16px 50px rgba(0, 0, 0, 0.7), 0 0 45px rgba(234, 179, 8, 0.85); }
+    }
+
+    .mist-banner-left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mist-headline {
+      font-family: 'Cinzel', 'Noto Serif TC', serif;
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: #fef08a;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mist-subtext {
+      font-size: 0.88rem;
+      color: #fed7aa;
+      font-weight: 700;
+      margin-top: 3px;
+    }
+
+    .mist-giant-timer {
+      font-family: 'Cinzel', monospace;
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #ffffff;
+      background: #b91c1c;
+      border: 2px solid #f87171;
+      padding: 4px 20px;
+      border-radius: 16px;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(185, 28, 28, 0.6);
+      letter-spacing: 2px;
+    }
+
+    /* =========================================================
+       5. 盛大頒獎典禮奧運頒獎台 (Grand Olympic Awards Podium)
+       ========================================================= */
+    .screen-podium-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 18, 12, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 100;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      animation: fadeInPodium 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .screen-podium-overlay.active {
+      display: flex;
+    }
+
+    @keyframes fadeInPodium {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .podium-header-group {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .podium-crown-icon {
+      font-size: 3.5rem;
+      animation: crownBounce 2s infinite alternate ease-in-out;
+    }
+
+    @keyframes crownBounce {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-8px) scale(1.1); }
+    }
+
+    .podium-main-title {
+      font-family: 'Cinzel', 'Noto Serif TC', serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #fef08a;
+      letter-spacing: 2px;
+      text-shadow: 0 4px 18px rgba(234, 179, 8, 0.6);
+      margin-top: 4px;
+    }
+
+    .podium-sub-desc {
+      font-size: 1.05rem;
+      color: #e2d2ba;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    /* 三階頒獎台容器 (左亞軍、中冠軍、右季軍) */
+    .podium-stages-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 28px;
+      width: 100%;
+      max-width: 1100px;
+      margin-bottom: 24px;
+    }
+
+    .podium-pillar {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      border-radius: 20px;
+      padding: 24px 20px;
+      position: relative;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* 冠軍 (居中最高) */
+    .pillar-champion {
+      background: linear-gradient(180deg, rgba(85, 60, 20, 0.95) 0%, rgba(45, 30, 10, 0.98) 100%);
+      border: 3px solid #facc15;
+      box-shadow: 0 20px 50px rgba(250, 204, 21, 0.4);
+      min-height: 380px;
+      order: 2;
+    }
+
+    /* 亞軍 (左側) */
+    .pillar-runner-up {
+      background: linear-gradient(180deg, rgba(50, 60, 70, 0.95) 0%, rgba(25, 32, 40, 0.98) 100%);
+      border: 2px solid #cbd5e1;
+      min-height: 330px;
+      order: 1;
+    }
+
+    /* 季軍 (右側) */
+    .pillar-third {
+      background: linear-gradient(180deg, rgba(65, 42, 28, 0.95) 0%, rgba(35, 20, 14, 0.98) 100%);
+      border: 2px solid #d97706;
+      min-height: 300px;
+      order: 3;
+    }
+
+    .podium-rank-tag {
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+    }
+
+    .podium-animal-avatar {
+      font-size: 3.8rem;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
+    }
+
+    .podium-team-name {
+      font-family: 'Cinzel', 'Noto Serif TC', serif;
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .podium-meters-tag {
+      font-family: 'Cinzel', monospace;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fef08a;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 4px 16px;
+      border-radius: 20px;
+    }
+
+    .podium-members-box {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    .podium-members-header {
+      font-size: 0.76rem;
+      color: #d1b187;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .podium-members-names {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.4;
+    }
+
+    .podium-footer-banner {
+      font-size: 1rem;
+      color: #fef08a;
+      background: rgba(234, 179, 8, 0.18);
+      border: 1px solid rgba(234, 179, 8, 0.5);
+      border-radius: 30px;
+      padding: 8px 24px;
+      font-weight: 700;
+    }
+
+    /* 慶典全螢幕彩砲煙火 Canvas */
+    #fireworksCanvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 105;
+    }
+
+    /* =========================================================
+       6. 底部隱藏操作工具列 (Toolbar)
+       ========================================================= */
+    .screen-toolbar {
+      position: absolute;
+      bottom: 14px;
+      right: 28px;
+      z-index: 120;
+      display: flex;
+      gap: 10px;
+      opacity: 0.35;
+      transition: opacity 0.3s ease;
+    }
+
+    .screen-toolbar:hover {
+      opacity: 1;
+    }
+
+    .tool-btn {
+      background: rgba(20, 32, 22, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(8px);
+      transition: all 0.2s ease;
+      font-weight: 600;
+    }
+
+    .tool-btn:hover {
+      background: rgba(77, 102, 80, 0.95);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. 全景晨曦森林動態微動背景 -->
+  <div class="screen-stage">
+    <div class="forest-bg"></div>
+    <div class="sunbeams-breathing"></div>
+    <div class="light-mist-overlay"></div>
+    <canvas id="particlesCanvas"></canvas>
+    
+    <!-- 迷霧衝刺 16:9 全景晨霧 -->
+    <div class="screen-mist-frenzy-overlay" id="screenMistOverlay"></div>
+  </div>
+
+  <!-- 2. 廣播級頂部戰況導覽條 -->
+  <header class="broadcast-top-bar">
+    <div class="top-bar-left">
+      <div class="top-wedding-emblem">💍</div>
+      <div class="top-title-group">
+        <div class="top-main-title">
+          <span>🌲 森林動物大賽跑</span>
+          <span style="font-size:0.85rem; color:#facc15; font-weight:600;">· 現場即時戰況轉播</span>
+        </div>
+        <div class="top-sub-tag">Barry &amp; Winnie · 奔向 12/12 婚禮阿沐幸福終點</div>
+      </div>
+    </div>
+
+    <div class="top-bar-center">
+      <div class="live-status-pill">
+        <span class="pulse-dot"></span>
+        <span id="liveStatusText">LIVE 實時連線中 · 全場 50 隊激戰</span>
+      </div>
+    </div>
+
+    <div class="top-bar-right">
+      <div class="stat-badge">
+        <span class="stat-badge-label">全場累計奔馳總里程</span>
+        <span class="stat-badge-value" id="globalTotalMeters">0 m</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. 16:9 主戰況舞台 (左側風雲榜 + 右側多跑道奔馳) -->
+  <main class="broadcast-main-stage" id="mainBroadcastStage">
+    
+    <!-- 左側欄：前五名大風雲榜 -->
+    <section class="leaderboard-column">
+      <div class="column-header">
+        <div class="column-title">
+          <span>🏆</span> 現場領跑排名前五名
+        </div>
+        <div class="column-subtitle">即時同步全場賓客手機</div>
+      </div>
+
+      <div class="rank-cards-list" id="screenRankList">
+        <!-- 由 JS 動態注入前五名卡片 -->
+      </div>
+    </section>
+
+    <!-- 右側欄：賽道動態奔馳實況 -->
+    <section class="arena-column">
+      <div class="arena-header">
+        <div class="arena-title">
+          <span>🏁</span> 前線陣營衝刺跑道
+        </div>
+        <div class="finish-line-goal">
+          <span>💒</span> 12/12 幸福終點 阿沐城堡 🏰
+        </div>
+      </div>
+
+      <div class="lanes-container" id="screenLanesContainer">
+        <!-- 由 JS 動態注入 5 條奔馳跑道 -->
+      </div>
+    </section>
+  </main>
+
+  <!-- 4. 迷霧森林最後衝刺 · 巨幅金色倒數計時框 -->
+  <div class="screen-mist-banner" id="screenMistBanner">
+    <div class="mist-banner-left">
+      <div class="mist-headline">
+        <span>🌫️</span> 迷霧森林最後衝刺！
+      </div>
+      <div class="mist-subtext">🔥 全場進入 3X 狂暴暴走模式 (+6m/擊) · 倒數計時！</div>
+    </div>
+    <div class="mist-giant-timer" id="screenMistTimer">30s</div>
+  </div>
+
+  <!-- 5. 盛大頒獎典禮奧運頒獎台 (比賽結束時全螢幕升起) -->
+  <div class="screen-podium-overlay" id="screenPodiumOverlay">
+    <canvas id="fireworksCanvas"></canvas>
+
+    <div class="podium-header-group">
+      <div class="podium-crown-icon">👑</div>
+      <div class="podium-main-title">12/12 森林賽跑 · 榮耀獲獎頒獎榜</div>
+      <div class="podium-sub-desc">全場 50 隊陸生動物奮力奔馳 · 恭喜以下獲勝優勝隊伍！</div>
+    </div>
+
+    <!-- 三階頒獎台 (亞軍、冠軍、季軍) -->
+    <div class="podium-stages-row" id="podiumStagesRow">
+      <!-- 由 JS 動態注入 -->
+    </div>
+
+    <div class="podium-footer-banner">
+      🎉 恭喜以上獲獎隊伍！請得獎選手派代表至舞台領取新人精心準備之精美大獎！
+    </div>
+  </div>
+
+  <!-- 6. 浮動操作工具列 (Hover 顯現) -->
+  <div class="screen-toolbar">
+    <button class="tool-btn" id="audioBtn" onclick="toggleAudio()">
+      <span>🎵</span> <span id="audioText">播放大自然與氛圍音</span>
+    </button>
+    <button class="tool-btn" onclick="togglePodiumView()">
+      <span>🏆</span> <span>查看頒獎榜</span>
+    </button>
+    <button class="tool-btn" onclick="toggleFullscreen()">
+      <span>⛶</span> <span>全螢幕展示 (F11)</span>
+    </button>
+  </div>
+
+  <script>
+    // =========================================================
+    // 1. 嚴選 50 種森林陸生動物名錄
+    // =========================================================
+    const FOREST_ANIMALS = [
+      { id: "capybara", name: "水豚君", emoji: "🦫", cat: "cute" },
+      { id: "panda", name: "大貓熊", emoji: "🐼", cat: "cute" },
+      { id: "raccoon", name: "小浣熊", emoji: "🦝", cat: "cute" },
+      { id: "koala", name: "無尾熊", emoji: "🐨", cat: "cute" },
+      { id: "alpaca", name: "羊駝君", emoji: "🦙", cat: "cute" },
+      { id: "red_panda", name: "小熊貓", emoji: "🦊", cat: "cute" },
+      { id: "quokka", name: "短尾矮袋鼠", emoji: "🐹", cat: "cute" },
+      { id: "marmot", name: "土撥鼠", emoji: "🐿️", cat: "cute" },
+      { id: "hedgehog", name: "刺蝟小弟", emoji: "🦔", cat: "cute" },
+      { id: "chipmunk", name: "花栗鼠", emoji: "🐿️", cat: "cute" },
+
+      { id: "otter", name: "歐亞水獺", emoji: "🦦", cat: "speed" },
+      { id: "red_fox", name: "赤狐", emoji: "🦊", cat: "speed" },
+      { id: "hare", name: "森林野兔", emoji: "🐇", cat: "speed" },
+      { id: "deer", name: "梅花鹿", emoji: "🦌", cat: "speed" },
+      { id: "white_deer", name: "白尾鹿", emoji: "🦌", cat: "speed" },
+      { id: "ferret", name: "雪貂", emoji: "🦡", cat: "speed" },
+      { id: "antelope", name: "藏羚羊", emoji: "🦌", cat: "speed" },
+      { id: "zebra", name: "斑馬", emoji: "🦓", cat: "speed" },
+      { id: "cheetah", name: "獵豹", emoji: "🐆", cat: "speed" },
+      { id: "leopard_cat", name: "石虎豹貓", emoji: "🐱", cat: "speed" },
+
+      { id: "black_bear", name: "台灣黑熊", emoji: "🐻", cat: "mighty" },
+      { id: "wolf", name: "灰狼隊長", emoji: "🐺", cat: "mighty" },
+      { id: "tiger", name: "東北虎", emoji: "🐯", cat: "mighty" },
+      { id: "lion", name: "萬獸獅子", emoji: "🦁", cat: "mighty" },
+      { id: "grizzly", name: "大棕熊", emoji: "🐻", cat: "mighty" },
+      { id: "golden_monkey", name: "金絲猴", emoji: "🐒", cat: "mighty" },
+      { id: "ibex", name: "阿爾卑斯山羊", emoji: "🐐", cat: "mighty" },
+      { id: "wild_boar", name: "山豬勇士", emoji: "🐗", cat: "mighty" },
+      { id: "elephant", name: "森林大象", emoji: "🐘", cat: "mighty" },
+      { id: "giraffe", name: "長頸鹿", emoji: "🦒", cat: "mighty" },
+
+      { id: "anteater", name: "大食蟻獸", emoji: "🦡", cat: "wild" },
+      { id: "armadillo", name: "犰狳隊", emoji: "🦔", cat: "wild" },
+      { id: "meerkat", name: "狐獴哨兵", emoji: "🦡", cat: "wild" },
+      { id: "wombat", name: "袋熊胖胖", emoji: "🐻", cat: "wild" },
+      { id: "platypus", name: "鴨嘴獸", emoji: "🦫", cat: "wild" },
+      { id: "pangolin", name: "穿山甲", emoji: "🦎", cat: "wild" },
+      { id: "skunk", name: "臭鼬皮皮", emoji: "🦨", cat: "wild" },
+      { id: "jerboa", name: "長耳跳鼠", emoji: "🐁", cat: "wild" },
+      { id: "badger", name: "蜜獾平頭哥", emoji: "🦡", cat: "wild" },
+      { id: "lemur", name: "環尾狐猴", emoji: "🐒", cat: "wild" },
+
+      { id: "sloth", name: "三趾樹懶", emoji: "🦥", cat: "chill" },
+      { id: "tortoise", name: "加拉巴哥象龜", emoji: "🐢", cat: "chill" },
+      { id: "hippo", name: "河馬霸霸", emoji: "🦛", cat: "chill" },
+      { id: "rhino", name: "白犀牛", emoji: "🦏", cat: "chill" },
+      { id: "gorilla", name: "銀背大猩猩", emoji: "🦍", cat: "chill" },
+      { id: "chimp", name: "黑猩猩", emoji: "🐵", cat: "chill" },
+      { id: "orangutan", name: "紅毛猩猩", emoji: "🦧", cat: "chill" },
+      { id: "kangaroo", name: "袋鼠健將", emoji: "🦘", cat: "chill" },
+      { id: "polar_bear", name: "北極熊", emoji: "🐻‍❄️", cat: "chill" },
+      { id: "yak", name: "高原犛牛", emoji: "🐂", cat: "chill" }
+    ];
+
+    // =========================================================
+    // 2. Firebase 雲端即時連線設定
+    // =========================================================
+    const FIREBASE_CONFIG = {
+      apiKey: "AIzaSyBEbX1w8uFG_K5uVCm2BTB4DOb-nCsha3k",
+      authDomain: "wedding-forest-race.firebaseapp.com",
+      databaseURL: "https://wedding-forest-race-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "wedding-forest-race",
+      storageBucket: "wedding-forest-race.firebasestorage.app",
+      messagingSenderId: "958934225693",
+      appId: "1:958934225693:web:00a18a865534a9443e47f4"
+    };
+
+    let rtdb = null;
+    let teamDataMap = {};
+    let isMistSprintActive = false;
+    let isRaceFinished = false;
+    let mistCountdownTimer = null;
+
+    function initFirebase() {
+      try {
+        if (!firebase.apps.length) {
+          firebase.initializeApp(FIREBASE_CONFIG);
+        }
+        rtdb = firebase.database();
+
+        // 監聽連線狀態
+        rtdb.ref('.info/connected').on('value', snap => {
+          const isConnected = !!snap.val();
+          const pill = document.getElementById('liveStatusText');
+          if (pill) {
+            pill.textContent = isConnected ? "LIVE 實時連線中 · 全場 50 隊激戰" : "🟡 雲端連線中...";
+          }
+        });
+
+        // 監聽全隊伍即時數據
+        rtdb.ref('teams').on('value', snap => {
+          const cloudTeams = snap.val();
+          if (cloudTeams) {
+            teamDataMap = cloudTeams;
+            renderBroadcastScreen();
+          }
+        });
+
+        // 監聽賽事狀態 (一般賽跑 / 30秒迷霧衝刺 / 封榜)
+        rtdb.ref('gameState').on('value', snap => {
+          const state = snap.val() || { mode: 'normal' };
+          handleGameState(state);
+        });
+
+      } catch(e) {
+        console.warn("Firebase init failed:", e);
+      }
+    }
+
+    // 取得排序後的隊伍清單
+    function getSortedTeams() {
+      return FOREST_ANIMALS.map(animal => {
+        const team = teamDataMap[animal.id] || { meters: 0, membersCount: 0, members: [] };
+        return {
+          id: animal.id,
+          name: animal.name,
+          emoji: animal.emoji,
+          category: animal.cat,
+          meters: team.meters || 0,
+          membersCount: team.membersCount || (team.members ? team.members.length : 0),
+          members: team.members || []
+        };
+      }).sort((a, b) => b.meters - a.meters);
+    }
+
+    // =========================================================
+    // 3. 渲染大螢幕風雲榜與賽道衝刺
+    // =========================================================
+    function renderBroadcastScreen() {
+      const sorted = getSortedTeams();
+      const top5 = sorted.slice(0, 5);
+
+      // 全場總累積里程
+      const totalMeters = sorted.reduce((sum, t) => sum + (t.meters || 0), 0);
+      const totalElem = document.getElementById('globalTotalMeters');
+      if (totalElem) totalElem.textContent = totalMeters.toLocaleString() + ' m';
+
+      // 1. 左側風雲榜渲染
+      const listContainer = document.getElementById('screenRankList');
+      if (listContainer) {
+        listContainer.innerHTML = '';
+        const rankClasses = ['rank-1', 'rank-2', 'rank-3', '', ''];
+        const medals = ['🥇', '🥈', '🥉', '4', '5'];
+
+        top5.forEach((team, idx) => {
+          const card = document.createElement('div');
+          card.className = `screen-rank-card ${rankClasses[idx] || ''}`;
+          const membersList = (team.members && team.members.length) 
+            ? team.members.join('、') 
+            : '（等待選手加入中）';
+
+          card.innerHTML = `
+            <div class="card-medal-badge">${medals[idx]}</div>
+            <div class="card-animal-emoji">${team.emoji}</div>
+            <div class="card-info-group">
+              <div class="card-team-title">
+                <span>${team.name}</span>
+                <span style="font-size:0.7rem; color:#d1b187; font-weight:600;">(${team.membersCount}/5人)</span>
+              </div>
+              <div class="card-members-text">🏃 ${membersList}</div>
+            </div>
+            <div class="card-meter-box">
+              <div class="card-meter-number">${(team.meters || 0).toLocaleString()}</div>
+              <div class="card-meter-unit">METERS</div>
+            </div>
+          `;
+          listContainer.appendChild(card);
+        });
+      }
+
+      // 2. 右側多跑道動態奔馳實況渲染
+      const lanesContainer = document.getElementById('screenLanesContainer');
+      if (lanesContainer) {
+        lanesContainer.innerHTML = '';
+        const maxMeters = Math.max(1, top5[0]?.meters || 100);
+
+        top5.forEach((team, idx) => {
+          const lane = document.createElement('div');
+          lane.className = 'sprint-lane';
+
+          // 計算相對領先跑道進度 (15% ~ 82%)
+          const pct = Math.min(82, Math.max(15, Math.floor((team.meters / maxMeters) * 80)));
+          const isLeader = idx === 0;
+
+          lane.innerHTML = `
+            <div class="lane-ticks"></div>
+            <div class="lane-team-label">
+              <span>#${idx + 1}</span>
+              <span>${team.emoji} ${team.name}</span>
+            </div>
+            
+            <div class="running-avatar-wrapper" style="left: ${pct}%;">
+              <div class="avatar-speedlines">${isLeader ? '⚡💨💨' : '💨'}</div>
+              <div class="avatar-icon-box">${team.emoji}</div>
+              <div class="avatar-floating-tag">${team.meters.toLocaleString()}m</div>
+            </div>
+
+            <div class="finish-gate">🎀</div>
+          `;
+          lanesContainer.appendChild(lane);
+        });
+      }
+    }
+
+    // =========================================================
+    // 4. 迷霧森林最後衝刺與頒獎結算狀態處理
+    // =========================================================
+    function handleGameState(state) {
+      const mistOverlay = document.getElementById('screenMistOverlay');
+      const mistBanner = document.getElementById('screenMistBanner');
+      const mistTimer = document.getElementById('screenMistTimer');
+
+      if (state.mode === 'mist') {
+        const endsAt = state.mistEndsAt || (Date.now() + 30000);
+        const remSec = Math.max(0, Math.ceil((endsAt - Date.now()) / 1000));
+
+        if (remSec > 0) {
+          isMistSprintActive = true;
+          isRaceFinished = false;
+          if (mistOverlay) mistOverlay.classList.add('active');
+          if (mistBanner) mistBanner.classList.add('active');
+          if (mistTimer) mistTimer.textContent = `${remSec}s`;
+
+          if (mistCountdownTimer) clearInterval(mistCountdownTimer);
+          mistCountdownTimer = setInterval(() => {
+            const cur = Math.max(0, Math.ceil((endsAt - Date.now()) / 1000));
+            if (mistTimer) mistTimer.textContent = `${cur}s`;
+            if (cur <= 0) {
+              clearInterval(mistCountdownTimer);
+              mistCountdownTimer = null;
+              showGrandPodium();
+            }
+          }, 1000);
+          return;
+        }
+      }
+
+      if (mistCountdownTimer) {
+        clearInterval(mistCountdownTimer);
+        mistCountdownTimer = null;
+      }
+      isMistSprintActive = false;
+      if (mistOverlay) mistOverlay.classList.remove('active');
+      if (mistBanner) mistBanner.classList.remove('active');
+
+      if (state.mode === 'finished') {
+        isRaceFinished = true;
+        showGrandPodium();
+      } else {
+        isRaceFinished = false;
+        closeGrandPodium();
+      }
+    }
+
+    // 盛大三階奧運頒獎台
+    function showGrandPodium() {
+      const overlay = document.getElementById('screenPodiumOverlay');
+      const row = document.getElementById('podiumStagesRow');
+      if (!overlay || !row) return;
+
+      const sorted = getSortedTeams();
+      const top3 = sorted.slice(0, 3);
+      row.innerHTML = '';
+
+      const pillarConfigs = [
+        { cls: 'pillar-champion', medal: '🥇 冠軍隊伍', rankNum: 1 },
+        { cls: 'pillar-runner-up', medal: '🥈 亞軍隊伍', rankNum: 2 },
+        { cls: 'pillar-third', medal: '🥉 季軍隊伍', rankNum: 3 }
+      ];
+
+      // 順序排列：亞軍 (左)、冠軍 (中)、季軍 (右)
+      const podiumOrder = [1, 0, 2];
+
+      podiumOrder.forEach(idx => {
+        const team = top3[idx] || { name: '森林隊伍', emoji: '🌲', meters: 0, members: [] };
+        const cfg = pillarConfigs[idx];
+
+        const pillar = document.createElement('div');
+        pillar.className = `podium-pillar ${cfg.cls}`;
+        const membersList = (team.members && team.members.length) 
+          ? team.members.join('、') 
+          : '（無登記隊員）';
+
+        pillar.innerHTML = `
+          <div class="podium-rank-tag">${cfg.medal}</div>
+          <div class="podium-animal-avatar">${team.emoji}</div>
+          <div class="podium-team-name">${team.name}</div>
+          <div class="podium-meters-tag">${(team.meters || 0).toLocaleString()} m</div>
+          <div class="podium-members-box">
+            <div class="podium-members-header">獲獎跑者名冊 (${team.members ? team.members.length : 0}人)：</div>
+            <div class="podium-members-names">${membersList}</div>
+          </div>
+        `;
+        row.appendChild(pillar);
+      });
+
+      overlay.classList.add('active');
+      startFireworks();
+    }
+
+    function closeGrandPodium() {
+      const overlay = document.getElementById('screenPodiumOverlay');
+      if (overlay) overlay.classList.remove('active');
+      stopFireworks();
+    }
+
+    function togglePodiumView() {
+      const overlay = document.getElementById('screenPodiumOverlay');
+      if (overlay && overlay.classList.contains('active')) {
+        closeGrandPodium();
+      } else {
+        showGrandPodium();
+      }
+    }
+
+    // =========================================================
+    // 5. 飄浮金色螢火蟲與光斑粒子 Canvas
+    // =========================================================
+    const canvas = document.getElementById("particlesCanvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    class Firefly {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.radius = Math.random() * 2.2 + 0.8;
+        this.alpha = Math.random() * 0.7 + 0.2;
+        this.speedX = (Math.random() - 0.5) * 0.35;
+        this.speedY = -Math.random() * 0.3 - 0.1;
+        this.fadeSpeed = Math.random() * 0.008 + 0.004;
+        this.fadingOut = Math.random() > 0.5;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.fadingOut) {
+          this.alpha -= this.fadeSpeed;
+          if (this.alpha <= 0.08) this.fadingOut = false;
+        } else {
+          this.alpha += this.fadeSpeed;
+          if (this.alpha >= 0.85) this.fadingOut = true;
+        }
+        if (this.y < -10 || this.x < -10 || this.x > canvas.width + 10) {
+          this.reset();
+          this.y = canvas.height + 10;
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 225, 130, ${this.alpha})`;
+        ctx.shadowColor = "rgba(255, 210, 90, 0.9)";
+        ctx.shadowBlur = 10;
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    for (let i = 0; i < 48; i++) {
+      particles.push(new Firefly());
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // =========================================================
+    // 6. 頒獎典禮盛大煙火彩砲 Canvas (Grand Fireworks)
+    // =========================================================
+    const fwCanvas = document.getElementById("fireworksCanvas");
+    const fwCtx = fwCanvas.getContext("2d");
+    let fireworks = [];
+    let fwTimer = null;
+
+    function resizeFwCanvas() {
+      fwCanvas.width = window.innerWidth;
+      fwCanvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeFwCanvas);
+    resizeFwCanvas();
+
+    class ConfettiPiece {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 8 + 4;
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 8 + 3;
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed - 3;
+        this.gravity = 0.18;
+        this.rotation = Math.random() * 360;
+        this.rotSpeed = (Math.random() - 0.5) * 12;
+        const colors = ['#facc15', '#fef08a', '#fb7185', '#38bdf8', '#34d399', '#ffffff'];
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.alpha = 1;
+        this.decay = Math.random() * 0.015 + 0.008;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vy += this.gravity;
+        this.rotation += this.rotSpeed;
+        this.alpha -= this.decay;
+      }
+      draw() {
+        fwCtx.save();
+        fwCtx.translate(this.x, this.y);
+        fwCtx.rotate((this.rotation * Math.PI) / 180);
+        fwCtx.fillStyle = this.color;
+        fwCtx.globalAlpha = Math.max(0, this.alpha);
+        fwCtx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size * 0.6);
+        fwCtx.restore();
+      }
+    }
+
+    function spawnFireworksCluster() {
+      const x = Math.random() * fwCanvas.width * 0.8 + fwCanvas.width * 0.1;
+      const y = Math.random() * fwCanvas.height * 0.5 + fwCanvas.height * 0.15;
+      for (let i = 0; i < 60; i++) {
+        fireworks.push(new ConfettiPiece(x, y));
+      }
+    }
+
+    function animateFireworks() {
+      fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
+      for (let i = fireworks.length - 1; i >= 0; i--) {
+        const p = fireworks[i];
+        p.update();
+        p.draw();
+        if (p.alpha <= 0) fireworks.splice(i, 1);
+      }
+      if (fireworks.length > 0) {
+        requestAnimationFrame(animateFireworks);
+      }
+    }
+
+    function startFireworks() {
+      if (fwTimer) clearInterval(fwTimer);
+      spawnFireworksCluster();
+      spawnFireworksCluster();
+      animateFireworks();
+      fwTimer = setInterval(() => {
+        spawnFireworksCluster();
+        animateFireworks();
+      }, 900);
+    }
+
+    function stopFireworks() {
+      if (fwTimer) clearInterval(fwTimer);
+      fwTimer = null;
+      fireworks = [];
+      fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
+    }
+
+    // =========================================================
+    // 7. 工具列功能 (全螢幕 + 大自然木吉他合成器)
+    // =========================================================
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          console.log("Fullscreen request failed", err);
+        });
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    let audioCtx = null;
+    let isPlaying = false;
+    let chimeTimer = null;
+
+    function toggleAudio() {
+      if (!isPlaying) {
+        startAudio();
+        document.getElementById("audioText").innerText = "暫停氛圍音效";
+        document.getElementById("audioBtn").style.background = "rgba(77, 102, 80, 0.95)";
+        isPlaying = true;
+      } else {
+        stopAudio();
+        document.getElementById("audioText").innerText = "播放大自然與氛圍音";
+        document.getElementById("audioBtn").style.background = "rgba(20, 32, 22, 0.85)";
+        isPlaying = false;
+      }
+    }
+
+    function startAudio() {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioContext();
+
+      const scale = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25];
+      function playChime() {
+        if (!isPlaying || !audioCtx) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "sine";
+        const freq = scale[Math.floor(Math.random() * scale.length)];
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+        gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 2.8);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 3.0);
+
+        chimeTimer = setTimeout(playChime, 2500 + Math.random() * 3000);
+      }
+      playChime();
+    }
+
+    function stopAudio() {
+      if (audioCtx) {
+        audioCtx.close();
+        audioCtx = null;
+      }
+      if (chimeTimer) clearTimeout(chimeTimer);
+    }
+
+    // 啟動入口
+    window.addEventListener('DOMContentLoaded', () => {
+      initFirebase();
+      renderBroadcastScreen();
+    });
+  </script>
+</body>
+</html>

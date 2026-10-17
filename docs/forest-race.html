@@ -1,0 +1,5411 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>🌲 森林動物大賽跑 · 奔向 12/12 幸福婚禮</title>
+  
+  <!-- 字型引入 (與喜帖 invitation.html 完全同系列) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Firebase Realtime Database SDK (支援全場手機即時連線賽跑) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <style>
+    /* =========================================================
+       1. 喜帖系列視覺變數與環境 (Wedding Invitation Tokens)
+       ========================================================= */
+    :root {
+      --bg-canvas: #f2ede6;
+      --fleece-warm: #ede6dc;
+      --kraft-dark: #a98762;
+      --kraft-mid: #be9d78;
+      --kraft-light: #d0b596;
+      --kraft-shadow: rgba(65, 45, 26, 0.16);
+
+      --paper-white: #faf8f5;
+      --paper-ivory: #f5f1ea;
+
+      --ink-primary: #2d2621;
+      --ink-secondary: #4a4037;
+      --ink-muted: #7d7065;
+
+      --forest-dark: #27382b;
+      --forest-deep: #1e2c21;
+      --forest-sage: #46674a;
+      --forest-moss: #68856c;
+      --earth-brown: #a68565;
+      --champagne-gold: #c59b4c;
+      --champagne-light: #f4e8c1;
+      --accent-red: #ba3c3c;
+      --card-radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+
+    html, body {
+      touch-action: manipulation;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      overscroll-behavior-y: none;
+    }
+
+    /* 防止 iOS Safari 在輸入框獲得焦點時強制放大畫面 (字級必須 >= 16px) */
+    input, textarea, select {
+      font-size: 16px !important;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+
+    /* 確保所有按鈕與高頻點擊區域禁用雙擊放大手勢 */
+    button, .blessing-golden-btn, .sprint-btn, .trivia-opt-btn, .tab-btn, .action-btn {
+      touch-action: manipulation;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    body {
+      font-family: 'Montserrat', 'Noto Serif TC', serif;
+      background-color: var(--bg-canvas);
+      background-image: 
+        radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.85) 0%, transparent 60%),
+        radial-gradient(rgba(170, 140, 110, 0.14) 1px, transparent 1px);
+      background-size: 100% 100%, 20px 20px;
+      color: var(--ink-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* 頂部林間微光粒子背景 */
+    .forest-ambient-lights {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background: radial-gradient(circle at 20% 30%, rgba(255, 235, 170, 0.08) 0%, transparent 35%),
+                  radial-gradient(circle at 80% 60%, rgba(255, 235, 170, 0.06) 0%, transparent 40%);
+    }
+
+    /* 主要行動容器 */
+    .app-viewport {
+      width: 100%;
+      max-width: 440px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+      padding: 14px 14px 28px 14px;
+    }
+
+    /* =========================================================
+       2. 頂部導覽與新人專屬徽章 (Header Bar)
+       ========================================================= */
+    header.game-header {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(197, 155, 76, 0.35);
+      border-radius: 16px;
+      padding: 7px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(65, 45, 26, 0.06);
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 50;
+      box-sizing: border-box;
+    }
+
+    .header-branding {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .header-couple-title {
+      font-family: 'Playfair Display', 'Noto Serif TC', serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--forest-dark);
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+      line-height: 1.25;
+    }
+
+    .header-sub-tag {
+      font-size: 0.63rem;
+      color: #8c6b2d;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+      margin-top: 1px;
+      line-height: 1.2;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    .header-pill-btn {
+      height: 30px;
+      background: #f2ede5;
+      border: 1px solid rgba(197, 155, 76, 0.35);
+      border-radius: 15px;
+      padding: 0 9px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--ink-primary);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      white-space: nowrap;
+      transition: all 0.2s;
+      box-shadow: 0 1px 3px rgba(65, 45, 26, 0.05);
+      box-sizing: border-box;
+    }
+
+    .header-circle-btn {
+      width: 30px;
+      height: 30px;
+      background: #f2ede5;
+      border: 1px solid rgba(197, 155, 76, 0.35);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--ink-primary);
+      transition: all 0.2s;
+      flex-shrink: 0;
+      box-shadow: 0 1px 3px rgba(65, 45, 26, 0.05);
+      box-sizing: border-box;
+    }
+
+    .header-pill-btn:active,
+    .header-circle-btn:active {
+      transform: scale(0.93);
+      background: #ebe3d7;
+    }
+
+    /* =========================================================
+       3. 核心狀態視圖 (View 1: 註冊選動物 vs View 2: 賽道奔跑)
+       ========================================================= */
+    .view-card {
+      width: 100%;
+      background: var(--wood-card);
+      border-radius: var(--card-radius);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28), 0 2px 6px rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* =========================================================
+       VIEW 1: 跑者註冊與 50 種陸生動物選陣營
+       ========================================================= */
+    #view-registration {
+      display: flex;
+      flex-direction: column;
+      padding: 22px 18px;
+    }
+
+    .reg-hero-badge {
+      align-self: center;
+      background: var(--forest-soft);
+      border: 1px solid rgba(61, 94, 67, 0.2);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--forest-dark);
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .reg-title {
+      font-family: 'Playfair Display', 'Noto Serif TC', serif;
+      font-size: 1.35rem;
+      text-align: center;
+      color: var(--forest-deep);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .reg-desc {
+      font-size: 0.84rem;
+      color: var(--ink-muted);
+      text-align: center;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .reg-form-group {
+      margin-bottom: 16px;
+    }
+
+    .reg-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ink-dark);
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .reg-label-sub {
+      font-size: 0.72rem;
+      color: var(--gold-dark);
+      font-weight: 500;
+    }
+
+    .reg-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid #d4c7b8;
+      border-radius: 12px;
+      font-size: 16px;
+      background: #ffffff;
+      color: var(--ink-dark);
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .reg-input:focus {
+      border-color: var(--forest-mid);
+      box-shadow: 0 0 0 3px rgba(61, 94, 67, 0.15);
+    }
+
+    /* 實名制提醒公告橫幅 */
+    .reg-realname-notice {
+      background: #fdf5e8;
+      border: 1.5px solid #dcb274;
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 0.76rem;
+      color: #6d4215;
+      line-height: 1.5;
+      box-shadow: 0 2px 8px rgba(180, 130, 60, 0.12);
+    }
+
+    .notice-icon {
+      font-size: 1.35rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .reg-name-feedback {
+      font-size: 0.72rem;
+      margin-top: 6px;
+      font-weight: 600;
+      color: #7d6854;
+      padding-left: 2px;
+      transition: color 0.2s;
+    }
+
+    .reg-name-feedback.valid {
+      color: #277938;
+      font-weight: 700;
+    }
+
+    .reg-name-feedback.invalid {
+      color: #c94a4a;
+      font-weight: 700;
+    }
+
+    /* 50 種陸地動物篩選分類 Tab */
+    .animal-category-bar {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+      scrollbar-width: none;
+    }
+    .animal-category-bar::-webkit-scrollbar { display: none; }
+
+    .cat-pill {
+      background: #efebe4;
+      border: 1px solid #dcd4c7;
+      border-radius: 16px;
+      padding: 5px 12px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .cat-pill.active {
+      background: var(--forest-dark);
+      color: #ffffff;
+      border-color: var(--forest-dark);
+    }
+
+    /* 動物選擇方格 (Animal Grid) */
+    .animal-selection-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      max-height: 280px;
+      overflow-y: auto;
+      padding: 4px;
+      border: 1px solid #e5ded4;
+      border-radius: 14px;
+      background: #fbf9f5;
+    }
+
+    .animal-card-option {
+      background: #ffffff;
+      border: 1.5px solid #e8e2d8;
+      border-radius: 12px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s;
+    }
+
+    .animal-card-option:active {
+      transform: scale(0.97);
+    }
+
+    .animal-card-option.selected {
+      border-color: var(--forest-mid);
+      background: #eef5ef;
+      box-shadow: 0 3px 10px rgba(42, 68, 46, 0.15);
+    }
+
+    .animal-card-option.locked-team {
+      border: 2px solid #c59b4c !important;
+      background: #fdf6e6 !important;
+      box-shadow: 0 4px 14px rgba(197, 155, 76, 0.28) !important;
+    }
+
+    .animal-card-option.locked-other {
+      opacity: 0.38 !important;
+      filter: grayscale(0.7) !important;
+      cursor: not-allowed !important;
+      pointer-events: none !important;
+    }
+
+    .locked-text {
+      color: #8c6b2d !important;
+      font-weight: 700 !important;
+    }
+
+    .animal-card-emoji {
+      font-size: 1.4rem;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f7f3ec;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .animal-card-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .animal-card-name {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ink-dark);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .animal-card-quota {
+      font-size: 0.68rem;
+      color: #8c7258;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .animal-card-quota.full-text {
+      color: var(--danger-red);
+      font-weight: 700;
+    }
+
+    /* 註冊開始跑步按鈕 */
+    .reg-submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #2b4530 0%, #1a2c1f 100%);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 26px;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+      box-shadow: 0 8px 22px rgba(26, 44, 31, 0.35);
+      transition: all 0.2s;
+    }
+
+    .reg-submit-btn:disabled {
+      background: #a9a299;
+      cursor: not-allowed;
+      box-shadow: none;
+      opacity: 0.7;
+    }
+
+    /* =========================================================
+       VIEW 2: 正式賽道跑步中 (The Running Track View)
+       ========================================================= */
+    #view-gameplay {
+      display: none;
+      flex-direction: column;
+    }
+
+    /* 1. 即時聚焦排行榜列 (The Focus Leaderboard Bar - Wedding Invitation Series) */
+    .focus-leaderboard-bar {
+      background: #f7f3ee;
+      border-bottom: 1px solid #ebdccb;
+      padding: 10px 14px;
+    }
+
+    .lead-headline {
+      font-family: 'Playfair Display', 'Noto Serif TC', serif;
+      font-size: 0.76rem;
+      color: var(--ink-secondary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .lead-live-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #eef7f0;
+      color: #276b35;
+      border: 1px solid #b7e0c0;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-size: 0.65rem;
+      font-weight: 700;
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      background: #277938;
+      border-radius: 50%;
+      animation: livePulse 1.2s infinite;
+    }
+
+    @keyframes livePulse {
+      0% { transform: scale(0.9); opacity: 0.8; }
+      50% { transform: scale(1.4); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.8; }
+    }
+
+    /* 1. 直向 5 名次即時前線戰況榜 (Vertical 5-Tier Leaderboard) */
+    .focus-vertical-rank-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .focus-v-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #ffffff;
+      border: 1px solid #ebdccb;
+      border-radius: 9px;
+      padding: 4px 8px;
+      min-height: 29px;
+      font-size: 0.74rem;
+      transition: all 0.25s ease;
+      box-shadow: 0 1px 3px rgba(65, 45, 26, 0.04);
+      box-sizing: border-box;
+    }
+
+    .focus-v-row.is-me {
+      background: linear-gradient(135deg, #fdf8ee 0%, #f7ecd7 100%);
+      border: 1.5px solid #c59b4c;
+      box-shadow: 0 2px 8px rgba(197, 155, 76, 0.22);
+      font-weight: 700;
+      transform: scale(1.01);
+    }
+
+    .focus-v-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .focus-v-pos {
+      font-size: 0.73rem;
+      font-weight: 700;
+      color: #6d5b4d;
+      min-width: 32px;
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .focus-v-row.is-me .focus-v-pos {
+      color: #8c6b2d;
+    }
+
+    .focus-v-animal {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--ink-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .focus-v-mybadge {
+      font-size: 0.6rem;
+      background: #c59b4c;
+      color: #ffffff;
+      padding: 1px 4px;
+      border-radius: 4px;
+      font-weight: 700;
+      white-space: nowrap;
+      line-height: 1.1;
+    }
+
+    .focus-v-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .focus-v-meters {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #8c6b2d;
+      white-space: nowrap;
+      min-width: 48px;
+      text-align: right;
+    }
+
+    .focus-v-gap {
+      font-size: 0.62rem;
+      padding: 1px 5px;
+      border-radius: 5px;
+      white-space: nowrap;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .focus-v-gap.ahead {
+      background: #fde8e8;
+      color: #c94a4a;
+    }
+
+    .focus-v-gap.behind {
+      background: #e8f7ec;
+      color: #277938;
+    }
+
+    .focus-v-gap.gold {
+      background: #fbf2dc;
+      color: #946c24;
+      font-weight: 700;
+    }
+
+    .focus-v-ellipsis {
+      text-align: center;
+      color: #b0a192;
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      line-height: 1;
+      margin: 1px 0;
+    }
+
+    /* 全螢幕花瓣與落葉澎湃粒子畫布 */
+    .celebration-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 150;
+    }
+
+    /* =========================================================
+       2. 喜帖系列 · 婚禮馬拉松里程牌 (Artisanal Kraft Milestone Plaque)
+       ========================================================= */
+    .wedding-milestone-plaque {
+      background: linear-gradient(135deg, #fdfbf7 0%, #f6f0e4 100%);
+      border: 1.5px solid rgba(197, 155, 76, 0.55);
+      outline: 1px dashed rgba(197, 155, 76, 0.25);
+      outline-offset: -3px;
+      border-radius: 14px;
+      padding: 7px 12px 8px 12px;
+      margin-bottom: 6px;
+      box-shadow: 0 4px 14px rgba(65, 45, 26, 0.06);
+      position: relative;
+    }
+
+    .plaque-top-ribbon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      margin-bottom: 5px;
+    }
+
+    .plaque-sparkle {
+      color: #c59b4c;
+      font-size: 0.65rem;
+    }
+
+    .plaque-ribbon-title {
+      font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: #8c6b2d;
+      text-transform: uppercase;
+    }
+
+    .plaque-counter-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .plaque-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .plaque-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--ink-muted);
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      margin-bottom: 3px;
+    }
+
+    .plaque-km-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .plaque-km-digits {
+      font-family: 'Playfair Display', 'Cinzel', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--forest-dark);
+      letter-spacing: 0.5px;
+      line-height: 1;
+    }
+
+    .plaque-col.personal .plaque-km-digits {
+      color: #a8581e; /* 典雅暖皮革琥珀色 */
+    }
+
+    .plaque-unit-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.66rem;
+      font-weight: 700;
+      color: #c59b4c;
+      letter-spacing: 0.5px;
+      background: rgba(197, 155, 76, 0.12);
+      padding: 1px 4px;
+      border-radius: 4px;
+    }
+
+    .plaque-sub-meters {
+      font-size: 0.66rem;
+      font-weight: 600;
+      color: #8c7a6b;
+      margin-top: 4px;
+    }
+
+    .plaque-center-divider {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #d8c2a7;
+      font-size: 0.85rem;
+    }
+
+    /* =========================================================
+       3. 直向真實童話森林大道賽道 (Realistic Fairytale Forest Trail)
+       ========================================================= */
+    .track-viewport {
+      width: 100%;
+      height: 180px;
+      background-color: #0f1c12;
+      background-image: url('assets/fairytale_forest_trail.jpg');
+      background-image: image-set(url('assets/fairytale_forest_trail.webp') type('image/webp'), url('assets/fairytale_forest_trail.jpg') type('image/jpeg'));
+      background-position: center 70%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.45), 0 4px 16px rgba(65, 45, 26, 0.12);
+      border: 1.5px solid rgba(197, 155, 76, 0.45);
+      border-radius: 18px;
+      cursor: pointer;
+      transition: transform 0.08s ease;
+    }
+
+    /* 森林晨曦丁達爾光柱 (God-rays Atmosphere) */
+    .forest-sunbeams {
+      position: absolute;
+      inset: 0;
+      background: 
+        linear-gradient(118deg, transparent 35%, rgba(255, 245, 195, 0.08) 45%, rgba(255, 245, 195, 0.2) 50%, rgba(255, 245, 195, 0.08) 55%, transparent 65%),
+        linear-gradient(62deg, transparent 38%, rgba(255, 245, 195, 0.06) 46%, rgba(255, 245, 195, 0.15) 50%, rgba(255, 245, 195, 0.06) 54%, transparent 62%);
+      pointer-events: none;
+      z-index: 4;
+      animation: sunbeamPulse 4.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes sunbeamPulse {
+      0% { opacity: 0.65; transform: scaleY(0.96); }
+      100% { opacity: 1; transform: scaleY(1.04); }
+    }
+
+    /* 森林夢幻金粉與螢火微光 (Forest Fireflies) */
+    .forest-fireflies {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .firefly {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #fef08a;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #facc15, 0 0 12px #eab308;
+      opacity: 0;
+      animation: fireflyDrift 6s infinite ease-in-out;
+    }
+    .firefly.f1 { left: 22%; top: 60%; animation-delay: 0s; }
+    .firefly.f2 { left: 75%; top: 50%; animation-delay: 1.2s; }
+    .firefly.f3 { left: 35%; top: 35%; animation-delay: 2.5s; }
+    .firefly.f4 { left: 82%; top: 72%; animation-delay: 3.8s; }
+    .firefly.f5 { left: 15%; top: 25%; animation-delay: 4.6s; }
+
+    @keyframes fireflyDrift {
+      0% { opacity: 0; transform: translate(0, 0) scale(0.6); }
+      30% { opacity: 0.85; transform: translate(6px, -18px) scale(1.1); }
+      70% { opacity: 0.9; transform: translate(-8px, -42px) scale(0.9); }
+      100% { opacity: 0; transform: translate(4px, -65px) scale(0.5); }
+    }
+
+    /* 遠景阿沐婚宴玻璃城堡浪漫微光 (Distant Wedding Destination) */
+    .track-distant-castle {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 15;
+      pointer-events: none;
+      background: rgba(26, 40, 30, 0.88);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: 1px solid #c59b4c;
+      padding: 4px 12px;
+      border-radius: 20px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35), 0 0 16px rgba(255, 230, 160, 0.35);
+      animation: castleGleam 2.8s infinite alternate ease-in-out;
+    }
+
+    @keyframes castleGleam {
+      0% { filter: drop-shadow(0 0 6px rgba(255, 230, 160, 0.6)); transform: translateX(-50%) scale(0.98); }
+      100% { filter: drop-shadow(0 0 16px rgba(255, 215, 90, 0.95)); transform: translateX(-50%) scale(1.02); }
+    }
+
+    .castle-icon {
+      font-size: 1.15rem;
+      filter: drop-shadow(0 2px 4px rgba(255, 240, 180, 0.7));
+    }
+
+    .castle-label {
+      font-family: 'Playfair Display', 'Noto Serif TC', serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #fff4d4;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    /* 直向賽道縱向下落動態景物 (花草、蘑菇、木牌) */
+    .track-scenery-container {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 7;
+      overflow: hidden;
+    }
+
+    .roadside-item {
+      position: absolute;
+      top: -40px;
+      font-size: 1.4rem;
+      transition: transform 0.08s linear;
+      filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.3));
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .roadside-item.milestone-sign {
+      background: linear-gradient(135deg, #7d5936 0%, #5c3b1e 100%);
+      color: #fff9ea;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 4px 9px;
+      border-radius: 8px;
+      border: 1px solid #c59b4c;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      white-space: nowrap;
+      z-index: 9;
+    }
+
+    /* 玩家動物主角 (婚禮運動員金章勳章 · 奔馳於森林步道中央) */
+    .player-runner-avatar {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 12;
+      user-select: none;
+      filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.5));
+      transition: transform 0.12s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+
+    .runner-avatar-badge {
+      width: 62px;
+      height: 62px;
+      background: radial-gradient(circle at 35% 30%, #ffffff 0%, #faf5ed 65%, #ebdcc3 100%);
+      border: 2px solid #c59b4c;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(15, 30, 20, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.9), 0 0 12px rgba(197, 155, 76, 0.45);
+      position: relative;
+    }
+
+    .runner-avatar-badge #runner-emoji {
+      font-size: 2.3rem;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+      transition: transform 0.1s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .runner-tag-pill {
+      position: absolute;
+      bottom: -6px;
+      background: linear-gradient(135deg, #27382b 0%, #1e2c21 100%);
+      color: #fce8bd;
+      border: 1px solid #c59b4c;
+      border-radius: 10px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 1px 8px;
+      white-space: nowrap;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+      letter-spacing: 0.5px;
+    }
+
+    /* 點擊時向前蹬步微躍動畫 */
+    .player-runner-avatar.striding {
+      animation: verticalStride 0.16s ease-out;
+    }
+
+    @keyframes verticalStride {
+      0% { transform: translateX(-50%) translateY(0) scale(1); }
+      40% { transform: translateX(-50%) translateY(-14px) scale(1.12); }
+      100% { transform: translateX(-50%) translateY(0) scale(1); }
+    }
+
+    /* 腳底衝刺泥土揚塵特效 */
+    .runner-dust-trail {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      z-index: 11;
+    }
+    .runner-dust-trail.active {
+      opacity: 0.85;
+      animation: dustDrift 0.25s infinite;
+    }
+
+    @keyframes dustDrift {
+      0% { transform: translateX(-50%) translateY(0) scale(0.8); opacity: 0.8; }
+      100% { transform: translateX(-50%) translateY(14px) scale(1.3); opacity: 0; }
+    }
+
+    /* 每次點擊跳出的 +2m / +4m 浮動字樣 (RPG 獲得感) */
+    .floating-meter-gain {
+      position: absolute;
+      font-family: 'Cinzel', 'Noto Serif TC', serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #ffe893;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8), 0 0 10px rgba(197, 155, 76, 0.6);
+      pointer-events: none;
+      z-index: 30;
+      animation: floatMeterUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .floating-meter-gain.nitro {
+      color: #ff5e5e;
+      font-size: 1.35rem;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85), 0 0 12px rgba(255, 60, 60, 0.8);
+    }
+
+    @keyframes floatMeterUp {
+      0% { transform: translateX(-50%) translateY(0) scale(0.85); opacity: 0; }
+      20% { transform: translateX(-50%) translateY(-10px) scale(1.2); opacity: 1; }
+      100% { transform: translateX(-50%) translateY(-44px) scale(1); opacity: 0; }
+    }
+
+    /* 賽道迎面而來的障礙物 (從賽道前方逼近) */
+    .track-obstacle-sprite {
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%) scale(0.5);
+      font-size: 2.6rem;
+      filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.4));
+      z-index: 10;
+      transition: top 0.08s linear, transform 0.08s linear;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .obstacle-alert-pill {
+      font-size: 0.65rem;
+      background: var(--danger-red);
+      color: white;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 8px;
+      margin-bottom: 2px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      animation: pulseAlert 0.8s infinite;
+    }
+
+    @keyframes pulseAlert {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    /* 3. 氮氣加速爆發提示橫幅 (Nitro Boost Banner) */
+    .nitro-banner-wrapper {
+      padding: 8px 14px 4px 14px;
+      display: flex;
+      justify-content: center;
+      background: #faf8f5;
+    }
+
+    .nitro-boost-badge {
+      display: inline-flex;
+      background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
+      animation: nitroFlicker 0.4s infinite alternate;
+      align-items: center;
+      gap: 5px;
+    }
+
+    @keyframes nitroFlicker {
+      0% { transform: scale(0.96); filter: brightness(1); }
+      100% { transform: scale(1.04); filter: brightness(1.2); }
+    }
+
+    /* =========================================================
+       4. 喜帖系列 · 送上祝福與動物衝刺加碼卡 (Wedding Blessing & Animal Sprint Card)
+       直接參照喜帖祝福按鈕與能量條設計
+       ========================================================= */
+    .wedding-blessing-card {
+      margin: 10px 10px 12px 10px;
+      background: #faf7f2;
+      border: 1px solid #d4c4af;
+      border-radius: 18px;
+      padding: 18px 16px 14px 16px;
+      box-shadow: 
+        inset 0 0 0 3px #faf7f2, 
+        inset 0 0 0 4px rgba(212, 175, 110, 0.45),
+        0 4px 18px rgba(70, 50, 30, 0.08);
+      position: relative;
+      text-align: center;
+    }
+
+    .blessing-prompt-title {
+      font-family: 'Noto Serif TC', 'Songti TC', serif;
+      font-size: 0.95rem;
+      color: #6b5a4b;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+
+    .blessing-prompt-subtitle {
+      font-family: 'Noto Serif TC', 'Songti TC', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #3b2d22;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+
+    .blessing-button-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .blessing-button-aura {
+      background: rgba(226, 185, 111, 0.22);
+      padding: 6px;
+      border-radius: 999px;
+      display: inline-flex;
+      box-shadow: 0 4px 16px rgba(200, 150, 70, 0.16);
+      transition: transform 0.08s ease, background 0.15s ease;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .blessing-golden-btn {
+      width: 100%;
+      height: 52px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ECC87E 0%, #E3B868 38%, #D49D4A 72%, #E8C175 100%);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      box-shadow: inset 0 1.5px 2px rgba(255, 255, 255, 0.85), 0 5px 14px rgba(160, 110, 35, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+      position: relative;
+      transition: transform 0.06s ease, filter 0.06s ease, box-shadow 0.06s ease;
+    }
+
+    .blessing-golden-btn:active {
+      transform: scale(0.96) translateY(2px);
+      filter: brightness(0.97);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(160, 110, 35, 0.2);
+    }
+
+    .blessing-golden-btn.boom {
+      animation: sprintBoom 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes sprintBoom {
+      0% { transform: scale(1); }
+      35% { transform: scale(0.94) translateY(2px); }
+      100% { transform: scale(1); }
+    }
+
+    .blessing-bouquet-icon {
+      font-size: 1.45rem;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12));
+      transition: transform 0.1s ease;
+    }
+
+    .blessing-golden-btn:active .blessing-bouquet-icon {
+      transform: scale(1.2) rotate(8deg);
+    }
+
+    .blessing-btn-text {
+      font-family: 'Noto Serif TC', 'Songti TC', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #3b2612;
+      letter-spacing: 0.22em;
+      text-indent: 0.22em;
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.45);
+    }
+
+    .blessing-stride-badge {
+      position: absolute;
+      right: 12px;
+      background: rgba(85, 45, 10, 0.75);
+      color: #fff6db;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    /* 能量標籤列 */
+    .blessing-energy-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding: 0 4px;
+    }
+
+    .energy-label {
+      font-family: 'Noto Serif TC', 'Songti TC', serif;
+      font-size: 0.88rem;
+      color: #6b5a4b;
+    }
+
+    .energy-status-tag {
+      font-family: 'Noto Serif TC', 'Songti TC', serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #a67c2e;
+    }
+
+    /* 跑者動物進度條賽道 (Animal Sprint Track) */
+    .animal-sprint-track {
+      position: relative;
+      width: 100%;
+      height: 12px;
+      background: #efe8dc;
+      border: 1px solid #d8c7b0;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    .animal-sprint-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #f3d99e 0%, #d8a758 100%);
+      border-radius: 999px;
+      transition: width 0.15s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .animal-sprint-runner {
+      position: absolute;
+      top: 50%;
+      left: 0%;
+      transform: translate(-50%, -50%);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #ffffff 0%, #faf5ed 65%, #ebdcc3 100%);
+      border: 2px solid #c59b4c;
+      box-shadow: 0 3px 8px rgba(100, 70, 20, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.18rem;
+      z-index: 5;
+      pointer-events: none;
+      transition: left 0.15s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.1s ease;
+    }
+
+    .animal-sprint-runner.trotting {
+      transform: translate(-50%, -65%) scale(1.15) rotate(8deg);
+    }
+
+    .animal-sprint-goal {
+      position: absolute;
+      right: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.35rem;
+      z-index: 4;
+      animation: giftGleam 2s infinite ease-in-out;
+      cursor: pointer;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+    }
+
+    @keyframes giftGleam {
+      0%, 100% { transform: translateY(-50%) scale(1); }
+      50% { transform: translateY(-50%) scale(1.22) rotate(8deg); }
+    }
+
+    /* 底部衝刺與里程累積計數 */
+    .blessing-count-footer {
+      font-family: 'Noto Serif TC', 'Songti TC', serif;
+      font-size: 0.82rem;
+      color: #5a483a;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .blessing-count-footer span {
+      white-space: nowrap;
+    }
+
+    .blessing-count-num, .blessing-meters-num {
+      font-family: 'Noto Serif TC', 'Cinzel', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #a67c2e;
+      margin: 0 3px;
+      display: inline-block;
+      transition: color 0.15s ease;
+    }
+
+    .blessing-count-num.bump {
+      animation: countBump 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes countBump {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.35); color: #d97706; }
+      100% { transform: scale(1); color: #a67c2e; }
+    }
+
+    .blessing-team-stats-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(197, 155, 76, 0.12);
+      border: 1px solid rgba(197, 155, 76, 0.3);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      color: #6b5a4b;
+    }
+
+    .blessing-team-stats-pill strong {
+      color: #27382b;
+    }
+
+    .blessing-team-stats-pill .pill-dot {
+      color: #c59b4c;
+    }
+
+    /* 管理員密碼驗證彈窗 (Admin Passcode Modal) */
+    .admin-passcode-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 25, 18, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 300;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .admin-passcode-card {
+      width: 100%;
+      max-width: 380px;
+      background: #faf7f2;
+      border: 1.5px solid #c59b4c;
+      border-radius: 20px;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      animation: popInModal 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes inputShake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .shake-input {
+      animation: inputShake 0.3s ease;
+    }
+
+    /* 題庫管理後台專屬抽屜 (Admin Trivia Drawer) */
+    .admin-trivia-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 25, 18, 0.82);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 250;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .admin-trivia-card {
+      width: 100%;
+      max-width: 480px;
+      max-height: 88vh;
+      background: #faf7f2;
+      border: 2px solid #c59b4c;
+      border-radius: 20px;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: popInModal 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .admin-trivia-header {
+      padding: 14px 18px;
+      background: #ffffff;
+      border-bottom: 1px solid #ebdccb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .admin-trivia-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--forest-deep);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .admin-trivia-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .admin-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .admin-input-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #5a483a;
+    }
+
+    .admin-text-input {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1.5px solid #d4c4af;
+      border-radius: 10px;
+      background: #ffffff;
+      font-size: 16px;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    .admin-text-input:focus {
+      border-color: #c59b4c;
+      box-shadow: 0 0 0 3px rgba(197, 155, 76, 0.2);
+    }
+
+    .admin-opt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .admin-save-btn {
+      width: 100%;
+      padding: 11px;
+      background: linear-gradient(135deg, #27382b 0%, #17241a 100%);
+      border: 1px solid #c59b4c;
+      border-radius: 12px;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+    }
+
+    /* 5. 賽事工具快捷按鈕 */
+    .gameplay-footer-actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .footer-tool-btn {
+      background: #ede6dc;
+      border: 1px solid rgba(197, 155, 76, 0.35);
+      color: var(--ink-primary);
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+
+    .footer-tool-btn:active {
+      transform: scale(0.94);
+    }
+
+    /* =========================================================
+       4. 障礙物甜蜜問答彈窗 (Trivia Modal)
+       ========================================================= */
+    .trivia-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 25, 17, 0.75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      padding: 20px;
+      animation: fadeInModal 0.25s ease;
+    }
+
+    @keyframes fadeInModal {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .trivia-modal-card {
+      width: 100%;
+      max-width: 380px;
+      background: #fdfaf6;
+      border-radius: 20px;
+      padding: 22px 20px;
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
+      border: 1.5px solid var(--gold-mid);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      animation: popUpModal 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+
+    @keyframes popUpModal {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .trivia-icon-badge {
+      align-self: center;
+      width: 50px;
+      height: 50px;
+      background: #f3ece1;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-top: -38px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+      border: 2px solid var(--gold-mid);
+    }
+
+    .trivia-header-tag {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--gold-dark);
+      text-align: center;
+      letter-spacing: 1px;
+      margin-top: 8px;
+    }
+
+    .trivia-question-text {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--forest-deep);
+      text-align: center;
+      margin: 10px 0 16px 0;
+      line-height: 1.45;
+    }
+
+    .trivia-options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      width: 100%;
+    }
+
+    .trivia-opt-btn {
+      width: 100%;
+      padding: 12px 14px;
+      background: #ffffff;
+      border: 1.5px solid #ded4c5;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--ink-dark);
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .trivia-opt-btn:active {
+      transform: scale(0.98);
+    }
+
+    .trivia-opt-letter {
+      width: 24px;
+      height: 24px;
+      background: #efebe2;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--forest-dark);
+      flex-shrink: 0;
+    }
+
+    .trivia-opt-btn.correct {
+      background: #eefbf1;
+      border-color: #2fb351;
+      color: #1a6e2e;
+    }
+    .trivia-opt-btn.correct .trivia-opt-letter {
+      background: #2fb351;
+      color: white;
+    }
+
+    .trivia-opt-btn.wrong {
+      background: #fdf0f0;
+      border-color: #e54d4d;
+      color: #a32222;
+    }
+
+    /* 答題結果橫幅反饋 */
+    .trivia-result-banner {
+      display: none;
+      text-align: center;
+      padding: 8px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-top: 12px;
+    }
+
+    .trivia-result-banner.success {
+      background: #e9f8ed;
+      color: #1e7033;
+    }
+
+    /* 答題後手動恢復奔跑之衝刺按鈕 (防止誤觸跳出) */
+    .trivia-resume-btn {
+      display: none;
+      width: 100%;
+      margin-top: 14px;
+      padding: 13px 18px;
+      background: linear-gradient(135deg, #28442e 0%, #1a2c1f 100%);
+      border: 1.5px solid var(--gold-mid);
+      border-radius: 14px;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(26, 44, 31, 0.35);
+      transition: transform 0.1s, box-shadow 0.1s;
+      text-align: center;
+      animation: pulseResumeBtn 1.5s infinite;
+    }
+
+    .trivia-resume-btn:active {
+      transform: scale(0.97);
+    }
+
+    @keyframes pulseResumeBtn {
+      0%, 100% { box-shadow: 0 6px 18px rgba(26, 44, 31, 0.35); }
+      50% { box-shadow: 0 8px 24px rgba(197, 155, 76, 0.55); }
+    }
+
+    /* =========================================================
+       5. 全森林 50 動物排行榜抽屜 (Full Leaderboard Drawer)
+       ========================================================= */
+    .leaderboard-drawer {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 20, 12, 0.75);
+      backdrop-filter: blur(10px);
+      z-index: 210;
+      display: none;
+      align-items: flex-end;
+    }
+
+    .leaderboard-drawer-content {
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      height: 82vh;
+      background: #fdfaf6;
+      border-radius: 24px 24px 0 0;
+      box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: slideUpDrawer 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slideUpDrawer {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .drawer-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #ebdccb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #ffffff;
+    }
+
+    .drawer-title {
+      font-family: 'Cinzel', 'Noto Serif TC', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--forest-deep);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .drawer-close-btn {
+      background: #efebe2;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-dark);
+    }
+
+    .drawer-list-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 16px 40px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .rank-row-item {
+      background: #ffffff;
+      border: 1px solid #e9e1d6;
+      border-radius: 12px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    }
+
+    .rank-row-item.is-me {
+      background: #eef5ef;
+      border: 1.5px solid var(--forest-mid);
+      box-shadow: 0 4px 12px rgba(42, 68, 46, 0.15);
+    }
+
+    .rank-pos-number {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      width: 28px;
+      color: #9c8a77;
+      text-align: center;
+    }
+
+    .rank-row-item:nth-child(1) .rank-pos-number { color: #d4a017; font-size: 1.3rem; }
+    .rank-row-item:nth-child(2) .rank-pos-number { color: #8f9aa6; font-size: 1.25rem; }
+    .rank-row-item:nth-child(3) .rank-pos-number { color: #b87333; font-size: 1.2rem; }
+
+    .rank-row-emoji {
+      font-size: 1.6rem;
+      width: 38px;
+      height: 38px;
+      background: #f7f3ec;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .rank-row-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .rank-row-title {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--ink-dark);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .rank-my-badge {
+      background: var(--forest-dark);
+      color: white;
+      font-size: 0.62rem;
+      padding: 1px 5px;
+      border-radius: 6px;
+    }
+
+    .rank-row-members {
+      font-size: 0.7rem;
+      color: var(--ink-muted);
+    }
+
+    .rank-row-meters {
+      font-family: 'Cinzel', monospace;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--forest-dark);
+      white-space: nowrap;
+    }
+
+    /* =========================================================
+       13. 迷霧森林最後衝刺與頒獎典禮樣式 (Mist Forest & Awards)
+       ========================================================= */
+    .floating-meter-gain.mist-frenzy {
+      color: #ffe066;
+      font-size: 1.55rem;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9), 0 0 16px rgba(245, 158, 11, 0.95), 0 0 24px rgba(239, 68, 68, 0.85);
+      font-weight: 900;
+    }
+
+    /* 迷霧森林浪漫動態晨霧覆蓋層 (Mist Forest Overlay) */
+    .mist-forest-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 15;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      overflow: hidden;
+    }
+    .mist-forest-overlay.active {
+      display: block;
+      opacity: 1;
+    }
+    .mist-layer-1, .mist-layer-2 {
+      position: absolute;
+      inset: -50%;
+      background: radial-gradient(ellipse at 50% 60%, rgba(255, 255, 255, 0.38) 0%, rgba(240, 230, 210, 0.25) 40%, rgba(200, 220, 240, 0.12) 70%, transparent 100%);
+      mix-blend-mode: screen;
+      filter: blur(18px);
+      animation: mistDrift 14s ease-in-out infinite alternate;
+    }
+    .mist-layer-2 {
+      animation: mistDriftReverse 18s ease-in-out infinite alternate;
+      background: radial-gradient(ellipse at 60% 40%, rgba(255, 248, 220, 0.35) 0%, rgba(210, 235, 255, 0.28) 50%, transparent 80%);
+    }
+    @keyframes mistDrift {
+      0% { transform: translate(-5%, -5%) scale(1); }
+      50% { transform: translate(5%, 3%) scale(1.08); }
+      100% { transform: translate(-3%, 4%) scale(1.02); }
+    }
+    @keyframes mistDriftReverse {
+      0% { transform: translate(4%, 3%) scale(1.05); }
+      50% { transform: translate(-4%, -2%) scale(0.96); }
+      100% { transform: translate(3%, -4%) scale(1.03); }
+    }
+
+    /* 迷霧森林衝刺全場置頂倒數橫幅 */
+    .mist-sprint-banner {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      background: linear-gradient(135deg, rgba(27, 46, 30, 0.96) 0%, rgba(55, 30, 15, 0.98) 100%);
+      border: 2px solid #eab308;
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 18px rgba(234, 179, 8, 0.5);
+      padding: 9px 12px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 45;
+      animation: pulseMistGlow 1.4s infinite alternate;
+      box-sizing: border-box;
+    }
+    .mist-sprint-banner.active {
+      display: flex;
+    }
+    @keyframes pulseMistGlow {
+      0% { box-shadow: 0 4px 16px rgba(0,0,0,0.35), 0 0 10px rgba(234, 179, 8, 0.3); }
+      100% { box-shadow: 0 8px 28px rgba(0,0,0,0.5), 0 0 24px rgba(234, 179, 8, 0.75); }
+    }
+    .mist-banner-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .mist-banner-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #fef08a;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mist-banner-sub {
+      font-size: 0.72rem;
+      color: #fed7aa;
+      font-weight: 600;
+    }
+    .mist-timer-badge {
+      font-family: 'Cinzel', monospace;
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: #ffffff;
+      background: #b91c1c;
+      border: 1.5px solid #f87171;
+      padding: 3px 12px;
+      border-radius: 10px;
+      letter-spacing: 1px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+    }
+
+    /* 婚禮賽跑榮譽頒獎榜彈窗 (Awards Modal) */
+    .awards-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 18, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 250;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      box-sizing: border-box;
+      animation: fadeInModal 0.35s ease;
+    }
+    .awards-card {
+      width: 100%;
+      max-width: 440px;
+      max-height: 88vh;
+      overflow-y: auto;
+      background: #faf7f2;
+      border: 2px solid #c59b4c;
+      border-radius: 20px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 0 32px rgba(197, 155, 76, 0.4);
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    .awards-hero-crown {
+      font-size: 2.8rem;
+      margin-bottom: 4px;
+      animation: crownBob 1.8s ease-in-out infinite alternate;
+    }
+    @keyframes crownBob {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-6px) scale(1.08); }
+    }
+    .awards-title {
+      font-family: 'Cinzel', 'Noto Serif TC', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1b2e1e;
+      margin-bottom: 4px;
+    }
+    .awards-subtitle {
+      font-size: 0.78rem;
+      color: #7b6552;
+      margin-bottom: 18px;
+    }
+    .podium-card {
+      width: 100%;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: left;
+      border: 1.5px solid #e3d3bd;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.04);
+      box-sizing: border-box;
+    }
+    .podium-card.rank-1 {
+      border: 2px solid #d4a017;
+      background: linear-gradient(135deg, #fffcf5 0%, #fff8eb 100%);
+      box-shadow: 0 4px 14px rgba(212, 160, 23, 0.22);
+    }
+    .podium-card.rank-2 {
+      border: 1.5px solid #a0aec0;
+      background: linear-gradient(135deg, #fafafa 0%, #f1f5f9 100%);
+    }
+    .podium-card.rank-3 {
+      border: 1.5px solid #cb8a58;
+      background: linear-gradient(135deg, #fffaf6 0%, #fdf2e9 100%);
+    }
+    .podium-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .podium-team-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #1b2e1e;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .podium-team-meters {
+      font-family: 'Cinzel', monospace;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #8c5315;
+    }
+    .podium-members {
+      font-size: 0.78rem;
+      color: #554433;
+      background: rgba(0,0,0,0.03);
+      padding: 6px 10px;
+      border-radius: 8px;
+      line-height: 1.45;
+    }
+    .awards-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      margin-top: 14px;
+    }
+    .awards-copy-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #27382b 0%, #1b2e1e 100%);
+      border: 1px solid #c59b4c;
+      border-radius: 12px;
+      color: #f7e7ce;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(27, 46, 30, 0.3);
+    }
+    .awards-close-btn {
+      width: 100%;
+      padding: 9px;
+      background: #efebe2;
+      border: 1px solid #d4c8b8;
+      border-radius: 12px;
+      color: #6b5847;
+      font-weight: 600;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 微光背景環境 -->
+  <div class="forest-ambient-lights"></div>
+
+  <!-- 主要應用容器 -->
+  <div class="app-viewport">
+    
+    <!-- 頂部精緻導覽列 -->
+    <header class="game-header">
+      <div class="header-branding" onclick="handleHeaderSecretClick()">
+        <div class="header-couple-title">
+          🌲 森林動物大賽跑
+          <span id="cloud-sync-badge" onclick="event.stopPropagation(); checkCloudStatus();" style="font-size:0.65rem; padding: 2px 7px; border-radius: 10px; background: rgba(217, 119, 6, 0.15); color: #92400e; margin-left: 5px; vertical-align: middle; display: inline-block; cursor: pointer; font-family: -apple-system, sans-serif; font-weight: 600;" title="點擊查看連線狀態">🟡 連線中...</span>
+        </div>
+        <div class="header-sub-tag">Barry &amp; Winnie · 奔向 12/12 婚禮</div>
+      </div>
+      <div class="header-actions">
+        <button class="header-circle-btn" id="btn-sound-toggle" onclick="toggleSound()" title="開關音效">
+          <span id="sound-icon">🔊</span>
+        </button>
+        <button class="header-pill-btn" onclick="openLeaderboardDrawer()">
+          <span>🏆</span><span>排行榜</span>
+        </button>
+        <button class="header-pill-btn" onclick="window.location.href='https://barry-winnie.pages.dev/'" title="前往正式電子喜帖">
+          <span>💌</span><span>喜帖</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- =========================================================
+         VIEW 1: 跑者註冊與 50 種陸地動物選陣營 (Registration)
+         ========================================================= -->
+    <section class="view-card" id="view-registration">
+      <div class="reg-hero-badge">FAIRYTALE FOREST RACE</div>
+      <h1 class="reg-title">註冊森林選手號碼布</h1>
+      <p class="reg-desc">
+        加入心儀動物陣營，合力衝刺至 12/12 婚禮頒獎時刻！<br>
+        <strong>嚴選 50 種森林陸生動物 · 每種陣營限額 5 位名額</strong><br>
+        <span style="display:inline-block; margin-top:4px; color:#b83232; font-weight:700; font-size:0.75rem;">🔒 賽事提醒：跑者姓名與陣營一經登記即鎖定</span>
+      </p>
+
+      <!-- 婚禮頒獎登記提醒橫幅 -->
+      <div class="reg-realname-notice">
+        <div class="notice-icon">🎖️</div>
+        <div class="notice-text">
+          <div style="font-weight: 700; color: #8c5315; margin-bottom: 3px;">【婚禮現場頒獎 · 跑者登記須知】</div>
+          為確保 12/12 婚宴現場核對並頒發精美大獎，請填寫<strong>姓名（範例：戴婉錡）</strong>，請勿使用暱稱或外號，以免現場無法領獎喔！
+        </div>
+      </div>
+
+      <!-- 姓名輸入 -->
+      <div class="reg-form-group">
+        <div class="reg-label">
+          <span>1. 姓名</span>
+          <span class="reg-label-sub" style="color: #7b5e43; font-weight: 600;">範例：戴婉錡</span>
+        </div>
+        <input 
+          type="text" 
+          id="reg-input-name" 
+          class="reg-input" 
+          placeholder="範例：戴婉錡" 
+          maxlength="10"
+          autocomplete="name"
+        >
+        <div class="reg-name-feedback" id="reg-name-feedback">請輸入姓名（範例：戴婉錡）</div>
+      </div>
+
+      <!-- 動物陣營選擇 -->
+      <div class="reg-form-group">
+        <div class="reg-label">
+          <span>2. 選擇你的動物陣營</span>
+          <span class="reg-label-sub" id="selected-animal-preview">尚未選擇</span>
+        </div>
+
+        <!-- 分類過濾 Tab -->
+        <div class="animal-category-bar">
+          <button class="cat-pill active" onclick="filterAnimalCategory('all', this)">全部 50 種</button>
+          <button class="cat-pill" onclick="filterAnimalCategory('cute', this)">萌友探險家</button>
+          <button class="cat-pill" onclick="filterAnimalCategory('speed', this)">靈巧神速隊</button>
+          <button class="cat-pill" onclick="filterAnimalCategory('mighty', this)">森林守護者</button>
+          <button class="cat-pill" onclick="filterAnimalCategory('wild', this)">奇幻密林組</button>
+          <button class="cat-pill" onclick="filterAnimalCategory('chill', this)">悠閒慢活組</button>
+        </div>
+
+        <!-- 50 種陸生動物方格 -->
+        <div class="animal-selection-grid" id="animal-grid-container">
+          <!-- 由 JS 動態注入 50 種動物 -->
+        </div>
+      </div>
+
+      <!-- 提交按鈕 -->
+      <button class="reg-submit-btn" id="btn-submit-registration" onclick="handleRegister()" disabled>
+        <span>🏃</span> 領取號碼布 · 開跑！
+      </button>
+    </section>
+
+    <!-- =========================================================
+         VIEW 2: 賽道奔跑中 (Gameplay View)
+         ========================================================= -->
+    <section class="view-card" id="view-gameplay">
+      
+      <!-- 1. 即時聚焦排行榜列 (上下名次與落差) -->
+      <div class="focus-leaderboard-bar">
+        <div class="lead-headline">
+          <span>即時賽道排名戰況</span>
+          <span class="lead-live-indicator"><span class="pulse-dot"></span> LIVE 即時連線</span>
+        </div>
+
+        <div class="focus-vertical-rank-list" id="focus-rankings-container">
+          <!-- 由 JS 即時渲染：第一名、第二名、前一名、我方、後一名 -->
+        </div>
+      </div>
+
+      <!-- 2. 直向真實童話森林賽道與障礙物 (可直接點擊賽道奔跑) -->
+      <div class="track-viewport" id="track-viewport" onclick="handleTapRun(event)" title="點擊賽道奔跑！">
+        <!-- 森林晨曦丁達爾光柱 -->
+        <div class="forest-sunbeams"></div>
+
+        <!-- 迷霧森林浪漫動態晨霧覆蓋層 -->
+        <div class="mist-forest-overlay" id="mist-forest-overlay">
+          <div class="mist-layer-1"></div>
+          <div class="mist-layer-2"></div>
+        </div>
+
+        <!-- 迷霧衝刺置頂 30 秒倒數橫幅 -->
+        <div class="mist-sprint-banner" id="mist-sprint-banner">
+          <div class="mist-banner-text">
+            <div class="mist-banner-title"><span>🌫️</span> 迷霧森林最後衝刺！</div>
+            <div class="mist-banner-sub">🔥 全場 3X 狂暴暴走 (+6m/擊)</div>
+          </div>
+          <div class="mist-timer-badge" id="mist-timer-badge">30s</div>
+        </div>
+
+        <!-- 森林夢幻金粉與螢火微光 -->
+        <div class="forest-fireflies">
+          <div class="firefly f1"></div>
+          <div class="firefly f2"></div>
+          <div class="firefly f3"></div>
+          <div class="firefly f4"></div>
+          <div class="firefly f5"></div>
+        </div>
+
+        <!-- 遠景阿沐婚宴玻璃城堡微光地平線 -->
+        <div class="track-distant-castle">
+          <span class="castle-icon">💒</span>
+          <span class="castle-label">12/12 水漾森林阿沐 · 幸福終點 🏰</span>
+        </div>
+
+        <!-- 賽道路旁動態景物 (花草、蘑菇、木牌) -->
+        <div class="track-scenery-container" id="track-scenery"></div>
+
+        <!-- 腳底衝刺揚塵 -->
+        <div class="runner-dust-trail" id="dust-trail">💨</div>
+
+        <!-- 玩家動物主角 (精美婚禮運動員金章勳章) -->
+        <div class="player-runner-avatar" id="runner-avatar">
+          <div class="runner-avatar-badge">
+            <span id="runner-emoji">🦦</span>
+            <div class="runner-tag-pill" id="runner-name-tag">歐亞水獺</div>
+          </div>
+        </div>
+
+        <!-- 賽道迎面而來的障礙物 -->
+        <div class="track-obstacle-sprite" id="track-obstacle" style="top: -80px; display: none;">
+          <div class="obstacle-alert-pill">森林考驗接近！</div>
+          <div class="obstacle-emoji" id="obstacle-emoji">🪵</div>
+        </div>
+      </div>
+
+      <!-- 3. 氮氣加速爆發提示橫幅 (只在答對題目氮氣爆發時浮現) -->
+      <div class="nitro-banner-wrapper" id="nitro-badge" style="display:none;">
+        <div class="nitro-boost-badge">
+          <span>🔥</span> 氮氣衝刺 2X 加速中！剩餘 <span id="nitro-timer">10</span> 秒
+        </div>
+      </div>
+
+      <!-- 4. 喜帖系列 · 向前衝刺與動物加碼跑道卡 -->
+      <div class="wedding-blessing-card" id="wedding-blessing-card">
+        <div class="blessing-prompt-title">輕觸按鈕全速前進 · 奔向 12/12 婚禮終點</div>
+        <div class="blessing-prompt-subtitle">點得越快 · 衝刺越狂飆 🏃💨</div>
+
+        <!-- 奢華金箔膠囊按鈕 (帶有外層柔光光環) -->
+        <div class="blessing-button-wrapper">
+          <div class="blessing-button-aura">
+            <button class="blessing-golden-btn" id="btn-blessing-run" onclick="handleTapRun(event)">
+              <span class="blessing-bouquet-icon">🏃</span>
+              <span class="blessing-btn-text">向前衝刺！</span>
+              <span class="blessing-stride-badge" id="tap-stride-badge">+2m</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 衝刺能量與動物賽道進度條 (每跑到最右即可參加一次加碼選擇題) -->
+        <div class="blessing-energy-row">
+          <span class="energy-label">衝刺能量</span>
+          <span class="energy-status-tag" id="energy-status-tag">起跑蓄能 🌿</span>
+        </div>
+
+        <div class="animal-sprint-track" id="animal-sprint-track" title="每跑到最右即可解鎖一次加碼選擇題！">
+          <div class="animal-sprint-fill" id="animal-sprint-fill"></div>
+          <div class="animal-sprint-runner" id="animal-sprint-runner">
+            <span id="animal-track-emoji">🐾</span>
+          </div>
+          <div class="animal-sprint-goal" title="每跑到最右即可解鎖一次加碼選擇題！">🎁</div>
+        </div>
+
+        <!-- 底部計數：個人已累積衝刺 X 次 · 奔跑 X 公尺 -->
+        <div class="blessing-count-footer">
+          <span>個人已累積衝刺 <span class="blessing-count-num" id="blessing-count-display">0</span> 次</span>
+          <span style="opacity: 0.5;">·</span>
+          <span>奮力奔馳 <span class="blessing-meters-num" id="hud-my-meters">0</span> 公尺</span>
+        </div>
+
+        <!-- 團隊與個人里程精緻小條 -->
+        <div class="blessing-team-stats-pill">
+          <span>🌲 陣營全體 <strong id="hud-team-meters">0</strong>m (<span id="hud-team-km">0.00</span>km)</span>
+          <span class="pill-dot">·</span>
+          <span>個人貢獻 <strong id="hud-my-meters-sub">0</strong>m</span>
+        </div>
+      </div>
+
+      <!-- 5. 底部跑者資訊小卡 -->
+      <div style="padding: 9px 16px; background: #f2ede5; border-top: 1px solid #e5ded4; display: flex; justify-content: center; align-items: center; font-size: 0.75rem; color: #5a483a; letter-spacing: 0.2px;">
+        <div>
+          參賽選手：<strong id="badge-runner-name" style="color:var(--forest-deep); font-weight:700;"></strong>
+          （<span id="badge-animal-name" style="color:#8c6b2d; font-weight:600;"></span>）
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 底部輔助按鈕 -->
+    <div class="gameplay-footer-actions">
+      <button class="footer-tool-btn" onclick="openLeaderboardDrawer()">
+        <span>🏆</span> 查看 50 種動物即時總排名
+      </button>
+    </div>
+
+  </div>
+
+  <!-- =========================================================
+       4. 障礙物甜蜜問答彈窗 (Trivia Modal)
+       ========================================================= -->
+  <div class="trivia-modal-overlay" id="trivia-modal">
+    <div class="trivia-modal-card">
+      <div class="trivia-icon-badge" id="trivia-obstacle-icon">🪵</div>
+      <div class="trivia-header-tag">✨ 路上遇到森林考驗！答對直接氮氣衝刺 ✨</div>
+      <h3 class="trivia-question-text" id="trivia-question">
+        聖明與婉錡第一次約會的城市是在哪裡？
+      </h3>
+
+      <div class="trivia-options-list" id="trivia-options-container">
+        <!-- 由 JS 動態注入選項 -->
+      </div>
+
+      <div class="trivia-result-banner" id="trivia-result-banner"></div>
+
+      <!-- 手動關閉並繼續衝刺按鈕 (必須點擊才可繼續) -->
+      <button id="btn-trivia-resume" class="trivia-resume-btn" onclick="handleResumeRaceAfterTrivia()">
+        繼續奔跑衝刺！🏃‍♂️💨
+      </button>
+    </div>
+  </div>
+
+  <!-- 全螢幕浪漫花瓣與落葉澎湃粒子畫布 -->
+  <canvas id="forest-particles-canvas" class="celebration-canvas"></canvas>
+
+  <!-- =========================================================
+       5. 全森林 50 動物排行榜抽屜 (Full Leaderboard Drawer)
+       ========================================================= -->
+  <div class="leaderboard-drawer" id="leaderboard-drawer" onclick="closeDrawerOnBackdrop(event)">
+    <div class="leaderboard-drawer-content">
+      <div class="drawer-header">
+        <div class="drawer-title" onclick="handleHeaderSecretClick()">
+          <span>🏆</span> 森林動物大賽跑 · 全體排行榜
+        </div>
+        <button class="drawer-close-btn" onclick="closeLeaderboardDrawer()">✕</button>
+      </div>
+
+      <div style="padding: 8px 16px; background:#f7f3ec; font-size:0.72rem; color:#786554; border-bottom:1px solid #ebdccb;">
+        50 種森林陸生動物陣營競逐 · 每隻動物限額 5 位跑者 · 12/12 婚宴現場終極開獎！
+      </div>
+
+      <div class="drawer-list-scroll" id="drawer-rank-list">
+        <!-- 由 JS 動態注入 50 個動物排名 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       6.0 新人與工作人員專屬管理驗證彈窗 (Admin Passcode Modal)
+       ========================================================= -->
+  <div class="admin-passcode-modal" id="admin-passcode-modal" onclick="closeAdminPasscodeOnBackdrop(event)">
+    <div class="admin-passcode-card" onclick="event.stopPropagation()">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:1.6rem;">🌸</span>
+          <div>
+            <div style="font-family:'Noto Serif TC', serif; font-size:1.05rem; font-weight:700; color:var(--forest-deep);">
+              新人與工作人員驗證
+            </div>
+            <div style="font-size:0.7rem; color:#8c7866; margin-top:1px;">
+              Barry &amp; Winnie 專屬賽事管理與題庫設定
+            </div>
+          </div>
+        </div>
+        <button class="drawer-close-btn" onclick="closeAdminPasscodeModal()" style="width:28px; height:28px; font-size:0.95rem;">✕</button>
+      </div>
+
+      <div style="background:#fdf9f2; border:1px solid #e5d8c6; border-radius:12px; padding:10px 12px; font-size:0.75rem; color:#6b5847; line-height:1.4;">
+        🔒 此管理介面僅供新郎新娘與婚禮現場工作人員使用，請輸入管理密碼。
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <label for="admin-passcode-input" style="font-size:0.78rem; font-weight:700; color:#5a483a;">管理密碼：</label>
+        <input 
+          type="password" 
+          id="admin-passcode-input" 
+          class="reg-input" 
+          placeholder="請輸入密碼" 
+          autocomplete="current-password"
+          style="padding:10px 14px; font-size:16px;"
+        >
+        <div id="admin-passcode-error" style="color:#ba3c3c; font-size:0.74rem; font-weight:600; min-height:1.2em; display:none;">
+          密碼不正確，請重新輸入
+        </div>
+      </div>
+
+      <div style="display:flex; gap:10px; margin-top:4px;">
+        <button type="button" onclick="closeAdminPasscodeModal()" style="flex:1; padding:10px; background:#efebe2; border:1px solid #d4c8b8; border-radius:12px; font-size:0.85rem; color:#5a483a; font-weight:600; cursor:pointer;">
+          取消
+        </button>
+        <button type="button" onclick="verifyAdminPasscode()" style="flex:1; padding:10px; background:linear-gradient(135deg, #27382b 0%, #17241a 100%); border:1px solid #c59b4c; border-radius:12px; font-size:0.85rem; color:#ffffff; font-weight:700; cursor:pointer;">
+          驗證進入
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       6.1 新人專屬題庫與賽事管理後台抽屜 (Admin Trivia Modal)
+       ========================================================= -->
+  <div class="admin-trivia-modal" id="admin-trivia-modal">
+    <div class="admin-trivia-card">
+      <div class="admin-trivia-header">
+        <div class="admin-trivia-title">
+          <span>🌸</span> Barry &amp; Winnie 專屬管理後台
+        </div>
+        <button class="drawer-close-btn" onclick="closeAdminTriviaDrawer()">✕</button>
+      </div>
+
+      <div class="admin-trivia-body">
+        <div style="background:#fdf9f2; border:1px solid #e3d3bd; border-radius:12px; padding:10px 12px; font-size:0.78rem; color:#6b5847; line-height:1.4;">
+          ✨ 新人可在此隨時新增、修改或刪除婚禮加碼題目！答對者享 10 秒 2X 氮氣衝刺並狂飆 +150m！
+        </div>
+
+        <!-- 區塊 0：婚禮現場即時廣播總控 (30秒迷霧森林衝刺 / 封榜結算) -->
+        <div style="background: linear-gradient(135deg, #fefce8 0%, #fff7ed 100%); border: 2px solid #eab308; border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 4px 14px rgba(234, 179, 8, 0.18);">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="font-weight:800; color:#854d0e; font-size:0.95rem; display:flex; align-items:center; gap:6px;">
+              <span>⚡</span> 婚禮現場即時廣播總控
+            </div>
+            <span id="admin-game-status-pill" style="font-size:0.72rem; padding:2px 8px; border-radius:8px; background:#dcfce7; color:#166534; font-weight:700;">🟢 一般賽跑中</span>
+          </div>
+          <div style="font-size:0.75rem; color:#78350f; line-height:1.45;">
+            在婚禮最高潮時點擊「啟動迷霧森林」，<strong>全場所有賓客手機將零延遲同步飄起迷霧、倒數 30 秒並進入 3X 狂暴加速 (+6m/擊)！</strong> 倒數完自動結算並彈出頒獎名單！
+          </div>
+          
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <button onclick="adminTriggerMistSprint()" style="width:100%; padding:12px; background:linear-gradient(135deg, #d97706 0%, #b45309 100%); border:1.5px solid #fde047; border-radius:12px; color:#ffffff; font-weight:800; font-size:0.92rem; cursor:pointer; box-shadow:0 4px 14px rgba(180, 83, 9, 0.35); display:flex; align-items:center; justify-content:center; gap:6px;">
+              <span>🌫️</span> 立即啟動「迷霧森林最後衝刺」 (30秒狂暴)
+            </button>
+            <div style="display:flex; gap:8px;">
+              <button onclick="adminTriggerFinishRace()" style="flex:1; padding:9px; background:#1e293b; border:1px solid #475569; border-radius:10px; color:#f8fafc; font-weight:700; font-size:0.78rem; cursor:pointer;">
+                🏁 提早封榜結算
+              </button>
+              <button onclick="adminTriggerResetNormal()" style="flex:1; padding:9px; background:#f1f5f9; border:1px solid #cbd5e1; border-radius:10px; color:#334155; font-weight:700; font-size:0.78rem; cursor:pointer;">
+                🔄 重設為一般模式
+              </button>
+            </div>
+            <button onclick="window.open('screen.html', '_blank')" style="width:100%; padding:10px; background:linear-gradient(135deg, #1e3a8a 0%, #1e293b 100%); border:1px solid #60a5fa; border-radius:10px; color:#ffffff; font-weight:700; font-size:0.82rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; margin-top:2px;">
+              <span>🖥️</span> 開啟「舞台大螢幕即時實況轉播」
+            </button>
+          </div>
+        </div>
+
+        <!-- 區塊 1：新增題目表單 -->
+        <div style="background:#ffffff; border:1px solid #ebdccb; border-radius:14px; padding:14px; display:flex; flex-direction:column; gap:10px;">
+          <div style="font-weight:700; color:#27382b; font-size:0.92rem; display:flex; align-items:center; gap:5px;">
+            <span>➕</span> 新增加碼選擇題
+          </div>
+
+          <div class="admin-input-group">
+            <label class="admin-input-label">題目標題 / 提問內容：</label>
+            <input type="text" id="admin-new-q" class="admin-text-input" placeholder="例：兩人第一次約會是吃什麼餐廳？">
+          </div>
+
+          <div class="admin-input-group">
+            <label class="admin-input-label">四個選項（請點選圓圈標記正確答案）：</label>
+            <div class="admin-opt-row">
+              <input type="radio" name="admin-correct-opt" value="0" id="opt-radio-0" checked>
+              <input type="text" id="admin-new-opt-0" class="admin-text-input" placeholder="選項 A (例：拉麵)">
+            </div>
+            <div class="admin-opt-row">
+              <input type="radio" name="admin-correct-opt" value="1" id="opt-radio-1">
+              <input type="text" id="admin-new-opt-1" class="admin-text-input" placeholder="選項 B (例：義大利麵)">
+            </div>
+            <div class="admin-opt-row">
+              <input type="radio" name="admin-correct-opt" value="2" id="opt-radio-2">
+              <input type="text" id="admin-new-opt-2" class="admin-text-input" placeholder="選項 C (例：熱炒店)">
+            </div>
+            <div class="admin-opt-row">
+              <input type="radio" name="admin-correct-opt" value="3" id="opt-radio-3">
+              <input type="text" id="admin-new-opt-3" class="admin-text-input" placeholder="選項 D (例：火鍋)">
+            </div>
+          </div>
+
+          <button class="admin-save-btn" onclick="saveNewCustomTrivia()">
+            ✨ 儲存並加入題庫
+          </button>
+        </div>
+
+        <!-- 區塊 2：現有題庫列表 -->
+        <div>
+          <div style="font-weight:700; color:#5a483a; font-size:0.88rem; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+            <span>現有題目庫 (<span id="admin-trivia-count">0</span> 題)</span>
+            <button onclick="copyTriviaJson()" style="background:#efebe2; border:1px solid #d4c8b8; border-radius:10px; padding:3px 8px; font-size:0.72rem; color:#5a483a; cursor:pointer;">📋 複製題庫 JSON</button>
+          </div>
+          <div id="admin-trivia-list" style="display:flex; flex-direction:column; gap:8px;">
+            <!-- 由 JS 動態注入 -->
+          </div>
+        </div>
+
+        <!-- 區塊 2.5：選手名單管理與手動重置 -->
+        <div style="background:#ffffff; border:1px solid #ebdccb; border-radius:14px; padding:14px; display:flex; flex-direction:column; gap:10px;">
+          <div style="font-weight:700; color:#27382b; font-size:0.92rem; display:flex; justify-content:space-between; align-items:center;">
+            <div style="display:flex; align-items:center; gap:5px;">
+              <span>🏃</span> 選手名單管理（手動重置/換隊）
+            </div>
+            <span id="admin-players-count" style="font-size:0.75rem; color:#8c6b2d; font-weight:700;">0 位選手</span>
+          </div>
+          <div style="font-size:0.75rem; color:#786554; line-height:1.4;">
+            若有賓客輸入錯誤姓名或想換動物陣營，點擊下方「刪除」或手動輸入姓名即可解除綁定，讓其重新登記！
+          </div>
+          <div style="display:flex; gap:6px;">
+            <input type="text" id="admin-manual-del-name" class="admin-text-input" placeholder="輸入欲清除的選手姓名..." style="flex:1; font-size:14px !important; padding:6px 10px;">
+            <button onclick="adminManualDeleteByName()" style="background:#ba3c3c; color:#ffffff; border:none; border-radius:8px; padding:6px 12px; font-size:0.75rem; font-weight:700; cursor:pointer; white-space:nowrap;">
+              手動清除
+            </button>
+          </div>
+          <div id="admin-players-list" style="display:flex; flex-direction:column; gap:6px; max-height:160px; overflow-y:auto;">
+            <!-- 由 JS 動態注入 -->
+          </div>
+        </div>
+
+        <!-- 區塊 3：資料備份與安全還原 -->
+        <div style="background:#ffffff; border:1px solid #ebdccb; border-radius:14px; padding:14px; display:flex; flex-direction:column; gap:10px;">
+          <div style="font-weight:700; color:#27382b; font-size:0.92rem; display:flex; align-items:center; gap:5px;">
+            <span>💾</span> 賽事資料備份與還原
+          </div>
+          <div style="font-size:0.75rem; color:#786554; line-height:1.4;">
+            供新郎新娘或現場工作人員備份全體 50 隊成績、選手紀錄與自訂題庫。
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button onclick="exportGameBackup()" style="flex:1; padding:9px 12px; background:#efebe2; border:1px solid #d4c8b8; border-radius:10px; font-size:0.78rem; font-weight:700; color:#5b4837; cursor:pointer;">
+              📥 匯出備份 JSON
+            </button>
+            <input type="file" id="backup-file-input" style="display:none;" onchange="importGameBackup(event)" accept=".json">
+            <button onclick="document.getElementById('backup-file-input').click()" style="flex:1; padding:9px 12px; background:#efebe2; border:1px solid #d4c8b8; border-radius:10px; font-size:0.78rem; font-weight:700; color:#5b4837; cursor:pointer;">
+              📤 匯入還原 JSON
+            </button>
+          </div>
+          <button onclick="adminResetAllTeamsAndPlayers()" style="width:100%; padding:10px 12px; background:#fde8e8; border:1.5px solid #e2bcbc; border-radius:10px; font-size:0.78rem; font-weight:700; color:#ba3c3c; cursor:pointer; margin-top:2px;">
+            ⚠️ 全體 50 隊人數與里程全面歸零（正式開賽前重設）
+          </button>
+        </div>
+
+        <!-- 區塊 4：修改管理密碼 -->
+        <div style="background:#ffffff; border:1px solid #ebdccb; border-radius:14px; padding:14px; display:flex; flex-direction:column; gap:10px;">
+          <div style="font-weight:700; color:#27382b; font-size:0.92rem; display:flex; align-items:center; gap:5px;">
+            <span>🔑</span> 修改管理密碼
+          </div>
+          <div style="font-size:0.75rem; color:#786554; line-height:1.4;">
+            此密碼僅限新郎新娘與工作人員保管，請勿洩漏給賓客。
+          </div>
+          <div style="display:flex; gap:8px;">
+            <input type="password" id="admin-new-password" class="admin-text-input" placeholder="設定新的管理密碼" style="flex:1; font-size:16px;">
+            <button onclick="changeAdminPassword()" style="padding:9px 14px; background:#27382b; border:1px solid #c59b4c; border-radius:10px; font-size:0.78rem; font-weight:700; color:#ffffff; cursor:pointer; white-space:nowrap;">
+              儲存密碼
+            </button>
+          </div>
+          <div id="admin-pass-change-msg" style="font-size:0.75rem; color:#46674a; font-weight:600; display:none;">
+            ✓ 密碼修改成功！下次請使用新密碼驗證。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       6.2 12/12 婚禮賽跑 · 榮耀頒獎典禮彈窗 (Race Awards Modal)
+       ========================================================= -->
+  <div class="awards-modal" id="race-awards-modal" style="display:none;">
+    <div class="awards-card">
+      <div class="awards-hero-crown">🏆</div>
+      <div class="awards-title">12/12 森林賽跑 · 榮譽頒獎榜</div>
+      <div class="awards-subtitle">全場 50 隊奮力奔馳 · 恭喜以下獲獎優勝陣營！</div>
+
+      <div class="awards-podium-container" id="awards-podium-list" style="width:100%;">
+        <!-- 由 JS 動態注入前三名 -->
+      </div>
+
+      <div class="awards-actions">
+        <button class="awards-copy-btn" onclick="copyAwardsWinnersText()">
+          📋 複製得獎名單（供主持人/司儀頒獎）
+        </button>
+        <button class="awards-close-btn" onclick="closeAwardsModal()">
+          ✕ 關閉榜單
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+     JAVASCRIPT: 遊戲引擎、資料持久化、防機器人與即時排行
+     ========================================================= -->
+  <script>
+    // =========================================================
+    // 0. iOS / WebKit 雙擊放大與手勢縮放防護 (Anti Double-Tap & Pinch Zoom)
+    // =========================================================
+    // 防止 Safari / iOS WebKit 原生雙擊放大手勢
+    document.addEventListener('dblclick', function(e) {
+      e.preventDefault();
+    }, { passive: false });
+
+    // 防止 iOS 雙指手勢捏合縮放 (Pinch-to-zoom)
+    document.addEventListener('gesturestart', function(e) {
+      e.preventDefault();
+    });
+    document.addEventListener('gesturechange', function(e) {
+      e.preventDefault();
+    });
+    document.addEventListener('gestureend', function(e) {
+      e.preventDefault();
+    });
+
+    // 針對非互動元素（如背景、卡片外緣）的快速雙擊攔截，避免觸發 iOS 舊版雙擊放大
+    let lastGlobalTouchEnd = 0;
+    document.addEventListener('touchend', function(e) {
+      const now = Date.now();
+      if (now - lastGlobalTouchEnd <= 300) {
+        const interactive = e.target.closest('button, input, textarea, select, a, .blessing-golden-btn, .trivia-opt-btn, .tab-btn, .animal-card');
+        if (!interactive) {
+          e.preventDefault();
+        }
+      }
+      lastGlobalTouchEnd = now;
+    }, { passive: false });
+
+    // =========================================================
+    // 1. 嚴選 50 種森林陸生動物資料庫 (No flying animals! Max 5 quota)
+    // =========================================================
+    const FOREST_ANIMALS = [
+      // 萌友探險家 (cute)
+      { id: "capybara", name: "水豚君", emoji: "🦫", cat: "cute" },
+      { id: "panda", name: "大貓熊", emoji: "🐼", cat: "cute" },
+      { id: "raccoon", name: "小浣熊", emoji: "🦝", cat: "cute" },
+      { id: "koala", name: "無尾熊", emoji: "🐨", cat: "cute" },
+      { id: "alpaca", name: "羊駝君", emoji: "🦙", cat: "cute" },
+      { id: "red_panda", name: "小熊貓", emoji: "🦊", cat: "cute" },
+      { id: "quokka", name: "短尾矮袋鼠", emoji: "🐹", cat: "cute" },
+      { id: "marmot", name: "土撥鼠", emoji: "🐿️", cat: "cute" },
+      { id: "hedgehog", name: "刺蝟小弟", emoji: "🦔", cat: "cute" },
+      { id: "chipmunk", name: "花栗鼠", emoji: "🐿️", cat: "cute" },
+
+      // 靈巧神速隊 (speed)
+      { id: "otter", name: "歐亞水獺", emoji: "🦦", cat: "speed" },
+      { id: "red_fox", name: "赤狐", emoji: "🦊", cat: "speed" },
+      { id: "hare", name: "森林野兔", emoji: "🐇", cat: "speed" },
+      { id: "deer", name: "梅花鹿", emoji: "🦌", cat: "speed" },
+      { id: "white_deer", name: "白尾鹿", emoji: "🦌", cat: "speed" },
+      { id: "ferret", name: "雪貂", emoji: "🦡", cat: "speed" },
+      { id: "antelope", name: "藏羚羊", emoji: "🦌", cat: "speed" },
+      { id: "zebra", name: "斑馬", emoji: "🦓", cat: "speed" },
+      { id: "cheetah", name: "獵豹", emoji: "🐆", cat: "speed" },
+      { id: "leopard_cat", name: "石虎豹貓", emoji: "🐱", cat: "speed" },
+
+      // 森林守護者 (mighty)
+      { id: "black_bear", name: "台灣黑熊", emoji: "🐻", cat: "mighty" },
+      { id: "wolf", name: "灰狼隊長", emoji: "🐺", cat: "mighty" },
+      { id: "tiger", name: "東北虎", emoji: "🐯", cat: "mighty" },
+      { id: "lion", name: "萬獸獅子", emoji: "🦁", cat: "mighty" },
+      { id: "grizzly", name: "大棕熊", emoji: "🐻", cat: "mighty" },
+      { id: "golden_monkey", name: "金絲猴", emoji: "🐒", cat: "mighty" },
+      { id: "ibex", name: "阿爾卑斯山羊", emoji: "🐐", cat: "mighty" },
+      { id: "wild_boar", name: "山豬勇士", emoji: "🐗", cat: "mighty" },
+      { id: "elephant", name: "森林大象", emoji: "🐘", cat: "mighty" },
+      { id: "giraffe", name: "長頸鹿", emoji: "🦒", cat: "mighty" },
+
+      // 奇幻密林組 (wild)
+      { id: "anteater", name: "大食蟻獸", emoji: "🦡", cat: "wild" },
+      { id: "armadillo", name: "犰狳隊", emoji: "🦔", cat: "wild" },
+      { id: "meerkat", name: "狐獴哨兵", emoji: "🦡", cat: "wild" },
+      { id: "wombat", name: "袋熊胖胖", emoji: "🐻", cat: "wild" },
+      { id: "platypus", name: "鴨嘴獸", emoji: "🦫", cat: "wild" },
+      { id: "pangolin", name: "穿山甲", emoji: "🦎", cat: "wild" },
+      { id: "skunk", name: "臭鼬皮皮", emoji: "🦨", cat: "wild" },
+      { id: "jerboa", name: "長耳跳鼠", emoji: "🐁", cat: "wild" },
+      { id: "badger", name: "蜜獾平頭哥", emoji: "🦡", cat: "wild" },
+      { id: "lemur", name: "環尾狐猴", emoji: "🐒", cat: "wild" },
+
+      // 悠閒慢活組 (chill)
+      { id: "sloth", name: "三趾樹懶", emoji: "🦥", cat: "chill" },
+      { id: "tortoise", name: "加拉巴哥象龜", emoji: "🐢", cat: "chill" },
+      { id: "hippo", name: "河馬霸霸", emoji: "🦛", cat: "chill" },
+      { id: "rhino", name: "白犀牛", emoji: "🦏", cat: "chill" },
+      { id: "gorilla", name: "銀背大猩猩", emoji: "🦍", cat: "chill" },
+      { id: "chimp", name: "黑猩猩", emoji: "🐵", cat: "chill" },
+      { id: "orangutan", name: "紅毛猩猩", emoji: "🦧", cat: "chill" },
+      { id: "kangaroo", name: "袋鼠健將", emoji: "🦘", cat: "chill" },
+      { id: "polar_bear", name: "北極熊", emoji: "🐻‍❄️", cat: "chill" },
+      { id: "yak", name: "高原犛牛", emoji: "🐂", cat: "chill" }
+    ];
+
+    // =========================================================
+    // 2. 新人甜蜜與婚禮資訊問答題庫 (Barry & Winnie Wedding Trivia)
+    // =========================================================
+    const WEDDING_TRIVIA = [
+      {
+        q: "Barry & Winnie 盛大婚宴將於 2026 年哪一天與星期舉行？",
+        opts: ["2026.12.12（六）愛你又愛你成雙日", "2026.10.10（六）十全十美日", "2026.11.11（三）光棍購物節", "2027.01.01（五）新年第一天"],
+        ans: 0
+      },
+      {
+        q: "12/12 婚宴當天幾點開始提供迎賓雞尾酒小點與新人合照？",
+        opts: ["11:30 迎賓雞尾酒餐會（12:00 盛宴開席）", "10:00 晨間早午餐時間", "12:30 直接開飯不用等", "下午 2:00 悠閒下午茶"],
+        ans: 0
+      },
+      {
+        q: "盛大婚宴在桃園中壢阿沐會館（Amour）的哪一個專屬宴會廳？",
+        opts: ["水漾森林 E 廳", "水晶城堡 A 廳", "星光大道 B 廳", "尊爵皇家 C 廳"],
+        ans: 0
+      },
+      {
+        q: "開車前往中壢阿沐會館（平鎮區延平路二段371號），現場有停車位嗎？",
+        opts: ["有！會館備有專屬貴賓免費停車場", "沒有，請停在中壢火車站", "要停在路邊紅線碰運氣", "請搭熱氣球空降會場"],
+        ans: 0
+      },
+      {
+        q: "婚宴推薦親友們穿著什麼色系的 Dress Code 一起融入童話森林？",
+        opts: ["綠色系 / 大地色 / 香檳金 / 粉紅 / 鵝黃", "全身螢光桃紅色亮瞎全場", "黑白條紋監獄風", "大紅大紫傳統旗袍"],
+        ans: 0
+      },
+      {
+        q: "喜帖上的牛皮三折頁與手作十字綁繩，象徵著什麼浪漫涵義？",
+        opts: ["兩人永結同心，如同一條繩子緊緊相繫", "純粹怕喜帖被風吹走", "考驗大家解繩子的耐心", "新人買太多麻繩用不完"],
+        ans: 0
+      },
+      {
+        q: "今天婚宴阿沐會館的婚禮整體佈置主題是？",
+        opts: ["童話森林派對 · 浪漫暖光", "極地冰雪大冒險", "海底總動員", "星際大戰外星人"],
+        ans: 0
+      },
+      {
+        q: "婚禮訂在 12 月 12 日，這天對新人最棒的祝福涵義是？",
+        opts: ["1212 代表『愛你又愛你，幸福成雙』", "剛好週末大家可以痛快吃大餐喝雞尾酒", "雙十二不用搶網購，來阿沐喝喜酒更爽", "以上皆是！全場親友一起慶祝最甜蜜盛事！"],
+        ans: 3
+      },
+      {
+        q: "新郎聖明向婉錡求婚時，最真摯的心情是？",
+        opts: ["緊張到手心冒汗但眼神無比堅定", "滿腦子只想快點讓她當自己的合法老婆", "準備了滿滿的真心話差點自己先感動哭", "以上皆是！最幸福的人生高光時刻！"],
+        ans: 3
+      },
+      {
+        q: "新娘婉錡最喜歡新郎聖明的哪一個貼心特質？",
+        opts: ["每次吃飯總是把最好吃的一口留給她", "出門時總是默默走在馬路靠車的外側", "看著她時眼裡滿滿都是寵溺的笑意", "全部都是！根本是專屬滿分神隊友！"],
+        ans: 3
+      },
+      {
+        q: "如果在家看電影，通常是誰握有挑片的主控權？",
+        opts: ["聖明全權交給婉錡決定", "剪刀石頭布決定", "兩個人一起看預告片選到睡著", "輪流挑選一人一部"],
+        ans: 0
+      },
+      {
+        q: "兩人平時最享受的生活默契是？",
+        opts: ["週末一起去發掘口袋名單美食咖啡廳", "一人洗碗一人擦桌子的家務神節奏", "一個眼神就知道對方肚子餓了想吃什麼", "全包！幸福就是這些平凡又溫暖的日常！"],
+        ans: 3
+      },
+      {
+        q: "聖明與婉錡第一次約會時，最讓人難忘的小插曲是什麼？",
+        opts: ["兩個人聊到店家打烊還依依不捨", "點餐點了兩人份卻全部吃光光", "走遍整個街區找不到車停在哪", "以上全部都是幸福的真實回憶！"],
+        ans: 3
+      }
+    ];
+
+    // =========================================================
+    // 2.9 Firebase 雲端即時資料庫設定 (Spark 免費方案)
+    // =========================================================
+    const FIREBASE_CONFIG = {
+      apiKey: "AIzaSyBEbX1w8uFG_K5uVCm2BTB4DOb-nCsha3k",
+      authDomain: "wedding-forest-race.firebaseapp.com",
+      databaseURL: "https://wedding-forest-race-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "wedding-forest-race",
+      storageBucket: "wedding-forest-race.firebasestorage.app",
+      messagingSenderId: "958934225693",
+      appId: "1:958934225693:web:00a18a865534a9443e47f4"
+    };
+
+    let rtdb = null;
+    let isCloudConnected = false;
+    let cloudErrorMsg = null;
+    let pendingSyncMeters = 0;
+    let syncThrottleTimer = null;
+
+    // 安全轉換 Firebase RTDB Key (禁止字元 . $ # [ ] / 轉碼)
+    function safeDbKey(str) {
+      if (!str) return 'anonymous';
+      return encodeURIComponent(str).replace(/\./g, '%2E').replace(/\$/g, '%24').replace(/#/g, '%23').replace(/\[/g, '%5B').replace(/\]/g, '%5D').replace(/\//g, '%2F');
+    }
+
+    function updateCloudStatusBadge(status, error) {
+      const badge = document.getElementById('cloud-sync-badge');
+      if (!badge) return;
+      if (status === 'connected') {
+        isCloudConnected = true;
+        cloudErrorMsg = null;
+        badge.textContent = "🟢 雲端同步中";
+        badge.style.background = "rgba(56, 161, 105, 0.15)";
+        badge.style.color = "#22543d";
+        badge.title = "已連線至 Firebase Realtime Database，即時連線中！";
+      } else if (status === 'connecting') {
+        badge.textContent = "🟡 連線中...";
+        badge.style.background = "rgba(217, 119, 6, 0.15)";
+        badge.style.color = "#92400e";
+        badge.title = "正在與雲端建立連線...";
+      } else if (status === 'error') {
+        isCloudConnected = false;
+        cloudErrorMsg = error || "連線受阻，請確認 Firebase Rules 規則允許讀寫";
+        badge.textContent = "⚠️ 離線暫存";
+        badge.style.background = "rgba(220, 38, 38, 0.15)";
+        badge.style.color = "#991b1b";
+        badge.title = cloudErrorMsg;
+      } else {
+        isCloudConnected = false;
+        badge.textContent = "⚪ 離線模式";
+        badge.style.background = "rgba(107, 114, 128, 0.15)";
+        badge.style.color = "#374151";
+        badge.title = "目前處於離線狀態，數據將暫存在手機中。";
+      }
+    }
+
+    function checkCloudStatus() {
+      if (isCloudConnected) {
+        alert("🟢 雲端即時連線正常！\n\n・全場賓客的手機步數與名次即時互聯\n・資料庫：Firebase Realtime Database (Spark 免費方案)\n・地區：asia-southeast1\n・狀態：毫秒級極速推播");
+      } else if (cloudErrorMsg) {
+        alert(`⚠️ 雲端連線提醒：\n\n${cloudErrorMsg}\n\n若剛建立資料庫，請至 Firebase Console > Realtime Database >「規則 (Rules)」標籤頁，確認已將 .read 與 .write 設為 true 喔！`);
+      } else {
+        alert("🟡 正在連線至雲端即時資料庫中...");
+      }
+    }
+
+    function initFirebase() {
+      if (typeof firebase === 'undefined' || !FIREBASE_CONFIG || !FIREBASE_CONFIG.databaseURL) {
+        updateCloudStatusBadge('offline');
+        return;
+      }
+
+      updateCloudStatusBadge('connecting');
+
+      try {
+        if (!firebase.apps.length) {
+          firebase.initializeApp(FIREBASE_CONFIG);
+        }
+        rtdb = firebase.database();
+
+        // 監聽連線狀態
+        rtdb.ref('.info/connected').on('value', snap => {
+          if (snap.val() === true) {
+            updateCloudStatusBadge('connected');
+          } else {
+            updateCloudStatusBadge('connecting');
+          }
+        });
+
+        // 首次連線：若雲端 teams 尚未初始化，自動補上 50 隊初始架構
+        rtdb.ref('teams').once('value').then(snap => {
+          if (!snap.exists()) {
+            const initTeams = {};
+            FOREST_ANIMALS.forEach(a => {
+              initTeams[a.id] = {
+                meters: 0,
+                membersCount: 0,
+                members: []
+              };
+            });
+            rtdb.ref('teams').set(initTeams);
+          }
+        }).catch(err => {
+          console.warn("Firebase rules warning:", err);
+          updateCloudStatusBadge('error', err.message);
+        });
+
+        // 監聽全體隊伍即時數據變更（超車、步數、人數變動秒級同步）
+        rtdb.ref('teams').on('value', snap => {
+          const cloudTeams = snap.val();
+          if (cloudTeams && typeof cloudTeams === 'object') {
+            FOREST_ANIMALS.forEach(animal => {
+              const ct = cloudTeams[animal.id];
+              if (ct) {
+                teamDataMap[animal.id] = {
+                  meters: ct.meters || 0,
+                  membersCount: (ct.membersCount !== undefined) ? ct.membersCount : (ct.members ? ct.members.length : 0),
+                  members: ct.members || []
+                };
+              }
+            });
+
+            // 更新排行榜與儀表板顯示
+            updateDashboardNumbers();
+            
+            // 若正在註冊選動物頁，同步刷新名額數量
+            const regView = document.getElementById('view-registration');
+            if (regView && regView.style.display !== 'none') {
+              const activeCat = document.querySelector('.cat-pill.active')?.dataset?.cat || 'all';
+              renderAnimalGrid(activeCat, currentUser?.animalId);
+            }
+
+            // 若全體 50 隊排行榜抽屜開著，同步刷新
+            const lbDrawer = document.getElementById('leaderboard-drawer');
+            if (lbDrawer && lbDrawer.classList.contains('open')) {
+              renderFullLeaderboard();
+            }
+          }
+        }, err => {
+          console.warn("Teams sync error:", err);
+          updateCloudStatusBadge('error', err.message);
+        });
+
+        // 監聽自訂題庫即時同步
+        rtdb.ref('trivia').on('value', snap => {
+          const t = snap.val();
+          if (Array.isArray(t)) {
+            customWeddingTrivia = t;
+            localStorage.setItem(STORAGE_KEY_CUSTOM_TRIVIA, JSON.stringify(customWeddingTrivia));
+            if (document.getElementById('admin-drawer')?.classList?.contains('open')) {
+              renderAdminTriviaList();
+            }
+          }
+        });
+
+        // 監聽賽事全場狀態 (一般賽跑 / 30秒迷霧森林最後衝刺 / 封榜結算)
+        rtdb.ref('gameState').on('value', snap => {
+          const state = snap.val() || { mode: 'normal' };
+          handleGameStateUpdate(state);
+        });
+
+      } catch (err) {
+        console.error("Firebase init failed:", err);
+        updateCloudStatusBadge('error', err.message);
+      }
+    }
+
+    // 高頻點擊批次上傳防護 (Throttle / Batch Flush to Cloud)
+    function scheduleCloudSync(metersToAdd) {
+      pendingSyncMeters += metersToAdd;
+      if (!syncThrottleTimer) {
+        syncThrottleTimer = setTimeout(flushCloudSync, 1000); // 1 秒批次視窗
+      }
+    }
+
+    function flushCloudSync() {
+      syncThrottleTimer = null;
+      if (!rtdb || !currentUser || pendingSyncMeters <= 0) return;
+      const metersToPush = pendingSyncMeters;
+      pendingSyncMeters = 0;
+
+      const aId = currentUser.animalId;
+      const key = safeDbKey(currentUser.name);
+
+      const updates = {};
+      updates[`teams/${aId}/meters`] = firebase.database.ServerValue.increment(metersToPush);
+      updates[`players/${key}/myMeters`] = firebase.database.ServerValue.increment(metersToPush);
+      updates[`players/${key}/lastActive`] = Date.now();
+      updates[`players/${key}/name`] = currentUser.name;
+      updates[`players/${key}/animalId`] = aId;
+
+      rtdb.ref().update(updates).catch(err => {
+        console.warn("Flush cloud sync error, rolling back to pending:", err);
+        pendingSyncMeters += metersToPush;
+      });
+    }
+
+    // 頁面離線或切換分頁時立即結算當前步數
+    window.addEventListener('beforeunload', flushCloudSync);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) flushCloudSync();
+    });
+
+    // =========================================================
+    // 2.95 迷霧森林最後衝刺與全場廣播引擎 (Mist Sprint & Broadcast)
+    // =========================================================
+    let isMistSprintActive = false;
+    let isRaceFinished = false;
+    let mistSprintTimer = null;
+    let currentGameState = { mode: 'normal' };
+
+    function updateAdminGameStatusPill(state) {
+      const pill = document.getElementById('admin-game-status-pill');
+      if (!pill) return;
+      if (state.mode === 'mist') {
+        pill.textContent = "🔥 迷霧衝刺中！";
+        pill.style.background = "#fef08a";
+        pill.style.color = "#854d0e";
+      } else if (state.mode === 'finished') {
+        pill.textContent = "🏁 賽事已封榜";
+        pill.style.background = "#fee2e2";
+        pill.style.color = "#991b1b";
+      } else {
+        pill.textContent = "🟢 一般賽跑中";
+        pill.style.background = "#dcfce7";
+        pill.style.color = "#166534";
+      }
+    }
+
+    function handleGameStateUpdate(state) {
+      currentGameState = state || { mode: 'normal' };
+      updateAdminGameStatusPill(currentGameState);
+
+      const banner = document.getElementById('mist-sprint-banner');
+      const overlay = document.getElementById('mist-forest-overlay');
+      const timerBadge = document.getElementById('mist-timer-badge');
+      const runBtn = document.getElementById('btn-blessing-run');
+      const strideBadge = document.getElementById('tap-stride-badge');
+
+      if (state.mode === 'mist') {
+        const endsAt = state.mistEndsAt || (Date.now() + 30000);
+        const now = Date.now();
+        const remainingSec = Math.max(0, Math.ceil((endsAt - now) / 1000));
+
+        if (remainingSec > 0) {
+          isMistSprintActive = true;
+          isRaceFinished = false;
+          if (overlay) overlay.classList.add('active');
+          if (banner) banner.classList.add('active');
+          if (timerBadge) timerBadge.textContent = `${remainingSec}s`;
+
+          if (strideBadge) {
+            strideBadge.textContent = '+6m 🔥';
+            strideBadge.style.background = 'linear-gradient(135deg, #ef4444 0%, #f59e0b 100%)';
+          }
+          if (runBtn) {
+            runBtn.disabled = false;
+            const textSpan = runBtn.querySelector('.blessing-btn-text');
+            if (textSpan) textSpan.textContent = '🔥 迷霧衝刺狂點！';
+          }
+
+          if (mistSprintTimer) clearInterval(mistSprintTimer);
+          mistSprintTimer = setInterval(() => {
+            const curRem = Math.max(0, Math.ceil((endsAt - Date.now()) / 1000));
+            if (timerBadge) timerBadge.textContent = `${curRem}s`;
+            if (curRem <= 0) {
+              clearInterval(mistSprintTimer);
+              mistSprintTimer = null;
+              triggerSprintFinish();
+            }
+          }, 1000);
+
+          playSuccessChime();
+          blastMegaConfettiCannon(getActiveTheme());
+          return;
+        }
+      }
+
+      // 非迷霧模式或時間已到
+      if (mistSprintTimer) {
+        clearInterval(mistSprintTimer);
+        mistSprintTimer = null;
+      }
+      isMistSprintActive = false;
+      if (overlay) overlay.classList.remove('active');
+      if (banner) banner.classList.remove('active');
+
+      if (state.mode === 'finished') {
+        isRaceFinished = true;
+        if (runBtn) {
+          runBtn.disabled = true;
+          const textSpan = runBtn.querySelector('.blessing-btn-text');
+          if (textSpan) textSpan.textContent = '🏁 比賽結束 · 榮耀封榜';
+        }
+        if (strideBadge) {
+          strideBadge.textContent = '封榜';
+          strideBadge.style.background = '#64748b';
+        }
+        renderAndShowAwardsModal();
+      } else {
+        // normal 模式
+        isRaceFinished = false;
+        if (runBtn) {
+          runBtn.disabled = false;
+          const textSpan = runBtn.querySelector('.blessing-btn-text');
+          if (textSpan) textSpan.textContent = '向前衝刺！';
+        }
+        if (strideBadge) {
+          strideBadge.textContent = '+2m';
+          strideBadge.style.background = '';
+        }
+        closeAwardsModal();
+      }
+    }
+
+    function triggerSprintFinish() {
+      isMistSprintActive = false;
+      isRaceFinished = true;
+      const overlay = document.getElementById('mist-forest-overlay');
+      const banner = document.getElementById('mist-sprint-banner');
+      if (overlay) overlay.classList.remove('active');
+      if (banner) banner.classList.remove('active');
+
+      const runBtn = document.getElementById('btn-blessing-run');
+      const strideBadge = document.getElementById('tap-stride-badge');
+      if (runBtn) {
+        runBtn.disabled = true;
+        const textSpan = runBtn.querySelector('.blessing-btn-text');
+        if (textSpan) textSpan.textContent = '🏁 比賽結束 · 榮耀封榜';
+      }
+      if (strideBadge) {
+        strideBadge.textContent = '封榜';
+        strideBadge.style.background = '#64748b';
+      }
+
+      // 盛大彩砲與音效
+      blastMegaConfettiCannon(getActiveTheme());
+      playSuccessChime();
+
+      setTimeout(() => {
+        renderAndShowAwardsModal();
+      }, 500);
+    }
+
+    function adminTriggerMistSprint() {
+      if (!confirm("⚠️ 確認啟動「迷霧森林最後衝刺」？\n\n・全場賓客手機將同步進入 30 秒倒數！\n・點擊步數提升為 3X 暴走 (+6m/擊)！\n・倒數結束自動鎖定並公布前三名頒獎榜！\n\n確定請點「確定」！")) {
+        return;
+      }
+      const now = Date.now();
+      const state = {
+        mode: 'mist',
+        mistStartedAt: now,
+        mistDuration: 30,
+        mistEndsAt: now + 30000
+      };
+      if (rtdb) {
+        rtdb.ref('gameState').set(state).catch(e => console.warn(e));
+      } else {
+        handleGameStateUpdate(state);
+      }
+    }
+
+    function adminTriggerFinishRace() {
+      if (!confirm("確定要立即結束比賽並封榜嗎？全場將定格最終成績並彈出頒獎榜。")) return;
+      const state = { mode: 'finished', finishedAt: Date.now() };
+      if (rtdb) {
+        rtdb.ref('gameState').set(state).catch(e => console.warn(e));
+      } else {
+        handleGameStateUpdate(state);
+      }
+    }
+
+    function adminTriggerResetNormal() {
+      if (!confirm("確定要重設為一般賽跑模式嗎？全場將解鎖並恢復正常奔跑。")) return;
+      const state = { mode: 'normal' };
+      if (rtdb) {
+        rtdb.ref('gameState').set(state).catch(e => console.warn(e));
+      } else {
+        handleGameStateUpdate(state);
+      }
+    }
+
+    function renderAndShowAwardsModal() {
+      const modal = document.getElementById('race-awards-modal');
+      const list = document.getElementById('awards-podium-list');
+      if (!modal || !list) return;
+
+      const sorted = getSortedTeams();
+      const top3 = sorted.slice(0, 3);
+
+      list.innerHTML = '';
+      const medals = ['🥇 冠軍', '🥈 亞軍', '🥉 季軍'];
+      const rankClasses = ['rank-1', 'rank-2', 'rank-3'];
+
+      top3.forEach((team, idx) => {
+        const card = document.createElement('div');
+        card.className = `podium-card ${rankClasses[idx] || ''}`;
+        const membersList = (team.members && team.members.length > 0)
+          ? team.members.join('、')
+          : '（尚無登記成員）';
+
+        card.innerHTML = `
+          <div class="podium-header">
+            <div class="podium-team-title">
+              <span>${medals[idx]}</span>
+              <span>${team.emoji} ${team.name}</span>
+            </div>
+            <div class="podium-team-meters">${(team.meters || 0).toLocaleString()} m</div>
+          </div>
+          <div class="podium-members">
+            <strong>🏃 獲獎選手 (${team.members ? team.members.length : 0}人)：</strong> ${membersList}
+          </div>
+        `;
+        list.appendChild(card);
+      });
+
+      modal.style.display = 'flex';
+    }
+
+    function closeAwardsModal() {
+      const modal = document.getElementById('race-awards-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function copyAwardsWinnersText() {
+      const sorted = getSortedTeams().slice(0, 3);
+      let text = "🏆 12/12 Barry & Winnie 森林賽跑 · 榮耀獲獎榜 🏆\n\n";
+      const titles = ['🥇【第一名冠軍】', '🥈【第二名亞軍】', '🥉【第三名季軍】'];
+      sorted.forEach((team, i) => {
+        const members = (team.members && team.members.length) ? team.members.join('、') : '無名單';
+        text += `${titles[i]} ${team.emoji} ${team.name} · 累積 ${team.meters.toLocaleString()} 公尺\n獲獎選手名單：${members}\n\n`;
+      });
+      text += "🎉 恭喜以上獲獎隊伍，請派代表至舞台領取精美大獎！";
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert("📋 得獎名單已成功複製！可直接貼到 LINE 提供主持人或司儀頒獎！");
+        }).catch(() => {
+          prompt("請手動複製得獎名單：", text);
+        });
+      } else {
+        prompt("請手動複製得獎名單：", text);
+      }
+    }
+
+    // =========================================================
+    // 3. 狀態儲存與 LocalStorage 免登入機制 (User Persistence)
+    // =========================================================
+    const STORAGE_KEY_USER = "forest_race_user_v2";
+    const STORAGE_KEY_TEAMS = "forest_race_teams_v2";
+    const STORAGE_KEY_BACKUP = "forest_race_teams_backup_v2";
+    const STORAGE_KEY_PLAYERS = "forest_race_players_index_v2";
+    const STORAGE_KEY_CUSTOM_TRIVIA = "forest_race_custom_trivia_v1";
+
+    // 甜蜜題庫池（支援新人後台自訂與預設題庫）
+    let customWeddingTrivia = [];
+    try {
+      const savedTrivia = localStorage.getItem(STORAGE_KEY_CUSTOM_TRIVIA);
+      if (savedTrivia) customWeddingTrivia = JSON.parse(savedTrivia);
+    } catch(e) {}
+
+    function getAllActiveTrivia() {
+      return [...customWeddingTrivia, ...WEDDING_TRIVIA];
+    }
+
+    // 喜帖加碼選擇題進度條 (每跑到最右即可參加一次加碼選擇題)
+    const TRIVIA_CYCLE_METERS = 200; // 每 200 公尺為一輪 (約 100 次點擊，節奏更舒服)
+    let triviaProgressMeters = 0;
+
+    let currentUser = null; // { name, animalId, myMeters, blessings, teamMeters }
+    let teamDataMap = {};   // { animalId: { meters, membersCount, members: [] } }
+    let selectedAnimalId = null;
+
+    // 遊戲跑步控制狀態
+    let expectedFoot = "left"; // "left" or "right"
+    let lastStepTime = 0;
+    let stepCount = 0;
+    let isStumbled = false;
+    let stumbleTimeout = null;
+
+    // 氮氣加速狀態
+    let nitroRemainingSeconds = 0;
+    let nitroTimerInterval = null;
+
+    // 賽道捲動位置與障礙物距離
+    let trackScrollX = 0;
+    let distanceToNextObstacle = 120; // 跑 120m 遇一次障礙題
+
+    // 音效合成引擎 (Web Audio API Synthesizer - 零網路依賴)
+    let audioCtx = null;
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playStepSound(freq = 280) {
+      try {
+        const ctx = getAudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(140, ctx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.12, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.08);
+      } catch(e) {}
+    }
+
+    function playBoingSound() {
+      try {
+        const ctx = getAudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(260, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.18);
+        gain.gain.setValueAtTime(0.2, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.25);
+      } catch(e) {}
+    }
+
+    function playSuccessChime() {
+      try {
+        const ctx = getAudioContext();
+        [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.value = freq;
+          const st = ctx.currentTime + idx * 0.07;
+          gain.gain.setValueAtTime(0.15, st);
+          gain.gain.exponentialRampToValueAtTime(0.001, st + 0.35);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(st);
+          osc.stop(st + 0.35);
+        });
+      } catch(e) {}
+    }
+
+    // =========================================================
+    // 4. 初始化團隊資料與零破壞自動備份恢復
+    // =========================================================
+    function initTeamData() {
+      // 自動清理舊版測試暫存資料
+      if (localStorage.getItem("forest_race_teams_v1")) {
+        localStorage.removeItem("forest_race_teams_v1");
+        localStorage.removeItem("forest_race_teams_backup_v1");
+        localStorage.removeItem("forest_race_players_index_v1");
+        localStorage.removeItem("forest_race_user_v1");
+      }
+
+      let stored = localStorage.getItem(STORAGE_KEY_TEAMS);
+      // 若主鍵遺失，自動從鏡像備份鍵還原
+      if (!stored) {
+        stored = localStorage.getItem(STORAGE_KEY_BACKUP);
+      }
+
+      if (stored) {
+        try {
+          teamDataMap = JSON.parse(stored);
+        } catch(e) {
+          teamDataMap = {};
+        }
+      }
+
+      // 初始化 50 種動物的團隊資料，步數與人數全部純粹歸零！
+      FOREST_ANIMALS.forEach((animal) => {
+        if (!teamDataMap[animal.id]) {
+          teamDataMap[animal.id] = {
+            meters: 0,
+            membersCount: 0,
+            members: []
+          };
+        }
+      });
+      saveAllState();
+    }
+
+    function saveTeams() {
+      saveAllState();
+    }
+
+    function saveAllState() {
+      // 1. 儲存目前跑者與名下即時備份
+      if (currentUser && currentUser.name) {
+        localStorage.setItem(STORAGE_KEY_USER, JSON.stringify(currentUser));
+        localStorage.setItem("forest_race_player_" + encodeURIComponent(currentUser.name), JSON.stringify(currentUser));
+        
+        try {
+          const players = JSON.parse(localStorage.getItem(STORAGE_KEY_PLAYERS) || "{}");
+          players[currentUser.name] = {
+            name: currentUser.name,
+            animalId: currentUser.animalId,
+            myMeters: currentUser.myMeters,
+            lastActive: Date.now()
+          };
+          localStorage.setItem(STORAGE_KEY_PLAYERS, JSON.stringify(players));
+        } catch(e) {}
+
+        // 3. 網址狀態同步（方便跨瀏覽器無縫找回或複製連結續玩）
+        try {
+          const hashStr = `runner=${encodeURIComponent(currentUser.name)}&team=${currentUser.animalId}&m=${currentUser.myMeters || 0}`;
+          if (history.replaceState) {
+            history.replaceState(null, '', '#' + hashStr);
+          }
+        } catch(e) {}
+      }
+
+      // 2. 儲存全隊資料與自動鏡像備份
+      if (teamDataMap) {
+        const json = JSON.stringify(teamDataMap);
+        localStorage.setItem(STORAGE_KEY_TEAMS, json);
+        localStorage.setItem(STORAGE_KEY_BACKUP, json);
+      }
+    }
+
+    // =========================================================
+    // 5. 渲染動物選擇清單 (帶 5 人上限限制)
+    // =========================================================
+    function renderAnimalGrid(catFilter = 'all', lockedAnimalId = null) {
+      const container = document.getElementById('animal-grid-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const filtered = (catFilter === 'all') 
+        ? FOREST_ANIMALS 
+        : FOREST_ANIMALS.filter(a => a.cat === catFilter);
+
+      filtered.forEach(animal => {
+        const team = teamDataMap[animal.id] || { membersCount: 0 };
+        const isFull = team.membersCount >= 5;
+        const isLockedTeam = lockedAnimalId && (lockedAnimalId === animal.id);
+        const isLockedOther = lockedAnimalId && (lockedAnimalId !== animal.id);
+        const isSelected = (selectedAnimalId === animal.id) || isLockedTeam;
+
+        const card = document.createElement('div');
+        let cardClass = 'animal-card-option';
+        if (isLockedTeam) cardClass += ' selected locked-team';
+        else if (isLockedOther) cardClass += ' locked-other';
+        else if (isSelected) cardClass += ' selected';
+        else if (isFull) cardClass += ' full';
+
+        card.className = cardClass;
+        card.onclick = () => {
+          if (lockedAnimalId) return; // 鎖定狀態下不可換隊
+          if (isFull) return;
+          selectAnimal(animal.id);
+        };
+
+        let quotaText = `${team.membersCount}/5`;
+        if (isLockedTeam) {
+          quotaText = '🔒 您的專屬綁定隊伍';
+        } else if (isLockedOther) {
+          quotaText = '🔒 隊伍已鎖定';
+        } else if (isFull) {
+          quotaText = '🌲 已滿額 (5/5)';
+        } else {
+          quotaText = `名額 ${team.membersCount}/5`;
+        }
+
+        card.innerHTML = `
+          <div class="animal-card-emoji">${animal.emoji}</div>
+          <div class="animal-card-info">
+            <div class="animal-card-name">${animal.name}</div>
+            <div class="animal-card-quota ${isFull ? 'full-text' : ''} ${isLockedTeam ? 'locked-text' : ''}">
+              ${quotaText}
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterAnimalCategory(category, btn) {
+      document.querySelectorAll('.cat-pill').forEach(el => el.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderAnimalGrid(category);
+    }
+
+    function selectAnimal(animalId) {
+      selectedAnimalId = animalId;
+      const animal = FOREST_ANIMALS.find(a => a.id === animalId);
+      const preview = document.getElementById('selected-animal-preview');
+      if (preview && animal) {
+        preview.textContent = `${animal.emoji} ${animal.name}`;
+      }
+      renderAnimalGrid(document.querySelector('.cat-pill.active')?.dataset?.cat || 'all');
+      validateRegistrationForm();
+    }
+
+    // =========================================================
+    // 5.5 實名制檢核邏輯 (Real-Name Validation Engine)
+    // =========================================================
+    function checkRealName(name) {
+      if (!name) return { valid: false, msg: "請填寫姓名（範例：戴婉錡）" };
+      name = name.trim();
+
+      // 禁止的常見暱稱、外號、稱謂或測試字串
+      const forbiddenKeywords = [
+        "伴郎", "伴娘", "新郎", "新娘", "測試", "小戴", "小明", "阿明", "大明", "阿偉",
+        "大師", "帥哥", "美女", "女神", "男神", "胖子", "小胖", "寶貝", "寶寶", "哈囉",
+        "無名", "路人", "朋友", "同學", "同事", "招待", "工作人員", "某某", "誰", "文魚",
+        "妹妹", "哥哥", "弟弟", "姐姐", "姊姊", "爸爸", "媽媽", "阿姨", "叔叔",
+        "abc", "test", "demo", "guest", "admin", "null", "none"
+      ];
+
+      for (const kw of forbiddenKeywords) {
+        if (name.toLowerCase().includes(kw)) {
+          return { valid: false, msg: `❌ 含有稱謂或暱稱「${kw}」，請填寫姓名（範例：戴婉錡）` };
+        }
+      }
+
+      // 中文真實姓名：2 ~ 5 個標準中文字元 (如：戴婉錡、陳建宏、歐陽修)
+      const chineseNameRegex = /^[\u4e00-\u9fa5]{2,5}$/;
+      // 官方英文全名：FirstName LastName (至少 3 個英文字母)
+      const englishNameRegex = /^[A-Za-z]{2,15}(\s[A-Za-z]{2,15})+$/;
+
+      if (chineseNameRegex.test(name)) {
+        return { valid: true, msg: "✅ 姓名格式正確" };
+      }
+
+      if (englishNameRegex.test(name)) {
+        return { valid: true, msg: "✅ 英文官方全名格式正確" };
+      }
+
+      if (name.length < 2) {
+        return { valid: false, msg: "❌ 姓名至少需 2 個字（範例：戴婉錡）" };
+      }
+
+      return { valid: false, msg: "❌ 請填寫 2~5 字中文姓名（範例：戴婉錡，請勿使用外號/暱稱）" };
+    }
+
+    // =========================================================
+    // 5.8 選手檔案多來源查找 (Multi-Store Player Lookup)
+    // =========================================================
+    function findExistingPlayer(name) {
+      if (!name) return null;
+      name = name.trim();
+
+      // 1. 本地獨立玩家檔案
+      const directKey = "forest_race_player_" + encodeURIComponent(name);
+      const direct = localStorage.getItem(directKey);
+      if (direct) {
+        try {
+          const u = JSON.parse(direct);
+          if (u && u.animalId) return u;
+        } catch(e) {}
+      }
+
+      // 2. 本地總索引
+      try {
+        const players = JSON.parse(localStorage.getItem(STORAGE_KEY_PLAYERS) || "{}");
+        if (players[name] && players[name].animalId) return players[name];
+      } catch(e) {}
+
+      // 3. 檢查目前隊伍是否有此成員
+      if (teamDataMap) {
+        for (const aId in teamDataMap) {
+          const t = teamDataMap[aId];
+          if (t && Array.isArray(t.members) && t.members.includes(name)) {
+            return {
+              name: name,
+              animalId: aId,
+              myMeters: Math.floor((t.meters || 3000) * 0.1),
+              blessings: 20
+            };
+          }
+        }
+      }
+
+      return null;
+    }
+
+    function validateRegistrationForm() {
+      const nameInput = document.getElementById('reg-input-name');
+      const name = nameInput ? nameInput.value.trim() : "";
+      const feedback = document.getElementById('reg-name-feedback');
+      const btn = document.getElementById('btn-submit-registration');
+
+      if (!feedback) return;
+
+      if (!name) {
+        feedback.textContent = "請填寫姓名（範例：戴婉錡）";
+        feedback.className = "reg-name-feedback";
+        if (btn) {
+          btn.disabled = true;
+          btn.innerHTML = `<span>🏃</span> 領取號碼布 · 開跑！`;
+        }
+        renderAnimalGrid(document.querySelector('.cat-pill.active')?.dataset?.cat || 'all', null);
+        return;
+      }
+
+      const res = checkRealName(name);
+      if (!res.valid) {
+        feedback.textContent = res.msg;
+        feedback.className = "reg-name-feedback invalid";
+        if (btn) btn.disabled = true;
+        renderAnimalGrid(document.querySelector('.cat-pill.active')?.dataset?.cat || 'all', null);
+        return;
+      }
+
+      // 檢查是否已有該選手的舊紀錄（輸入姓名後自動綁定隊伍與找回積分，嚴防換瀏覽器更換隊伍）
+      const existing = findExistingPlayer(name);
+
+      if (existing && existing.animalId) {
+        selectedAnimalId = existing.animalId;
+        const boundAnimal = FOREST_ANIMALS.find(a => a.id === existing.animalId);
+        const preview = document.getElementById('selected-animal-preview');
+        if (preview && boundAnimal) {
+          preview.innerHTML = `${boundAnimal.emoji} ${boundAnimal.name} <span style="font-size:0.75rem; color:#8c6b2d; font-weight:700;">(🔒 專屬綁定隊伍)</span>`;
+        }
+        feedback.innerHTML = `✅ 找到「${name}」參賽紀錄！已自動綁定【${boundAnimal ? boundAnimal.emoji + ' ' + boundAnimal.name : '您的陣營'}】，累積 <strong>${existing.myMeters || 0}m</strong>！`;
+        feedback.className = "reg-name-feedback valid";
+
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = `<span>🔄</span> 返回【${boundAnimal ? boundAnimal.name : '陣營'}】隊伍繼續衝刺！`;
+        }
+        // 重新渲染動物列表，鎖定該隊伍，其餘隊伍禁用
+        renderAnimalGrid(document.querySelector('.cat-pill.active')?.dataset?.cat || 'all', existing.animalId);
+      } else {
+        feedback.textContent = res.msg;
+        feedback.className = "reg-name-feedback valid";
+        if (btn) {
+          btn.disabled = !selectedAnimalId;
+          btn.innerHTML = `<span>🏃</span> 領取號碼布 · 開跑！`;
+        }
+        renderAnimalGrid(document.querySelector('.cat-pill.active')?.dataset?.cat || 'all', null);
+      }
+    }
+
+    // =========================================================
+    // 6. 註冊與免登入持久化處理 (Persistence Engine)
+    // =========================================================
+    function handleRegister() {
+      const nameInput = document.getElementById('reg-input-name');
+      const name = nameInput ? nameInput.value.trim() : "";
+      
+      const check = checkRealName(name);
+      if (!check.valid) {
+        alert("⚠️ 婚禮頒獎提醒：\n" + check.msg + "\n\n12/12 婚宴現場將核對並頒發精美大獎，請填寫姓名（範例：戴婉錡）喔！");
+        if (nameInput) nameInput.focus();
+        return;
+      }
+
+      // 檢查是否已有該真實姓名的選手紀錄（自動無痛找回並鎖定隊伍）
+      const existing = findExistingPlayer(name);
+      if (existing && existing.animalId) {
+        currentUser = {
+          name: name,
+          animalId: existing.animalId,
+          myMeters: existing.myMeters || 0,
+          blessings: existing.blessings || Math.floor((existing.myMeters || 0) / 2),
+          registeredAt: existing.registeredAt || Date.now()
+        };
+        saveAllState();
+        if (rtdb) {
+          const key = safeDbKey(name);
+          rtdb.ref(`players/${key}/lastActive`).set(Date.now()).catch(e => console.warn(e));
+        }
+        playSuccessChime();
+        launchGameplay();
+        return;
+      }
+
+      if (!selectedAnimalId) {
+        alert("請挑選一隻心儀的森林陸生動物陣營！");
+        return;
+      }
+
+      const team = teamDataMap[selectedAnimalId];
+      if (team && team.membersCount >= 5) {
+        alert("此動物陣營剛剛已滿員 (5/5)，請挑選其他可愛的森林夥伴！");
+        renderAnimalGrid();
+        return;
+      }
+
+      // 建立新跑者檔案
+      currentUser = {
+        name: name,
+        animalId: selectedAnimalId,
+        myMeters: 0,
+        blessings: 0,
+        registeredAt: Date.now()
+      };
+
+      // 團隊成員計數 +1
+      if (team) {
+        team.membersCount = (team.membersCount || 0) + 1;
+        team.members = team.members || [];
+        if (!team.members.includes(name)) {
+          team.members.push(name);
+        }
+      }
+
+      saveAllState();
+
+      // 雲端即時註冊同步
+      if (rtdb) {
+        const key = safeDbKey(name);
+        rtdb.ref(`players/${key}`).set({
+          name: name,
+          animalId: selectedAnimalId,
+          myMeters: 0,
+          blessings: 0,
+          registeredAt: Date.now(),
+          lastActive: Date.now()
+        }).catch(e => console.warn(e));
+
+        rtdb.ref(`teams/${selectedAnimalId}`).transaction(t => {
+          if (!t) {
+            t = { meters: 0, membersCount: 1, members: [name] };
+          } else {
+            t.members = t.members || [];
+            if (!t.members.includes(name)) {
+              t.members.push(name);
+            }
+            t.membersCount = t.members.length;
+          }
+          return t;
+        }).catch(e => console.warn(e));
+      }
+
+      playSuccessChime();
+      launchGameplay();
+    }
+
+    // =========================================================
+    // 6.5 選手名單清除與重選機制 (Player Reset & Re-select)
+    // =========================================================
+    function deletePlayerRecord(name) {
+      if (!name) return false;
+      name = name.trim();
+
+      // 1. 尋找該玩家綁定的動物 ID
+      let animalId = null;
+      const direct = localStorage.getItem("forest_race_player_" + encodeURIComponent(name));
+      if (direct) {
+        try { animalId = JSON.parse(direct).animalId; } catch(e) {}
+      }
+      if (!animalId && teamDataMap) {
+        for (const aId in teamDataMap) {
+          if (teamDataMap[aId]?.members?.includes(name)) {
+            animalId = aId;
+            break;
+          }
+        }
+      }
+
+      // 2. 從動物隊伍成員移除，退還 1 個名額
+      if (animalId && teamDataMap[animalId]) {
+        const t = teamDataMap[animalId];
+        if (Array.isArray(t.members)) {
+          t.members = t.members.filter(m => m !== name);
+        }
+        t.membersCount = Math.max(0, (t.membersCount || 1) - 1);
+      }
+
+      // 3. 清除獨立紀錄與總索引
+      localStorage.removeItem("forest_race_player_" + encodeURIComponent(name));
+      try {
+        const players = JSON.parse(localStorage.getItem(STORAGE_KEY_PLAYERS) || "{}");
+        delete players[name];
+        localStorage.setItem(STORAGE_KEY_PLAYERS, JSON.stringify(players));
+      } catch(e) {}
+
+      // 4. 若當前玩家即為該名選手，一併登出清空
+      if (currentUser && currentUser.name === name) {
+        localStorage.removeItem(STORAGE_KEY_USER);
+        currentUser = null;
+        if (history.replaceState) {
+          history.replaceState(null, '', window.location.pathname);
+        }
+      }
+
+      // 5. 雲端同步刪除
+      if (rtdb) {
+        const key = safeDbKey(name);
+        rtdb.ref(`players/${key}`).remove().catch(e => console.warn(e));
+        if (animalId) {
+          rtdb.ref(`teams/${animalId}`).transaction(t => {
+            if (t) {
+              if (Array.isArray(t.members)) {
+                t.members = t.members.filter(m => m !== name);
+              }
+              t.membersCount = t.members ? t.members.length : 0;
+            }
+            return t;
+          }).catch(e => console.warn(e));
+        }
+      }
+
+      saveAllState();
+      return true;
+    }
+
+    function confirmResetPlayerByName(name) {
+      if (!confirm(`⚠️ 確定要刪除「${name}」的登記紀錄嗎？\n\n・該姓名的綁定與成績將會被清空\n・該動物隊伍名額將自動退還釋出\n・您可以重新輸入正確姓名並挑選心儀的動物！`)) {
+        return;
+      }
+      deletePlayerRecord(name);
+      selectedAnimalId = null;
+      const preview = document.getElementById('selected-animal-preview');
+      if (preview) preview.innerHTML = '請在下方點選一隻動物';
+      validateRegistrationForm();
+      alert(`✨ 已成功清空「${name}」的紀錄！您可以重新輸入姓名並挑選陣營。`);
+    }
+
+    function requestResetCurrentPlayer() {
+      if (!currentUser) return;
+      const name = currentUser.name;
+      if (!confirm(`⚠️ 重新登記確認：\n\n請問是否要重置目前的身分【${name}】？\n\n・重置後您目前的個人里程將會歸零\n・您將退出目前陣營，釋出名額\n・畫面將回到登記首頁，供您重新輸入姓名並挑選陣營\n\n確定請點「確定」！`)) {
+        return;
+      }
+      deletePlayerRecord(name);
+      
+      // 返回登記視圖
+      document.getElementById('view-gameplay').style.display = 'none';
+      document.getElementById('view-registration').style.display = 'flex';
+      const nameInput = document.getElementById('reg-input-name');
+      if (nameInput) nameInput.value = '';
+      selectedAnimalId = null;
+      const preview = document.getElementById('selected-animal-preview');
+      if (preview) preview.innerHTML = '請在下方點選一隻動物';
+      renderAnimalGrid('all');
+      validateRegistrationForm();
+      alert('✨ 已重置身分，請重新輸入姓名並挑選動物陣營！');
+    }
+
+    function handleLogout() {
+      requestResetCurrentPlayer();
+    }
+
+    function copyRunnerResumeLink() {
+      if (!currentUser) return;
+      const base = window.location.origin + window.location.pathname;
+      const url = `${base}#runner=${encodeURIComponent(currentUser.name)}&team=${currentUser.animalId}&m=${currentUser.myMeters || 0}`;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+          alert(`📋 已複製您的專屬續玩連結！\n\n您可以將此連結貼到 LINE、Chrome 或另一台手機開啟，系統將自動無縫找回【${currentUser.name}】的隊伍與累積里程！`);
+        }).catch(() => {
+          prompt("請複製下方專屬續玩連結（貼到 LINE 或其他瀏覽器繼續玩）：", url);
+        });
+      } else {
+        prompt("請複製下方專屬續玩連結（貼到 LINE 或其他瀏覽器繼續玩）：", url);
+      }
+    }
+
+    // =========================================================
+    // 7. 啟動賽道視圖與載入跑者狀態 (Gameplay Launch)
+    // =========================================================
+    const TARGET_BANQUET_METERS = 2026;
+
+    function launchGameplay() {
+      if (!currentUser) return;
+
+      document.getElementById('view-registration').style.display = 'none';
+      document.getElementById('view-gameplay').style.display = 'flex';
+
+      const animal = FOREST_ANIMALS.find(a => a.id === currentUser.animalId);
+      
+      // 更新徽章與跑者名稱
+      document.getElementById('badge-runner-name').textContent = currentUser.name;
+      document.getElementById('badge-animal-name').textContent = animal ? `${animal.emoji} ${animal.name}` : "";
+      
+      const runnerEmoji = document.getElementById('runner-emoji');
+      const runnerNameTag = document.getElementById('runner-name-tag');
+      if (runnerEmoji) runnerEmoji.textContent = animal ? animal.emoji : "🐾";
+      if (runnerNameTag) runnerNameTag.textContent = animal ? animal.name : "";
+
+      const animalTrackEmoji = document.getElementById('animal-track-emoji');
+      if (animalTrackEmoji && animal) animalTrackEmoji.textContent = animal.emoji;
+
+      // 更新即時儀表板、進度條與公里數
+      updateDashboardNumbers();
+      updateAnimalProgressBar();
+      updateFocusLeaderboard();
+    }
+
+    function updateDashboardNumbers() {
+      if (!currentUser) return;
+      const team = teamDataMap[currentUser.animalId];
+      const teamMeters = team ? team.meters : 0;
+      
+      const myKm = (currentUser.myMeters / 1000).toFixed(currentUser.myMeters < 100 ? 3 : 2);
+      const teamKm = (teamMeters / 1000).toFixed(2);
+
+      const hudMyKm = document.getElementById('hud-my-km');
+      const hudTeamKm = document.getElementById('hud-team-km');
+      if (hudMyKm) hudMyKm.textContent = myKm;
+      if (hudTeamKm) hudTeamKm.textContent = teamKm;
+
+      const hudMyMeters = document.getElementById('hud-my-meters');
+      const hudTeamMeters = document.getElementById('hud-team-meters');
+      if (hudMyMeters) hudMyMeters.textContent = currentUser.myMeters.toLocaleString();
+      if (hudTeamMeters) hudTeamMeters.textContent = teamMeters.toLocaleString();
+
+      const blessingDisplay = document.getElementById('blessing-count-display');
+      const blessingCount = (currentUser.blessings !== undefined) ? currentUser.blessings : Math.floor(currentUser.myMeters / 2);
+      if (blessingDisplay) blessingDisplay.textContent = blessingCount.toLocaleString();
+
+      const subMeters = document.getElementById('hud-my-meters-sub');
+      if (subMeters) subMeters.textContent = currentUser.myMeters.toLocaleString();
+    }
+
+    function updateAnimalProgressBar(pctOverride) {
+      const pct = (pctOverride !== undefined) ? pctOverride : Math.min(100, Math.floor((triviaProgressMeters / TRIVIA_CYCLE_METERS) * 100));
+      const runner = document.getElementById('animal-sprint-runner');
+      const fill = document.getElementById('animal-sprint-fill');
+      const tag = document.getElementById('energy-status-tag');
+
+      if (runner) {
+        // 精確約束在賽道內邊界：0% 在 left: 16px (切齊左圓角)，100% 在 left: calc(100% - 24px) (親近禮物盒)
+        runner.style.left = `calc(16px + (100% - 40px) * ${pct / 100})`;
+        runner.classList.remove('trotting');
+        void runner.offsetWidth;
+        runner.classList.add('trotting');
+      }
+      if (fill) {
+        fill.style.width = `${pct}%`;
+      }
+      if (tag) {
+        if (pct < 25) tag.textContent = '起跑蓄能 🌿';
+        else if (pct < 55) tag.textContent = '步頻加快 💨';
+        else if (pct < 85) tag.textContent = '全速狂飆 ⚡';
+        else if (pct < 100) tag.textContent = '即將破線 🎁';
+        else tag.textContent = '加碼解鎖 🎉';
+      }
+    }
+
+    // =========================================================
+    // 8. 輕快爽快的點擊奔跑核心 (Tap to Run Engine)
+    // =========================================================
+    let isMuted = false;
+    let throttleLastTime = 0;
+    const MIN_TAP_INTERVAL = 70; // 物理節流 70ms (~14 次/秒)，防止外掛腳本並保障人類極速狂點
+
+    function toggleSound() {
+      isMuted = !isMuted;
+      const icon = document.getElementById('sound-icon');
+      if (icon) {
+        icon.textContent = isMuted ? '🔇' : '🔊';
+      }
+    }
+
+    // =========================================================
+    // 8. 喜帖旗艦級 60FPS 離線 Sprite 緩存粒子引擎 (FX Engine)
+    //    100% 移植電子喜帖 barry-winnie.pages.dev 高性能架構：
+    //    - 離線離屏 Sprite 預繪製（雙層漸層、細緻葉脈、金鑽星芒）
+    //    - 渲染迴圈僅執行 ctx.drawImage 貼圖與 2D 矩陣旋轉，徹底根除手機 GPU 卡頓
+    //    - 每次點擊 100% 純粹隨機切換：全花瓣、全落葉、全金蔥
+    // =========================================================
+    const FX = (() => {
+      let canvas = null;
+      let ctx = null;
+      let W = 0, H = 0, DPR = 1, raf = 0, last = 0;
+      const parts = [];
+      const MAX = 1100;
+      const sprites = { star: [], petal: [], leaf: [] };
+      let initialized = false;
+
+      function resize() {
+        if (!canvas) canvas = document.getElementById('forest-particles-canvas');
+        if (!canvas) return;
+        DPR = Math.min(window.devicePixelRatio || 1, 2);
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.width = Math.round(W * DPR);
+        canvas.height = Math.round(H * DPR);
+        canvas.style.width = W + 'px';
+        canvas.style.height = H + 'px';
+      }
+
+      function mk(size, draw) {
+        const c = document.createElement('canvas');
+        c.width = c.height = size;
+        draw(c.getContext('2d'), size);
+        return c;
+      }
+
+      function buildSprites() {
+        if (initialized) return;
+        initialized = true;
+
+        // 1. 金蔥 / 璀璨星芒 (8角奢華金星 + 雙層星芒柔光暈染)
+        [['#fff6da', '#e2bc73', '#c59b4c'], ['#fffbe9', '#f1d48f', '#d7ac5a'], ['#ffffff', '#f6e3b0', '#e2bc73']].forEach(([c0, c1, c2]) => {
+          sprites.star.push(mk(64, (g, s) => {
+            const h = s / 2;
+            const rg = g.createRadialGradient(h, h, 0, h, h, h);
+            rg.addColorStop(0, 'rgba(255,240,200,.85)');
+            rg.addColorStop(0.25, 'rgba(226,188,115,.35)');
+            rg.addColorStop(1, 'rgba(226,188,115,0)');
+            g.fillStyle = rg;
+            g.fillRect(0, 0, s, s);
+            g.translate(h, h);
+            const lg = g.createLinearGradient(-h * 0.5, -h * 0.5, h * 0.5, h * 0.5);
+            lg.addColorStop(0, c0);
+            lg.addColorStop(0.5, c1);
+            lg.addColorStop(1, c2);
+            g.fillStyle = lg;
+            g.beginPath();
+            const R = h * 0.64, r = h * 0.12;
+            for (let i = 0; i < 8; i++) {
+              const a = i * Math.PI / 4 - Math.PI / 2;
+              const rad = i % 2 === 0 ? R : r;
+              g.lineTo(Math.cos(a) * rad, Math.sin(a) * rad);
+            }
+            g.closePath();
+            g.fill();
+          }));
+        });
+
+        // 2. 浪漫玫瑰與櫻花花瓣 (真實貝茲有機花瓣輪廓 + 水彩通透暈染 + 精緻花脈)
+        [['#fff0f2', '#f7b9c4', '#e58ea0'], ['#fff5f0', '#f9c8c0', '#ea9c95'], ['#fdeef5', '#f2b3cf', '#d987aa'], ['#ffe4e6', '#fb7185', '#e11d48']].forEach(([c0, c1, c2]) => {
+          sprites.petal.push(mk(48, (g, s) => {
+            const h = s / 2;
+            g.translate(h, h);
+            const rg = g.createRadialGradient(-4, -8, 2, 0, 0, h);
+            rg.addColorStop(0, c0);
+            rg.addColorStop(0.55, c1);
+            rg.addColorStop(1, c2);
+            g.fillStyle = rg;
+            g.beginPath();
+            g.moveTo(0, -h * 0.9);
+            g.bezierCurveTo(h * 0.85, -h * 0.55, h * 0.7, h * 0.6, 0, h * 0.86);
+            g.bezierCurveTo(-h * 0.7, h * 0.6, -h * 0.85, -h * 0.55, 0, -h * 0.9);
+            g.fill();
+            g.globalCompositeOperation = 'destination-out';
+            g.beginPath();
+            g.arc(0, -h * 0.94, h * 0.15, 0, Math.PI * 2);
+            g.fill();
+            g.globalCompositeOperation = 'source-over';
+            g.strokeStyle = 'rgba(255,255,255,.45)';
+            g.lineWidth = 1;
+            g.beginPath();
+            g.moveTo(0, -h * 0.55);
+            g.quadraticCurveTo(h * 0.12, 0, 0, h * 0.6);
+            g.stroke();
+          }));
+        });
+
+        // 3. 清新森林尤加利葉與秋日紅葉 (雙層漸層 + 自然分叉葉脈)
+        [['#8fae7e', '#46674a'], ['#a6bd93', '#5d7d55'], ['#7c9a6a', '#27382b'], ['#ea580c', '#9a3412'], ['#f59e0b', '#b45309']].forEach(([c0, c1]) => {
+          sprites.leaf.push(mk(48, (g, s) => {
+            const h = s / 2;
+            g.translate(h, h);
+            const lg = g.createLinearGradient(-h * 0.5, -h, h * 0.5, h);
+            lg.addColorStop(0, c0);
+            lg.addColorStop(1, c1);
+            g.fillStyle = lg;
+            g.beginPath();
+            g.moveTo(0, -h * 0.94);
+            g.quadraticCurveTo(h * 0.66, -h * 0.2, 0, h * 0.94);
+            g.quadraticCurveTo(-h * 0.66, -h * 0.2, 0, -h * 0.94);
+            g.fill();
+            g.strokeStyle = 'rgba(235,245,215,.65)';
+            g.lineWidth = 1.1;
+            g.beginPath();
+            g.moveTo(0, -h * 0.8);
+            g.lineTo(0, h * 0.9);
+            g.stroke();
+            g.lineWidth = 0.7;
+            for (let i = -2; i <= 2; i++) {
+              const y = i * h * 0.26;
+              g.beginPath();
+              g.moveTo(0, y + h * 0.1);
+              g.lineTo(h * 0.26, y - h * 0.08);
+              g.stroke();
+              g.beginPath();
+              g.moveTo(0, y + h * 0.1);
+              g.lineTo(-h * 0.26, y - h * 0.08);
+              g.stroke();
+            }
+          }));
+        });
+      }
+
+      const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+      const rand = (a, b) => a + Math.random() * (b - a);
+
+      function make(type, x, y, vx, vy, life) {
+        if (parts.length >= MAX) return;
+        const isStar = type === 'star';
+        parts.push({
+          type, x, y, vx, vy,
+          img: pick(sprites[type]),
+          size: isStar ? rand(6, 11) : rand(7, 13), // 縮小花瓣尺寸 (7~13px)，營造法式乾燥碎花細緻質感
+          rot: rand(0, Math.PI * 2),
+          vr: rand(-3.5, 3.5),
+          flip: rand(0, Math.PI * 2),
+          vflip: rand(2.5, 5.5),
+          sway: rand(1.4, 2.8),
+          swayAmp: isStar ? rand(4, 12) : rand(14, 30),
+          phase: rand(0, Math.PI * 2),
+          tw: rand(6, 12),
+          g: isStar ? rand(180, 260) : rand(220, 310), // 輕量空氣浮力，飄動更輕柔
+          drag: isStar ? 0.982 : 0.972,
+          term: isStar ? rand(120, 180) : rand(70, 120),
+          life, max: life
+        });
+      }
+
+      function ensureCanvas() {
+        if (!canvas) {
+          canvas = document.getElementById('forest-particles-canvas');
+          if (canvas) {
+            ctx = canvas.getContext('2d');
+            resize();
+            buildSprites();
+            window.addEventListener('resize', resize, { passive: true });
+          }
+        }
+      }
+
+      // 衝刺主題連動（同一連點衝刺保持同一純粹主題，放開 1.3s 後重新隨機抽選）
+      let streakTheme = 'petal';
+      let lastStreakTime = 0;
+
+      function getStreakTheme(combo) {
+        const now = performance.now();
+        if (now - lastStreakTime > 1300 || !streakTheme || combo <= 1) {
+          const pureThemes = ['star', 'petal', 'leaf'];
+          streakTheme = pick(pureThemes);
+        }
+        lastStreakTime = now;
+        return streakTheme;
+      }
+
+      // 噴灑量與高度控制（花瓣縮小精緻化，高度直衝森林畫面上半段，單擊有感 8~10 片，連點 32~42 片）
+      function getProgressiveEmission(combo, isNitro) {
+        const c = Math.max(1, combo || 1);
+        let burstCount = 8;
+        let minSpeed = 340;
+        let maxSpeed = 480;
+        let burstLife = 1.6;
+
+        if (c === 1) {
+          // 單次輕點：8~10 片精緻小花瓣，躍起直衝森林畫面中段
+          burstCount = isNitro ? 14 : (Math.random() < 0.5 ? 8 : 10);
+          minSpeed = isNitro ? 380 : 340;
+          maxSpeed = isNitro ? 540 : 480;
+          burstLife = 1.6;
+        } else if (c <= 3) {
+          // 輕快起步 (Combo 2~3)：14~18 片
+          burstCount = isNitro ? 22 : (Math.random() < 0.5 ? 14 : 18);
+          minSpeed = isNitro ? 420 : 380;
+          maxSpeed = isNitro ? 580 : 520;
+          burstLife = 1.75;
+        } else if (c <= 6) {
+          // 穩定狂飆 (Combo 4~6)：22~28 片
+          burstCount = isNitro ? 34 : (Math.random() < 0.5 ? 22 : 28);
+          minSpeed = isNitro ? 460 : 420;
+          maxSpeed = isNitro ? 640 : 580;
+          burstLife = 1.9;
+        } else {
+          // 極速連點 (Combo 7+)：32~42 片細緻花瓣漫天飛揚，直達森林畫面中段！
+          burstCount = isNitro ? 52 : (Math.random() < 0.5 ? 32 : 42);
+          minSpeed = isNitro ? 520 : 460;
+          maxSpeed = isNitro ? 720 : 660;
+          burstLife = 2.1;
+        }
+
+        return { burstCount, minSpeed, maxSpeed, burstLife };
+      }
+
+      // 純粹主題噴發（朝正上方扇形噴灑直抵森林畫面中段，頂部絕不飄雨）
+      function burst(x, y, combo, isNitro, forceTheme) {
+        ensureCanvas();
+        if (!canvas) return;
+        const chosenTheme = forceTheme || getStreakTheme(combo);
+        const { burstCount, minSpeed, maxSpeed, burstLife } = getProgressiveEmission(combo, isNitro);
+
+        for (let i = 0; i < burstCount; i++) {
+          const a = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 0.62; // 自然扇形朝上方森林噴灑
+          const sp = rand(minSpeed, maxSpeed);
+          make(chosenTheme, x + rand(-24, 24), y + rand(-4, 4), Math.cos(a) * sp, Math.sin(a) * sp, rand(burstLife * 0.85, burstLife * 1.15));
+        }
+
+        start();
+        return chosenTheme;
+      }
+
+      // 天降落雨（徹底移除：用戶明確表示不喜歡上面有東西飄下來）
+      function rain() {
+        return;
+      }
+
+      // 雙砲齊發全螢幕海嘯級慶祝（答對題目或氮氣衝刺時使用）
+      function cannonBurst(theme) {
+        ensureCanvas();
+        if (!canvas) return;
+        const activeTheme = (theme === 'petals' ? 'petal' : (theme === 'leaves' ? 'leaf' : (theme === 'gold' ? 'star' : (theme || pick(['star', 'petal', 'leaf'])))));
+        const count = 90;
+
+        // 左下角禮砲（朝右上 60° 狂轟）
+        for (let i = 0; i < count; i++) {
+          const a = -Math.PI / 2 + (Math.random() * 0.7 - 0.1);
+          const sp = rand(550, 1100);
+          make(activeTheme, 0, H * 0.94, Math.cos(a) * sp, Math.sin(a) * sp, rand(2.8, 4.5));
+        }
+
+        // 右下角禮砲（朝左上 120° 狂轟）
+        for (let i = 0; i < count; i++) {
+          const a = -Math.PI / 2 - (Math.random() * 0.7 - 0.1);
+          const sp = rand(550, 1100);
+          make(activeTheme, W, H * 0.94, Math.cos(a) * sp, Math.sin(a) * sp, rand(2.8, 4.5));
+        }
+
+        start();
+      }
+
+      function start() {
+        if (raf) return;
+        last = performance.now();
+        raf = requestAnimationFrame(loop);
+      }
+
+      function loop(now) {
+        if (!ctx || !canvas) {
+          raf = 0;
+          return;
+        }
+        const dt = Math.min(0.033, Math.max(0.001, (now - last) / 1000));
+        last = now;
+        const t = now / 1000;
+
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = parts.length - 1; i >= 0; i--) {
+          const p = parts[i];
+          p.life -= dt;
+          const k = Math.pow(p.drag, dt * 60);
+          p.vx *= k;
+          p.vy = p.vy * k + p.g * dt;
+          if (p.vy > p.term) p.vy += (p.term - p.vy) * Math.min(1, dt * 3);
+          p.x += p.vx * dt + Math.sin(t * p.sway + p.phase) * p.swayAmp * dt;
+          p.y += p.vy * dt;
+          p.rot += p.vr * dt;
+          p.flip += p.vflip * dt;
+          if (p.life <= 0 || p.y > H + 60 || p.x < -80 || p.x > W + 80) {
+            parts[i] = parts[parts.length - 1];
+            parts.pop();
+          }
+        }
+
+        // 兩階段極速硬體貼圖繪製 (Pass 0: source-over, Pass 1: lighter 金鑽光芒)
+        for (let pass = 0; pass < 2; pass++) {
+          ctx.globalCompositeOperation = pass === 0 ? 'source-over' : 'lighter';
+          for (let i = 0; i < parts.length; i++) {
+            const p = parts[i];
+            const isStar = p.type === 'star';
+            if ((pass === 0) === isStar) continue;
+            let a = Math.min(1, p.life / 0.6, (p.max - p.life) / 0.08 + 0.2);
+            if (isStar) a *= 0.72 + 0.28 * Math.sin(t * p.tw + p.phase);
+            if (a <= 0.01) continue;
+            ctx.globalAlpha = a;
+            const c = Math.cos(p.rot), s = Math.sin(p.rot);
+            const sx = p.size * (isStar ? 1 : Math.cos(p.flip));
+            const sy = p.size;
+            ctx.setTransform(DPR * c * sx, DPR * s * sx, -DPR * s * sy, DPR * c * sy, DPR * p.x, DPR * p.y);
+            ctx.drawImage(p.img, -0.5, -0.5, 1, 1);
+          }
+        }
+
+        ctx.globalAlpha = 1;
+        ctx.globalCompositeOperation = 'source-over';
+
+        if (parts.length > 0) {
+          raf = requestAnimationFrame(loop);
+        } else {
+          raf = 0;
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+
+      return {
+        burst,
+        rain,
+        cannonBurst,
+        ensureCanvas
+      };
+    })();
+
+    // 向後相容別名與封裝
+    function initParticleCanvas() {
+      FX.ensureCanvas();
+    }
+
+    function spawnTapParticles(originX, originY, count = 38, burstSpread = 1) {
+      FX.burst(originX, originY, comboNow(), nitroRemainingSeconds > 0);
+    }
+
+    function blastMegaConfettiCannon(theme) {
+      FX.cannonBurst(theme);
+    }
+
+    function setParticleTheme(theme) {
+      blastMegaConfettiCannon(theme);
+    }
+
+    function getActiveTheme() {
+      return ['petals', 'leaves', 'gold'][Math.floor(Math.random() * 3)];
+    }
+
+    const tapTimestamps = [];
+    function comboNow() {
+      const now = performance.now();
+      while (tapTimestamps.length && now - tapTimestamps[0] > 1200) tapTimestamps.shift();
+      return tapTimestamps.length;
+    }
+
+    // =========================================================
+    // 8.8 輕快爽快的點擊奔跑核心 (Tap to Run Engine)
+    // =========================================================
+    function handleTapRun(event) {
+      if (event && event.stopPropagation) {
+        event.stopPropagation();
+      }
+      if (!currentUser) return;
+      if (isRaceFinished) {
+        alert("🏁 賽事已圓滿完賽封榜！請查看榮耀頒獎榜公布之得獎隊伍！");
+        renderAndShowAwardsModal();
+        return;
+      }
+
+      // 若答題彈窗開啟中，暫停跑步
+      const modal = document.getElementById('trivia-modal');
+      if (modal && modal.style.display === 'flex') return;
+
+      const now = Date.now();
+      if (now - throttleLastTime < MIN_TAP_INTERVAL) {
+        return; // 優雅節流，防止外掛但保證極速連點
+      }
+      throttleLastTime = now;
+      stepCount++;
+      tapTimestamps.push(performance.now());
+      const combo = comboNow();
+
+      // 音效反饋
+      if (!isMuted) {
+        playStepSound(260 + (stepCount % 4) * 20);
+      }
+
+      // 按鈕微震反饋
+      const runBtn = document.getElementById('btn-blessing-run');
+      if (runBtn) {
+        runBtn.classList.remove('boom');
+        void runBtn.offsetWidth;
+        runBtn.classList.add('boom');
+      }
+
+      // 步距計算：迷霧森林 30 秒衝刺期間 6m (3X 狂暴)！氮氣加速中 4m (2X)，基礎 2m
+      const isMist = isMistSprintActive;
+      const isNitro = nitroRemainingSeconds > 0;
+      const stepDistance = isMist ? 6 : (isNitro ? 4 : 2);
+
+      currentUser.myMeters += stepDistance;
+      currentUser.blessings = (currentUser.blessings || 0) + 1;
+      const team = teamDataMap[currentUser.animalId];
+      if (team) {
+        team.meters += stepDistance;
+      }
+
+      // 進度條累積：跑滿 TRIVIA_CYCLE_METERS (200m) 即可解鎖加碼選擇題
+      triviaProgressMeters += stepDistance;
+      const progressPct = Math.min(100, Math.floor((triviaProgressMeters / TRIVIA_CYCLE_METERS) * 100));
+      updateAnimalProgressBar(progressPct);
+
+      saveAllState();
+      scheduleCloudSync(stepDistance);
+
+      // 喜帖 60FPS 離線 Sprite 純粹主題噴灑（全花瓣 / 全落葉 / 全金蔥 隨機，且帶天降雨落）
+      let burstX = window.innerWidth / 2;
+      let burstY = window.innerHeight * 0.55;
+      if (runBtn) {
+        const r = runBtn.getBoundingClientRect();
+        burstX = r.left + r.width / 2;
+        burstY = r.top + r.height * 0.35;
+      }
+      if (event && event.clientX && event.clientY) {
+        burstX = event.clientX;
+        burstY = event.clientY;
+      } else if (event && event.touches && event.touches[0]) {
+        burstX = event.touches[0].clientX;
+        burstY = event.touches[0].clientY;
+      }
+
+      // 喜帖 60FPS 離線 Sprite 純粹主題漸進式噴灑（隨著連點步頻越來越澎湃）
+      FX.burst(burstX, burstY, combo, isNitro);
+
+      // 直向賽道縱深奔馳視覺推進與角色前蹬微跳
+      advanceTrackVisual(stepDistance, isNitro);
+
+      // 每次點擊跳出 +2m / +4m 浮動成就感標籤
+      spawnFloatingGain(stepDistance, isNitro, event);
+
+      // 路邊隨機掠過花草與里程木牌
+      spawnRoadsideScenery(stepDistance);
+
+      // 更新儀表板公里數與排行榜
+      updateDashboardNumbers();
+
+      // 計數動畫跳動
+      const blessingDisplay = document.getElementById('blessing-count-display');
+      if (blessingDisplay) {
+        blessingDisplay.classList.remove('bump');
+        void blessingDisplay.offsetWidth;
+        blessingDisplay.classList.add('bump');
+      }
+
+      // 每 4 步更新一次排行榜
+      if (stepCount % 4 === 0) {
+        updateFocusLeaderboard();
+      }
+
+      // 當動物跑到最右端 (100%)，觸發加碼選擇題！
+      if (progressPct >= 100) {
+        setTimeout(() => {
+          triggerObstacleEncounter('gift');
+        }, 120);
+      }
+    }
+
+    // =========================================================
+    // 9. 直向賽道縱深奔馳視覺系統 (Straight Road Propulsion & Scenery)
+    // =========================================================
+    const ROADSIDE_ELEMENTS = ["🌸", "🍄", "🌿", "🌼", "🪨", "🪵"];
+    let nextMilestoneMeter = 50;
+    let roadScrollY = 0;
+
+    function advanceTrackVisual(meters, isNitro) {
+      roadScrollY += meters * 14;
+      
+      const track = document.getElementById('track-viewport');
+      const dust = document.getElementById('dust-trail');
+      const avatar = document.getElementById('runner-avatar');
+
+      // 玩家動物角色向前蹬地跳躍衝刺動畫
+      if (avatar) {
+        avatar.classList.remove('striding');
+        void avatar.offsetWidth; // 強制重繪觸發動畫
+        avatar.classList.add('striding');
+      }
+
+      // 森林微視差躍動衝刺推進
+      if (track) {
+        track.style.transform = 'scale(1.012)';
+        clearTimeout(track._zoomTimer);
+        track._zoomTimer = setTimeout(() => {
+          if (track) track.style.transform = 'scale(1)';
+        }, 80);
+      }
+
+      // 腳下揚塵
+      if (dust) {
+        dust.classList.add('active');
+        clearTimeout(dust._timer);
+        dust._timer = setTimeout(() => {
+          dust.classList.remove('active');
+        }, 180);
+      }
+    }
+
+    // 每次點擊跳出的 +2m / +4m 浮動字樣
+    function spawnFloatingGain(meters, isNitro, event) {
+      const track = document.getElementById('track-viewport');
+      const avatar = document.getElementById('runner-avatar');
+      if (!track || !avatar) return;
+
+      const gain = document.createElement('div');
+      if (isMistSprintActive || meters >= 6) {
+        gain.className = 'floating-meter-gain mist-frenzy';
+        gain.textContent = `+${meters}m 🔥🔥`;
+      } else if (isNitro) {
+        gain.className = 'floating-meter-gain nitro';
+        gain.textContent = `+${meters}m 🔥`;
+      } else {
+        gain.className = 'floating-meter-gain';
+        gain.textContent = `+${meters}m`;
+      }
+
+      const trackRect = track.getBoundingClientRect();
+      const avatarRect = avatar.getBoundingClientRect();
+
+      const left = (avatarRect.left - trackRect.left) + 24 + (Math.random() * 14 - 7);
+      const top = (avatarRect.top - trackRect.top) - 10;
+
+      gain.style.left = `${left}px`;
+      gain.style.top = `${top}px`;
+
+      track.appendChild(gain);
+      setTimeout(() => gain.remove(), 650);
+    }
+
+    // 路邊掠過的花草與里程木牌 (3D 縱深由遠及近流動)
+    function spawnRoadsideScenery(stepMeters) {
+      const container = document.getElementById('track-scenery');
+      if (!container) return;
+
+      // 每 50m 出現一座精緻木製里程碑
+      if (currentUser.myMeters >= nextMilestoneMeter) {
+        const sign = document.createElement('div');
+        sign.className = 'roadside-item milestone-sign';
+        sign.textContent = `🪧 累積 ${nextMilestoneMeter}m`;
+        sign.style.top = '45px';
+        sign.style.left = '50%';
+        sign.style.transform = 'translate(-50%, 0) scale(0.35)';
+        sign.style.opacity = '0';
+        sign.style.transition = 'all 1.1s cubic-bezier(0.12, 0.8, 0.32, 1)';
+        container.appendChild(sign);
+
+        requestAnimationFrame(() => {
+          sign.style.top = '205px';
+          sign.style.transform = 'translate(-50%, 0) scale(1.1)';
+          sign.style.opacity = '1';
+        });
+
+        setTimeout(() => {
+          sign.style.opacity = '0';
+          setTimeout(() => sign.remove(), 250);
+        }, 1150);
+
+        nextMilestoneMeter += 50;
+        return;
+      }
+
+      // 隨機在跑道路旁掠過森林花朵與蘑菇
+      if (Math.random() < 0.4) {
+        const isLeft = Math.random() < 0.5;
+        const item = document.createElement('div');
+        item.className = 'roadside-item';
+        item.textContent = ROADSIDE_ELEMENTS[Math.floor(Math.random() * ROADSIDE_ELEMENTS.length)];
+        item.style.top = '45px';
+        item.style.left = isLeft ? '44%' : '56%';
+        item.style.transform = 'scale(0.3)';
+        item.style.opacity = '0.2';
+        item.style.transition = 'all 0.85s cubic-bezier(0.15, 0.85, 0.35, 1)';
+        container.appendChild(item);
+
+        requestAnimationFrame(() => {
+          item.style.top = '255px';
+          item.style.left = isLeft ? '8%' : '88%';
+          item.style.transform = 'scale(1.3)';
+          item.style.opacity = '1';
+        });
+
+        setTimeout(() => item.remove(), 900);
+      }
+    }
+
+    function updateObstaclePosition() {
+      const obstacle = document.getElementById('track-obstacle');
+      if (!obstacle) return;
+
+      // 距離 0m ~ 60m 映射到直向賽道縱深 (top: 35px -> 170px, scale: 0.4 -> 1.15)
+      if (distanceToNextObstacle <= 60 && distanceToNextObstacle > 0) {
+        obstacle.style.display = 'flex';
+        const progress = (60 - distanceToNextObstacle) / 60; // 0 (遠) 到 1 (近)
+        const topPos = 35 + progress * 135; // 35px 到 170px
+        const scaleVal = 0.4 + progress * 0.75; // 0.4 到 1.15
+        obstacle.style.top = `${topPos}px`;
+        obstacle.style.transform = `translateX(-50%) scale(${scaleVal})`;
+        obstacle.style.opacity = `${0.3 + progress * 0.7}`;
+      } else if (distanceToNextObstacle <= 0) {
+        obstacle.style.display = 'flex';
+        obstacle.style.top = `170px`; // 正好落在玩家面前
+        obstacle.style.transform = `translateX(-50%) scale(1.15)`;
+        obstacle.style.opacity = `1`;
+      } else {
+        obstacle.style.display = 'none';
+        obstacle.style.top = `-80px`;
+      }
+    }
+
+    // =========================================================
+    // 10. 障礙物與新人甜蜜選擇題系統 (Trivia System - Persistent Lockout)
+    // =========================================================
+    let currentTrivia = null;
+    let isTriviaClickLocked = false;
+    let pendingTriviaNitro = false;
+
+    function triggerObstacleEncounter(source) {
+      // 隨機抽選題目（包含新人自訂題庫與預設題庫）
+      const activePool = getAllActiveTrivia();
+      currentTrivia = activePool[Math.floor(Math.random() * activePool.length)];
+      pendingTriviaNitro = false;
+      
+      const iconEl = document.getElementById('trivia-obstacle-icon');
+      if (iconEl) iconEl.textContent = (source === 'gift') ? '🎁' : '🪵';
+
+      document.getElementById('trivia-question').textContent = currentTrivia.q;
+      
+      const container = document.getElementById('trivia-options-container');
+      container.innerHTML = '';
+
+      const letters = ['A', 'B', 'C', 'D'];
+      currentTrivia.opts.forEach((optText, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'trivia-opt-btn';
+        btn.innerHTML = `
+          <span class="trivia-opt-letter">${letters[idx]}</span>
+          <span>${optText}</span>
+        `;
+        btn.onclick = () => handleAnswerTrivia(idx, btn);
+        container.appendChild(btn);
+      });
+
+      const banner = document.getElementById('trivia-result-banner');
+      banner.style.display = 'none';
+
+      const resumeBtn = document.getElementById('btn-trivia-resume');
+      if (resumeBtn) resumeBtn.style.display = 'none';
+
+      // 400ms 防誤觸鎖定：避免狂點跑步中的殘留手指事件誤點選項
+      isTriviaClickLocked = true;
+      const modal = document.getElementById('trivia-modal');
+      modal.style.display = 'flex';
+      playBoingSound();
+
+      setTimeout(() => {
+        isTriviaClickLocked = false;
+      }, 400);
+    }
+
+    function handleAnswerTrivia(chosenIdx, btnElement) {
+      if (!currentTrivia || isTriviaClickLocked) return;
+      
+      const isCorrect = (chosenIdx === currentTrivia.ans);
+      const allBtns = document.querySelectorAll('.trivia-opt-btn');
+      allBtns.forEach(b => b.style.pointerEvents = 'none');
+
+      const banner = document.getElementById('trivia-result-banner');
+      const resumeBtn = document.getElementById('btn-trivia-resume');
+      const team = (currentUser && currentUser.animalId) ? teamDataMap[currentUser.animalId] : null;
+
+      if (isCorrect) {
+        btnElement.classList.add('correct');
+        // 加分獎勵 +150m
+        if (currentUser) currentUser.myMeters += 150;
+        if (team) team.meters += 150;
+        scheduleCloudSync(150);
+
+        banner.className = 'trivia-result-banner success';
+        banner.innerHTML = `🎉 答對了！恭喜展現神級默契！<br><strong>個人與陣營大進補 +150m！獲得 10 秒 2X 氮氣衝刺！</strong>`;
+        banner.style.display = 'block';
+        playSuccessChime();
+        blastMegaConfettiCannon(getActiveTheme()); // 盛大純粹主題彩砲慶祝
+        pendingTriviaNitro = true;
+      } else {
+        btnElement.classList.add('wrong');
+        if (allBtns[currentTrivia.ans]) {
+          allBtns[currentTrivia.ans].classList.add('correct');
+        }
+        // 鼓勵獎勵 +30m
+        if (currentUser) currentUser.myMeters += 30;
+        if (team) team.meters += 30;
+        scheduleCloudSync(30);
+
+        banner.className = 'trivia-result-banner';
+        banner.style.background = '#fcf2e8';
+        banner.style.color = '#7d4d20';
+        banner.innerHTML = `🐾 哎呀差一點點！正解是「${currentTrivia.opts[currentTrivia.ans]}」<br>獲得精神鼓勵獎 +30m！準備好就繼續衝刺！`;
+        banner.style.display = 'block';
+        pendingTriviaNitro = false;
+      }
+
+      saveAllState();
+      updateDashboardNumbers();
+      updateFocusLeaderboard();
+
+      // 顯示「繼續奔跑衝刺！」按鈕，必須親自手動點擊才關閉彈窗並繼續跑步
+      if (resumeBtn) {
+        resumeBtn.style.display = 'block';
+        resumeBtn.innerHTML = isCorrect ? `🔥 啟動氮氣衝刺！繼續奔跑！🏃‍♂️` : `繼續奔跑衝刺！🏃‍♂️💨`;
+      }
+    }
+
+    function handleResumeRaceAfterTrivia() {
+      const modal = document.getElementById('trivia-modal');
+      if (modal) modal.style.display = 'none';
+
+      currentTrivia = null;
+      // 重設動物進度條回起點 0%，準備衝刺下一題
+      triviaProgressMeters = 0;
+      updateAnimalProgressBar(0);
+
+      // 若答對，啟動 10 秒氮氣加速
+      if (pendingTriviaNitro) {
+        startNitroBoost(10);
+        pendingTriviaNitro = false;
+      }
+
+      playStepSound(380);
+    }
+
+    // =========================================================
+    // 10.5 新人與工作人員專屬管理驗證與後台 (Secret Admin Suite)
+    // =========================================================
+    const STORAGE_KEY_ADMIN_PASS = 'wedding_forest_admin_pass_v1';
+    let secretAdminClickCount = 0;
+    let secretAdminClickTimer = null;
+
+    function getAdminPassword() {
+      return localStorage.getItem(STORAGE_KEY_ADMIN_PASS) || '1212';
+    }
+
+    function handleHeaderSecretClick() {
+      secretAdminClickCount++;
+      clearTimeout(secretAdminClickTimer);
+      secretAdminClickTimer = setTimeout(() => {
+        secretAdminClickCount = 0;
+      }, 2000);
+
+      if (secretAdminClickCount >= 5) {
+        secretAdminClickCount = 0;
+        openAdminPasscodeModal();
+      }
+    }
+
+    function openAdminPasscodeModal() {
+      const modal = document.getElementById('admin-passcode-modal');
+      const input = document.getElementById('admin-passcode-input');
+      const err = document.getElementById('admin-passcode-error');
+      if (err) err.style.display = 'none';
+      if (input) {
+        input.value = '';
+        input.style.borderColor = '#d4c7b8';
+      }
+      if (modal) modal.style.display = 'flex';
+      setTimeout(() => {
+        if (input) {
+          input.focus();
+          input.onkeydown = function(e) {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              verifyAdminPasscode();
+            }
+          };
+        }
+      }, 100);
+    }
+
+    function closeAdminPasscodeModal() {
+      const modal = document.getElementById('admin-passcode-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function closeAdminPasscodeOnBackdrop(e) {
+      if (e.target.id === 'admin-passcode-modal') {
+        closeAdminPasscodeModal();
+      }
+    }
+
+    function verifyAdminPasscode() {
+      const input = document.getElementById('admin-passcode-input');
+      const err = document.getElementById('admin-passcode-error');
+      const val = input ? input.value.trim() : '';
+
+      if (val === getAdminPassword()) {
+        closeAdminPasscodeModal();
+        openAdminTriviaDrawer();
+      } else {
+        if (err) err.style.display = 'block';
+        if (input) {
+          input.style.borderColor = '#ba3c3c';
+          input.focus();
+          input.classList.remove('shake-input');
+          void input.offsetWidth;
+          input.classList.add('shake-input');
+        }
+      }
+    }
+
+    function changeAdminPassword() {
+      const input = document.getElementById('admin-new-password');
+      const newPass = input ? input.value.trim() : '';
+      if (!newPass) {
+        alert('請輸入新的管理密碼！');
+        return;
+      }
+      localStorage.setItem(STORAGE_KEY_ADMIN_PASS, newPass);
+      const msg = document.getElementById('admin-pass-change-msg');
+      if (msg) {
+        msg.style.display = 'block';
+        setTimeout(() => { msg.style.display = 'none'; }, 3000);
+      }
+      if (input) input.value = '';
+    }
+
+    function openAdminTriviaDrawer() {
+      renderAdminTriviaList();
+      renderAdminPlayersList();
+      const modal = document.getElementById('admin-trivia-modal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeAdminTriviaDrawer() {
+      const modal = document.getElementById('admin-trivia-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function renderAdminTriviaList() {
+      const countEl = document.getElementById('admin-trivia-count');
+      const listEl = document.getElementById('admin-trivia-list');
+      const all = getAllActiveTrivia();
+      if (countEl) countEl.textContent = all.length;
+      if (!listEl) return;
+
+      listEl.innerHTML = '';
+      all.forEach((item, idx) => {
+        const isCustom = idx < customWeddingTrivia.length;
+        const row = document.createElement('div');
+        row.style.background = '#ffffff';
+        row.style.border = isCustom ? '1.5px solid #d4a758' : '1px solid #ebdccb';
+        row.style.borderRadius = '10px';
+        row.style.padding = '8px 12px';
+        row.style.fontSize = '0.78rem';
+        row.style.display = 'flex';
+        row.style.flexDirection = 'column';
+        row.style.gap = '4px';
+
+        const optStr = item.opts.map((o, oIdx) => `${oIdx === item.ans ? '<strong>✓ ' : ''}${String.fromCharCode(65 + oIdx)}. ${o}${oIdx === item.ans ? '</strong>' : ''}`).join(' · ');
+
+        row.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:6px;">
+            <div style="font-weight:700; color:#3b2d22;">${idx + 1}. ${item.q} ${isCustom ? '<span style="color:#d4a758; font-size:0.68rem; border:1px solid #d4a758; padding:1px 4px; border-radius:4px;">新人自訂</span>' : ''}</div>
+            ${isCustom ? `<button onclick="deleteCustomTrivia(${idx})" style="background:#fde8e8; border:1px solid #f8b4b4; color:#c81e1e; border-radius:6px; padding:2px 6px; font-size:0.68rem; cursor:pointer;">刪除</button>` : ''}
+          </div>
+          <div style="color:#6b5847; font-size:0.72rem; line-height:1.3;">${optStr}</div>
+        `;
+        listEl.appendChild(row);
+      });
+    }
+
+    function saveNewCustomTrivia() {
+      const qInput = document.getElementById('admin-new-q');
+      const q = qInput ? qInput.value.trim() : '';
+      const opt0 = document.getElementById('admin-new-opt-0').value.trim();
+      const opt1 = document.getElementById('admin-new-opt-1').value.trim();
+      const opt2 = document.getElementById('admin-new-opt-2').value.trim();
+      const opt3 = document.getElementById('admin-new-opt-3').value.trim();
+
+      if (!q || !opt0 || !opt1 || !opt2 || !opt3) {
+        alert("請將題目標題與四個選項全部填寫完整喔！");
+        return;
+      }
+
+      const radio = document.querySelector('input[name="admin-correct-opt"]:checked');
+      const ans = radio ? parseInt(radio.value, 10) : 0;
+
+      const newQ = {
+        q: q,
+        opts: [opt0, opt1, opt2, opt3],
+        ans: ans,
+        custom: true,
+        createdAt: Date.now()
+      };
+
+      customWeddingTrivia.unshift(newQ);
+      localStorage.setItem(STORAGE_KEY_CUSTOM_TRIVIA, JSON.stringify(customWeddingTrivia));
+      if (rtdb) {
+        rtdb.ref('trivia').set(customWeddingTrivia).catch(e => console.warn(e));
+      }
+
+      // 清空輸入
+      if (qInput) qInput.value = '';
+      document.getElementById('admin-new-opt-0').value = '';
+      document.getElementById('admin-new-opt-1').value = '';
+      document.getElementById('admin-new-opt-2').value = '';
+      document.getElementById('admin-new-opt-3').value = '';
+
+      renderAdminTriviaList();
+      alert("🎉 恭喜！新題目已成功加入題庫，親友在賽跑時將隨機遇到這題！");
+    }
+
+    function deleteCustomTrivia(customIdx) {
+      if (!confirm("確定要刪除這道自訂題目嗎？")) return;
+      customWeddingTrivia.splice(customIdx, 1);
+      localStorage.setItem(STORAGE_KEY_CUSTOM_TRIVIA, JSON.stringify(customWeddingTrivia));
+      if (rtdb) {
+        rtdb.ref('trivia').set(customWeddingTrivia).catch(e => console.warn(e));
+      }
+      renderAdminTriviaList();
+    }
+
+    function copyTriviaJson() {
+      const json = JSON.stringify(getAllActiveTrivia(), null, 2);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(json).then(() => {
+          alert("📋 已成功複製全部題庫 JSON 到剪貼簿！可直接貼在聊天室給工程師永久寫入代碼！");
+        }).catch(() => {
+          prompt("請手動複製下方題庫 JSON：", json);
+        });
+      } else {
+        prompt("請手動複製下方題庫 JSON：", json);
+      }
+    }
+
+    // =========================================================
+    // 10.9 新人管理後台：選手名冊管理與手動刪除重置
+    // =========================================================
+    function renderAdminPlayersList() {
+      const countEl = document.getElementById('admin-players-count');
+      const listEl = document.getElementById('admin-players-list');
+      if (!listEl) return;
+      listEl.innerHTML = '';
+
+      let players = {};
+      try {
+        players = JSON.parse(localStorage.getItem(STORAGE_KEY_PLAYERS) || "{}");
+      } catch(e) {}
+
+      // 檢查當前選手
+      if (currentUser && currentUser.name && !players[currentUser.name]) {
+        players[currentUser.name] = {
+          name: currentUser.name,
+          animalId: currentUser.animalId,
+          myMeters: currentUser.myMeters
+        };
+      }
+
+      // 檢查各隊名冊
+      if (teamDataMap) {
+        for (const aId in teamDataMap) {
+          const t = teamDataMap[aId];
+          if (t && Array.isArray(t.members)) {
+            t.members.forEach(m => {
+              if (!players[m]) {
+                players[m] = {
+                  name: m,
+                  animalId: aId,
+                  myMeters: Math.floor((t.meters || 3000) * 0.1)
+                };
+              }
+            });
+          }
+        }
+      }
+
+      const pKeys = Object.keys(players);
+      if (countEl) countEl.textContent = `${pKeys.length} 位選手`;
+
+      if (pKeys.length === 0) {
+        listEl.innerHTML = '<div style="font-size:0.75rem; color:#8c7866; text-align:center; padding:12px;">尚無本機選手登記紀錄</div>';
+        return;
+      }
+
+      pKeys.forEach(pName => {
+        const p = players[pName];
+        const animal = FOREST_ANIMALS.find(a => a.id === p.animalId);
+        const row = document.createElement('div');
+        row.style.cssText = 'display:flex; justify-content:space-between; align-items:center; background:#faf7f2; border:1px solid #ebdccb; border-radius:8px; padding:6px 10px; font-size:0.76rem;';
+        row.innerHTML = `
+          <div>
+            <strong style="color:#27382b;">${p.name}</strong>
+            <span style="color:#8c6b2d; margin-left:4px;">${animal ? animal.emoji + ' ' + animal.name : ''}</span>
+            <span style="color:#786554; font-size:0.7rem; margin-left:4px;">(${p.myMeters || 0}m)</span>
+          </div>
+          <button onclick="adminDeletePlayer('${p.name.replace(/'/g, "\\'")}')" style="background:#fcedec; border:1px solid #e2bcbc; color:#ba3c3c; border-radius:6px; padding:3px 8px; font-size:0.7rem; cursor:pointer; font-weight:700;">
+            🗑️ 刪除紀錄
+          </button>
+        `;
+        listEl.appendChild(row);
+      });
+    }
+
+    function adminDeletePlayer(name) {
+      if (!confirm(`⚠️ 確定要刪除選手【${name}】的本機紀錄嗎？\n\n・刪除後該選手可重新登記並挑選動物陣營\n・原陣營將釋出 1 個名額`)) {
+        return;
+      }
+      deletePlayerRecord(name);
+      renderAdminPlayersList();
+      alert(`✓ 已成功清除【${name}】的紀錄！`);
+    }
+
+    function adminManualDeleteByName() {
+      const input = document.getElementById('admin-manual-del-name');
+      const name = input ? input.value.trim() : '';
+      if (!name) {
+        alert("請先輸入欲清除的選手姓名！");
+        return;
+      }
+      if (!confirm(`⚠️ 確定要手動清除選手【${name}】的紀錄與陣營綁定嗎？\n\n・該姓名原屬陣營將釋出 1 個名額\n・該選手可重新輸入姓名並挑選心儀的動物！`)) {
+        return;
+      }
+      deletePlayerRecord(name);
+      if (input) input.value = '';
+      renderAdminPlayersList();
+      alert(`✓ 已成功清除【${name}】的選手紀錄！該姓名現在可重新登記或更換陣營。`);
+    }
+
+    function adminResetAllTeamsAndPlayers() {
+      if (!confirm("⚠️ 警告：即將把全體 50 支動物隊伍的人數 (0人) 與里程 (0m) 全面歸零！\n\n・所有選手登記紀錄將被清除\n・自訂題目與管理密碼會安全保留\n\n確定要在正式開賽前全部歸零嗎？")) {
+        return;
+      }
+      localStorage.removeItem(STORAGE_KEY_USER);
+      localStorage.removeItem(STORAGE_KEY_PLAYERS);
+      localStorage.removeItem(STORAGE_KEY_TEAMS);
+      localStorage.removeItem(STORAGE_KEY_BACKUP);
+
+      for (let i = localStorage.length - 1; i >= 0; i--) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith("forest_race_player_")) {
+          localStorage.removeItem(k);
+        }
+      }
+
+      currentUser = null;
+      teamDataMap = {};
+      FOREST_ANIMALS.forEach(animal => {
+        teamDataMap[animal.id] = {
+          meters: 0,
+          membersCount: 0,
+          members: []
+        };
+      });
+      saveAllState();
+
+      // 雲端資料庫全體歸零
+      if (rtdb) {
+        const resetTeams = {};
+        FOREST_ANIMALS.forEach(a => {
+          resetTeams[a.id] = {
+            meters: 0,
+            membersCount: 0,
+            members: []
+          };
+        });
+        rtdb.ref('teams').set(resetTeams).catch(e => console.warn(e));
+        rtdb.ref('players').remove().catch(e => console.warn(e));
+        rtdb.ref('gameState').set({ mode: 'normal' }).catch(e => console.warn(e));
+      }
+
+      alert("🎉 全體 50 隊人數與步數已成功歸零（本機與雲端同步重設）！目前為最乾淨的初始狀態，隨時可迎接親友開跑！");
+      location.reload();
+    }
+
+    function startNitroBoost(seconds) {
+      nitroRemainingSeconds = seconds;
+      blastMegaConfettiCannon(getActiveTheme()); // 氮氣加速爆發海嘯級慶典彩砲
+      const badge = document.getElementById('nitro-badge');
+      const timerSpan = document.getElementById('nitro-timer');
+      const strideBadge = document.getElementById('tap-stride-badge');
+      
+      if (badge) badge.style.display = 'inline-flex';
+      if (strideBadge) {
+        strideBadge.textContent = '+4m 🔥';
+        strideBadge.style.background = 'linear-gradient(135deg, #ef4444 0%, #f59e0b 100%)';
+      }
+
+      if (nitroTimerInterval) clearInterval(nitroTimerInterval);
+      nitroTimerInterval = setInterval(() => {
+        nitroRemainingSeconds--;
+        if (timerSpan) timerSpan.textContent = nitroRemainingSeconds;
+
+        if (nitroRemainingSeconds <= 0) {
+          clearInterval(nitroTimerInterval);
+          nitroTimerInterval = null;
+          if (badge) badge.style.display = 'none';
+          if (strideBadge) {
+            strideBadge.textContent = '+2m';
+            strideBadge.style.background = '';
+          }
+        }
+      }, 1000);
+    }
+
+    // =========================================================
+    // 11. 核心即時聚焦排行榜 (Focus Top, Me, Behind Rankings)
+    // =========================================================
+    function getSortedTeams() {
+      return FOREST_ANIMALS.map(animal => {
+        const team = teamDataMap[animal.id] || { meters: 0, membersCount: 0, members: [] };
+        return {
+          id: animal.id,
+          name: animal.name,
+          emoji: animal.emoji,
+          meters: team.meters || 0,
+          membersCount: team.membersCount || 0,
+          members: team.members || []
+        };
+      }).sort((a, b) => {
+        if (b.meters !== a.meters) return b.meters - a.meters;
+        if (b.membersCount !== a.membersCount) return b.membersCount - a.membersCount;
+        return a.name.localeCompare(b.name, 'zh-Hant');
+      });
+    }
+
+    function updateFocusLeaderboard() {
+      if (!currentUser) return;
+
+      const sorted = getSortedTeams();
+      const myIndex = sorted.findIndex(t => t.id === currentUser.animalId);
+      if (myIndex === -1) return;
+
+      const myRank = myIndex + 1;
+      const myTeam = sorted[myIndex];
+
+      const container = document.getElementById('focus-rankings-container');
+      if (!container) return;
+
+      // 決定要渲染的 5 個名次 (1-based index)
+      // 目標包含：第一名、第二名、自己隊伍的名次、前一名、後一名
+      let rankIndexes = []; // 0-based indexes into `sorted`
+
+      if (myRank <= 4) {
+        // 我方在前四名：直接連續展示前 5 名 (0, 1, 2, 3, 4)
+        rankIndexes = [0, 1, 2, 3, 4].filter(i => i < sorted.length);
+      } else {
+        // 我方在第 5 名或以後：
+        // 1. 第 1 名 (0)
+        // 2. 第 2 名 (1)
+        // 3. 前一名 (myIndex - 1)
+        // 4. 我方 (myIndex)
+        // 5. 後一名 (myIndex + 1，若 myIndex 為最後一名 49 則改取 myIndex - 2)
+        const nextIdx = (myIndex + 1 < sorted.length) ? (myIndex + 1) : null;
+        if (nextIdx !== null) {
+          rankIndexes = [0, 1, myIndex - 1, myIndex, nextIdx];
+        } else {
+          rankIndexes = [0, 1, myIndex - 2, myIndex - 1, myIndex].filter(i => i >= 0);
+        }
+      }
+
+      function renderRow(idx, prevRenderedIdx) {
+        const team = sorted[idx];
+        if (!team) return '';
+        const rank = idx + 1;
+        const isMe = (idx === myIndex);
+
+        let posIcon = `${rank}`;
+        if (rank === 1) posIcon = '🥇 1';
+        else if (rank === 2) posIcon = '🥈 2';
+        else if (rank === 3) posIcon = '🥉 3';
+        else if (isMe) posIcon = `⭐ ${rank}`;
+        else if (rank === myRank - 1) posIcon = `🎯 ${rank}`;
+        else if (rank === myRank + 1) posIcon = `🌿 ${rank}`;
+
+        let gapBadge = '';
+        if (isMe) {
+          if (rank === 1) {
+            gapBadge = '<span class="focus-v-gap gold">🥇 領先全場</span>';
+          } else {
+            const gapToLeader = sorted[0].meters - team.meters;
+            gapBadge = `<span class="focus-v-gap ahead">距榜首 ${gapToLeader}m</span>`;
+          }
+        } else {
+          if (team.meters > myTeam.meters) {
+            const gap = team.meters - myTeam.meters;
+            if (rank === myRank - 1) {
+              gapBadge = `<span class="focus-v-gap ahead">超車差 ${gap}m</span>`;
+            } else {
+              gapBadge = `<span class="focus-v-gap ahead">領先 ${gap}m</span>`;
+            }
+          } else if (team.meters < myTeam.meters) {
+            const gap = myTeam.meters - team.meters;
+            gapBadge = `<span class="focus-v-gap behind">落後 ${gap}m</span>`;
+          } else {
+            gapBadge = '<span class="focus-v-gap behind">並列</span>';
+          }
+        }
+
+        let ellipsisHtml = '';
+        if (prevRenderedIdx !== null && idx > prevRenderedIdx + 1) {
+          ellipsisHtml = '<div class="focus-v-ellipsis">· · ·</div>';
+        }
+
+        return `
+          ${ellipsisHtml}
+          <div class="focus-v-row ${isMe ? 'is-me' : ''}">
+            <div class="focus-v-left">
+              <span class="focus-v-pos">${posIcon}</span>
+              <span class="focus-v-animal">${team.emoji} ${team.name} <span style="font-size:0.62rem; color:#8c7866; font-weight:600; margin-left:2px;">(${team.membersCount}/5人)</span></span>
+              ${isMe ? '<span class="focus-v-mybadge">我方</span>' : ''}
+            </div>
+            <div class="focus-v-right">
+              <span class="focus-v-meters">${team.meters.toLocaleString()}m</span>
+              ${gapBadge}
+            </div>
+          </div>
+        `;
+      }
+
+      let html = '';
+      let lastIdx = null;
+      rankIndexes.forEach(idx => {
+        html += renderRow(idx, lastIdx);
+        lastIdx = idx;
+      });
+
+      container.innerHTML = html;
+    }
+
+    // =========================================================
+    // 12. 全體 50 種動物抽屜抽屜排行榜 (Drawer Leaderboard)
+    // =========================================================
+    function openLeaderboardDrawer() {
+      const drawer = document.getElementById('leaderboard-drawer');
+      const listContainer = document.getElementById('drawer-rank-list');
+      if (!drawer || !listContainer) return;
+
+      const sorted = getSortedTeams();
+      listContainer.innerHTML = '';
+
+      sorted.forEach((team, idx) => {
+        const isMyTeam = currentUser && (team.id === currentUser.animalId);
+        const row = document.createElement('div');
+        row.className = `rank-row-item ${isMyTeam ? 'is-me' : ''}`;
+        const membersList = (team.members && team.members.length) ? `· ${team.members.join('、')}` : '';
+        const fullBadge = team.membersCount >= 5 ? `<span style="color:#ba3c3c; font-weight:700; margin-left:4px; font-size:0.68rem;">(已額滿)</span>` : '';
+        row.innerHTML = `
+          <div class="rank-pos-number">${idx + 1}</div>
+          <div class="rank-row-emoji">${team.emoji}</div>
+          <div class="rank-row-body">
+            <div class="rank-row-title">
+              ${team.name}
+              ${isMyTeam ? '<span class="rank-my-badge">我的隊伍</span>' : ''}
+              ${fullBadge}
+            </div>
+            <div class="rank-row-members">成員 ${team.membersCount}/5 人 <span style="color:#5a483a; font-weight:600;">${membersList}</span></div>
+          </div>
+          <div class="rank-row-meters">${team.meters.toLocaleString()}m</div>
+        `;
+        listContainer.appendChild(row);
+      });
+
+      drawer.style.display = 'flex';
+    }
+
+    function closeLeaderboardDrawer() {
+      const drawer = document.getElementById('leaderboard-drawer');
+      if (drawer) drawer.style.display = 'none';
+    }
+
+    function closeDrawerOnBackdrop(e) {
+      if (e.target.id === 'leaderboard-drawer') {
+        closeLeaderboardDrawer();
+      }
+    }
+
+    // =========================================================
+    // 12.5 婚禮賽事資料備份與防重置系統 (Backup & Restore Engine)
+    // =========================================================
+    function exportGameBackup() {
+      const data = {
+        app: "wedding-forest-race",
+        version: "1.0",
+        exportDate: new Date().toISOString(),
+        teams: teamDataMap,
+        players: JSON.parse(localStorage.getItem(STORAGE_KEY_PLAYERS) || "{}"),
+        currentUser: currentUser,
+        customTrivia: customWeddingTrivia
+      };
+      const jsonStr = JSON.stringify(data, null, 2);
+      const blob = new Blob([jsonStr], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `wedding_race_backup_${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importGameBackup(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const data = JSON.parse(event.target.result);
+          if (data.teams) {
+            teamDataMap = data.teams;
+          }
+          if (data.players) {
+            localStorage.setItem(STORAGE_KEY_PLAYERS, JSON.stringify(data.players));
+            Object.keys(data.players).forEach(name => {
+              localStorage.setItem("forest_race_player_" + encodeURIComponent(name), JSON.stringify(data.players[name]));
+            });
+          }
+          if (data.customTrivia) {
+            customWeddingTrivia = data.customTrivia;
+            localStorage.setItem(STORAGE_KEY_CUSTOM_TRIVIA, JSON.stringify(customWeddingTrivia));
+          }
+          if (data.currentUser) {
+            currentUser = data.currentUser;
+          }
+          saveAllState();
+          alert("🎉 備份資料匯入成功！全體成績與選手紀錄、自訂題庫已安全復原。");
+          location.reload();
+        } catch(err) {
+          alert("❌ 備份檔解析失敗，請確認是否為由本系統匯出的合法 JSON 備份檔。");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // =========================================================
+    // 13. 頁面啟動總入口 (Bootstrapper)
+    // =========================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      initFirebase();
+      initTeamData();
+      initParticleCanvas();
+
+      // 網址快捷後台支援 (?admin=1 或 #admin 快速開啟新人驗證)
+      if (window.location.search.includes('admin') || window.location.hash.includes('admin')) {
+        setTimeout(() => openAdminPasscodeModal(), 300);
+      }
+
+      // 網址快捷重置支援 (?reset=1 或 #reset 快速清空跑者重選陣營)
+      if (window.location.search.includes('reset') || window.location.hash.includes('reset')) {
+        const savedUserJson = localStorage.getItem(STORAGE_KEY_USER);
+        if (savedUserJson) {
+          try {
+            const u = JSON.parse(savedUserJson);
+            if (u && u.name) deletePlayerRecord(u.name);
+          } catch(e) {}
+        }
+        localStorage.removeItem(STORAGE_KEY_USER);
+        currentUser = null;
+        if (history.replaceState) {
+          history.replaceState(null, '', window.location.pathname);
+        }
+        alert('🌲 已為您清空跑者紀錄！現在您可以重新輸入姓名並挑選動物陣營。');
+      }
+
+      // 跨瀏覽器專屬續玩 Token (#runner=...&team=...&m=...)
+      const rawHash = window.location.hash || '';
+      const rawSearch = window.location.search || '';
+      const hashParams = new URLSearchParams(rawHash.startsWith('#') ? rawHash.slice(1) : rawHash);
+      const searchParams = new URLSearchParams(rawSearch);
+      const rName = hashParams.get('runner') || searchParams.get('runner');
+      const rTeam = hashParams.get('team') || searchParams.get('team');
+      const rMeters = parseInt(hashParams.get('m') || searchParams.get('m') || '0', 10);
+
+      if (rName && rTeam) {
+        currentUser = {
+          name: decodeURIComponent(rName),
+          animalId: rTeam,
+          myMeters: Math.max(rMeters, 0),
+          blessings: Math.floor(Math.max(rMeters, 0) / 2),
+          registeredAt: Date.now()
+        };
+        saveAllState();
+        launchGameplay();
+        return;
+      }
+
+      // 檢查 LocalStorage 是否已有跑者登入
+      const savedUserJson = localStorage.getItem(STORAGE_KEY_USER);
+      if (savedUserJson) {
+        try {
+          currentUser = JSON.parse(savedUserJson);
+          launchGameplay();
+          return;
+        } catch(e) {
+          currentUser = null;
+        }
+      }
+
+      // 未登入：顯示註冊選動物視圖
+      document.getElementById('view-registration').style.display = 'flex';
+      document.getElementById('view-gameplay').style.display = 'none';
+      renderAnimalGrid('all');
+
+      // 監聽姓名輸入
+      const nameInput = document.getElementById('reg-input-name');
+      if (nameInput) {
+        nameInput.addEventListener('input', validateRegistrationForm);
+      }
+
+      // 鍵盤空白鍵 / Enter 奔跑支援 (方便電腦測試)
+      window.addEventListener('keydown', (e) => {
+        if (e.code === 'Space' || e.code === 'Enter') {
+          if (document.activeElement && document.activeElement.tagName === 'INPUT') return;
+          e.preventDefault();
+          handleTapRun();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

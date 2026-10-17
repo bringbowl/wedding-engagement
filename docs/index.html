@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Barry ♥ Winnie 婚禮互動與喜帖專區</title>
+  <meta name="description" content="Barry ♥ Winnie 婚禮現場數位互動、森林疾走幸福加速賽與線上喜帖專區。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Noto+Serif+TC:wght@600;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body {
+      margin: 0; padding: 0;
+      background: #F8F3E8;
+      color: #2B1D12;
+      font-family: "Noto Serif TC", "PingFang TC", "Songti TC", serif;
+      min-height: 100vh;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 28px 16px 48px;
+    }
+    .container {
+      width: 100%;
+      max-width: 540px;
+    }
+    /* Brand Header */
+    .hero {
+      text-align: center;
+      background: #fff;
+      border: 1px solid #C9A24B;
+      border-radius: 16px;
+      padding: 30px 20px 26px;
+      box-shadow: 0 8px 30px rgba(110, 20, 20, 0.08);
+      position: relative;
+      margin-bottom: 24px;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 6px; left: 6px; right: 6px; bottom: 6px;
+      border: 1px solid rgba(201, 162, 75, 0.35);
+      border-radius: 12px;
+      pointer-events: none;
+    }
+    .badge-flight {
+      display: inline-block;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      color: #6E1414;
+      background: #FBF6EA;
+      border: 1px solid #C9A24B;
+      border-radius: 999px;
+      padding: 4px 16px;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    .title-couple {
+      font-family: "Noto Serif TC", serif;
+      font-weight: 900;
+      font-size: 28px;
+      color: #6E1414;
+      margin: 0 0 6px;
+      letter-spacing: 0.06em;
+    }
+    .title-couple .heart {
+      color: #C9A24B;
+      font-size: 24px;
+      margin: 0 4px;
+    }
+    .subtitle {
+      font-size: 13.5px;
+      color: #7A624A;
+      margin: 0;
+      letter-spacing: 0.06em;
+      line-height: 1.5;
+    }
+
+    /* Section Title */
+    .sec-title {
+      font-size: 13.5px;
+      color: #6E1414;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      margin: 24px 4px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sec-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, #C9A24B, transparent);
+    }
+
+    /* Cards Grid */
+    .nav-card {
+      display: block;
+      background: #fff;
+      border: 1px solid #E2D3B8;
+      border-radius: 16px;
+      padding: 20px 22px;
+      margin-bottom: 16px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+      position: relative;
+    }
+    .nav-card:hover, .nav-card:active {
+      transform: translateY(-2px);
+      border-color: #C9A24B;
+      box-shadow: 0 8px 26px rgba(110, 20, 20, 0.12);
+    }
+    .nav-card.primary {
+      border: 1.5px solid #C9A24B;
+      background: linear-gradient(135deg, #ffffff 0%, #FAF5EA 100%);
+    }
+    .nav-card.game-hero {
+      border: 2px solid #C9A24B;
+      background: linear-gradient(135deg, #FFFDF8 0%, #F5ECDD 100%);
+      box-shadow: 0 6px 20px rgba(201, 162, 75, 0.18);
+    }
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .card-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: #6E1414;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 3px 10px;
+      border-radius: 8px;
+      background: #F5EADA;
+      color: #A8822F;
+    }
+    .card-tag.hot {
+      background: linear-gradient(135deg, #7D1616 0%, #6E1414 100%);
+      color: #FFF;
+      box-shadow: 0 2px 6px rgba(110, 20, 20, 0.25);
+    }
+    .card-tag.sync {
+      background: #E8F5E9;
+      color: #2E7D32;
+    }
+    .card-desc {
+      font-size: 13.5px;
+      color: #6A5644;
+      line-height: 1.6;
+      margin: 0 0 12px;
+      padding-right: 28px;
+    }
+    .card-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #6E1414;
+      letter-spacing: 0.04em;
+    }
+    .card-arrow {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #C9A24B;
+      font-size: 22px;
+      font-weight: bold;
+      transition: transform 0.2s ease;
+    }
+    .nav-card:hover .card-arrow {
+      transform: translateY(-50%) translateX(3px);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 36px;
+      font-size: 12px;
+      color: #8C745E;
+      font-family: "Cormorant Garamond", serif;
+      letter-spacing: 0.14em;
+    }
+    footer .glyph {
+      color: #C9A24B;
+      margin: 0 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <div class="badge-flight">BARRY & WINNIE · WEDDING CELEBRATION</div>
+      <h1 class="title-couple">羅聖明 <span class="heart">♥</span> 戴婉錡</h1>
+      <p class="subtitle">婚禮現場數位互動 · 幸福加速賽 · 線上喜帖專區</p>
+    </div>
+
+    <div class="sec-title">現場即時互動遊戲</div>
+
+    <!-- 🌲 森林疾走·幸福加速賽 -->
+    <a href="forest-race.html" class="nav-card game-hero">
+      <div class="card-top">
+        <div class="card-title">🌲 森林疾走 · 幸福加速賽</div>
+        <span class="card-tag hot">🔥 現場手機連線互動</span>
+      </div>
+      <p class="card-desc">拿起手機瘋狂點擊連擊奔跑！新人默契二選一搶答獲取氮氣噴射，最後 30 秒全場迷霧 3X 狂暴暴走，一起衝過幸福拱門！</p>
+      <div class="card-btn">立即進入遊戲衝刺 ›</div>
+      <div class="card-arrow">›</div>
+    </a>
+
+    <!-- 📺 大螢幕賽況廣播 -->
+    <a href="screen.html" class="nav-card primary" target="_blank">
+      <div class="card-top">
+        <div class="card-title">📺 現場大螢幕 · 賽況實況投影</div>
+        <span class="card-tag sync">● 16:9 現場廣播</span>
+      </div>
+      <p class="card-desc">會場大螢幕專用視圖。即時多跑道衝刺賽道、即時百人排行榜、30秒迷霧全場狂暴特效與終點奧林匹克頒獎台。</p>
+      <div class="card-btn">開啟大螢幕投放 ↗</div>
+      <div class="card-arrow">↗</div>
+    </a>
+
+    <div class="sec-title">婚禮喜帖與視覺專區</div>
+
+    <!-- 💌 喜帖設計稿 -->
+    <a href="invitation.html" class="nav-card primary">
+      <div class="card-top">
+        <div class="card-title">💌 12/12 結婚喜帖線上預覽</div>
+        <span class="card-tag">手作長條折卡</span>
+      </div>
+      <p class="card-desc">桃園中壢 Amour 阿沐婚宴會館（E 廳）喜帖設計。支援手機折疊正視圖、向下展開全覽與送印雙面並列預覽。</p>
+      <div class="card-btn">查看喜帖設計 ›</div>
+      <div class="card-arrow">›</div>
+    </a>
+
+    <footer>
+      BARRY <span class="glyph">&#10022;</span> WINNIE <span class="glyph">&#10022;</span> FOREVER & ALWAYS
+    </footer>
+  </div>
+</body>
+</html>

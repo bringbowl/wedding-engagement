@@ -1,0 +1,3761 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Barry ♥ Winnie 浪漫喜帖 · 婚禮邀請函（電子互動版）</title>
+  <meta name="description" content="羅聖明 & 戴婉錡 2026.12.12 結婚典禮暨婚宴喜帖，誠摯邀請您與我們一同漫步童話森林！">
+  <meta property="og:title" content="Barry ♥ Winnie 浪漫婚禮喜帖 · 誠摯邀請">
+  <meta property="og:description" content="2026.12.12（六）11:30 迎賓雞尾酒餐會 · 12:00 盛宴開席 · 中壢水漾森林（Amour 阿沐會館）">
+  <meta property="og:image" content="assets/dried_lavender_sprig.png">
+  <meta property="og:type" content="website">
+
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Caveat:wght@600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-canvas: #f2ede6;
+      --fleece-warm: #ede6dc;
+      --kraft-dark: #a98762;
+      --kraft-mid: #be9d78;
+      --kraft-light: #d0b596;
+      --kraft-shadow: rgba(65, 45, 26, 0.28);
+      
+      /* 頂級紙張質地紋理 (Tactile Paper Micro-textures) */
+      --kraft-texture: url("data:image/svg+xml,%3Csvg width='300' height='300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='kf' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' result='pulpGrain'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.45  0 0 0 0 0.32  0 0 0 0 0.18  0 0 0 0.32 0' in='pulpGrain' result='pulpTint'/%3E%3CfeTurbulence type='turbulence' baseFrequency='0.05' numOctaves='3' result='woodFlecks'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.28  0 0 0 0 0.16  0 0 0 0 0.07  0 0 0 0.22 0' in='woodFlecks' result='fleckTint'/%3E%3CfeBlend in='pulpTint' in2='fleckTint' mode='multiply'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23kf)'/%3E%3C/svg%3E");
+      --card-texture: url("data:image/svg+xml,%3Csvg width='240' height='240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='cf' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' result='cottonGrain'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.72  0 0 0 0 0.68  0 0 0 0 0.62  0 0 0 0.075 0' in='cottonGrain'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23cf)'/%3E%3C/svg%3E");
+      
+      --paper-white: #faf8f5;
+      --paper-ivory: #f5f1ea;
+      
+      --ink-primary: #2d2621;
+      --ink-secondary: #4a4037;
+      --ink-muted: #7d7065;
+      
+      --forest-dark: #27382b;
+      --forest-sage: #46674a;
+      --forest-moss: #68856c;
+      --earth-brown: #a68565;
+      --champagne-gold: #c59b4c;
+      --champagne-light: #f4e8c1;
+      --dusty-pink: #ea9da2;
+      --warm-yellow: #ffe066;
+      --accent-red: #ba3c3c;
+      
+      /* 標準喜帖卡片尺寸 (店家官方規格：115mm × 292mm) */
+      --card-width: 380px;            /* 對應 115mm 寬度 */
+      --panel-top-height: 532px;      /* 對應 161mm 上折頁高度 */
+      --panel-bottom-height: 433px;   /* 對應 131mm 下折頁高度 */
+      --card-total-height: 965px;     /* 對應 292mm 展開總長度 */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Montserrat', 'Noto Serif TC', serif;
+      background-color: var(--bg-canvas);
+      background-image: 
+        radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.8) 0%, transparent 60%),
+        radial-gradient(rgba(170, 140, 110, 0.12) 1px, transparent 1px);
+      background-size: 100% 100%, 20px 20px;
+      color: var(--ink-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 12px 60px 12px;
+      overflow-x: hidden;
+      perspective: 1400px;
+    }
+
+    /* =========================================================
+       1. 頂部優雅半透明浮動導覽列 (Top Floating Bar)
+       ========================================================= */
+    header.interactive-nav {
+      width: 100%;
+      max-width: 1060px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 18px;
+      padding: 8px 16px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: 0 8px 30px rgba(70, 50, 30, 0.08);
+      z-index: 100;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .nav-brand {
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .nav-brand-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--forest-dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-brand-sub {
+      font-size: 0.7rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .nav-step-pills {
+      display: flex;
+      background: #ede6dc;
+      padding: 3px;
+      border-radius: 12px;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+
+    .step-pill {
+      border: none;
+      background: transparent;
+      padding: 6px 12px;
+      border-radius: 9px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink-secondary);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .step-pill.active {
+      background: white;
+      color: var(--forest-dark);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-tools {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .tool-btn {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      background: white;
+      padding: 6px 10px;
+      border-radius: 9px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--ink-secondary);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .tool-btn:hover {
+      background: #f7f3ee;
+      border-color: var(--kraft-mid);
+      color: var(--forest-dark);
+    }
+
+    /* =========================================================
+       2. 主要互動舞臺容器 (Main Interactive Stage)
+       ========================================================= */
+    main.interactive-stage {
+      width: 100%;
+      max-width: 1080px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      min-height: 640px;
+    }
+
+    /* =========================================================
+       STAGE 1: 初始封裝禮物包裹 (The Tied Package)
+       ========================================================= */
+    .package-container {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      padding: 10px 0;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+
+    .package-box {
+      width: 380px;
+      height: 520px;
+      max-width: calc(100vw - 32px);
+      max-height: 80vh;
+      background-color: #ba956d;
+      background-image: 
+        var(--kraft-texture),
+        radial-gradient(circle at 30% 20%, rgba(255, 248, 235, 0.24) 0%, transparent 60%),
+        radial-gradient(circle at 75% 80%, rgba(55, 30, 10, 0.22) 0%, transparent 60%),
+        linear-gradient(135deg, #cbb08c 0%, #ba956d 40%, #a98358 100%);
+      background-size: 260px 260px, 100% 100%, 100% 100%, 100% 100%;
+      border-radius: 14px;
+      position: relative;
+      box-shadow: 
+        0 28px 60px rgba(45, 28, 12, 0.38),
+        0 8px 22px rgba(0, 0, 0, 0.15),
+        inset 0 1.5px 1px rgba(255, 255, 255, 0.45),
+        inset 0 -1.5px 2px rgba(45, 25, 10, 0.3);
+      border: 1px solid rgba(85, 55, 25, 0.28);
+      overflow: visible;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: box-shadow 0.3s ease;
+      transform-style: preserve-3d;
+    }
+
+    .package-container:hover .package-box {
+      box-shadow: 
+        0 34px 70px rgba(45, 28, 12, 0.45),
+        0 12px 28px rgba(0, 0, 0, 0.18),
+        inset 0 1.5px 1px rgba(255, 255, 255, 0.5);
+    }
+
+    /* 牛皮紙外折壓痕溝槽光影 (Embossed Kraft Crease Groove) */
+    .package-flap-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(90deg, rgba(40, 20, 8, 0.35) 0%, rgba(255, 255, 255, 0.25) 100%);
+      box-shadow: -1px 0 2px rgba(40, 20, 8, 0.25), 1px 0 1px rgba(255, 255, 255, 0.18);
+    }
+
+    .package-flap-line.left { left: 33%; }
+    .package-flap-line.right { right: 33%; }
+
+    /* 麻繩下別著的牛皮紙小吊牌 (Tag) */
+    .package-tag {
+      position: absolute;
+      top: 36%;
+      left: 48%;
+      transform: translate(-50%, -50%) rotate(-6deg);
+      width: 172px;
+      background-color: #ebd7c0;
+      background-image: 
+        var(--kraft-texture),
+        linear-gradient(135deg, #f2e3cf 0%, #ebd7c0 60%, #debfa2 100%);
+      background-size: 200px 200px, 100% 100%;
+      border: 1px solid rgba(100, 70, 40, 0.3);
+      border-radius: 6px;
+      padding: 14px 12px;
+      box-shadow: 
+        0 12px 28px rgba(40, 25, 12, 0.38),
+        inset 0 1px 1px rgba(255, 255, 255, 0.6),
+        inset 0 -1px 1px rgba(40, 20, 5, 0.15);
+      z-index: 15;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .tag-punch-circle {
+      width: 12px;
+      height: 12px;
+      background: radial-gradient(circle at 45% 35%, #2a1c12 0%, #120b06 100%);
+      border-radius: 50%;
+      margin: 0 auto 8px auto;
+      box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.85),
+        0 1px 0 rgba(255, 255, 255, 0.85);
+    }
+
+    .tag-title-script {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.6rem;
+      color: #3f2e1e;
+      line-height: 1.1;
+    }
+
+    .tag-subtitle {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.64rem;
+      letter-spacing: 1.5px;
+      color: #7a6047;
+      text-transform: uppercase;
+      margin: 4px 0;
+      font-weight: 600;
+    }
+
+    .tag-date {
+      font-size: 0.74rem;
+      color: var(--forest-dark);
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    /* 單一連續麻繩全覆蓋 SVG (Cross Straps + Bow Overlay) */
+    .package-svg-overlay {
+      position: absolute;
+      top: -40px;
+      left: -40px;
+      width: calc(100% + 80px);
+      height: calc(100% + 80px);
+      overflow: visible;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    #bow-tail-right {
+      pointer-events: auto;
+      cursor: grab;
+      touch-action: none;
+    }
+
+    #bow-tail-right:active {
+      cursor: grabbing;
+    }
+
+    /* 點擊提示呼吸膠囊 (Floating Hint Pill) */
+    .package-hint-pill {
+      margin-top: 24px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(197, 155, 76, 0.6);
+      border-radius: 30px;
+      padding: 10px 24px;
+      box-shadow: 0 10px 25px rgba(60, 40, 20, 0.15);
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      animation: hintPulse 2.4s infinite ease-in-out;
+      pointer-events: none;
+    }
+
+    .hint-main {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--forest-dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hint-sub {
+      font-size: 0.72rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.5px;
+    }
+
+    @keyframes hintPulse {
+      0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 10px 25px rgba(60, 40, 20, 0.15); }
+      50% { transform: translateY(-4px) scale(1.02); box-shadow: 0 16px 32px rgba(197, 155, 76, 0.3); }
+    }
+
+    .package-container.is-untying .package-hint-pill {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.35s ease;
+      pointer-events: none;
+    }
+
+    /* ========================================================
+       物理擬真「單一連續麻繩解開 ＋ 十字帶鬆弛脫落」動畫系統
+       (Single continuous twine unspools, slackens, and slips off edges via JS requestAnimationFrame)
+       ======================================================== */
+/* =========================================================
+       STAGE 2: 三折頁完全展開實體檢視 (The Trifold Folder)
+       ========================================================= */
+    .trifold-stage {
+      width: 100%;
+      max-width: 1080px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeInScale 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    @keyframes fadeInScale {
+      0% { opacity: 0; transform: scale(0.94); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* 手機版折頁切換分段器 */
+    .trifold-mobile-tabs {
+      display: none;
+      margin-bottom: 14px;
+      background: white;
+      padding: 4px;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .mobile-tab-btn {
+      border: none;
+      background: transparent;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .mobile-tab-btn.active {
+      background: var(--forest-dark);
+      color: white;
+    }
+
+    .trifold-folder {
+      width: 100%;
+      background-color: #ba956d;
+      background-image: 
+        var(--kraft-texture),
+        radial-gradient(ellipse at 30% 20%, rgba(255, 248, 235, 0.22) 0%, transparent 65%),
+        radial-gradient(ellipse at 75% 80%, rgba(55, 30, 10, 0.2) 0%, transparent 60%),
+        linear-gradient(135deg, #cbb08c 0%, #ba956d 40%, #a98358 100%);
+      background-size: 260px 260px, 100% 100%, 100% 100%, 100% 100%;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 
+        0 32px 70px rgba(45, 28, 12, 0.36),
+        0 8px 22px rgba(0, 0, 0, 0.14),
+        inset 0 1.5px 1px rgba(255, 255, 255, 0.42),
+        inset 0 -1.5px 2px rgba(45, 25, 10, 0.28);
+      border: 1px solid rgba(85, 55, 25, 0.28);
+      display: flex;
+      gap: 16px;
+      position: relative;
+    }
+
+    /* 折頁通用樣式 */
+    .trifold-flap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    /* 折頁壓痕凹槽摺線 (Embossed Score Creases) */
+    .trifold-flap-left {
+      flex: 1;
+      border-right: 2px solid transparent;
+      box-shadow: inset -2.5px 0 4px -1px rgba(45, 25, 10, 0.38), 2px 0 0 0 rgba(255, 255, 255, 0.22);
+      padding: 16px;
+      min-height: 560px;
+      justify-content: flex-start;
+    }
+
+    .trifold-flap-right {
+      flex: 1;
+      border-left: 2px solid transparent;
+      box-shadow: inset 2.5px 0 4px -1px rgba(45, 25, 10, 0.38), -2px 0 0 0 rgba(255, 255, 255, 0.22);
+      padding: 16px;
+      min-height: 560px;
+      justify-content: flex-start;
+    }
+
+    .trifold-flap-center {
+      flex: 1.4;
+      padding: 8px 12px;
+      min-height: 560px;
+      justify-content: flex-start;
+    }
+
+    .flap-header-label {
+      font-size: 0.7rem;
+      color: #5c4228;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* =========================================================
+       左折頁：真實乾燥薰衣草花枝 (Real Botanical Dried Flower)
+       ========================================================= */
+    .flower-display-area {
+      width: 100%;
+      height: 440px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 6px;
+      cursor: pointer;
+    }
+
+    /* 隨機抽取換花互動膠囊按鈕 */
+    .flower-shuffle-pill {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(138, 95, 52, 0.35);
+      border-radius: 20px;
+      padding: 5px 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #4a3421;
+      box-shadow: 0 4px 12px rgba(40, 20, 10, 0.15);
+      cursor: pointer;
+      z-index: 15;
+      transition: all 0.25s ease;
+      font-family: inherit;
+    }
+
+    .flower-shuffle-pill:hover {
+      background: #ffffff;
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 6px 16px rgba(40, 20, 10, 0.25);
+      border-color: #7a5833;
+    }
+
+    .flower-shuffle-pill:active {
+      transform: scale(0.96);
+    }
+
+    /* 牛皮紙插槽 (Kraft Paper Die-cut Notch / Strap) */
+    .kraft-flower-slit {
+      position: absolute;
+      bottom: 85px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 84px;
+      height: 38px;
+      background-color: #bfa07a;
+      background-image: 
+        var(--kraft-texture),
+        linear-gradient(135deg, #c7aa86 0%, #b89770 100%);
+      background-size: 180px 180px, 100% 100%;
+      border: 1px solid rgba(70, 45, 20, 0.35);
+      border-radius: 4px;
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.35),
+        inset 0 3px 6px rgba(0, 0, 0, 0.25),
+        0 8px 18px rgba(40, 25, 10, 0.26);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .kraft-flower-slit::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: 6px;
+      right: 6px;
+      height: 4px;
+      background: #3e2612;
+      border-radius: 2px;
+      box-shadow: 0 1px 2px rgba(255, 255, 255, 0.25);
+    }
+
+    /* 真實乾燥花透明圖 */
+    .dried-lavender-img {
+      position: absolute;
+      top: 15px;
+      left: 50%;
+      height: 375px;
+      max-width: 220px;
+      width: auto;
+      object-fit: contain;
+      transform: translateX(-50%) rotate(-2deg);
+      filter: drop-shadow(4px 12px 14px rgba(40, 22, 10, 0.42));
+      z-index: 5; /* 穿在插帶下方 */
+      pointer-events: none;
+      transition: transform 0.35s ease, opacity 0.25s ease;
+    }
+
+    .dried-lavender-img.is-changing {
+      opacity: 0;
+      transform: translateX(-50%) rotate(4deg) scale(0.92);
+    }
+
+    .flower-display-area:hover .dried-lavender-img {
+      transform: translateX(-50%) rotate(0deg) scale(1.02);
+    }
+
+    .flower-whisper-quote {
+      font-family: 'Caveat', cursive;
+      font-size: 1.35rem;
+      color: #4a3421;
+      text-align: center;
+      line-height: 1.3;
+      margin-top: auto;
+      margin-bottom: 2px;
+      letter-spacing: 0.5px;
+      transition: opacity 0.25s ease;
+    }
+
+    .flower-meaning {
+      font-size: 0.74rem;
+      color: #6d5035;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-align: center;
+      margin-bottom: 8px;
+      transition: opacity 0.25s ease;
+    }
+
+    .flower-author {
+      font-size: 0.72rem;
+      color: #6d5035;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* =========================================================
+       右折頁：婚紗照專屬插卡槽 (Wedding Photo Slot)
+       ========================================================= */
+    .photo-display-area {
+      width: 100%;
+      height: 440px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 6px;
+    }
+
+    .photo-polaroid-frame {
+      width: 220px;
+      background: white;
+      border-radius: 6px;
+      padding: 12px 12px 16px 12px;
+      box-shadow: 
+        0 14px 32px rgba(45, 30, 15, 0.28),
+        0 2px 6px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: rotate(2deg);
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+
+    .photo-display-area:hover .photo-polaroid-frame {
+      transform: rotate(0deg) scale(1.02);
+    }
+
+    /* 牛皮紙四角斜切相片角 (Corner Mounts) */
+    .photo-corner {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background-color: #a98762;
+      background-image: var(--kraft-texture);
+      background-size: 150px 150px;
+      border: 1px solid rgba(60, 40, 20, 0.35);
+      z-index: 12;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.22), inset 0 1px 1px rgba(255,255,255,0.4);
+    }
+
+    .photo-corner.tl { top: 4px; left: 4px; clip-path: polygon(0 0, 100% 0, 0 100%); }
+    .photo-corner.tr { top: 4px; right: 4px; clip-path: polygon(0 0, 100% 0, 100% 100%); }
+    .photo-corner.bl { bottom: 4px; left: 4px; clip-path: polygon(0 0, 0 100%, 100% 100%); }
+    .photo-corner.br { bottom: 4px; right: 4px; clip-path: polygon(100% 0, 0 100%, 100% 100%); }
+
+    .photo-art-canvas {
+      width: 100%;
+      height: 270px;
+      background: linear-gradient(135deg, #f7f3ee 0%, #ebdcc9 100%);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 1px dashed rgba(197, 155, 76, 0.45);
+      padding: 16px;
+      text-align: center;
+    }
+
+    .photo-art-canvas img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-placeholder-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .photo-camera-icon {
+      width: 44px;
+      height: 44px;
+      color: #9d784a;
+      opacity: 0.85;
+      stroke-width: 1.5;
+    }
+
+    .photo-placeholder-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #4a3421;
+    }
+
+    .photo-placeholder-text {
+      font-size: 0.76rem;
+      color: #7d6045;
+      line-height: 1.4;
+      font-weight: 500;
+    }
+
+    .photo-badge-coming {
+      margin-top: 4px;
+      background: rgba(197, 155, 76, 0.15);
+      border: 1px solid rgba(197, 155, 76, 0.4);
+      color: #7a5a22;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .photo-caption-script {
+      font-family: 'Alex Brush', cursive;
+      font-size: 1.65rem;
+      color: #4a3421;
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    .photo-upload-helper {
+      margin-top: 14px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px dashed var(--kraft-dark);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5c4228;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+
+    .photo-upload-helper:hover {
+      background: white;
+      border-color: var(--forest-dark);
+      color: var(--forest-dark);
+    }
+
+    /* =========================================================
+       中折頁：白色長條喜帖主卡 (The Center Invitation Card)
+       ========================================================= */
+    .card-center-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .invitation-card {
+      width: var(--card-width);
+      background-color: #faf8f5;
+      background-image: 
+        var(--card-texture),
+        linear-gradient(180deg, #fdfcfb 0%, #faf8f4 60%, #f5f1ea 100%);
+      background-size: 220px 220px, 100% 100%;
+      border-radius: 4px;
+      box-shadow: 
+        0 1px 2px rgba(40, 25, 10, 0.08),
+        0 6px 18px rgba(40, 25, 10, 0.12),
+        0 22px 50px rgba(40, 25, 10, 0.24),
+        inset 0 1.2px 1px rgba(255, 255, 255, 1),
+        inset 0 0 0 1px rgba(215, 205, 192, 0.45),
+        inset 0 -1.2px 1px rgba(0, 0, 0, 0.06);
+      position: relative;
+      color: var(--ink-primary);
+      overflow: hidden;
+      border: 1px solid rgba(210, 200, 188, 0.85);
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease;
+    }
+
+    .invitation-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 
+        0 2px 4px rgba(40, 25, 10, 0.08),
+        0 10px 26px rgba(40, 25, 10, 0.16),
+        0 30px 65px rgba(40, 25, 10, 0.32),
+        inset 0 1.2px 1px rgba(255, 255, 255, 1);
+    }
+
+    /* 麻繩打孔與蝴蝶結組件（折卡頂部穿孔） */
+    .hemp-knot-assembly {
+      position: absolute;
+      top: 12px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    /* 厚磅卡紙立體打孔孔洞 (Die-cut Punch Holes with Paper Core Highlight) */
+    .punch-hole {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 45% 35%, #2a1c12 0%, #120b06 100%);
+      box-shadow: 
+        inset 0 2px 4px rgba(0,0,0,0.85),
+        0 1.2px 0 rgba(255,255,255,0.95),
+        0 -1px 0.5px rgba(0,0,0,0.18);
+      position: absolute;
+      top: 18px;
+      z-index: 1;
+    }
+
+    .punch-hole.left { left: calc(50% - 26px); }
+    .punch-hole.right { right: calc(50% - 26px); }
+
+    .twine-bow-svg {
+      width: 160px;
+      height: 55px;
+      filter: drop-shadow(0 3px 5px rgba(35, 20, 8, 0.28));
+      overflow: visible;
+    }
+
+    /* 封面折疊正視圖 (115mm × 161mm) */
+    .card-view-cover {
+      width: 100%;
+      height: var(--panel-top-height);
+      padding: 52px 26px 40px 26px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      text-align: center;
+      position: relative;
+      background-color: #faf8f5;
+      background-image: 
+        var(--card-texture),
+        linear-gradient(180deg, #fdfcfb 0%, #faf8f4 60%, #f5f1ea 100%);
+      background-size: 220px 220px, 100% 100%;
+      user-select: none;
+    }
+
+    .cover-wreath-box {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cover-wreath-svg {
+      width: 210px;
+      height: 165px;
+      filter: drop-shadow(0 3px 6px rgba(45, 34, 24, 0.12));
+    }
+
+    .cover-main-titles {
+      margin-top: 4px;
+    }
+
+    .cover-names {
+      font-family: 'Alex Brush', 'Great Vibes', cursive;
+      font-size: 3.1rem;
+      line-height: 1.1;
+      color: #2b3a2c;
+      letter-spacing: 1px;
+    }
+
+    .cover-tag-pill {
+      display: inline-block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 3px;
+      font-weight: 700;
+      color: var(--forest-moss);
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    .cover-date-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .cover-date-row {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--earth-brown);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cover-date-dot {
+      color: var(--champagne-gold);
+    }
+
+    .cover-day-label {
+      font-size: 0.72rem;
+      letter-spacing: 2.5px;
+      font-weight: 600;
+      color: var(--ink-secondary);
+    }
+
+    .cover-whisper {
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      letter-spacing: 1.5px;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    /* 展開喜帖微波呼吸提示 (Tap to Expand Prompt) */
+    .card-expand-prompt {
+      margin-top: 14px;
+      background: white;
+      border: 1px solid var(--champagne-gold);
+      border-radius: 20px;
+      padding: 8px 18px;
+      box-shadow: 0 6px 18px rgba(197, 155, 76, 0.25);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--forest-dark);
+      animation: bouncePrompt 2s infinite;
+      cursor: pointer;
+    }
+
+    @keyframes bouncePrompt {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    /* =========================================================
+       中折頁喜帖長條卡「向下掀開 / 向上合上」3D 擬真物理動畫系統
+       (Center Long Card Realistic Downward Unfold & Upward Fold System)
+       ========================================================= */
+    .center-card-stage {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      perspective: 1600px;
+    }
+
+    /* 狀態 1: 折疊封面卡片容器 */
+    .card-folded-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transform-origin: bottom center;
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .card-folded-wrapper:hover .invitation-card {
+      transform: translateY(-4px);
+      box-shadow: 
+        0 24px 50px rgba(40, 26, 14, 0.32),
+        0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    /* 封面「向下掀開」翻下動畫 (Fade & Slide Downward into Crease) */
+    .card-folded-wrapper.is-lifting {
+      animation: fadeCoverDownward 0.22s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fadeCoverDownward {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(22px) scale(0.98);
+      }
+    }
+
+    /* 封面「向上合回」就位動畫 (Slide Up & Settle Back) */
+    .card-folded-wrapper.is-landing {
+      animation: settleCoverBack 0.38s cubic-bezier(0.18, 0.9, 0.22, 1) forwards;
+    }
+
+    @keyframes settleCoverBack {
+      0% {
+        opacity: 0;
+        transform: translateY(22px) scale(0.98);
+      }
+      65% {
+        opacity: 1;
+        transform: translateY(-2px) scale(1.005);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* 狀態 2: 展開長條卡內頁容器 */
+    .card-unfolded-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform-origin: top center;
+    }
+
+    /* 上半頁：固定於頂端麻繩錨點，極致平滑淡入就位 */
+    .card-unfolded-wrapper.is-opening .card-panel-top {
+      animation: anchorUpperPanel 0.35s ease forwards;
+    }
+
+    @keyframes anchorUpperPanel {
+      0% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    /* 下半頁：自中間摺痕以真實紙張垂墜感「向下掀開展頁」（Accordion Drop & Unfold Downward） */
+    .card-unfolded-wrapper.is-opening .card-panel-bottom {
+      animation: unfoldLowerPanelDownward 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transform-origin: top center;
+    }
+
+    @keyframes unfoldLowerPanelDownward {
+      0% {
+        opacity: 0;
+        transform: perspective(1000px) rotateX(-45deg) translateY(-20px);
+        transform-origin: top center;
+      }
+      50% {
+        opacity: 0.95;
+        transform: perspective(1000px) rotateX(6deg) translateY(0);
+        transform-origin: top center;
+      }
+      75% {
+        transform: perspective(1000px) rotateX(-2deg) translateY(0);
+        transform-origin: top center;
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(1000px) rotateX(0deg) translateY(0);
+        transform-origin: top center;
+      }
+    }
+
+    /* 工具列隨長條卡展開流暢由上往下帶出 */
+    .card-unfolded-wrapper.is-opening .interactive-action-toolbar {
+      animation: slideDownToolbar 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes slideDownToolbar {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      50% {
+        opacity: 0.6;
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 合上退場動畫：下半頁由下往上折回（Fold Upward into Crease） */
+    .card-unfolded-wrapper.is-closing .card-panel-bottom {
+      animation: foldLowerPanelUpward 0.36s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      transform-origin: top center;
+    }
+
+    @keyframes foldLowerPanelUpward {
+      0% {
+        opacity: 1;
+        transform: perspective(1400px) rotateX(0deg);
+        transform-origin: top center;
+      }
+      100% {
+        opacity: 0;
+        transform: perspective(1400px) rotateX(80deg) translateY(-15px);
+        transform-origin: top center;
+      }
+    }
+
+    .card-unfolded-wrapper.is-closing .interactive-action-toolbar {
+      animation: fadeOutToolbar 0.25s ease forwards;
+    }
+
+    @keyframes fadeOutToolbar {
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-15px); }
+    }
+
+    /* 內頁專用排版樣式 */
+    .card-inside-card {
+      width: var(--card-width);
+      display: flex;
+      flex-direction: column;
+      background-color: #faf8f5;
+      background-image: 
+        var(--card-texture),
+        linear-gradient(180deg, #fdfcfb 0%, #faf8f4 60%, #f5f1ea 100%);
+      background-size: 220px 220px, 100% 100%;
+      border-radius: 4px;
+      box-shadow: 
+        0 1px 2px rgba(40, 25, 10, 0.08),
+        0 6px 18px rgba(40, 25, 10, 0.12),
+        0 24px 60px rgba(45, 30, 15, 0.28),
+        inset 0 1.2px 1px rgba(255, 255, 255, 1),
+        inset 0 0 0 1px rgba(215, 205, 192, 0.45),
+        inset 0 -1.2px 1px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(210, 200, 188, 0.85);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* 中間折線與壓痕光影 (Realistic Paper Fold Crease) */
+    .card-crease-divider {
+      width: 100%;
+      height: 14px;
+      position: relative;
+      background: linear-gradient(180deg, rgba(0,0,0,0.04) 0%, rgba(255,255,255,0.7) 50%, rgba(0,0,0,0.06) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+    }
+
+    .card-crease-divider::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      height: 1px;
+      background: rgba(180, 150, 120, 0.35);
+      box-shadow: 0 1px 2px rgba(255, 255, 255, 0.85);
+    }
+
+    /* 電腦版左右折頁隨長條卡滾動自然吸頂 (Sticky Side Flaps) */
+    @media (min-width: 861px) {
+      .trifold-flap-left, .trifold-flap-right {
+        position: sticky;
+        top: 80px;
+        align-self: flex-start;
+      }
+    }
+
+    .card-view-inside {
+      width: var(--card-width);
+      display: flex;
+      flex-direction: column;
+      background-color: #faf8f5;
+      background-image: 
+        var(--card-texture),
+        linear-gradient(180deg, #fdfcfb 0%, #faf8f4 60%, #f5f1ea 100%);
+      background-size: 220px 220px, 100% 100%;
+      border-radius: 4px;
+      box-shadow: 0 24px 60px rgba(45, 30, 15, 0.28);
+      border: 1px solid rgba(210, 200, 188, 0.85);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card-panel-top {
+      width: 100%;
+      min-height: var(--panel-top-height);
+      padding: 38px 24px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      background-color: #faf8f5;
+      background-image: 
+        var(--card-texture),
+        linear-gradient(180deg, #fdfcfb 0%, #faf8f4 100%);
+      background-size: 220px 220px, 100% 100%;
+      text-align: center;
+      position: relative;
+    }
+
+    .top-header-section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .forest-garland-top {
+      width: 180px;
+      height: 24px;
+      margin-bottom: 6px;
+    }
+
+    .script-names-inside {
+      font-family: 'Alex Brush', cursive;
+      font-size: 2.85rem;
+      color: #27382b;
+      line-height: 1.1;
+    }
+
+    .parents-host-block {
+      width: 100%;
+      border: 1px solid rgba(197, 155, 76, 0.45);
+      border-radius: 8px;
+      background: rgba(250, 248, 245, 0.8);
+      padding: 12px 14px 10px 14px;
+      margin: 8px 0;
+    }
+
+    .couple-hero-names {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #27382b;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .role-prefix {
+      font-size: 0.72rem;
+      color: var(--earth-brown);
+      font-weight: 600;
+    }
+
+    .heart-mid {
+      color: var(--accent-red);
+      font-size: 0.9rem;
+    }
+
+    .host-divider-line {
+      width: 80%;
+      height: 1px;
+      background: rgba(197, 155, 76, 0.35);
+      margin: 8px auto;
+    }
+
+    .parents-names-row {
+      font-size: 0.8rem;
+      color: #4a3e35;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .honorific {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      margin-left: 4px;
+    }
+
+    /* 日曆樣式 */
+    .calendar-wrapper {
+      width: 100%;
+      margin: 6px 0;
+    }
+
+    .month-year-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--forest-moss);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .calendar-grid {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+    }
+
+    .calendar-grid th {
+      font-size: 0.72rem;
+      color: var(--ink-muted);
+      font-weight: 600;
+      padding: 4px 0;
+    }
+
+    .calendar-grid td {
+      font-size: 0.88rem;
+      color: #44382e;
+      height: 29px;
+      vertical-align: middle;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .wedding-day-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      color: white;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .heart-svg-circle {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      fill: var(--accent-red);
+      z-index: 1;
+      filter: drop-shadow(0 2px 4px rgba(186, 60, 60, 0.35));
+    }
+
+    .wedding-day-mark span, .wedding-day-mark {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* 下半頁排版 */
+    .card-panel-bottom {
+      width: 100%;
+      min-height: var(--panel-bottom-height);
+      padding: 24px 22px 30px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      background-color: #faf8f5;
+      background-image: 
+        var(--card-texture),
+        linear-gradient(180deg, #f8f5ee 0%, #f4f0e7 100%);
+      background-size: 220px 220px, 100% 100%;
+      text-align: center;
+      position: relative;
+      border-top: 1px solid rgba(215, 205, 192, 0.5);
+    }
+
+    .wedding-date-banner {
+      margin-bottom: 6px;
+    }
+
+    .date-gregorian {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--forest-dark);
+      letter-spacing: 1px;
+    }
+
+    .timeline-row {
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+      width: 100%;
+      margin: 10px 0;
+    }
+
+    .timeline-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .timeline-icon-box {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(70, 103, 74, 0.12);
+      color: var(--forest-sage);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .timeline-icon-box svg {
+      width: 16px;
+      height: 16px;
+      stroke-width: 2;
+    }
+
+    .timeline-time {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #27382b;
+    }
+
+    .timeline-label {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--ink-secondary);
+    }
+
+    .venue-block {
+      margin: 8px 0;
+    }
+
+    .venue-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--forest-dark);
+    }
+
+    .venue-address {
+      font-size: 0.76rem;
+      color: var(--ink-secondary);
+      margin: 3px 0;
+    }
+
+    .venue-note {
+      font-size: 0.7rem;
+      color: var(--ink-muted);
+    }
+
+    .divider-dots {
+      color: var(--champagne-gold);
+      font-size: 0.8rem;
+      letter-spacing: 6px;
+      margin: 6px 0;
+    }
+
+    /* 著裝建議 (Dress Code) */
+    .dresscode-section {
+      width: 100%;
+      margin-top: 4px;
+    }
+
+    .dresscode-header {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--forest-moss);
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .dresscode-theme-name {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink-primary);
+      margin: 3px 0 6px 0;
+    }
+
+    .color-swatches-row {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .swatch-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .color-circle {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+      border: 1px solid rgba(255,255,255,0.8);
+    }
+
+    .color-name-zh {
+      font-size: 0.66rem;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+
+    /* =========================================================
+       4. 電子喜帖專屬互動工具列 (Interactive Action Bar)
+       ========================================================= */
+    .interactive-action-toolbar {
+      width: 100%;
+      max-width: var(--card-width);
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .action-btn {
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+      font-family: inherit;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .action-btn.primary {
+      background: var(--forest-dark);
+      color: white;
+      box-shadow: 0 4px 12px rgba(39, 56, 43, 0.25);
+    }
+
+    .action-btn.primary:hover {
+      background: #364e3c;
+      transform: translateY(-2px);
+    }
+
+    .action-btn.secondary {
+      background: white;
+      color: var(--ink-primary);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .action-btn.secondary:hover {
+      background: #f7f3ee;
+      border-color: var(--kraft-mid);
+      transform: translateY(-2px);
+    }
+
+    .action-btn.accent {
+      background: #b58943;
+      color: white;
+      box-shadow: 0 4px 12px rgba(181, 137, 67, 0.25);
+    }
+
+    .action-btn.accent:hover {
+      background: #c59b4c;
+      transform: translateY(-2px);
+    }
+
+    .back-to-trifold-btn {
+      width: 100%;
+      padding: 12px;
+      background: #ede6dc;
+      border: 1px dashed var(--kraft-dark);
+      border-radius: 12px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--ink-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .back-to-trifold-btn:hover {
+      background: #e3dbc9;
+      color: var(--forest-dark);
+    }
+
+    /* =========================================================
+       5. 彈窗系統 (Modals: RSVP, Traffic, Photo)
+       ========================================================= */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(30, 20, 12, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      animation: fadeIn 0.25s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-card {
+      background: white;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 460px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 24px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      border: none;
+      background: #f0eae1;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-secondary);
+      transition: background 0.2s;
+    }
+
+    .modal-close-btn:hover {
+      background: #dfd5c7;
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--forest-dark);
+      margin-bottom: 6px;
+    }
+
+    .modal-desc {
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      margin-bottom: 18px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--ink-primary);
+      margin-bottom: 6px;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      font-size: 0.88rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--forest-sage);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .form-submit-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--forest-dark);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s;
+    }
+
+    .form-submit-btn:hover {
+      background: #39523e;
+    }
+
+    /* 桌面端預設樣式 */
+    .mobile-story-toolbar {
+      display: none;
+    }
+    .mobile-replay-btn {
+      display: none;
+    }
+    .tool-btn.highlight-rsvp {
+      background: linear-gradient(135deg, #2d4230 0%, #1f2e22 100%);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 2px 8px rgba(35, 55, 38, 0.25);
+    }
+
+    /* =========================================================
+       響應式適配：手機直式自然故事卷軸 (Mobile Vertical Story Scroll)
+       ========================================================= */
+    @media (max-width: 860px) {
+      /* 1. 頂部簡約浮動導覽列：釋放高度，晶瑩剔透 */
+      header.interactive-nav {
+        padding: 8px 12px;
+        border-radius: 14px;
+        gap: 8px;
+        margin-bottom: 14px;
+        position: sticky;
+        top: 8px;
+        z-index: 100;
+        width: calc(100% - 16px);
+        max-width: 440px;
+        box-shadow: 0 4px 20px rgba(50, 30, 15, 0.12);
+        justify-content: space-between;
+      }
+
+      .nav-brand-title {
+        font-size: 0.92rem;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .nav-brand-sub {
+        display: none;
+      }
+
+      /* 手機版隱藏冗長三步驟切換，以右側直覺工具與頁面滑動為主 */
+      .nav-step-pills {
+        display: none;
+      }
+
+      .mobile-replay-btn {
+        display: inline-flex;
+      }
+
+      .step-pill {
+        padding: 4px 8px;
+        font-size: 0.72rem;
+        border-radius: 8px;
+      }
+
+      .tool-btn {
+        padding: 4px 8px;
+        font-size: 0.72rem;
+        border-radius: 8px;
+      }
+
+      /* 2. 徹底移除手機版分頁標籤 (No tabs! 100% 賓客直覺向下自然閱讀) */
+      .trifold-mobile-tabs {
+        display: none !important;
+      }
+
+      /* 3. 三折頁轉化為手機垂直故事容器 (Vertical Kraft Story Folio) */
+      .trifold-stage {
+        padding: 0 6px;
+        width: 100%;
+        max-width: 440px;
+      }
+
+      .trifold-folder {
+        flex-direction: column;
+        padding: 18px 12px 28px 12px;
+        gap: 24px;
+        border-radius: 16px;
+        box-shadow: 
+          0 16px 40px rgba(45, 28, 12, 0.28),
+          0 4px 12px rgba(0, 0, 0, 0.1),
+          inset 0 1px 1px rgba(255, 255, 255, 0.4);
+      }
+
+      /* 4. 折頁全部自然直向展示，告別隱藏 */
+      .trifold-flap {
+        display: flex !important;
+        width: 100% !important;
+        min-height: auto !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+      }
+
+      .desktop-flap-prefix {
+        display: none;
+      }
+
+      /* 精美段落標籤膠囊 (Section Badges) */
+      .flap-header-label {
+        font-size: 0.75rem;
+        color: #4f3319;
+        background: rgba(255, 255, 255, 0.4);
+        padding: 4px 14px;
+        border-radius: 20px;
+        margin-bottom: 14px;
+        letter-spacing: 1px;
+        box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.7), 0 2px 6px rgba(50, 30, 15, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        align-self: center;
+      }
+
+      /* 段落 1: 喜帖主卡（置頂第一順位） */
+      .trifold-flap-center {
+        order: 1;
+        width: 100%;
+        margin-bottom: 4px;
+      }
+
+      /* 段落 2: 手作乾燥花與花語小卡（置於主卡下方） */
+      .trifold-flap-left {
+        order: 2;
+        width: 100%;
+        background: rgba(255, 251, 245, 0.35);
+        border-radius: 14px;
+        padding: 20px 12px 24px 12px !important;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 
+          0 4px 16px rgba(45, 25, 10, 0.08),
+          inset 0 1px 2px rgba(255, 255, 255, 0.5);
+      }
+
+      .flower-display-area {
+        height: 370px;
+        margin-top: 2px;
+      }
+
+      /* 段落 3: 婚紗相片拍立得插卡（置於乾燥花下方） */
+      .trifold-flap-right {
+        order: 3;
+        width: 100%;
+        background: rgba(255, 251, 245, 0.35);
+        border-radius: 14px;
+        padding: 20px 12px 24px 12px !important;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 
+          0 4px 16px rgba(45, 25, 10, 0.08),
+          inset 0 1px 2px rgba(255, 255, 255, 0.5);
+      }
+
+      .photo-polaroid-frame {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      /* 段落 4: 手機版底部完整功能工具列 (Mobile Story Bottom Action Toolbar) */
+      .mobile-story-toolbar {
+        order: 4;
+        display: flex !important;
+        flex-direction: column;
+        width: 100%;
+        max-width: 360px;
+        margin: 6px auto 0 auto;
+        gap: 10px;
+      }
+
+      /* 5. 喜帖主卡尺寸與內頁自適應 (White Card Responsive) */
+      .invitation-card, .card-inside-card {
+        width: 100%;
+        max-width: 360px;
+      }
+
+      .card-view-cover {
+        height: auto;
+        min-height: 470px;
+        padding: 38px 16px 28px 16px;
+      }
+
+      .card-inside-card {
+        width: 100%;
+        max-width: 360px;
+      }
+
+      .card-panel-top, .card-panel-bottom {
+        min-height: auto;
+        padding: 22px 14px;
+      }
+
+      .couple-hero-names {
+        font-size: 1.15rem;
+      }
+
+      .month-year-label {
+        font-size: 0.76rem;
+      }
+
+      .calendar-grid th, .calendar-grid td {
+        height: 25px;
+        font-size: 0.75rem;
+      }
+
+      .interactive-action-toolbar {
+        width: 100%;
+        max-width: 360px;
+      }
+
+      .action-grid {
+        gap: 8px;
+      }
+
+      .action-btn {
+        padding: 10px 8px;
+        font-size: 0.78rem;
+      }
+
+      .timeline-row {
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. 頂部優雅浮動導覽列 -->
+  <header class="interactive-nav">
+    <div class="nav-brand">
+      <div class="nav-brand-title">Barry ♥ Winnie</div>
+      <div class="nav-brand-sub">2026.12.12 · 幸福婚禮邀請函</div>
+    </div>
+
+    <!-- 步驟切換器 -->
+    <div class="nav-step-pills">
+      <button class="step-pill active" id="btn-step-package" onclick="goToStage('package')">
+        <span>📦</span> 包裝
+      </button>
+      <button class="step-pill" id="btn-step-trifold" onclick="goToStage('trifold')">
+        <span>📖</span> 三折頁
+      </button>
+      <button class="step-pill" id="btn-step-card" onclick="goToStage('card')">
+        <span>📜</span> 展開喜帖
+      </button>
+    </div>
+
+    <div class="nav-tools">
+      <button class="tool-btn mobile-replay-btn" onclick="goToStage('package')" title="重新播放開箱動畫">
+        <span>📦</span> 開箱
+      </button>
+      <button class="tool-btn" onclick="toggleAudio()" id="btn-sound" title="切換互動音效">
+        <span id="sound-icon">🔔</span> 音效
+      </button>
+      <button class="tool-btn highlight-rsvp" onclick="openModal('rsvpModal')" title="填寫出席回覆">
+        💌 RSVP
+      </button>
+    </div>
+  </header>
+
+  <!-- 2. 主要互動舞臺 -->
+  <main class="interactive-stage">
+
+    <!-- =========================================================
+         STAGE 1: 初始封裝包裝 (The Tied Package)
+         ========================================================= -->
+    <section class="package-container" id="stage-package" title="輕拉繩子或點擊，展開喜帖">
+      <div class="package-box" id="package-box">
+        
+        <!-- 兩側折疊壓痕光影 -->
+        <div class="package-flap-line left"></div>
+        <div class="package-flap-line right"></div>
+
+        <!-- 麻繩下別著的牛皮紙小吊牌 (Tag) -->
+        <div class="package-tag" id="package-tag">
+          <div class="tag-punch-circle"></div>
+          <div class="tag-title-script">Wedding</div>
+          <div class="tag-subtitle">Join us for the celebration</div>
+          <div class="tag-date">Barry & Winnie · 12.12</div>
+        </div>
+
+        <!-- 單一連續麻繩全覆蓋 SVG (Unified Twine: Initial Cross & Bow -> Unravels into Single Curly Cord) -->
+        <svg class="package-svg-overlay" viewBox="0 0 460 600" id="ropeSvg" fill="none">
+          <defs>
+            <filter id="ropeShadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="4" stdDeviation="3.5" flood-color="#28160a" flood-opacity="0.45"/>
+            </filter>
+            <!-- 圓柱立體黃麻光影漸層 (Cylindrical Jute Shading) -->
+            <linearGradient id="twineHori" x1="0" y1="294" x2="0" y2="306" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#e2cfb2"/>
+              <stop offset="30%" stop-color="#b89367"/>
+              <stop offset="75%" stop-color="#8e673c"/>
+              <stop offset="100%" stop-color="#5a3d1f"/>
+            </linearGradient>
+            <linearGradient id="twineVert" x1="224" y1="0" x2="236" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#e2cfb2"/>
+              <stop offset="30%" stop-color="#b89367"/>
+              <stop offset="75%" stop-color="#8e673c"/>
+              <stop offset="100%" stop-color="#5a3d1f"/>
+            </linearGradient>
+          </defs>
+
+          <g id="rope-unified-layer" filter="url(#ropeShadow)">
+            <!-- 垂直綁線：解開時順滑收縮融入主繩線 (Vertical arms) -->
+            <g id="vertical-arms">
+              <path id="arm-top-dark" d="M 230 40 L 230 300" stroke="#5a3d1f" stroke-width="8.5" stroke-linecap="round"/>
+              <path id="arm-top" d="M 230 40 L 230 300" stroke="url(#twineVert)" stroke-width="7" stroke-linecap="round"/>
+              <path id="arm-top-tex" d="M 230 40 L 230 300" stroke="#482e12" stroke-width="2.8" stroke-linecap="round" stroke-dasharray="4 7"/>
+              <path id="arm-top-light" d="M 229 40 L 229 300" stroke="#f4e5cf" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 9" stroke-dashoffset="3"/>
+
+              <path id="arm-bottom-dark" d="M 230 300 L 230 560" stroke="#5a3d1f" stroke-width="8.5" stroke-linecap="round"/>
+              <path id="arm-bottom" d="M 230 300 L 230 560" stroke="url(#twineVert)" stroke-width="7" stroke-linecap="round"/>
+              <path id="arm-bottom-tex" d="M 230 300 L 230 560" stroke="#482e12" stroke-width="2.8" stroke-linecap="round" stroke-dasharray="4 7"/>
+              <path id="arm-bottom-light" d="M 229 300 L 229 560" stroke="#f4e5cf" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 9" stroke-dashoffset="3"/>
+            </g>
+
+            <!-- 主橫向繩體：解開後整條直接舒展為帶有自然微捲、活結波紋的單一捲曲麻繩 (The Single Curly Cord) -->
+            <path id="main-cord-dark" d="M 40 300 L 420 300" stroke="#5a3d1f" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path id="main-cord-base" d="M 40 300 L 420 300" stroke="url(#twineHori)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            <path id="main-cord-tex" d="M 40 300 L 420 300" stroke="#482e12" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 7"/>
+            <path id="main-cord-light" d="M 40 299 L 420 299" stroke="#f4e5cf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 9" stroke-dashoffset="3"/>
+
+            <!-- 蝴蝶結與活結結構組件 (Bow Components) -->
+            <g id="bow-group">
+              <!-- 左側繩圈 -->
+              <g id="bow-loop-left">
+                <path d="M 230 300 C 190 262, 135 240, 138 288 C 140 332, 202 318, 230 303" stroke="#684620" stroke-width="6.5" stroke-linecap="round"/>
+                <path d="M 230 300 C 190 262, 135 240, 138 288 C 140 332, 202 318, 230 303" stroke="#ba9367" stroke-width="4.8" stroke-linecap="round"/>
+                <path d="M 230 300 C 190 262, 135 240, 138 288 C 140 332, 202 318, 230 303" stroke="#482e12" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="4 6"/>
+                <path d="M 230 300 C 190 262, 135 240, 138 288 C 140 332, 202 318, 230 303" stroke="#f4e5cf" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 8" stroke-dashoffset="3"/>
+              </g>
+
+              <!-- 右側活結繩圈 (抽拉時平滑縮入結心) -->
+              <g id="bow-loop-right">
+                <path d="M 230 300 C 270 262, 325 240, 322 288 C 320 332, 258 318, 230 303" stroke="#684620" stroke-width="6.5" stroke-linecap="round"/>
+                <path d="M 230 300 C 270 262, 325 240, 322 288 C 320 332, 258 318, 230 303" stroke="#ba9367" stroke-width="4.8" stroke-linecap="round"/>
+                <path d="M 230 300 C 270 262, 325 240, 322 288 C 320 332, 258 318, 230 303" stroke="#482e12" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="4 6"/>
+                <path d="M 230 300 C 270 262, 325 240, 322 288 C 320 332, 258 318, 230 303" stroke="#f4e5cf" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 8" stroke-dashoffset="3"/>
+              </g>
+
+              <!-- 左側繩尾 -->
+              <g id="bow-tail-left">
+                <path d="M 228 304 Q 190 355, 165 390" stroke="#684620" stroke-width="5.5" stroke-linecap="round"/>
+                <path d="M 228 304 Q 190 355, 165 390" stroke="#ba9367" stroke-width="4" stroke-linecap="round"/>
+                <path d="M 228 304 Q 190 355, 165 390" stroke="#482e12" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="3 5"/>
+                <path d="M 228 304 Q 190 355, 165 390" stroke="#f4e5cf" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="2 6" stroke-dashoffset="2"/>
+              </g>
+
+              <!-- 右側拉繩繩尾 (使用者互動拖曳主力繩尾) -->
+              <g id="bow-tail-right" title="輕拉向右解開麻繩">
+                <path id="tail-d" d="M 232 304 Q 270 355, 300 395" stroke="#684620" stroke-width="5.8" stroke-linecap="round"/>
+                <path id="tail-p" d="M 232 304 Q 270 355, 300 395" stroke="#ba9367" stroke-width="4.2" stroke-linecap="round"/>
+                <path id="tail-t" d="M 232 304 Q 270 355, 300 395" stroke="#482e12" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="3 5"/>
+                <path id="tail-l" d="M 232 304 Q 270 355, 300 395" stroke="#f4e5cf" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="2 6" stroke-dashoffset="2"/>
+              </g>
+
+              <!-- 中心打結處 -->
+              <g id="bow-knot">
+                <ellipse cx="230" cy="302" rx="11" ry="9" fill="#6d4822" stroke="#482e14" stroke-width="1.5"/>
+                <path d="M 222 298 Q 230 293 238 298 M 221 303 Q 230 298 239 303 M 223 307 Q 230 303 237 307" stroke="#caa77e" stroke-width="2.2" stroke-linecap="round"/>
+                <path d="M 224 297 Q 230 293 236 297" stroke="#f5e6d2" stroke-width="1.2" stroke-linecap="round"/>
+              </g>
+            </g>
+
+            <!-- 繩尾手工打結圓珠 (Pull Tip Bead) -->
+            <circle id="pull-bead" cx="300" cy="395" r="5" fill="#603e1a" stroke="#3d250d" stroke-width="1"/>
+            <circle id="pull-bead-inner" cx="299" cy="393" r="2.2" fill="#e8d5be"/>
+          </g>
+        </svg>
+
+      </div>
+
+      <!-- 點擊引導呼吸標籤 -->
+      <div class="package-hint-pill" id="package-hint">
+        <div class="hint-main">✨ 輕拉繩子 · 展開喜帖 ✨</div>
+        <div class="hint-sub">Pull the string or tap to open</div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         STAGE 2: 三折頁實體展開檢視 (The Trifold Folder)
+         ========================================================= -->
+    <section class="trifold-stage" id="stage-trifold">
+
+      <!-- 手機版折頁切換分段器 (Mobile View Switcher) -->
+      <div class="trifold-mobile-tabs">
+        <button class="mobile-tab-btn" onclick="showMobileFlap('left')">🌿 乾燥花</button>
+        <button class="mobile-tab-btn active" onclick="showMobileFlap('center')">💌 喜帖主卡</button>
+        <button class="mobile-tab-btn" onclick="showMobileFlap('right')">📷 婚紗照</button>
+      </div>
+
+      <div class="trifold-folder">
+
+        <!-- 左折頁：超逼真乾燥花插槽 (Left Panel: Botanical Dried Flower) -->
+        <div class="trifold-flap trifold-flap-left" id="flap-left">
+          <div class="flap-header-label" id="flower-header-label">
+            <span id="flower-icon">🌿</span> <span class="desktop-flap-prefix">Left Flap · </span><span id="flower-name">手作乾燥薰衣草</span>
+          </div>
+
+          <div class="flower-display-area" id="flower-display-area" onclick="cycleNextFlower()" title="點擊更換乾燥花樣式與花語">
+            <!-- 真實乾燥花植物透明圖 (支援 WebP 高效圖檔) -->
+            <picture class="dried-flower-picture">
+              <source id="flower-source-webp" srcset="assets/dried_lavender_sprig.webp" type="image/webp">
+              <img 
+                id="flower-img" 
+                src="assets/dried_lavender_sprig.png" 
+                alt="手作乾燥花枝" 
+                class="dried-lavender-img"
+                loading="lazy"
+              >
+            </picture>
+            <!-- 牛皮紙卡槽插帶 (Die-cut Notch) -->
+            <div class="kraft-flower-slit" title="手作乾燥花插槽"></div>
+            <!-- 互動式換花體驗膠囊 -->
+            <button class="flower-shuffle-pill" onclick="cycleNextFlower(event)" title="點擊隨機抽取下一款乾燥花樣式與花語">
+              <span class="shuffle-dice">🎲</span>
+              <span class="shuffle-text">換朵花看花語</span>
+            </button>
+          </div>
+
+          <div class="flower-whisper-quote" id="flower-quote">
+            “Where love blooms,<br>hope blossoms.”
+          </div>
+          <div class="flower-meaning" id="flower-meaning">花語 · 等待愛情與長相廝守</div>
+          <div class="flower-author">羅聖明 ♥ 戴婉錡</div>
+        </div>
+
+        <!-- 中折頁：白色喜帖長條卡 (Center Panel: The White Card) -->
+        <div class="trifold-flap trifold-flap-center" id="flap-center">
+          <div class="flap-header-label" id="center-flap-header">
+            <span id="center-flap-icon">💌</span> <span class="desktop-flap-prefix">Center Flap · </span><span id="center-flap-title">喜帖封面</span>
+          </div>
+
+          <div class="center-card-stage" id="center-card-stage">
+
+            <!-- 狀態 1: 折疊封面視圖 (Folded Cover View) -->
+            <div class="card-folded-wrapper" id="card-folded-view" onclick="unfoldCenterCard(true)" title="點擊向下掀開喜帖長條卡">
+              <div class="invitation-card card-cover-card">
+              
+              <!-- 麻繩打孔與蝴蝶結組件 -->
+              <div class="hemp-knot-assembly">
+                <div class="punch-hole left"></div>
+                <div class="punch-hole right"></div>
+                <svg class="twine-bow-svg" viewBox="0 0 160 55" fill="none">
+                  <defs>
+                    <filter id="ropeDropShadowCover" x="-30%" y="-30%" width="160%" height="160%">
+                      <feDropShadow dx="0" dy="2.5" stdDeviation="2" flood-color="#2a1708" flood-opacity="0.38"/>
+                    </filter>
+                  </defs>
+                  <g filter="url(#ropeDropShadowCover)">
+                    <!-- 穿孔拉出線 (Strings emerging from punch holes at 54, 22.5 and 106, 22.5) -->
+                    <path d="M54 22.5 Q67 22.5 80 23" stroke="#75502a" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M54 22.5 Q67 22.5 80 23" stroke="#ba9367" stroke-width="3.5" stroke-linecap="round"/>
+                    <path d="M54 22.5 Q67 22.5 80 23" stroke="#f2e2cb" stroke-width="1.2" stroke-dasharray="3 5" stroke-linecap="round"/>
+                    
+                    <path d="M106 22.5 Q93 22.5 80 23" stroke="#75502a" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M106 22.5 Q93 22.5 80 23" stroke="#ba9367" stroke-width="3.5" stroke-linecap="round"/>
+                    <path d="M106 22.5 Q93 22.5 80 23" stroke="#f2e2cb" stroke-width="1.2" stroke-dasharray="3 5" stroke-linecap="round"/>
+                    
+                    <!-- 左側麻繩圈 (Left loop) -->
+                    <path d="M80 23 C62 4, 22 8, 30 24 C36 36, 68 28, 80 23" stroke="#75502a" stroke-width="5.5" stroke-linecap="round"/>
+                    <path d="M80 23 C62 4, 22 8, 30 24 C36 36, 68 28, 80 23" stroke="#ba9367" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M80 23 C62 4, 22 8, 30 24 C36 36, 68 28, 80 23" stroke="#523617" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="4 6"/>
+                    <path d="M80 23 C62 4, 22 8, 30 24 C36 36, 68 28, 80 23" stroke="#f5e6d2" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="2 8" stroke-dashoffset="3"/>
+                    
+                    <!-- 右側麻繩圈 (Right loop) -->
+                    <path d="M80 23 C98 4, 138 8, 130 24 C124 36, 92 28, 80 23" stroke="#75502a" stroke-width="5.5" stroke-linecap="round"/>
+                    <path d="M80 23 C98 4, 138 8, 130 24 C124 36, 92 28, 80 23" stroke="#ba9367" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M80 23 C98 4, 138 8, 130 24 C124 36, 92 28, 80 23" stroke="#523617" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="4 6"/>
+                    <path d="M80 23 C98 4, 138 8, 130 24 C124 36, 92 28, 80 23" stroke="#f5e6d2" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="2 8" stroke-dashoffset="3"/>
+                    
+                    <!-- 左垂尾 (Left tail) -->
+                    <path d="M78 24 Q62 43 42 48" stroke="#75502a" stroke-width="4.8" stroke-linecap="round"/>
+                    <path d="M78 24 Q62 43 42 48" stroke="#ba9367" stroke-width="3.5" stroke-linecap="round"/>
+                    <path d="M78 24 Q62 43 42 48" stroke="#523617" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 5"/>
+                    <path d="M78 24 Q62 43 42 48" stroke="#f5e6d2" stroke-width="1.1" stroke-linecap="round" stroke-dasharray="2 6" stroke-dashoffset="2"/>
+                    
+                    <!-- 右垂尾 (Right tail) -->
+                    <path d="M82 24 Q98 41 118 46" stroke="#75502a" stroke-width="4.8" stroke-linecap="round"/>
+                    <path d="M82 24 Q98 41 118 46" stroke="#ba9367" stroke-width="3.5" stroke-linecap="round"/>
+                    <path d="M82 24 Q98 41 118 46" stroke="#523617" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 5"/>
+                    <path d="M82 24 Q98 41 118 46" stroke="#f5e6d2" stroke-width="1.1" stroke-linecap="round" stroke-dasharray="2 6" stroke-dashoffset="2"/>
+                    
+                    <!-- 中央多重纏繞麻繩結 (Multi-wrapped jute knot) -->
+                    <ellipse cx="80" cy="23.5" rx="8.5" ry="7" fill="#6d4822" stroke="#482e14" stroke-width="1.2"/>
+                    <path d="M74 21 Q80 18 86 21 M73 24 Q80 21 87 24 M74 27 Q80 24 86 27" stroke="#caa77e" stroke-width="2.2" stroke-linecap="round"/>
+                    <path d="M75 20 Q80 18 85 20" stroke="#f5e6d2" stroke-width="1.2" stroke-linecap="round"/>
+                  </g>
+                </svg>
+              </div>
+
+              <!-- 封面內容 -->
+              <div class="card-view-cover">
+                <div class="cover-wreath-box">
+                  <svg class="cover-wreath-svg" viewBox="0 0 200 155" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <!-- 暖金燈泡光暈漸層 -->
+                  <radialGradient id="bulbGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#fff8db" stop-opacity="1"/>
+                    <stop offset="35%" stop-color="#ffd566" stop-opacity="0.85"/>
+                    <stop offset="70%" stop-color="#f5a623" stop-opacity="0.35"/>
+                    <stop offset="100%" stop-color="#f5a623" stop-opacity="0"/>
+                  </radialGradient>
+                  
+                  <!-- 燈泡玻璃反光漸層 -->
+                  <radialGradient id="bulbGlass" cx="35%" cy="35%" r="65%">
+                    <stop offset="0%" stop-color="#ffffff"/>
+                    <stop offset="40%" stop-color="#fff2a8"/>
+                    <stop offset="85%" stop-color="#f3b333"/>
+                    <stop offset="100%" stop-color="#d68f18"/>
+                  </radialGradient>
+                </defs>
+
+                <!-- === 1. 雙層手繪愛心森林藤蔓 (Heart Botanical Vines) === -->
+                <!-- 主藤蔓 (深森林墨綠) -->
+                <path d="M 100 38 C 72 13, 20 17, 18 54 C 16 94, 58 124, 100 144" stroke="#365339" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                <path d="M 100 38 C 128 13, 180 17, 182 54 C 184 94, 142 124, 100 144" stroke="#365339" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+
+                <!-- 次級穿梭細藤 (鼠尾草灰綠) -->
+                <path d="M 98 42 C 68 18, 25 24, 24 59 C 23 98, 64 126, 98 141" stroke="#5a7b5d" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+                <path d="M 102 42 C 132 18, 175 24, 176 59 C 177 98, 136 126, 102 141" stroke="#5a7b5d" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+
+                <!-- 底部心尖微卷枝枒 -->
+                <path d="M 100 144 C 106 147, 114 148, 120 144" stroke="#365339" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+                <path d="M 100 144 C 94 147, 86 148, 80 144" stroke="#365339" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+
+                <!-- === 2. 尤加利與橄欖葉群 (沿愛心輪廓優雅舒展) === -->
+                <!-- 頂部心凹處葉片 -->
+                <ellipse cx="88" cy="30" rx="7.5" ry="4" fill="#4a6b4e" transform="rotate(-30 88 30)"/>
+                <ellipse cx="112" cy="30" rx="7.5" ry="4" fill="#4a6b4e" transform="rotate(30 112 30)"/>
+                <ellipse cx="94" cy="38" rx="5.5" ry="3" fill="#6e8d72" transform="rotate(-10 94 38)"/>
+                <ellipse cx="106" cy="38" rx="5.5" ry="3" fill="#6e8d72" transform="rotate(10 106 38)"/>
+
+                <!-- 左上方心圓頂葉群 -->
+                <ellipse cx="62" cy="18" rx="8.5" ry="4.5" fill="#365339" transform="rotate(-15 62 18)"/>
+                <ellipse cx="48" cy="22" rx="7.5" ry="4" fill="#6e8d72" transform="rotate(-35 48 22)"/>
+                <ellipse cx="38" cy="30" rx="8.5" ry="4.5" fill="#4a6b4e" transform="rotate(-45 38 30)"/>
+                <ellipse cx="46" cy="28" rx="5.5" ry="3" fill="#8ca890" transform="rotate(-20 46 28)"/>
+
+                <!-- 右上方心圓頂葉群 -->
+                <ellipse cx="138" cy="18" rx="8.5" ry="4.5" fill="#365339" transform="rotate(15 138 18)"/>
+                <ellipse cx="152" cy="22" rx="7.5" ry="4" fill="#6e8d72" transform="rotate(35 152 22)"/>
+                <ellipse cx="162" cy="30" rx="8.5" ry="4.5" fill="#4a6b4e" transform="rotate(45 162 30)"/>
+                <ellipse cx="154" cy="28" rx="5.5" ry="3" fill="#8ca890" transform="rotate(20 154 28)"/>
+
+                <!-- 左側外弧腰部葉群 -->
+                <ellipse cx="17" cy="54" rx="9" ry="5" fill="#365339" transform="rotate(-75 17 54)"/>
+                <ellipse cx="14" cy="68" rx="8.5" ry="4.5" fill="#6e8d72" transform="rotate(-85 14 68)"/>
+                <ellipse cx="26" cy="60" rx="6.5" ry="3.5" fill="#8ca890" transform="rotate(-55 26 60)"/>
+                <ellipse cx="20" cy="82" rx="8" ry="4.5" fill="#4a6b4e" transform="rotate(-95 20 82)"/>
+
+                <!-- 右側外弧腰部葉群 -->
+                <ellipse cx="183" cy="54" rx="9" ry="5" fill="#365339" transform="rotate(75 183 54)"/>
+                <ellipse cx="186" cy="68" rx="8.5" ry="4.5" fill="#6e8d72" transform="rotate(85 186 68)"/>
+                <ellipse cx="174" cy="60" rx="6.5" ry="3.5" fill="#8ca890" transform="rotate(55 174 60)"/>
+                <ellipse cx="180" cy="82" rx="8" ry="4.5" fill="#4a6b4e" transform="rotate(95 180 82)"/>
+
+                <!-- 左下方收束葉群 -->
+                <ellipse cx="32" cy="100" rx="8.5" ry="4.5" fill="#365339" transform="rotate(-115 32 100)"/>
+                <ellipse cx="48" cy="116" rx="8" ry="4.5" fill="#6e8d72" transform="rotate(-130 48 116)"/>
+                <ellipse cx="64" cy="128" rx="7.5" ry="4" fill="#4a6b4e" transform="rotate(-145 64 128)"/>
+                <ellipse cx="80" cy="138" rx="6.5" ry="3.5" fill="#8ca890" transform="rotate(-160 80 138)"/>
+
+                <!-- 右下方收束葉群 -->
+                <ellipse cx="168" cy="100" rx="8.5" ry="4.5" fill="#365339" transform="rotate(115 168 100)"/>
+                <ellipse cx="152" cy="116" rx="8" ry="4.5" fill="#6e8d72" transform="rotate(130 152 116)"/>
+                <ellipse cx="136" cy="128" rx="7.5" ry="4" fill="#4a6b4e" transform="rotate(145 136 128)"/>
+                <ellipse cx="120" cy="138" rx="6.5" ry="3.5" fill="#8ca890" transform="rotate(160 120 138)"/>
+
+                <!-- 底部心尖嫩葉 -->
+                <ellipse cx="94" cy="145" rx="5" ry="2.5" fill="#6e8d72" transform="rotate(-170 94 145)"/>
+                <ellipse cx="106" cy="145" rx="5" ry="2.5" fill="#6e8d72" transform="rotate(170 106 145)"/>
+
+                <!-- === 3. 阿沐宴會廳浪漫纏繞燈串 (Twinkling Fairy Lights String) === -->
+                <!-- 金色燈泡串導線 (纏繞愛心穿梭) -->
+                <path d="M 98 34 Q 85 24 72 16 Q 54 12 36 26 Q 22 40 18 60 Q 14 80 26 98 Q 42 118 68 130 Q 88 138 100 146 Q 112 138 132 130 Q 158 118 174 98 Q 186 80 182 60 Q 178 40 164 26 Q 146 12 128 16 Q 115 24 102 34" stroke="#c59b4c" stroke-width="0.8" stroke-dasharray="2 0.5" stroke-linecap="round" fill="none" opacity="0.85"/>
+
+                <!-- === 4. 暖金微光小燈泡群 (Glowing Edison / Fairy Light Bulbs) === -->
+                <!-- 燈泡 1 (左心頂) -->
+                <circle cx="56" cy="15" r="7.5" fill="url(#bulbGlow)"/>
+                <circle cx="56" cy="15" r="3.2" fill="url(#bulbGlass)"/>
+                <rect x="55.2" y="11.5" width="1.6" height="1.8" fill="#7d6023" rx="0.5"/>
+
+                <!-- 燈泡 2 (左肩彎) -->
+                <circle cx="28" cy="38" r="8" fill="url(#bulbGlow)"/>
+                <circle cx="28" cy="38" r="3.4" fill="url(#bulbGlass)"/>
+                <rect x="25.5" y="35" width="1.8" height="1.6" fill="#7d6023" rx="0.5" transform="rotate(30 26.4 35.8)"/>
+
+                <!-- 燈泡 3 (左側腰) -->
+                <circle cx="15" cy="74" r="8" fill="url(#bulbGlow)"/>
+                <circle cx="15" cy="74" r="3.4" fill="url(#bulbGlass)"/>
+                <rect x="15" y="70.5" width="1.6" height="1.8" fill="#7d6023" rx="0.5"/>
+
+                <!-- 燈泡 4 (左下腹) -->
+                <circle cx="40" cy="110" r="7.5" fill="url(#bulbGlow)"/>
+                <circle cx="40" cy="110" r="3.2" fill="url(#bulbGlass)"/>
+                <rect x="37.5" y="107" width="1.8" height="1.6" fill="#7d6023" rx="0.5" transform="rotate(-30 38.4 107.8)"/>
+
+                <!-- 燈泡 5 (左下心尖前) -->
+                <circle cx="76" cy="134" r="7" fill="url(#bulbGlow)"/>
+                <circle cx="76" cy="134" r="3.0" fill="url(#bulbGlass)"/>
+                <rect x="74" y="132" width="1.8" height="1.6" fill="#7d6023" rx="0.5" transform="rotate(-45 74.9 132.8)"/>
+
+                <!-- 燈泡 6 (中心凹處垂吊微光) -->
+                <circle cx="100" cy="42" r="7.5" fill="url(#bulbGlow)"/>
+                <circle cx="100" cy="42" r="3.2" fill="url(#bulbGlass)"/>
+                <rect x="99.2" y="38.5" width="1.6" height="1.8" fill="#7d6023" rx="0.5"/>
+
+                <!-- 燈泡 7 (右心頂) -->
+                <circle cx="144" cy="15" r="7.5" fill="url(#bulbGlow)"/>
+                <circle cx="144" cy="15" r="3.2" fill="url(#bulbGlass)"/>
+                <rect x="143.2" y="11.5" width="1.6" height="1.8" fill="#7d6023" rx="0.5"/>
+
+                <!-- 燈泡 8 (右肩彎) -->
+                <circle cx="172" cy="38" r="8" fill="url(#bulbGlow)"/>
+                <circle cx="172" cy="38" r="3.4" fill="url(#bulbGlass)"/>
+                <rect x="172.5" y="35" width="1.8" height="1.6" fill="#7d6023" rx="0.5" transform="rotate(-30 173.4 35.8)"/>
+
+                <!-- 燈泡 9 (右側腰) -->
+                <circle cx="185" cy="74" r="8" fill="url(#bulbGlow)"/>
+                <circle cx="185" cy="74" r="3.4" fill="url(#bulbGlass)"/>
+                <rect x="183.4" y="70.5" width="1.6" height="1.8" fill="#7d6023" rx="0.5"/>
+
+                <!-- 燈泡 10 (右下腹) -->
+                <circle cx="160" cy="110" r="7.5" fill="url(#bulbGlow)"/>
+                <circle cx="160" cy="110" r="3.2" fill="url(#bulbGlass)"/>
+                <rect x="160.5" y="107" width="1.8" height="1.6" fill="#7d6023" rx="0.5" transform="rotate(30 161.4 107.8)"/>
+
+                <!-- 燈泡 11 (右下心尖前) -->
+                <circle cx="124" cy="134" r="7" fill="url(#bulbGlow)"/>
+                <circle cx="124" cy="134" r="3.0" fill="url(#bulbGlass)"/>
+                <rect x="124" y="132" width="1.8" height="1.6" fill="#7d6023" rx="0.5" transform="rotate(45 124.9 132.8)"/>
+
+                <!-- 燈泡 12 (心尖璀璨焦點) -->
+                <circle cx="100" cy="148" r="8.5" fill="url(#bulbGlow)"/>
+                <circle cx="100" cy="148" r="3.6" fill="url(#bulbGlass)"/>
+                <rect x="99.2" y="144.5" width="1.6" height="1.8" fill="#7d6023" rx="0.5"/>
+              </svg>
+                </div>
+
+                <div class="cover-main-titles">
+                  <div class="cover-names">Barry & Winnie</div>
+                  <div class="cover-tag-pill">WEDDING INVITATION</div>
+                </div>
+
+                <div class="cover-date-section">
+                  <div class="cover-date-row">
+                    <span>2026</span>
+                    <span class="cover-date-dot">·</span>
+                    <span>12</span>
+                    <span class="cover-date-dot">·</span>
+                    <span>12</span>
+                  </div>
+                  <div class="cover-day-label">SATURDAY NOON</div>
+                  <div class="cover-whisper">走進童話森林 · 共度幸福時光</div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- 展開提示膠囊 -->
+            <div class="card-expand-prompt">
+              <span>💌</span> 點擊向下掀開 · 展開完整喜帖
+            </div>
+          </div>
+
+          <!-- 狀態 2: 掀開展開長條卡視圖 (Unfolded Strip Card View) -->
+          <div class="card-unfolded-wrapper" id="card-unfolded-view" style="display:none;">
+            <div class="invitation-card card-inside-card">
+              
+              <!-- 麻繩打孔與蝴蝶結組件 (頂部工藝細節) -->
+              <div class="hemp-knot-assembly">
+                <div class="punch-hole left"></div>
+                <div class="punch-hole right"></div>
+                <svg class="twine-bow-svg" viewBox="0 0 160 55" fill="none">
+                  <defs>
+                    <filter id="ropeDropShadowInside" x="-30%" y="-30%" width="160%" height="160%">
+                      <feDropShadow dx="0" dy="2.5" stdDeviation="2" flood-color="#2a1708" flood-opacity="0.38"/>
+                    </filter>
+                  </defs>
+                  <g filter="url(#ropeDropShadowInside)">
+                    <!-- 穿孔拉出線 (Strings emerging from punch holes at 54, 22.5 and 106, 22.5) -->
+                    <path d="M54 22.5 Q67 22.5 80 23" stroke="#75502a" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M54 22.5 Q67 22.5 80 23" stroke="#ba9367" stroke-width="3.5" stroke-linecap="round"/>
+                    <path d="M54 22.5 Q67 22.5 80 23" stroke="#f2e2cb" stroke-width="1.2" stroke-dasharray="3 5" stroke-linecap="round"/>
+                    
+                    <path d="M106 22.5 Q93 22.5 80 23" stroke="#75502a" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M106 22.5 Q93 22.5 80 23" stroke="#ba9367" stroke-width="3.5" stroke-linecap="round"/>
+                    <path d="M106 22.5 Q93 22.5 80 23" stroke="#f2e2cb" stroke-width="1.2" stroke-dasharray="3 5" stroke-linecap="round"/>
+                    
+                    <!-- 左側麻繩圈 (Left loop) -->
+                    <path d="M80 23 C62 4, 22 8, 30 24 C36 36, 68 28, 80 23" stroke="#75502a" stroke-width="5.5" stroke-linecap="round"/>
+                    <path d="M80 23 C62 4, 22 8, 30 24 C36 36, 68 28, 80 23" stroke="#ba9367" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M80 23 C62 4, 22 8, 30 24 C36 36, 68 28, 80 23" stroke="#523617" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="4 6"/>
+                    <path d="M80 23 C62 4, 22 8, 30 24 C36 36, 68 28, 80 23" stroke="#f5e6d2" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="2 8" stroke-dashoffset="3"/>
+                    
+                    <!-- 右側麻繩圈 (Right loop) -->
+                    <path d="M80 23 C98 4, 138 8, 130 24 C124 36, 92 28, 80 23" stroke="#75502a" stroke-width="5.5" stroke-linecap="round"/>
+                    <path d="M80 23 C98 4, 138 8, 130 24 C124 36, 92 28, 80 23" stroke="#ba9367" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M80 23 C98 4, 138 8, 130 24 C124 36, 92 28, 80 23" stroke="#523617" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="4 6"/>
+                    <path d="M80 23 C98 4, 138 8, 130 24 C124 36, 92 28, 80 23" stroke="#f5e6d2" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="2 8" stroke-dashoffset="3"/>
+                    
+                    <!-- 左垂尾 (Left tail) -->
+                    <path d="M78 24 Q62 43 42 48" stroke="#75502a" stroke-width="4.8" stroke-linecap="round"/>
+                    <path d="M78 24 Q62 43 42 48" stroke="#ba9367" stroke-width="3.5" stroke-linecap="round"/>
+                    <path d="M78 24 Q62 43 42 48" stroke="#523617" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 5"/>
+                    <path d="M78 24 Q62 43 42 48" stroke="#f5e6d2" stroke-width="1.1" stroke-linecap="round" stroke-dasharray="2 6" stroke-dashoffset="2"/>
+                    
+                    <!-- 右垂尾 (Right tail) -->
+                    <path d="M82 24 Q98 41 118 46" stroke="#75502a" stroke-width="4.8" stroke-linecap="round"/>
+                    <path d="M82 24 Q98 41 118 46" stroke="#ba9367" stroke-width="3.5" stroke-linecap="round"/>
+                    <path d="M82 24 Q98 41 118 46" stroke="#523617" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 5"/>
+                    <path d="M82 24 Q98 41 118 46" stroke="#f5e6d2" stroke-width="1.1" stroke-linecap="round" stroke-dasharray="2 6" stroke-dashoffset="2"/>
+                    
+                    <!-- 中央多重纏繞麻繩結 (Multi-wrapped jute knot) -->
+                    <ellipse cx="80" cy="23.5" rx="8.5" ry="7" fill="#6d4822" stroke="#482e14" stroke-width="1.2"/>
+                    <path d="M74 21 Q80 18 86 21 M73 24 Q80 21 87 24 M74 27 Q80 24 86 27" stroke="#caa77e" stroke-width="2.2" stroke-linecap="round"/>
+                    <path d="M75 20 Q80 18 85 20" stroke="#f5e6d2" stroke-width="1.2" stroke-linecap="round"/>
+                  </g>
+                </svg>
+              </div>
+
+              <!-- 上半頁 (Upper Panel: 115mm × 161mm) -->
+              <div class="card-panel-top">
+                <div class="top-header-section">
+                  <svg class="forest-garland-top" viewBox="0 0 240 30" fill="none">
+                    <path d="M10 20 Q60 6 120 15 Q180 6 230 20" stroke="#46674a" stroke-width="1.4" fill="none"/>
+                    <path d="M45 13 Q36 4 48 8 Q54 15 45 13" fill="#68856c"/>
+                    <path d="M75 11 Q78 2 87 9 Q83 17 75 11" fill="#46674a"/>
+                    <path d="M105 13 Q102 3 112 6 Q118 14 105 13" fill="#68856c"/>
+                    <path d="M135 13 Q138 3 128 6 Q122 14 135 13" fill="#68856c"/>
+                    <path d="M165 11 Q162 2 153 9 Q157 17 165 11" fill="#46674a"/>
+                    <path d="M195 13 Q204 4 192 8 Q186 15 195 13" fill="#68856c"/>
+                    <circle cx="120" cy="15" r="2.8" fill="#c59b4c"/>
+                  </svg>
+                  <div class="script-names-inside">Barry & Winnie</div>
+                </div>
+
+                <!-- 雙方主婚人與新人合署 -->
+                <div class="parents-host-block">
+                  <div class="couple-hero-names">
+                    <span class="role-prefix">新郎</span> 羅聖明
+                    <span class="heart-mid">♥</span>
+                    <span class="role-prefix">新娘</span> 戴婉錡
+                  </div>
+                  <div class="host-divider-line"></div>
+                  <div class="parents-names-row">
+                    <div>男方主婚人：<strong>羅茂松 · 張秀緞</strong><span class="honorific">敬邀</span></div>
+                    <div>女方主婚人：<strong>戴建勳 · 郭乃華</strong><span class="honorific">敬邀</span></div>
+                  </div>
+                </div>
+
+                <!-- 2026 年 12 月日曆 -->
+                <div class="calendar-wrapper">
+                  <div class="month-year-label">December 2026 · Save the Date</div>
+                  
+                  <table class="calendar-grid">
+                    <thead>
+                      <tr>
+                        <th>S</th>
+                        <th>M</th>
+                        <th>T</th>
+                        <th>W</th>
+                        <th>T</th>
+                        <th>F</th>
+                        <th>S</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                      </tr>
+                      <tr>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>10</td>
+                        <td>11</td>
+                        <td>
+                          <!-- 12/12 結婚日愛心標記 -->
+                          <span class="wedding-day-mark">
+                            <svg class="heart-svg-circle" viewBox="0 0 32 32">
+                              <path d="M16 26 C16 26, 6 18, 6 11 C6 7, 9 4, 13 4 C15 4, 16 5.5, 16 5.5 C16 5.5, 17 4, 19 4 C23 4, 26 7, 26 11 C26 18, 16 26, 16 26 Z"/>
+                            </svg>
+                            12
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>13</td>
+                        <td>14</td>
+                        <td>15</td>
+                        <td>16</td>
+                        <td>17</td>
+                        <td>18</td>
+                        <td>19</td>
+                      </tr>
+                      <tr>
+                        <td>20</td>
+                        <td>21</td>
+                        <td>22</td>
+                        <td>23</td>
+                        <td>24</td>
+                        <td>25</td>
+                        <td>26</td>
+                      </tr>
+                      <tr>
+                        <td>27</td>
+                        <td>28</td>
+                        <td>29</td>
+                        <td>30</td>
+                        <td>31</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- 中間折線與壓痕光影 (Realistic Paper Fold Crease) -->
+              <div class="card-crease-divider" title="中間折線 (Fold Line)"></div>
+
+              <!-- 下半頁 (Lower Panel: 115mm × 131mm) -->
+              <div class="card-panel-bottom">
+                <div class="wedding-date-banner">
+                  <div class="date-gregorian">2026 年 12 月 12 日（星期六）午宴</div>
+                </div>
+
+                <!-- 重要時程 -->
+                <div class="timeline-row">
+                  <div class="timeline-item">
+                    <div class="timeline-icon-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M8 22h8M12 15v7M5 3l7 8 7-8H5z" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </div>
+                    <div class="timeline-time">11:30</div>
+                    <div class="timeline-label">迎賓雞尾酒餐會</div>
+                  </div>
+
+                  <div class="timeline-item">
+                    <div class="timeline-icon-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M18 4v6a3 3 0 0 1-3 3v7M6 4v7a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V4M8 4v5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </div>
+                    <div class="timeline-time">12:00</div>
+                    <div class="timeline-label">盛宴開席</div>
+                  </div>
+                </div>
+
+                <!-- 地點資訊 -->
+                <div class="venue-block">
+                  <div class="venue-title">Amour 阿沐婚宴會館 · E 廳</div>
+                  <div class="venue-address">桃園市平鎮區延平路二段 371 號</div>
+                  <div class="venue-note">席設 E 廳 · 備有專用及特約免費停車場</div>
+                </div>
+
+                <div class="divider-dots">✦ ✦ ✦</div>
+
+                <!-- 著裝建議 (Dress Code) -->
+                <div class="dresscode-section">
+                  <div class="dresscode-header">
+                    <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
+                    DRESS CODE · 著裝建議
+                  </div>
+                  <div class="dresscode-theme-name">走進童話森林 · 派對穿搭</div>
+                  <div class="color-swatches-row">
+                    <div class="swatch-item">
+                      <div class="color-circle" style="background:#46674a;"></div>
+                      <span class="color-name-zh">綠色系</span>
+                    </div>
+                    <div class="swatch-item">
+                      <div class="color-circle" style="background:#a68565;"></div>
+                      <span class="color-name-zh">大地色</span>
+                    </div>
+                    <div class="swatch-item">
+                      <div class="color-circle" style="background:#c59b4c;"></div>
+                      <span class="color-name-zh">香檳金</span>
+                    </div>
+                    <div class="swatch-item">
+                      <div class="color-circle" style="background:#ea9da2;"></div>
+                      <span class="color-name-zh">粉紅色</span>
+                    </div>
+                    <div class="swatch-item">
+                      <div class="color-circle" style="background:#ffe066;"></div>
+                      <span class="color-name-zh">鵝黃色</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- 電子喜帖專屬實用互動功能區 -->
+            <div class="interactive-action-toolbar">
+              <div class="action-grid">
+                <a href="https://maps.google.com/?q=Amour+阿沐+桃園市平鎮區延平路二段371號" target="_blank" rel="noopener" class="action-btn primary">
+                  <span>📍</span> Google 地圖導航
+                </a>
+                <button onclick="addToCalendar()" class="action-btn accent">
+                  <span>📅</span> 加入行事曆
+                </button>
+                <button onclick="openModal('rsvpModal')" class="action-btn secondary">
+                  <span>💌</span> 出席回覆 RSVP
+                </button>
+                <button onclick="openModal('trafficModal')" class="action-btn secondary">
+                  <span>🚗</span> 交通與停車資訊
+                </button>
+              </div>
+
+              <!-- 摺回三折頁封面按鈕 -->
+              <button onclick="foldCenterCard(true)" class="back-to-trifold-btn" title="將長條卡重新合起為封面">
+                <span>↩️</span> 合上喜帖 (Fold Card)
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+        <!-- 右折頁：婚紗相片插槽 (Right Panel: Wedding Photo Slot) -->
+        <div class="trifold-flap trifold-flap-right" id="flap-right">
+          <div class="flap-header-label">
+            <span>📷</span> <span class="desktop-flap-prefix">Right Flap · </span><span>婚紗照珍藏</span>
+          </div>
+
+          <div class="photo-display-area">
+            <div class="photo-polaroid-frame">
+              <!-- 四角相片角 (Corner Mounts) -->
+              <div class="photo-corner tl"></div>
+              <div class="photo-corner tr"></div>
+              <div class="photo-corner bl"></div>
+              <div class="photo-corner br"></div>
+
+              <!-- 相片畫布 / 預留插卡 -->
+              <div class="photo-art-canvas" id="photoContainer">
+                <div class="photo-placeholder-content" id="photoPlaceholder">
+                  <svg class="photo-camera-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                    <circle cx="12" cy="13" r="4"/>
+                  </svg>
+                  <div class="photo-placeholder-title">Our Love Story</div>
+                  <div class="photo-placeholder-text">浪漫婚紗照 · 敬請期待</div>
+                  <div class="photo-badge-coming">PHOTO COMING SOON</div>
+                </div>
+                <img id="customPhotoImg" src="" alt="婚紗照" style="display:none;">
+              </div>
+
+              <div class="photo-caption-script">Barry & Winnie</div>
+            </div>
+
+            <!-- 本地即時預覽照片輔助按鈕 (方便新人測試) -->
+            <label class="photo-upload-helper" for="photoFileInput" title="新人可由此預覽自己的婚紗照片">
+              <span>🖼️</span> 點此更換 / 預覽婚紗照
+            </label>
+            <input type="file" id="photoFileInput" accept="image/*" style="display:none;" onchange="previewPhoto(event)">
+          </div>
+
+          <div class="flower-whisper-quote" style="margin-top:auto;">
+            “Journeys end in<br>lovers' meeting.”
+          </div>
+          <div class="flower-author">2026.12.12</div>
+        </div>
+
+        <!-- 手機版專屬底部功能工具列 (Mobile Story Bottom Action Toolbar) -->
+        <div class="interactive-action-toolbar mobile-story-toolbar" id="mobile-story-toolbar">
+          <div class="action-grid">
+            <a href="https://maps.google.com/?q=Amour+阿沐+桃園市平鎮區延平路二段371號" target="_blank" rel="noopener" class="action-btn primary">
+              <span>📍</span> Google 地圖導航
+            </a>
+            <button onclick="addToCalendar()" class="action-btn accent">
+              <span>📅</span> 加入行事曆
+            </button>
+            <button onclick="openModal('rsvpModal')" class="action-btn secondary">
+              <span>💌</span> 出席回覆 RSVP
+            </button>
+            <button onclick="openModal('trafficModal')" class="action-btn secondary">
+              <span>🚗</span> 交通與停車資訊
+            </button>
+          </div>
+
+          <!-- 摺回三折頁封面按鈕 -->
+          <button onclick="handleMobileBottomFoldToggle()" class="back-to-trifold-btn" id="btn-bottom-fold" title="合上喜帖 (Fold Card)">
+            <span>↩️</span> <span id="bottom-fold-text">合上喜帖 (Fold Card)</span>
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       5. 互動彈窗 (RSVP 意願調查表單)
+       ========================================================= -->
+  <div class="modal-overlay" id="rsvpModal" onclick="closeModalOnBackdrop(event, 'rsvpModal')">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('rsvpModal')">×</button>
+      <div class="modal-title">出席回覆 · RSVP</div>
+      <div class="modal-desc">誠摯感謝您的祝福！請協助填寫出席資訊，讓我們為您準備最合適的席位。</div>
+      
+      <form id="rsvpForm" onsubmit="submitRSVP(event)">
+        <div class="form-group">
+          <label for="rsvpName">您的尊姓大名 *</label>
+          <input type="text" id="rsvpName" class="form-input" placeholder="例如：王小明" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="rsvpAttend">出席意願 *</label>
+            <select id="rsvpAttend" class="form-select" required>
+              <option value="yes">準時出席</option>
+              <option value="blessing">心意同在（無法出席）</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="rsvpCount">出席總人數</label>
+            <select id="rsvpCount" class="form-select">
+              <option value="1">1 位</option>
+              <option value="2">2 位</option>
+              <option value="3">3 位</option>
+              <option value="4">4 位以上</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="rsvpDiet">飲食需求</label>
+            <select id="rsvpDiet" class="form-select">
+              <option value="meat">全葷食</option>
+              <option value="veg">全素食</option>
+              <option value="mix">葷素皆有</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="rsvpTraffic">交通方式</label>
+            <select id="rsvpTraffic" class="form-select">
+              <option value="drive">自行開車</option>
+              <option value="public">大眾運輸 / 接駁</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="rsvpNotes">給新人的祝福小語 💕</label>
+          <textarea id="rsvpNotes" class="form-textarea" rows="3" placeholder="留下您想對 Barry & Winnie 說的話..."></textarea>
+        </div>
+
+        <button type="submit" class="form-submit-btn">送出出席回覆</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 交通指引彈窗 -->
+  <div class="modal-overlay" id="trafficModal" onclick="closeModalOnBackdrop(event, 'trafficModal')">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('trafficModal')">×</button>
+      <div class="modal-title">交通與停車指引</div>
+      <div class="modal-desc">Amour 阿沐會館（桃園市平鎮區延平路二段 371 號）</div>
+      
+      <div style="font-size:0.86rem; color:#4a3e35; line-height:1.7; display:flex; flex-direction:column; gap:12px; text-align:left;">
+        <div>
+          <strong style="color:var(--forest-dark);">🚗 自行開車：</strong><br>
+          國道一號中壢交流道下，往平鎮方向沿延平路行駛約 5 分鐘即可抵達。
+        </div>
+        <div>
+          <strong style="color:var(--forest-dark);">🅿️ 免費停車資訊：</strong><br>
+          會館備有專用地下平面停車場及特約停車場，賓客入場可免費停車。
+        </div>
+        <div>
+          <strong style="color:var(--forest-dark);">🚆 高鐵 / 台鐵轉乘：</strong><br>
+          搭乘高鐵至桃園站，轉乘計程車約 15 分鐘；或搭乘台鐵至中壢火車站，轉搭公車 1 號、110 號至「宋屋國小」站下車步行 2 分鐘。
+        </div>
+      </div>
+
+      <div style="margin-top:20px;">
+        <a href="https://maps.google.com/?q=Amour+阿沐+桃園市平鎮區延平路二段371號" target="_blank" rel="noopener" class="action-btn primary" style="width:100%;">
+          開啟 Google Maps 路線導航
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript 互動腳本 -->
+  <script>
+    // 1. 擬真物理音效系統 (Web Audio API)
+    let audioCtx = null;
+    let isSoundEnabled = true;
+
+    function playTwinePullSound() {
+      if (!isSoundEnabled) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const now = audioCtx.currentTime;
+
+        // 音效 A：溫柔絲滑拉繩微音 (Soft Gentle Twine Glide)
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(240, now);
+        osc.frequency.exponentialRampToValueAtTime(150, now + 0.65);
+        
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.linearRampToValueAtTime(0.07, now + 0.12);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.65);
+        
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.68);
+
+        // 音效 B：三折頁展開浪漫暖心豎琴琶音 (Romantic Harp Arpeggio)
+        const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51]; // C5, E5, G5, C6, E6
+        notes.forEach((freq, idx) => {
+          const chimeOsc = audioCtx.createOscillator();
+          const chimeGain = audioCtx.createGain();
+          chimeOsc.type = 'sine';
+          chimeOsc.frequency.value = freq;
+          const startTime = now + 0.45 + idx * 0.09;
+          chimeGain.gain.setValueAtTime(0.0001, startTime);
+          chimeGain.gain.exponentialRampToValueAtTime(0.12, startTime + 0.04);
+          chimeGain.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.85);
+          chimeOsc.connect(chimeGain);
+          chimeGain.connect(audioCtx.destination);
+          chimeOsc.start(startTime);
+          chimeOsc.stop(startTime + 0.9);
+        });
+      } catch (e) {
+        console.log('Audio not supported or permitted', e);
+      }
+    }
+
+    function playPaperUnfoldSound() {
+      if (!isSoundEnabled) return;
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const now = audioCtx.currentTime;
+
+        // 模擬高級紙張輕柔展開的紙質摩擦微音 (Tactile Paper Rustle)
+        const bufferSize = Math.floor(audioCtx.sampleRate * 0.22);
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = Math.random() * 2 - 1;
+        }
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = buffer;
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(800, now);
+        filter.frequency.exponentialRampToValueAtTime(1600, now + 0.18);
+        filter.Q.value = 1.4;
+
+        const gain = audioCtx.createGain();
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.linearRampToValueAtTime(0.06, now + 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.22);
+
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioCtx.destination);
+        noise.start(now);
+
+        // 伴隨輕柔清澈的和弦琶音 (Gentle Chime)
+        const notes = [659.25, 783.99, 1046.50]; // E5, G5, C6
+        notes.forEach((freq, idx) => {
+          const osc = audioCtx.createOscillator();
+          const g = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.value = freq;
+          const st = now + 0.12 + idx * 0.06;
+          g.gain.setValueAtTime(0.0001, st);
+          g.gain.exponentialRampToValueAtTime(0.08, st + 0.03);
+          g.gain.exponentialRampToValueAtTime(0.0001, st + 0.6);
+          osc.connect(g);
+          g.connect(audioCtx.destination);
+          osc.start(st);
+          osc.stop(st + 0.65);
+        });
+      } catch (e) {
+        console.log('Audio not supported or permitted', e);
+      }
+    }
+
+    function playPaperFoldSound() {
+      if (!isSoundEnabled) return;
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const now = audioCtx.currentTime;
+
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(320, now);
+        osc.frequency.exponentialRampToValueAtTime(180, now + 0.18);
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.linearRampToValueAtTime(0.05, now + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.2);
+      } catch (e) {
+        console.log('Audio not supported or permitted', e);
+      }
+    }
+
+    function toggleAudio() {
+      isSoundEnabled = !isSoundEnabled;
+      document.getElementById('sound-icon').textContent = isSoundEnabled ? '🔔' : '🔕';
+      document.getElementById('btn-sound').style.opacity = isSoundEnabled ? '1' : '0.6';
+    }
+
+    // 2. 階段切換與長條卡掀開/合上邏輯 (Stage & Unfold Management)
+    let currentStage = 'package';
+    let isCenterCardUnfolded = false;
+    let isCardAnimating = false;
+
+    function unfoldCenterCard(playAudio = true) {
+      if (isCenterCardUnfolded || isCardAnimating) return;
+      isCardAnimating = true;
+      isCenterCardUnfolded = true;
+      currentStage = 'card';
+
+      if (playAudio) {
+        playPaperUnfoldSound();
+      }
+
+      // 更新頂部導覽列按鈕為「展開喜帖」
+      document.querySelectorAll('.step-pill').forEach(btn => btn.classList.remove('active'));
+      const cardBtn = document.getElementById('btn-step-card');
+      if (cardBtn) cardBtn.classList.add('active');
+
+      // 更新折頁標題
+      const flapTitle = document.getElementById('center-flap-title');
+      const flapIcon = document.getElementById('center-flap-icon');
+      if (flapTitle) flapTitle.textContent = '喜帖內頁展開';
+      if (flapIcon) flapIcon.textContent = '📜';
+
+      const foldedView = document.getElementById('card-folded-view');
+      const unfoldedView = document.getElementById('card-unfolded-view');
+
+      if (foldedView && unfoldedView) {
+        foldedView.classList.add('is-lifting');
+
+        setTimeout(() => {
+          foldedView.style.display = 'none';
+          foldedView.classList.remove('is-lifting');
+
+          unfoldedView.style.display = 'flex';
+          unfoldedView.classList.add('is-opening');
+
+          setTimeout(() => {
+            unfoldedView.classList.remove('is-opening');
+            isCardAnimating = false;
+          }, 650);
+        }, 200);
+      } else {
+        isCardAnimating = false;
+      }
+    }
+
+    function foldCenterCard(playAudio = true) {
+      if (!isCenterCardUnfolded || isCardAnimating) return;
+      isCardAnimating = true;
+      isCenterCardUnfolded = false;
+      currentStage = 'trifold';
+
+      if (playAudio) {
+        playPaperFoldSound();
+      }
+
+      // 更新頂部導覽列按鈕回「三折頁」
+      document.querySelectorAll('.step-pill').forEach(btn => btn.classList.remove('active'));
+      const trifoldBtn = document.getElementById('btn-step-trifold');
+      if (trifoldBtn) trifoldBtn.classList.add('active');
+
+      // 更新折頁標題
+      const flapTitle = document.getElementById('center-flap-title');
+      const flapIcon = document.getElementById('center-flap-icon');
+      if (flapTitle) flapTitle.textContent = '喜帖封面';
+      if (flapIcon) flapIcon.textContent = '💌';
+
+      const foldedView = document.getElementById('card-folded-view');
+      const unfoldedView = document.getElementById('card-unfolded-view');
+
+      if (foldedView && unfoldedView) {
+        unfoldedView.classList.add('is-closing');
+
+        setTimeout(() => {
+          unfoldedView.style.display = 'none';
+          unfoldedView.classList.remove('is-closing');
+
+          foldedView.style.display = 'flex';
+          foldedView.classList.add('is-landing');
+
+          // 平滑捲回卡片頂部
+          const centerFlap = document.getElementById('flap-center');
+          if (centerFlap) {
+            centerFlap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+
+          setTimeout(() => {
+            foldedView.classList.remove('is-landing');
+            isCardAnimating = false;
+          }, 400);
+        }, 220);
+      } else {
+        isCardAnimating = false;
+      }
+    }
+
+    function goToStage(stageName) {
+      currentStage = stageName;
+      
+      const pkg = document.getElementById('stage-package');
+      const trifold = document.getElementById('stage-trifold');
+      
+      // 更新導覽列按鈕
+      document.querySelectorAll('.step-pill').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById(`btn-step-${stageName}`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      if (stageName === 'package') {
+        pkg.style.display = 'flex';
+        trifold.style.display = 'none';
+        resetRopeToInitial();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (stageName === 'trifold') {
+        pkg.style.display = 'none';
+        trifold.style.display = 'flex';
+        // 如果長條卡當前處於展開狀態，則優雅合上回封面
+        if (isCenterCardUnfolded) {
+          foldCenterCard(false);
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (stageName === 'card') {
+        pkg.style.display = 'none';
+        trifold.style.display = 'flex'; // 底層三折頁維持顯示！
+        // 如果長條卡處於折疊狀態，則執行動畫掀開
+        if (!isCenterCardUnfolded) {
+          unfoldCenterCard(true);
+        }
+        showMobileFlap('center');
+      }
+    }
+
+    // 手機版直式故事流快速導航 (Mobile Story Smooth Scroll)
+    function showMobileFlap(flapName) {
+      const targetFlap = document.getElementById(`flap-${flapName}`);
+      if (targetFlap) {
+        targetFlap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    // 手機版底部工具列「合上 / 回到喜帖」按鈕處理
+    function handleMobileBottomFoldToggle() {
+      if (isCenterCardUnfolded) {
+        foldCenterCard(true);
+      }
+      const centerFlap = document.getElementById('flap-center');
+      if (centerFlap) {
+        centerFlap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    // =========================================================
+    // 3. 物理擬真「抽出蝴蝶結後直接化為一條優雅捲曲麻繩抽離」系統
+    // (Single Continuous Curly Twine Physics Engine: Unspools into One Wavy Cord)
+    // =========================================================
+    let isUntying = false;
+    let untieAnimationId = null;
+
+    // 計算帶有真實繩結記憶、微捲波紋與活結線圈的單一麻繩曲線 (Natural Corkscrew & Ripple Path)
+    function generateCurlyTwine(startX, startY, endX, endY, waveIntensity, ripplePhase) {
+      const dx = endX - startX;
+      const dy = endY - startY;
+      const len = Math.hypot(dx, dy);
+      if (len < 5) return `M ${startX} ${startY} L ${endX} ${endY}`;
+
+      const ux = dx / len;
+      const uy = dy / len;
+      const nx = -uy;
+      const ny = ux;
+
+      const N = 36;
+      const pts = [];
+
+      for (let i = 0; i <= N; i++) {
+        const t = i / N;
+        const baseDist = len * t;
+
+        // 全長自然起伏波浪 (Harmonic cord ripples)
+        let wave = Math.sin(t * Math.PI * 4 + ripplePhase) * 22 * waveIntensity;
+
+        // 原蝴蝶結繩圈解開處（t ~ 0.35）形成的彈性微捲線圈 (Unraveled loop coil)
+        const loopDist = Math.abs(t - 0.35);
+        if (loopDist < 0.16) {
+          const bell = Math.cos((loopDist / 0.16) * (Math.PI / 2));
+          wave += Math.sin((t - 0.35) * 22) * 32 * bell * waveIntensity;
+        }
+
+        // 原中心打結處（t ~ 0.65）解開時留下的折痕扭力 (Knot kink memory)
+        const knotDist = Math.abs(t - 0.65);
+        if (knotDist < 0.14) {
+          const bell = Math.cos((knotDist / 0.14) * (Math.PI / 2));
+          wave -= Math.sin((t - 0.65) * 24) * 24 * bell * waveIntensity;
+        }
+
+        // 兩端端點自然收斂至固定錨點
+        const taper = Math.sin(t * Math.PI);
+        const offset = wave * Math.pow(taper, 0.7);
+
+        pts.push({
+          x: startX + ux * baseDist + nx * offset,
+          y: startY + uy * baseDist + ny * offset
+        });
+      }
+
+      let d = `M ${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
+      for (let i = 1; i < pts.length; i++) {
+        const p0 = pts[i - 1];
+        const p1 = pts[i];
+        const mx = (p0.x + p1.x) / 2;
+        const my = (p0.y + p1.y) / 2;
+        d += ` Q ${p0.x.toFixed(1)} ${p0.y.toFixed(1)} ${mx.toFixed(1)} ${my.toFixed(1)}`;
+      }
+      d += ` L ${endX.toFixed(1)} ${endY.toFixed(1)}`;
+      return d;
+    }
+
+    function resetRopeToInitial() {
+      if (untieAnimationId) {
+        cancelAnimationFrame(untieAnimationId);
+        untieAnimationId = null;
+      }
+      isUntying = false;
+
+      const armTop = document.getElementById('arm-top');
+      const armTopDark = document.getElementById('arm-top-dark');
+      const armTopTex = document.getElementById('arm-top-tex');
+      const armTopLight = document.getElementById('arm-top-light');
+      const armBottom = document.getElementById('arm-bottom');
+      const armBottomDark = document.getElementById('arm-bottom-dark');
+      const armBottomTex = document.getElementById('arm-bottom-tex');
+      const armBottomLight = document.getElementById('arm-bottom-light');
+      const verticalArms = document.getElementById('vertical-arms');
+
+      if (verticalArms) {
+        verticalArms.style.display = '';
+        verticalArms.style.opacity = '1';
+      }
+      [armTop, armTopDark, armTopTex, armTopLight].forEach(el => {
+        if (el) el.setAttribute('d', 'M 230 40 L 230 300');
+      });
+      [armBottom, armBottomDark, armBottomTex, armBottomLight].forEach(el => {
+        if (el) el.setAttribute('d', 'M 230 300 L 230 560');
+      });
+
+      const mainBase = document.getElementById('main-cord-base');
+      const mainDark = document.getElementById('main-cord-dark');
+      const mainTex = document.getElementById('main-cord-tex');
+      const mainLight = document.getElementById('main-cord-light');
+      [mainBase, mainDark, mainTex, mainLight].forEach(el => {
+        if (el) el.setAttribute('d', 'M 40 300 L 420 300');
+      });
+
+      const bowGroup = document.getElementById('bow-group');
+      if (bowGroup) {
+        bowGroup.style.display = '';
+        bowGroup.style.opacity = '1';
+      }
+
+      const loopRight = document.getElementById('bow-loop-right');
+      if (loopRight) {
+        loopRight.style.transform = '';
+        loopRight.style.opacity = '1';
+      }
+
+      const loopLeft = document.getElementById('bow-loop-left');
+      if (loopLeft) {
+        loopLeft.style.transform = '';
+        loopLeft.style.opacity = '1';
+      }
+
+      const knot = document.getElementById('bow-knot');
+      if (knot) {
+        knot.style.transform = '';
+        knot.style.opacity = '1';
+      }
+
+      const tailLeft = document.getElementById('bow-tail-left');
+      if (tailLeft) {
+        tailLeft.style.transform = '';
+        tailLeft.style.opacity = '1';
+      }
+
+      const tailRight = document.getElementById('bow-tail-right');
+      if (tailRight) {
+        tailRight.style.transform = '';
+        tailRight.style.opacity = '1';
+      }
+
+      const pullBead = document.getElementById('pull-bead');
+      const pullBeadIn = document.getElementById('pull-bead-inner');
+      if (pullBead) {
+        pullBead.setAttribute('cx', '295');
+        pullBead.setAttribute('cy', '390');
+      }
+      if (pullBeadIn) {
+        pullBeadIn.setAttribute('cx', '295');
+        pullBeadIn.setAttribute('cy', '390');
+      }
+
+      const tag = document.getElementById('package-tag');
+      if (tag) {
+        tag.style.transform = 'translate(-50%, -50%) rotate(-6deg)';
+        tag.style.opacity = '1';
+      }
+
+      const box = document.getElementById('package-box');
+      if (box) {
+        box.style.transform = '';
+        box.style.opacity = '1';
+      }
+
+      const pkg = document.getElementById('stage-package');
+      if (pkg) {
+        pkg.classList.remove('is-untying');
+      }
+    }
+
+    function untieAndOpen() {
+      if (isUntying) return;
+      isUntying = true;
+
+      const pkg = document.getElementById('stage-package');
+      if (pkg) pkg.classList.add('is-untying');
+
+      playTwinePullSound();
+
+      const armTop = document.getElementById('arm-top');
+      const armTopDark = document.getElementById('arm-top-dark');
+      const armTopTex = document.getElementById('arm-top-tex');
+      const armTopLight = document.getElementById('arm-top-light');
+      const armBottom = document.getElementById('arm-bottom');
+      const armBottomDark = document.getElementById('arm-bottom-dark');
+      const armBottomTex = document.getElementById('arm-bottom-tex');
+      const armBottomLight = document.getElementById('arm-bottom-light');
+      const verticalArms = document.getElementById('vertical-arms');
+
+      const mainBase = document.getElementById('main-cord-base');
+      const mainDark = document.getElementById('main-cord-dark');
+      const mainTex = document.getElementById('main-cord-tex');
+      const mainLight = document.getElementById('main-cord-light');
+
+      const loopRight = document.getElementById('bow-loop-right');
+      const loopLeft = document.getElementById('bow-loop-left');
+      const knot = document.getElementById('bow-knot');
+      const tailRight = document.getElementById('bow-tail-right');
+      const tailLeft = document.getElementById('bow-tail-left');
+      const bowGroup = document.getElementById('bow-group');
+
+      const pullBead = document.getElementById('pull-bead');
+      const pullBeadIn = document.getElementById('pull-bead-inner');
+      const tag = document.getElementById('package-tag');
+      const box = document.getElementById('package-box');
+
+      const startTime = performance.now();
+      const duration = 1250; // 1.25s 溫柔優雅的抽出與捲曲抽離
+
+      const easeInOutCubic = t => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+
+      function frame(now) {
+        const elapsed = now - startTime;
+        const p = Math.min(1, elapsed / duration);
+
+        // ========================================================
+        // 1. 右側活結繩圈與繩尾拉拔 (p = 0 ~ 0.32)
+        // ========================================================
+        const loopP = Math.min(1, p / 0.30);
+        const loopScale = Math.max(0, 1 - loopP);
+        if (loopRight) {
+          loopRight.style.transformOrigin = '230px 300px';
+          loopRight.style.transform = `scale(${loopScale}, ${loopScale * 0.8}) rotate(${loopP * 12}deg)`;
+          loopRight.style.opacity = loopScale > 0.05 ? '1' : '0';
+        }
+
+        const tailStretch = 1 + loopP * 0.75;
+        if (tailRight) {
+          tailRight.style.transformOrigin = '230px 300px';
+          tailRight.style.transform = `scale(1, ${tailStretch}) rotate(${loopP * 16}deg)`;
+        }
+
+        // ========================================================
+        // 2. 活結解開瞬間：垂直綁帶脫扣並縮入主繩 (p = 0.25 ~ 0.45)
+        // ========================================================
+        if (p < 0.25) {
+          if (knot) {
+            knot.style.transformOrigin = '230px 300px';
+            knot.style.transform = `rotate(${p * 20}deg)`;
+          }
+        } else if (p <= 0.45) {
+          const morphP = (p - 0.25) / 0.20;
+          const easedMorph = Math.pow(morphP, 1.4);
+
+          // 頂端與底端綁線自然順著抽拉力道向右微傾，順勢收束融入結心
+          const topY = 40 + easedMorph * 260;
+          const bottomY = 560 - easedMorph * 260;
+          const topCurvX = 230 + morphP * 35;
+          const botCurvX = 230 + morphP * 35;
+
+          const topPath = `M 230 ${topY} Q ${topCurvX} ${(topY + 300) / 2} 230 300`;
+          const botPath = `M 230 300 Q ${botCurvX} ${(bottomY + 300) / 2} 230 ${bottomY}`;
+
+          [armTop, armTopDark, armTopTex, armTopLight].forEach(el => {
+            if (el) el.setAttribute('d', topPath);
+          });
+          [armBottom, armBottomDark, armBottomTex, armBottomLight].forEach(el => {
+            if (el) el.setAttribute('d', botPath);
+          });
+
+          if (verticalArms) verticalArms.style.opacity = Math.max(0, 1 - morphP);
+
+          // 左側繩圈舒展為柔軟波紋絲帶，隨後融入單一捲曲主繩
+          if (loopLeft) {
+            loopLeft.style.transformOrigin = '230px 300px';
+            loopLeft.style.transform = `scale(${1 + morphP * 0.2}, ${Math.max(0, 1 - morphP)}) rotate(-${morphP * 25}deg)`;
+            loopLeft.style.opacity = Math.max(0, 1 - morphP);
+          }
+          if (tailLeft) tailLeft.style.opacity = Math.max(0, 1 - morphP);
+          if (tailRight) tailRight.style.opacity = Math.max(0, 1 - morphP);
+
+          if (knot) {
+            knot.style.transformOrigin = '230px 300px';
+            knot.style.transform = `scale(${Math.max(0, 1 - morphP)}) rotate(${8 + morphP * 25}deg)`;
+            knot.style.opacity = Math.max(0, 1 - morphP);
+          }
+        } else {
+          if (verticalArms) verticalArms.style.display = 'none';
+          if (bowGroup) bowGroup.style.display = 'none';
+        }
+
+        // ========================================================
+        // 3. 所有繩段直接化為「一條生動優雅的單一捲曲麻繩」順暢抽離！
+        // (All segments directly become ONE SINGLE CURLY TWINE!)
+        // ========================================================
+        if (p < 0.25) {
+          [mainBase, mainDark, mainTex, mainLight].forEach(el => {
+            if (el) el.setAttribute('d', 'M 40 300 L 420 300');
+          });
+        } else {
+          const waveGrowth = Math.min(1, (p - 0.25) / 0.15); // 0.25 ~ 0.40 迅速綻放出自然捲曲波形
+          const pullP = Math.max(0, (p - 0.35) / 0.65); // 0.35 ~ 1.0 全線被拉動移出
+          const easedPull = Math.pow(pullP, 1.45);
+
+          // 單一捲曲麻繩尾端：從左側邊緣 (40, 300) 像靈動絲帶般滑過整個牛皮紙盒，向右抽離至 (740)
+          const startX = 40 + easedPull * 700;
+          const startY = 300 + Math.sin(pullP * Math.PI) * 45;
+
+          // 單一捲曲麻繩前端：由原結尾處向右下流暢牽引抽離
+          const endX = 295 + Math.pow(pullP, 1.2) * 650;
+          const endY = 390 + pullP * 90;
+
+          // 捲曲波紋強度：剛解開時擁有最豐富的繩結迴旋波紋，隨拉扯張力自然舒張
+          const waveIntensity = waveGrowth * Math.max(0.28, 1 - pullP * 0.65);
+          const ripplePhase = pullP * 10;
+
+          const curlyD = generateCurlyTwine(startX, startY, endX, endY, waveIntensity, ripplePhase);
+          [mainBase, mainDark, mainTex, mainLight].forEach(el => {
+            if (el) el.setAttribute('d', curlyD);
+          });
+
+          if (pullBead) {
+            pullBead.setAttribute('cx', endX);
+            pullBead.setAttribute('cy', endY);
+          }
+          if (pullBeadIn) {
+            pullBeadIn.setAttribute('cx', endX);
+            pullBeadIn.setAttribute('cy', endY);
+          }
+
+          // 吊牌隨同單一麻繩拉動自然移出
+          if (pullP > 0 && tag) {
+            const tagShiftX = (endX - 295) * 0.42;
+            const tagShiftY = (endY - 390) * 0.42;
+            tag.style.transform = `translate(calc(-50% + ${tagShiftX}px), calc(-50% + ${tagShiftY}px)) rotate(${-6 + pullP * 30}deg)`;
+            tag.style.opacity = Math.max(0, 1 - Math.max(0, (pullP - 0.45) / 0.35));
+          }
+
+          // 包裝紙盒在麻繩抽離時，在 3D 空間呼吸展開
+          if (pullP > 0.15 && box) {
+            const boxP = (pullP - 0.15) / 0.85;
+            const easedBox = easeInOutCubic(boxP);
+            box.style.transform = `scale(${1 + easedBox * 0.05}) rotateY(${easedBox * 12}deg)`;
+            box.style.opacity = Math.max(0, 1 - Math.max(0, (boxP - 0.7) / 0.3));
+          }
+        }
+
+        if (p < 1) {
+          untieAnimationId = requestAnimationFrame(frame);
+        } else {
+          untieAnimationId = null;
+          goToStage('trifold');
+        }
+      }
+
+      untieAnimationId = requestAnimationFrame(frame);
+    }
+
+    // 支援手勢拖曳拉動 (Touch / Mouse Dragging & Pulling)
+    let isPulling = false;
+    let pullStartX = 0;
+    let pullStartY = 0;
+    let pullDist = 0;
+
+    const pkgEl = document.getElementById('stage-package');
+    const pullTailEl = document.getElementById('bow-tail-right');
+
+    if (pkgEl) {
+      pkgEl.addEventListener('pointerdown', (e) => {
+        if (isUntying) return;
+        isPulling = true;
+        pullStartX = e.clientX;
+        pullStartY = e.clientY;
+        pullDist = 0;
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        if (!isPulling || isUntying) return;
+        const dx = Math.max(0, e.clientX - pullStartX);
+        const dy = Math.max(0, e.clientY - pullStartY);
+        pullDist = Math.sqrt(dx * dx + dy * dy);
+
+        if (pullDist > 4 && pullDist < 55) {
+          const progress = pullDist / 55;
+          if (pullTailEl) {
+            pullTailEl.style.transformOrigin = '230px 300px';
+            pullTailEl.style.transform = `scale(1, ${1 + progress * 0.35}) rotate(${progress * 20}deg)`;
+          }
+          const rightLoop = document.getElementById('bow-loop-right');
+          if (rightLoop) {
+            rightLoop.style.transformOrigin = '230px 300px';
+            rightLoop.style.transform = `scale(${1 - progress * 0.45}, ${1 - progress * 0.35})`;
+          }
+          const knot = document.getElementById('bow-knot');
+          if (knot) {
+            knot.style.transformOrigin = '230px 300px';
+            knot.style.transform = `rotate(${progress * 8}deg)`;
+          }
+        } else if (pullDist >= 55) {
+          isPulling = false;
+          untieAndOpen();
+        }
+      });
+
+      window.addEventListener('pointerup', () => {
+        if (!isPulling || isUntying) return;
+        isPulling = false;
+        if (pullDist >= 28) {
+          untieAndOpen();
+        } else {
+          // 未達抽拉門檻，柔和彈回原位
+          if (pullTailEl) {
+            pullTailEl.style.transition = 'transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)';
+            pullTailEl.style.transform = '';
+          }
+          const rightLoop = document.getElementById('bow-loop-right');
+          if (rightLoop) {
+            rightLoop.style.transition = 'transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)';
+            rightLoop.style.transform = '';
+          }
+          const knot = document.getElementById('bow-knot');
+          if (knot) {
+            knot.style.transition = 'transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)';
+            knot.style.transform = '';
+          }
+          setTimeout(() => {
+            if (pullTailEl) pullTailEl.style.transition = '';
+            if (rightLoop) rightLoop.style.transition = '';
+            if (knot) knot.style.transition = '';
+          }, 260);
+        }
+      });
+
+      // 點擊事件後備
+      pkgEl.addEventListener('click', () => {
+        if (!isUntying && pullDist < 10) {
+          untieAndOpen();
+        }
+      });
+    }
+
+    // =========================================================
+    // 4. 乾燥花樣式隨機抽取與輪播互動 (Botanical Dried Flower Styles)
+    // =========================================================
+    const DRIED_FLOWERS = [
+      {
+        id: 'lavender',
+        name: '手作乾燥薰衣草',
+        icon: '🌿',
+        png: 'assets/dried_lavender_sprig.png',
+        webp: 'assets/dried_lavender_sprig.webp',
+        quote: '“Where love blooms,<br>hope blossoms.”',
+        meaning: '花語 · 等待愛情與長相廝守'
+      },
+      {
+        id: 'bunnytail',
+        name: '手作乾燥兔尾草',
+        icon: '🌾',
+        png: 'assets/dried_bunnytail_sprig.png',
+        webp: 'assets/dried_bunnytail_sprig.webp',
+        quote: '“In your gentle love,<br>I found my forever home.”',
+        meaning: '花語 · 在溫柔的愛裡找到歸宿'
+      },
+      {
+        id: 'eucalyptus',
+        name: '手作乾燥尤加利葉',
+        icon: '🍃',
+        png: 'assets/dried_eucalyptus_sprig.png',
+        webp: 'assets/dried_eucalyptus_sprig.webp',
+        quote: '“A gift from nature,<br>a promise for eternity.”',
+        meaning: '花語 · 來自自然的恩賜與守候'
+      },
+      {
+        id: 'gypsophila',
+        name: '手作乾燥滿天星',
+        icon: '✨',
+        png: 'assets/dried_gypsophila_sprig.png',
+        webp: 'assets/dried_gypsophila_sprig.webp',
+        quote: '“Among the vast stars,<br>my heart found only you.”',
+        meaning: '花語 · 繁星璀璨，唯獨鍾情於你'
+      }
+    ];
+
+    let currentFlowerIndex = Math.floor(Math.random() * DRIED_FLOWERS.length);
+
+    function applyFlower(index, animate = false) {
+      const flower = DRIED_FLOWERS[index];
+      if (!flower) return;
+      currentFlowerIndex = index;
+
+      const imgEl = document.getElementById('flower-img');
+      const webpSource = document.getElementById('flower-source-webp');
+      const nameEl = document.getElementById('flower-name');
+      const iconEl = document.getElementById('flower-icon');
+      const quoteEl = document.getElementById('flower-quote');
+      const meaningEl = document.getElementById('flower-meaning');
+
+      if (animate && imgEl) {
+        imgEl.classList.add('is-changing');
+        if (quoteEl) quoteEl.style.opacity = '0';
+        if (meaningEl) meaningEl.style.opacity = '0';
+
+        setTimeout(() => {
+          if (webpSource) webpSource.srcset = flower.webp;
+          if (imgEl) {
+            imgEl.src = flower.png;
+            imgEl.alt = flower.name;
+          }
+          if (nameEl) nameEl.textContent = flower.name;
+          if (iconEl) iconEl.textContent = flower.icon;
+          if (quoteEl) {
+            quoteEl.innerHTML = flower.quote;
+            quoteEl.style.opacity = '1';
+          }
+          if (meaningEl) {
+            meaningEl.textContent = flower.meaning;
+            meaningEl.style.opacity = '1';
+          }
+          imgEl.classList.remove('is-changing');
+        }, 220);
+      } else {
+        if (webpSource) webpSource.srcset = flower.webp;
+        if (imgEl) {
+          imgEl.src = flower.png;
+          imgEl.alt = flower.name;
+        }
+        if (nameEl) nameEl.textContent = flower.name;
+        if (iconEl) iconEl.textContent = flower.icon;
+        if (quoteEl) {
+          quoteEl.innerHTML = flower.quote;
+          quoteEl.style.opacity = '1';
+        }
+        if (meaningEl) {
+          meaningEl.textContent = flower.meaning;
+          meaningEl.style.opacity = '1';
+        }
+      }
+    }
+
+    function cycleNextFlower(event) {
+      if (event) {
+        event.stopPropagation();
+      }
+      const nextIndex = (currentFlowerIndex + 1) % DRIED_FLOWERS.length;
+      applyFlower(nextIndex, true);
+    }
+
+    // 初始化：每次開啟網頁隨機選取一款乾燥花樣式展示
+    applyFlower(currentFlowerIndex, false);
+
+    // 5. 婚紗相片本地即時預覽 (新人專用)
+    function previewPhoto(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.getElementById('customPhotoImg');
+        const placeholder = document.getElementById('photoPlaceholder');
+        img.src = e.target.result;
+        img.style.display = 'block';
+        placeholder.style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // 6. 加入行事曆功能
+    function addToCalendar() {
+      const title = encodeURIComponent("羅聖明 ♥ 戴婉錡 婚禮盛宴");
+      const location = encodeURIComponent("Amour 阿沐會館 (桃園市平鎮區延平路二段371號)");
+      const details = encodeURIComponent("誠摯邀請您見證 Barry & Winnie 的幸福時刻！\n11:30 迎賓雞尾酒餐會\n12:00 盛宴開席");
+      const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261212T033000Z/20261212T073000Z&details=${details}&location=${location}`;
+      
+      // 建立 .ics 檔案下載
+      const icsData = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "BEGIN:VEVENT",
+        "SUMMARY:羅聖明 ♥ 戴婉錡 婚禮盛宴 (Barry & Winnie)",
+        "DESCRIPTION:11:30 迎賓雞尾酒餐會，12:00 盛宴開席。中壢水漾森林 (Amour 阿沐會館)",
+        "LOCATION:桃園市平鎮區延平路二段371號",
+        "DTSTART:20261212T033000Z",
+        "DTEND:20261212T073000Z",
+        "STATUS:CONFIRMED",
+        "END:VEVENT",
+        "END:VCALENDAR"
+      ].join("\r\n");
+
+      if (confirm("是否立即將婚禮加入 Google 行事曆？\n（點取消則下載通用 .ics 檔案至手機/電腦）")) {
+        window.open(googleCalUrl, '_blank');
+      } else {
+        const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.setAttribute('download', 'Barry_Winnie_Wedding_20261212.ics');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    }
+
+    // 7. 彈窗控制
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.add('active');
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.remove('active');
+    }
+
+    function closeModalOnBackdrop(event, id) {
+      if (event.target.id === id) {
+        closeModal(id);
+      }
+    }
+
+    // 8. 出席表單處理
+    function submitRSVP(event) {
+      event.preventDefault();
+      const name = document.getElementById('rsvpName').value;
+      const count = document.getElementById('rsvpCount').value;
+      const attend = document.getElementById('rsvpAttend').value === 'yes' ? '準時出席' : '心意同在';
+      
+      const rsvpData = {
+        name: name,
+        attend: attend,
+        count: count,
+        diet: document.getElementById('rsvpDiet').value,
+        traffic: document.getElementById('rsvpTraffic').value,
+        notes: document.getElementById('rsvpNotes').value,
+        time: new Date().toISOString()
+      };
+      
+      localStorage.setItem('wedding_rsvp_' + name, JSON.stringify(rsvpData));
+      
+      alert(`親愛的 ${name}，已成功記錄您的出席回覆（${attend}）！\n期待與您在童話森林相見！💕`);
+      closeModal('rsvpModal');
+      document.getElementById('rsvpForm').reset();
+    }
+  </script>
+</body>
+</html>
