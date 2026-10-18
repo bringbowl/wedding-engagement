@@ -542,6 +542,8 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
+      min-height: 175px;
+      contain: layout paint;
     }
 
     .focus-v-row {
@@ -554,9 +556,9 @@
       padding: 4px 8px;
       min-height: 29px;
       font-size: 0.74rem;
-      transition: all 0.25s ease;
       box-shadow: 0 1px 3px rgba(65, 45, 26, 0.04);
       box-sizing: border-box;
+      will-change: contents;
     }
 
     .focus-v-row.is-champ {
@@ -838,7 +840,9 @@
       border: 1.5px solid rgba(197, 155, 76, 0.45);
       border-radius: 18px;
       cursor: pointer;
-      transition: transform 0.08s ease;
+      contain: paint layout;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
     }
 
     /* 森林晨曦丁達爾光柱 (God-rays Atmosphere) */
@@ -3016,6 +3020,7 @@
         });
 
         // 監聽全體隊伍即時數據變更（超車、步數、人數變動秒級同步）
+        let cloudUiRaf = null;
         rtdb.ref('teams').on('value', snap => {
           const cloudTeams = snap.val();
           if (cloudTeams && typeof cloudTeams === 'object') {
@@ -3035,20 +3040,28 @@
               }
             });
 
-            // 更新排行榜、賽道進度條與儀表板顯示 (雲端推送時零延遲即時刷新)
-            updateDashboardNumbers();
-            updateAnimalProgressBar();
-            updateFocusLeaderboard();
-            
-            // 若正在註冊選動物頁，同步刷新名額數量
-            const regView = document.getElementById('view-registration');
-            if (regView && regView.style.display !== 'none') {
-              renderAnimalGrid('all', currentUser?.animalId);
-            }
+            // 使用 requestAnimationFrame 批次平滑刷新，保證 60fps 零閃爍
+            if (!cloudUiRaf) {
+              cloudUiRaf = requestAnimationFrame(() => {
+                cloudUiRaf = null;
+                updateDashboardNumbers();
+                updateFocusLeaderboard();
+                
+                // 若正在註冊選動物頁，同步刷新名額數量
+                const regView = document.getElementById('view-registration');
+                if (regView && regView.style.display !== 'none') {
+                  renderAnimalGrid('all', currentUser?.animalId);
+                }
 
-            // 若全體 50 隊排行榜抽屜開著，同步刷新
-            const lbDrawer = document.getElementById('leaderboard-drawer');
-            if (lbDrawer && lbDrawer.classList.contains('open')) {
+                // 若全體 50 隊排行榜抽屜開著，同步刷新
+                const lbDrawer = document.getElementById('leaderboard-drawer');
+                if (lbDrawer && lbDrawer.classList.contains('open')) {
+                  renderFullLeaderboard();
+                }
+              });
+            }
+          }
+        }, err => {
               renderFullLeaderboard();
             }
           }
@@ -4679,14 +4692,6 @@
         avatar.classList.add('striding');
       }
 
-      // 森林微視差躍動衝刺推進
-      if (track) {
-        track.style.transform = 'scale(1.012)';
-        clearTimeout(track._zoomTimer);
-        track._zoomTimer = setTimeout(() => {
-          if (track) track.style.transform = 'scale(1)';
-        }, 80);
-      }
 
       // 腳下揚塵
       if (dust) {
@@ -5516,9 +5521,9 @@
         }
       }
 
-      function renderRow(idx, prevRenderedIdx) {
+      function getRowData(idx, prevRenderedIdx) {
         const team = sorted[idx];
-        if (!team) return '';
+        if (!team) return null;
         const rank = idx + 1;
         const isMe = (idx === myIndex);
         const isChamp = (rank === 1);
@@ -5531,7 +5536,8 @@
         else if (rank === myRank - 1) posIcon = `🎯 ${rank}`;
         else if (rank === myRank + 1) posIcon = `🌿 ${rank}`;
 
-        let gapBadge = '';
+        let gapClass = 'behind';
+        let gapText = '並列';
         if (rank === 1) {
           // 榜首第 1 名：計算與第 2 名（下一名）的差距
           const secondTeam = (sorted.length > 1) ? sorted[1] : null;
@@ -5539,56 +5545,103 @@
           const leadOverNext = team.meters - secondMeters;
 
           if (team.meters === 0 && secondMeters === 0) {
-            gapBadge = '<span class="focus-v-gap behind">並列</span>';
+            gapClass = 'behind'; gapText = '並列';
           } else if (leadOverNext <= 50) {
-            gapBadge = '<span class="focus-v-gap danger">快被超車</span>';
+            gapClass = 'danger'; gapText = '快被超車';
           } else {
-            gapBadge = '<span class="focus-v-gap gold">遙遙領先</span>';
+            gapClass = 'gold'; gapText = '遙遙領先';
           }
         } else if (isMe) {
           const gapToLeader = sorted[0].meters - team.meters;
-          gapBadge = `<span class="focus-v-gap ahead">距榜首 ${gapToLeader}m</span>`;
+          gapClass = 'ahead'; gapText = `距榜首 ${gapToLeader}m`;
         } else {
           if (team.meters > myTeam.meters) {
             const gap = team.meters - myTeam.meters;
-            gapBadge = `<span class="focus-v-gap ahead">領先 ${gap}m</span>`;
+            gapClass = 'ahead'; gapText = `領先 ${gap}m`;
           } else if (team.meters < myTeam.meters) {
             const gap = myTeam.meters - team.meters;
-            gapBadge = `<span class="focus-v-gap behind">落後 ${gap}m</span>`;
+            gapClass = 'behind'; gapText = `落後 ${gap}m`;
           } else {
-            gapBadge = '<span class="focus-v-gap behind">並列</span>';
+            gapClass = 'behind'; gapText = '並列';
           }
         }
 
-        let ellipsisHtml = '';
-        if (prevRenderedIdx !== null && idx > prevRenderedIdx + 1) {
-          ellipsisHtml = '<div class="focus-v-ellipsis">· · ·</div>';
-        }
+        const hasEllipsis = (prevRenderedIdx !== null && idx > prevRenderedIdx + 1);
 
-        return `
-          ${ellipsisHtml}
-          <div class="focus-v-row ${isMe ? 'is-me' : ''} ${isChamp ? 'is-champ' : ''}">
-            <div class="focus-v-left">
-              <span class="focus-v-pos">${posIcon}</span>
-              <span class="focus-v-animal">${team.emoji} ${team.name} <span style="font-size:0.62rem; color:#8c7866; font-weight:600; margin-left:2px;">(${team.membersCount}/5人)</span></span>
-              ${isMe ? '<span class="focus-v-mybadge">🌿 我方</span>' : ''}
-            </div>
-            <div class="focus-v-right">
-              <span class="focus-v-meters">${team.meters.toLocaleString()}m</span>
-              ${gapBadge}
-            </div>
-          </div>
-        `;
+        return {
+          team, rank, isMe, isChamp, posIcon, gapClass, gapText, hasEllipsis
+        };
       }
 
-      let html = '';
-      let lastIdx = null;
-      rankIndexes.forEach(idx => {
-        html += renderRow(idx, lastIdx);
-        lastIdx = idx;
-      });
+      // 檢查是否能進行原地平滑節點更新（零重繪、零閃爍）
+      const existingRows = container.querySelectorAll('.focus-v-row');
+      const canUpdateInPlace = (existingRows.length === rankIndexes.length);
 
-      container.innerHTML = html;
+      if (canUpdateInPlace) {
+        let lastIdx = null;
+        rankIndexes.forEach((idx, i) => {
+          const d = getRowData(idx, lastIdx);
+          lastIdx = idx;
+          if (!d) return;
+
+          const row = existingRows[i];
+          const targetClass = `focus-v-row${d.isMe ? ' is-me' : ''}${d.isChamp ? ' is-champ' : ''}`;
+          if (row.className !== targetClass) row.className = targetClass;
+
+          const posEl = row.querySelector('.focus-v-pos');
+          if (posEl && posEl.textContent !== d.posIcon) posEl.textContent = d.posIcon;
+
+          const animalEl = row.querySelector('.focus-v-animal');
+          const targetAnimalHtml = `${d.team.emoji} ${d.team.name} <span style="font-size:0.62rem; color:#8c7866; font-weight:600; margin-left:2px;">(${d.team.membersCount}/5人)</span>`;
+          if (animalEl && animalEl.innerHTML !== targetAnimalHtml) animalEl.innerHTML = targetAnimalHtml;
+
+          const myBadge = row.querySelector('.focus-v-mybadge');
+          if (myBadge) {
+            myBadge.style.display = d.isMe ? 'inline-block' : 'none';
+          } else if (d.isMe) {
+            const badgeSpan = document.createElement('span');
+            badgeSpan.className = 'focus-v-mybadge';
+            badgeSpan.textContent = '🌿 我方';
+            row.querySelector('.focus-v-left')?.appendChild(badgeSpan);
+          }
+
+          const metersEl = row.querySelector('.focus-v-meters');
+          const metersFormatted = d.team.meters.toLocaleString() + 'm';
+          if (metersEl && metersEl.textContent !== metersFormatted) metersEl.textContent = metersFormatted;
+
+          const gapEl = row.querySelector('.focus-v-gap');
+          if (gapEl) {
+            const targetGapClass = `focus-v-gap ${d.gapClass}`;
+            if (gapEl.className !== targetGapClass) gapEl.className = targetGapClass;
+            if (gapEl.textContent !== d.gapText) gapEl.textContent = d.gapText;
+          }
+        });
+      } else {
+        let html = '';
+        let lastIdx = null;
+        rankIndexes.forEach(idx => {
+          const d = getRowData(idx, lastIdx);
+          lastIdx = idx;
+          if (!d) return;
+
+          let ellipsisHtml = d.hasEllipsis ? '<div class="focus-v-ellipsis">· · ·</div>' : '';
+          html += `
+            ${ellipsisHtml}
+            <div class="focus-v-row ${d.isMe ? 'is-me' : ''} ${d.isChamp ? 'is-champ' : ''}">
+              <div class="focus-v-left">
+                <span class="focus-v-pos">${d.posIcon}</span>
+                <span class="focus-v-animal">${d.team.emoji} ${d.team.name} <span style="font-size:0.62rem; color:#8c7866; font-weight:600; margin-left:2px;">(${d.team.membersCount}/5人)</span></span>
+                ${d.isMe ? '<span class="focus-v-mybadge">🌿 我方</span>' : ''}
+              </div>
+              <div class="focus-v-right">
+                <span class="focus-v-meters">${d.team.meters.toLocaleString()}m</span>
+                <span class="focus-v-gap ${d.gapClass}">${d.gapText}</span>
+              </div>
+            </div>
+          `;
+        });
+        container.innerHTML = html;
+      }
     }
 
     // =========================================================
