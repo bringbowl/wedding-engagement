@@ -3062,10 +3062,6 @@
             }
           }
         }, err => {
-              renderFullLeaderboard();
-            }
-          }
-        }, err => {
           console.warn("Teams sync error:", err);
           updateCloudStatusBadge('error', err.message);
         });
