@@ -42,6 +42,11 @@
       --champagne-light: #f4e8c1;
       --accent-red: #ba3c3c;
       --card-radius: 20px;
+
+      --foil: linear-gradient(105deg, #8a6a2e 0%, #c59b4c 20%, #f6e3ad 38%, #e2bc73 50%, #b48a3e 64%, #efd391 80%, #9c7a3c 100%);
+      --tex-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .22 0 0 0 0 .15 0 0 0 0 .08 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      --tex-fibers: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .32' numOctaves='2' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .2 0 0 0 0 .1 0 0 0 .38 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+      --tex-ivory: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .45 0 0 0 0 .3 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23i)'/%3E%3C/svg%3E");
     }
 
     * {
@@ -80,9 +85,9 @@
       font-family: 'Montserrat', 'Noto Serif TC', serif;
       background-color: var(--bg-canvas);
       background-image: 
-        radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.85) 0%, transparent 60%),
-        radial-gradient(rgba(170, 140, 110, 0.14) 1px, transparent 1px);
-      background-size: 100% 100%, 20px 20px;
+        radial-gradient(120% 60% at 50% 0%, rgba(255, 236, 205, 0.35), rgba(255, 236, 205, 0) 60%),
+        radial-gradient(140% 90% at 50% 100%, rgba(45, 38, 33, 0.22), rgba(45, 38, 33, 0) 70%),
+        var(--tex-fibers), var(--tex-noise);
       color: var(--ink-primary);
       min-height: 100vh;
       display: flex;
@@ -223,10 +228,13 @@
        ========================================================= */
     .view-card {
       width: 100%;
-      background: var(--wood-card);
+      background-color: #faf8f5;
+      background-image: var(--tex-ivory);
       border-radius: var(--card-radius);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28), 0 2px 6px rgba(255, 255, 255, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 16px 40px rgba(45, 38, 33, 0.16), 0 2px 8px rgba(45, 38, 33, 0.08);
+      border: 1.5px solid rgba(197, 155, 76, 0.55);
+      outline: 1px solid rgba(197, 155, 76, 0.22);
+      outline-offset: -5px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -551,10 +559,38 @@
       box-sizing: border-box;
     }
 
+    .focus-v-row.is-champ {
+      background: linear-gradient(135deg, #fffdf5 0%, #faedd3 100%) !important;
+      border: 1.5px solid #d4af37 !important;
+      box-shadow: 0 0 14px rgba(212, 175, 55, 0.32), 0 2px 6px rgba(70, 50, 20, 0.08) !important;
+      position: relative;
+    }
+
+    .focus-v-row.is-champ .focus-v-pos {
+      color: #946c24 !important;
+      font-weight: 800;
+    }
+
+    .focus-v-row.is-champ::before {
+      content: '👑';
+      position: absolute;
+      top: -9px;
+      left: 3px;
+      font-size: 0.88rem;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+      animation: crownBob 2.5s ease-in-out infinite;
+      z-index: 2;
+    }
+
+    @keyframes crownBob {
+      0%, 100% { transform: translateY(0) rotate(-6deg); }
+      50% { transform: translateY(-3px) rotate(6deg); }
+    }
+
     .focus-v-row.is-me {
-      background: linear-gradient(135deg, #fdf8ee 0%, #f7ecd7 100%);
-      border: 1.5px solid #c59b4c;
-      box-shadow: 0 2px 8px rgba(197, 155, 76, 0.22);
+      background: linear-gradient(135deg, #fefbf5 0%, #f6ecd6 100%) !important;
+      border: 1.5px solid #c59b4c !important;
+      box-shadow: 0 3px 12px rgba(197, 155, 76, 0.3) !important;
       font-weight: 700;
       transform: scale(1.01);
     }
@@ -594,14 +630,16 @@
     }
 
     .focus-v-mybadge {
-      font-size: 0.6rem;
-      background: #c59b4c;
-      color: #ffffff;
-      padding: 1px 4px;
-      border-radius: 4px;
+      font-size: 0.62rem;
+      background: linear-gradient(135deg, #27382b 0%, #3e5a42 100%);
+      color: #faf6ea;
+      padding: 2px 6px;
+      border-radius: 6px;
       font-weight: 700;
       white-space: nowrap;
-      line-height: 1.1;
+      border: 1px solid rgba(243, 220, 160, 0.65);
+      box-shadow: 0 1px 4px rgba(39, 56, 43, 0.35);
+      letter-spacing: 0.4px;
     }
 
     .focus-v-right {
@@ -979,6 +1017,28 @@
       100% { transform: translateX(-50%) translateY(0) scale(1); }
     }
 
+    /* 動物主角 Q 萌跑跳動態 */
+    .player-runner-avatar.is-running .runner-avatar-badge {
+      animation: animalRunningHop 0.22s infinite alternate ease-in-out !important;
+    }
+    @keyframes animalRunningHop {
+      0% { transform: translateY(0) rotate(-6deg) scale(1); }
+      100% { transform: translateY(-12px) rotate(6deg) scale(1.12); }
+    }
+
+    .runner-puff-cloud {
+      position: absolute;
+      pointer-events: none;
+      z-index: 11;
+      font-size: 1.25rem;
+      animation: puffDissolve 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+    @keyframes puffDissolve {
+      0% { transform: translate(-50%, 0) scale(0.6); opacity: 0.9; }
+      100% { transform: translate(-50%, 28px) scale(1.4); opacity: 0; }
+    }
+
     /* 腳底衝刺泥土揚塵特效 */
     .runner-dust-trail {
       position: absolute;
@@ -1091,16 +1151,89 @@
        ========================================================= */
     .wedding-blessing-card {
       margin: 10px 10px 12px 10px;
-      background: #faf7f2;
-      border: 1px solid #d4c4af;
-      border-radius: 18px;
-      padding: 18px 16px 14px 16px;
+      background-color: #faf8f5;
+      background-image: var(--tex-ivory);
+      border: 1.5px solid rgba(197, 155, 76, 0.6);
+      outline: 1px dashed rgba(197, 155, 76, 0.35);
+      outline-offset: -5px;
+      border-radius: 20px;
+      padding: 16px 14px 14px 14px;
       box-shadow: 
-        inset 0 0 0 3px #faf7f2, 
-        inset 0 0 0 4px rgba(212, 175, 110, 0.45),
-        0 4px 18px rgba(70, 50, 30, 0.08);
+        0 6px 22px rgba(70, 50, 30, 0.08),
+        inset 0 0 16px rgba(255, 255, 255, 0.85);
       position: relative;
       text-align: center;
+    }
+
+    .wedding-blessing-card::before,
+    .wedding-blessing-card::after {
+      content: '✦';
+      position: absolute;
+      font-size: 0.6rem;
+      color: rgba(197, 155, 76, 0.7);
+      pointer-events: none;
+      top: 6px;
+    }
+    .wedding-blessing-card::before { left: 8px; }
+    .wedding-blessing-card::after { right: 8px; }
+
+    /* 連擊 Combo 動態提示標籤 */
+    .sprint-combo-wrapper {
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+    .sprint-combo-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+      box-shadow: 0 3px 10px rgba(234, 88, 12, 0.35);
+      opacity: 0;
+      transform: translateY(6px) scale(0.85);
+      transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+    }
+    .sprint-combo-pill.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .sprint-combo-pill.stage-5 {
+      background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+      box-shadow: 0 3px 10px rgba(234, 88, 12, 0.35);
+    }
+    .sprint-combo-pill.stage-10 {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      box-shadow: 0 3px 10px rgba(16, 185, 129, 0.35);
+    }
+    .sprint-combo-pill.stage-20 {
+      background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
+      box-shadow: 0 3px 10px rgba(236, 72, 153, 0.35);
+    }
+    .sprint-combo-pill.stage-30 {
+      background: linear-gradient(135deg, #fbbf24 0%, #b45309 100%);
+      box-shadow: 0 3px 14px rgba(251, 191, 36, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      animation: comboPulse 0.4s infinite alternate;
+    }
+    @keyframes comboPulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.08); }
+    }
+    .combo-num {
+      font-family: 'Cinzel', 'Playfair Display', serif;
+      letter-spacing: 0.5px;
+    }
+    .combo-msg {
+      font-size: 0.72rem;
+      font-weight: 700;
     }
 
     .blessing-prompt-title {
@@ -2255,6 +2388,15 @@
       <div class="wedding-blessing-card" id="wedding-blessing-card">
         <div class="blessing-prompt-title">輕觸按鈕全速前進 · 奔向 12/12 婚禮終點</div>
         <div class="blessing-prompt-subtitle">點得越快 · 衝刺越狂飆 🏃💨</div>
+
+        <!-- 連擊 Combo 動態提示標籤 -->
+        <div class="sprint-combo-wrapper" id="sprint-combo-box">
+          <div class="sprint-combo-pill" id="sprint-combo-pill">
+            <span class="combo-icon" id="combo-icon">🔥</span>
+            <span class="combo-num" id="combo-num">5 COMBO</span>
+            <span class="combo-msg" id="combo-msg">暖身起跑！</span>
+          </div>
+        </div>
 
         <!-- 奢華金箔膠囊按鈕 (帶有外層柔光光環) -->
         <div class="blessing-button-wrapper">
@@ -4278,6 +4420,91 @@
     }
 
     // =========================================================
+    // 連擊 Combo 榮耀激勵系統 (Dynamic Combo Streak System)
+    // =========================================================
+    let consecutiveCombo = 0;
+    let comboResetTimer = null;
+
+    function updateComboDisplay() {
+      consecutiveCombo++;
+      if (comboResetTimer) clearTimeout(comboResetTimer);
+
+      const pill = document.getElementById('sprint-combo-pill');
+      const icon = document.getElementById('combo-icon');
+      const num = document.getElementById('combo-num');
+      const msg = document.getElementById('combo-msg');
+
+      if (pill) {
+        if (consecutiveCombo >= 5) {
+          pill.classList.remove('stage-5', 'stage-10', 'stage-20', 'stage-30');
+          if (consecutiveCombo >= 30) {
+            pill.classList.add('stage-30');
+            if (icon) icon.textContent = '👑';
+            if (num) num.textContent = `${consecutiveCombo} COMBO`;
+            if (msg) msg.textContent = '神速破風手！';
+          } else if (consecutiveCombo >= 20) {
+            pill.classList.add('stage-20');
+            if (icon) icon.textContent = '🚀';
+            if (num) num.textContent = `${consecutiveCombo} COMBO`;
+            if (msg) msg.textContent = '暴走狂飆！';
+          } else if (consecutiveCombo >= 10) {
+            pill.classList.add('stage-10');
+            if (icon) icon.textContent = '⚡';
+            if (num) num.textContent = `${consecutiveCombo} COMBO`;
+            if (msg) msg.textContent = '森林疾風！';
+          } else {
+            pill.classList.add('stage-5');
+            if (icon) icon.textContent = '🔥';
+            if (num) num.textContent = `${consecutiveCombo} COMBO`;
+            if (msg) msg.textContent = '暖身起跑！';
+          }
+          pill.classList.add('visible');
+        } else {
+          pill.classList.remove('visible');
+        }
+
+        comboResetTimer = setTimeout(() => {
+          pill.classList.remove('visible');
+          consecutiveCombo = 0;
+        }, 1500);
+      }
+    }
+
+    // =========================================================
+    // 動物主角 Q 萌跑跳動態與煙霧特效 (Animal Hop & Smoke Puffs)
+    // =========================================================
+    let runnerHopTimer = null;
+    function triggerAnimalHop() {
+      const avatar = document.getElementById('runner-avatar');
+      if (!avatar) return;
+      avatar.classList.add('is-running');
+      if (runnerHopTimer) clearTimeout(runnerHopTimer);
+      runnerHopTimer = setTimeout(() => {
+        avatar.classList.remove('is-running');
+      }, 450);
+    }
+
+    function spawnRunnerPuff() {
+      const track = document.getElementById('track-viewport');
+      const avatar = document.getElementById('runner-avatar');
+      if (!track || !avatar) return;
+
+      const puff = document.createElement('div');
+      puff.className = 'runner-puff-cloud';
+      puff.textContent = Math.random() < 0.25 ? '✨' : '💨';
+
+      const avatarRect = avatar.getBoundingClientRect();
+      const trackRect = track.getBoundingClientRect();
+      const left = (avatarRect.left - trackRect.left) + avatarRect.width / 2 + (Math.random() * 20 - 10);
+      const top = (avatarRect.top - trackRect.top) + avatarRect.height - 10;
+
+      puff.style.left = `${left}px`;
+      puff.style.top = `${top}px`;
+      track.appendChild(puff);
+      setTimeout(() => puff.remove(), 550);
+    }
+
+    // =========================================================
     // 8.8 輕快爽快的點擊奔跑核心 (Tap to Run Engine)
     // =========================================================
     function handleTapRun(event) {
@@ -4303,6 +4530,11 @@
       stepCount++;
       tapTimestamps.push(performance.now());
       const combo = comboNow();
+
+      // 連擊 Combo 與動物 Q 萌跑跳動態更新
+      updateComboDisplay();
+      triggerAnimalHop();
+      spawnRunnerPuff();
 
       // 音效反饋
       if (!isMuted) {
@@ -4429,22 +4661,27 @@
       }
     }
 
-    // 每次點擊跳出的 +2m / +4m 浮動字樣
+    // 每次點擊跳出的 +2m / +4m 浮動字樣 (帶連擊獎勵反饋)
     function spawnFloatingGain(meters, isNitro, event) {
       const track = document.getElementById('track-viewport');
       const avatar = document.getElementById('runner-avatar');
       if (!track || !avatar) return;
 
       const gain = document.createElement('div');
+      let comboTag = '';
+      if (consecutiveCombo >= 10) {
+        comboTag = ` · ${consecutiveCombo}連擊!`;
+      }
+
       if (isMistSprintActive || meters >= 6) {
         gain.className = 'floating-meter-gain mist-frenzy';
-        gain.textContent = `+${meters}m 🔥🔥`;
+        gain.textContent = `+${meters}m 🔥🔥${comboTag}`;
       } else if (isNitro) {
         gain.className = 'floating-meter-gain nitro';
-        gain.textContent = `+${meters}m 🔥`;
+        gain.textContent = `+${meters}m 🔥${comboTag}`;
       } else {
         gain.className = 'floating-meter-gain';
-        gain.textContent = `+${meters}m`;
+        gain.textContent = `+${meters}m${comboTag}`;
       }
 
       const trackRect = track.getBoundingClientRect();
@@ -5096,6 +5333,7 @@
         if (!team) return '';
         const rank = idx + 1;
         const isMe = (idx === myIndex);
+        const isChamp = (rank === 1);
 
         let posIcon = `${rank}`;
         if (rank === 1) posIcon = '🥇 1';
@@ -5136,11 +5374,11 @@
 
         return `
           ${ellipsisHtml}
-          <div class="focus-v-row ${isMe ? 'is-me' : ''}">
+          <div class="focus-v-row ${isMe ? 'is-me' : ''} ${isChamp ? 'is-champ' : ''}">
             <div class="focus-v-left">
               <span class="focus-v-pos">${posIcon}</span>
               <span class="focus-v-animal">${team.emoji} ${team.name} <span style="font-size:0.62rem; color:#8c7866; font-weight:600; margin-left:2px;">(${team.membersCount}/5人)</span></span>
-              ${isMe ? '<span class="focus-v-mybadge">我方</span>' : ''}
+              ${isMe ? '<span class="focus-v-mybadge">🌿 我方</span>' : ''}
             </div>
             <div class="focus-v-right">
               <span class="focus-v-meters">${team.meters.toLocaleString()}m</span>
