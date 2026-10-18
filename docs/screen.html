@@ -294,24 +294,26 @@
     }
 
     .rank-cards-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      position: relative;
       flex: 1;
-      justify-content: space-around;
+      width: 100%;
+      overflow: hidden;
     }
 
     .screen-rank-card {
-      background: rgba(22, 38, 26, 0.82);
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: calc((100% - 36px) / 5);
+      background: rgba(22, 38, 26, 0.86);
       border: 1.5px solid rgba(197, 155, 76, 0.3);
       border-radius: 14px;
-      padding: 10px 14px;
+      padding: 0 14px;
       display: flex;
       align-items: center;
       gap: 12px;
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-      position: relative;
+      transition: top 0.75s cubic-bezier(0.25, 1.25, 0.5, 1), transform 0.4s ease, border-color 0.4s ease, background 0.4s ease, opacity 0.5s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       overflow: hidden;
     }
 
@@ -320,7 +322,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 4px;
+      width: 5px;
       bottom: 0;
       background: #c59b4c;
     }
@@ -471,75 +473,155 @@
     }
 
     .lanes-container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      flex: 1;
-      justify-content: space-around;
       position: relative;
+      flex: 1;
+      width: 100%;
+      overflow: hidden;
     }
 
     .sprint-lane {
-      position: relative;
-      height: 64px;
-      background: linear-gradient(90deg, rgba(32, 48, 36, 0.85) 0%, rgba(45, 62, 48, 0.7) 80%, rgba(68, 52, 28, 0.85) 100%);
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: calc((100% - 40px) / 5);
+      background: rgba(16, 26, 20, 0.88);
       border: 1.5px solid rgba(197, 155, 76, 0.35);
       border-radius: 14px;
       overflow: hidden;
       display: flex;
       align-items: center;
-      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5), 0 4px 14px rgba(0, 0, 0, 0.25);
+      transition: top 0.75s cubic-bezier(0.25, 1.25, 0.5, 1), transform 0.4s ease, border-color 0.4s ease, opacity 0.5s ease;
     }
 
-    /* 賽道木質紋理與泥土路標刻度線 */
+    .sprint-lane.is-leader-lane {
+      border: 2px solid #eab308;
+      box-shadow: 0 0 26px rgba(234, 179, 8, 0.32), inset 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    /* 賽道無盡流動背景刻度線 (向後流動營造極速前進感) */
     .lane-ticks {
       position: absolute;
       inset: 0;
-      background: repeating-linear-gradient(90deg, transparent, transparent 48px, rgba(255, 255, 255, 0.05) 48px, rgba(255, 255, 255, 0.05) 50px);
+      background: repeating-linear-gradient(90deg, transparent, transparent 48px, rgba(255, 255, 255, 0.06) 48px, rgba(255, 255, 255, 0.06) 50px);
+      animation: trackStream 1s linear infinite;
+      z-index: 1;
       pointer-events: none;
     }
 
-    /* 終點線金色緞帶標記 */
-    .finish-gate {
+    @keyframes trackStream {
+      0% { background-position-x: 0px; }
+      100% { background-position-x: -50px; }
+    }
+
+    /* 專屬動物色彩彩色進度條 (無盡極速推進) */
+    .lane-progress-bar {
       position: absolute;
-      right: 18px;
+      left: 0;
       top: 0;
       bottom: 0;
-      width: 28px;
+      border-radius: 12px;
+      transition: width 0.45s cubic-bezier(0.12, 0.8, 0.32, 1);
+      z-index: 2;
+      overflow: hidden;
+      opacity: 0.92;
+    }
+
+    .lane-progress-beam {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.38) 50%, transparent 100%);
+      animation: beamSweep 1.6s infinite linear;
+    }
+
+    @keyframes beamSweep {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(200%); }
+    }
+
+    .lane-progress-head {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 8px;
+      background: #ffffff;
+      border-radius: 4px;
+    }
+
+    /* 跑道左側專屬陣營銘牌 (固定起點資訊，與右側狂衝跑道乾淨分離，永不遮擋) */
+    .lane-header-plate {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 220px;
+      background: linear-gradient(90deg, rgba(14, 24, 18, 0.98) 0%, rgba(18, 30, 22, 0.95) 100%);
+      border-right: 2px solid rgba(197, 155, 76, 0.45);
+      z-index: 8;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      border-left: 2px dashed rgba(234, 179, 8, 0.7);
-      background: linear-gradient(90deg, transparent, rgba(234, 179, 8, 0.15));
-      font-size: 1.1rem;
+      padding: 0 14px;
+      gap: 10px;
+      box-shadow: 4px 0 14px rgba(0, 0, 0, 0.45);
       pointer-events: none;
     }
 
-    .lane-team-label {
-      position: absolute;
-      left: 12px;
-      font-size: 0.78rem;
+    .lane-team-name {
+      font-size: 0.88rem;
       font-weight: 800;
-      color: rgba(255, 255, 255, 0.65);
+      color: #ffffff;
       letter-spacing: 0.5px;
-      z-index: 5;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    /* 動態奔跑動物選手容器 */
+    .lane-rank-badge {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-family: 'Cinzel', monospace;
+      font-size: 0.82rem;
+      font-weight: 800;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+
+    .lane-rank-badge.champ-badge {
+      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+      border: 1.5px solid #fde047;
+      color: #fffbeb;
+      box-shadow: 0 0 10px rgba(250, 204, 21, 0.6);
+    }
+
+    .lane-rank-badge.rank-popped {
+      transform: scale(1.35);
+    }
+
+    /* 跑道右側無極限狂衝賽道區 */
+    .lane-track-field {
+      position: absolute;
+      left: 220px;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      overflow: hidden;
+    }
+
+    /* 動態奔跑動物選手容器 (緊跟在彩色進度條前端狂衝) */
     .running-avatar-wrapper {
       position: absolute;
-      left: 15%;
+      left: 1%;
       top: 50%;
       transform: translateY(-50%);
       display: flex;
       align-items: center;
-      gap: 8px;
-      transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      gap: 6px;
+      transition: left 0.45s cubic-bezier(0.12, 0.8, 0.32, 1);
       z-index: 10;
+      pointer-events: none;
     }
 
     .avatar-icon-box {
@@ -571,16 +653,16 @@
     }
 
     .avatar-floating-tag {
-      background: rgba(15, 23, 18, 0.9);
-      border: 1px solid #eab308;
+      background: rgba(15, 23, 18, 0.92);
+      border: 1.5px solid #eab308;
       border-radius: 8px;
-      padding: 2px 7px;
+      padding: 3px 8px;
       font-family: 'Cinzel', monospace;
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       font-weight: 800;
       color: #fef08a;
       white-space: nowrap;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
     }
 
     /* =========================================================
@@ -932,10 +1014,10 @@
     <section class="arena-column">
       <div class="arena-header">
         <div class="arena-title">
-          <span>🏁</span> 前線陣營衝刺跑道
+          <span>⚡</span> 無盡極速衝刺賽道
         </div>
         <div class="finish-line-goal">
-          <span>💒</span> 12/12 幸福終點 阿沐城堡 🏰
+          <span>🔥</span> 全員狂飆中 · 名次即時滑動爭奪 🏆
         </div>
       </div>
 
@@ -1127,8 +1209,34 @@
     }
 
     // =========================================================
-    // 3. 渲染大螢幕風雲榜與賽道衝刺
+    // 3. 專屬動物跑道色彩庫與持續滑動引擎 (FLIP Rank Sliding Engine)
     // =========================================================
+    const ANIMAL_PALETTES = [
+      { gradient: 'linear-gradient(90deg, rgba(245, 158, 11, 0.25) 0%, rgba(245, 158, 11, 0.9) 70%, #fde047 100%)', glow: 'rgba(245, 158, 11, 0.8)' }, // 0: 暖金耀光
+      { gradient: 'linear-gradient(90deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.9) 70%, #6ee7b7 100%)', glow: 'rgba(16, 185, 129, 0.8)' }, // 1: 翡翠疾風
+      { gradient: 'linear-gradient(90deg, rgba(6, 182, 212, 0.25) 0%, rgba(6, 182, 212, 0.9) 70%, #67e8f9 100%)', glow: 'rgba(6, 182, 212, 0.8)' },   // 2: 電光青藍
+      { gradient: 'linear-gradient(90deg, rgba(168, 85, 247, 0.25) 0%, rgba(168, 85, 247, 0.9) 70%, #e9d5ff 100%)', glow: 'rgba(168, 85, 247, 0.8)' }, // 3: 幻紫極速
+      { gradient: 'linear-gradient(90deg, rgba(244, 63, 94, 0.25) 0%, rgba(244, 63, 94, 0.9) 70%, #fda4af 100%)', glow: 'rgba(244, 63, 94, 0.8)' },   // 4: 霓虹火粉
+      { gradient: 'linear-gradient(90deg, rgba(59, 130, 246, 0.25) 0%, rgba(59, 130, 246, 0.9) 70%, #93c5fd 100%)', glow: 'rgba(59, 130, 246, 0.8)' },  // 5: 蔚藍狂飆
+      { gradient: 'linear-gradient(90deg, rgba(249, 115, 22, 0.25) 0%, rgba(249, 115, 22, 0.9) 70%, #fed7aa 100%)', glow: 'rgba(249, 115, 22, 0.8)' }, // 6: 烈焰朱紅
+      { gradient: 'linear-gradient(90deg, rgba(132, 204, 22, 0.25) 0%, rgba(132, 204, 22, 0.9) 70%, #bef264 100%)', glow: 'rgba(132, 204, 22, 0.8)' }, // 7: 激光翠綠
+      { gradient: 'linear-gradient(90deg, rgba(236, 72, 153, 0.25) 0%, rgba(236, 72, 153, 0.9) 70%, #fbcfe8 100%)', glow: 'rgba(236, 72, 153, 0.8)' }, // 8: 狂熱玫紅
+      { gradient: 'linear-gradient(90deg, rgba(20, 184, 166, 0.25) 0%, rgba(20, 184, 166, 0.9) 70%, #99f6e4 100%)', glow: 'rgba(20, 184, 166, 0.8)' }   // 9: 碧海極光
+    ];
+
+    function getAnimalTheme(animalId) {
+      let hash = 0;
+      for (let i = 0; i < animalId.length; i++) {
+        hash = (hash << 5) - hash + animalId.charCodeAt(i);
+        hash |= 0;
+      }
+      const paletteIdx = Math.abs(hash) % ANIMAL_PALETTES.length;
+      return ANIMAL_PALETTES[paletteIdx];
+    }
+
+    const activeRankCardsMap = new Map();
+    const activeLanesMap = new Map();
+
     function renderBroadcastScreen() {
       const sorted = getSortedTeams();
       const top5 = sorted.slice(0, 5);
@@ -1138,15 +1246,30 @@
       const totalElem = document.getElementById('globalTotalMeters');
       if (totalElem) totalElem.textContent = totalMeters.toLocaleString() + ' m';
 
-      // 1. 左側風雲榜渲染
+      // 1. 左側風雲榜渲染 (名次變更時上下流暢滑動)
       const listContainer = document.getElementById('screenRankList');
       if (listContainer) {
-        listContainer.innerHTML = '';
+        const currentTopIds = new Set(top5.map(t => t.id));
+
+        // 移除跌出前 5 名的舊卡片 (平滑淡出)
+        for (const [id, el] of activeRankCardsMap.entries()) {
+          if (!currentTopIds.has(id)) {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px) scale(0.92)';
+            setTimeout(() => {
+              if (el.parentNode) el.parentNode.removeChild(el);
+            }, 600);
+            activeRankCardsMap.delete(id);
+          }
+        }
+
         const rankClasses = ['rank-1', 'rank-2', 'rank-3', '', ''];
         const medals = ['🥇', '🥈', '🥉', '4', '5'];
 
         top5.forEach((team, idx) => {
-          const card = document.createElement('div');
+          let card = activeRankCardsMap.get(team.id);
+          const topPosition = `calc(${idx} * ((100% - 36px) / 5 + 9px))`;
+
           let statusText = '🏃 尚無跑者加入 · 等待開跑';
           if (team.membersCount >= 5) {
             statusText = '🔥 陣營已滿員 (5/5人) · 全力衝刺中';
@@ -1154,55 +1277,174 @@
             statusText = `🏃 ${team.membersCount} 位森林跑者齊心狂飆中`;
           }
 
-          card.innerHTML = `
-            <div class="card-medal-badge">${medals[idx]}</div>
-            <div class="card-animal-emoji">${team.emoji}</div>
-            <div class="card-info-group">
-              <div class="card-team-title">
-                <span>${team.name}</span>
-                <span style="font-size:0.7rem; color:#d1b187; font-weight:600;">(${team.membersCount}/5人)</span>
+          if (!card) {
+            card = document.createElement('div');
+            card.className = `screen-rank-card ${rankClasses[idx] || ''}`;
+            card.dataset.teamId = team.id;
+            card.style.top = topPosition;
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.92)';
+
+            card.innerHTML = `
+              <div class="card-medal-badge">${medals[idx]}</div>
+              <div class="card-animal-emoji">${team.emoji}</div>
+              <div class="card-info-group">
+                <div class="card-team-title">
+                  <span>${team.name}</span>
+                  <span class="card-members-badge" style="font-size:0.7rem; color:#d1b187; font-weight:600;">(${team.membersCount}/5人)</span>
+                </div>
+                <div class="card-members-text">${statusText}</div>
               </div>
-              <div class="card-members-text">${statusText}</div>
-            </div>
-            <div class="card-meter-box">
-              <div class="card-meter-number">${(team.meters || 0).toLocaleString()}</div>
-              <div class="card-meter-unit">METERS</div>
-            </div>
-          `;
-          listContainer.appendChild(card);
+              <div class="card-meter-box">
+                <div class="card-meter-number">${(team.meters || 0).toLocaleString()}</div>
+                <div class="card-meter-unit">METERS</div>
+              </div>
+            `;
+            listContainer.appendChild(card);
+            activeRankCardsMap.set(team.id, card);
+
+            requestAnimationFrame(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'scale(1)';
+            });
+          } else {
+            // 平滑滑動至新名次高度！
+            card.style.top = topPosition;
+            card.className = `screen-rank-card ${rankClasses[idx] || ''}`;
+
+            const medalEl = card.querySelector('.card-medal-badge');
+            if (medalEl && medalEl.textContent !== medals[idx]) medalEl.textContent = medals[idx];
+
+            const membersBadge = card.querySelector('.card-members-badge');
+            if (membersBadge) membersBadge.textContent = `(${team.membersCount}/5人)`;
+
+            const membersText = card.querySelector('.card-members-text');
+            if (membersText && membersText.textContent !== statusText) membersText.textContent = statusText;
+
+            const meterNum = card.querySelector('.card-meter-number');
+            if (meterNum) meterNum.textContent = (team.meters || 0).toLocaleString();
+          }
         });
       }
 
-      // 2. 右側多跑道動態奔馳實況渲染
+      // 2. 右側多跑道動態奔馳實況渲染 (專屬色彩進度條 + 無盡狂衝 + 即時上下滑動)
       const lanesContainer = document.getElementById('screenLanesContainer');
       if (lanesContainer) {
-        lanesContainer.innerHTML = '';
-        const maxMeters = Math.max(1, top5[0]?.meters || 100);
+        const currentTopIds = new Set(top5.map(t => t.id));
+
+        // 移除跌出前 5 名的舊跑道
+        for (const [id, el] of activeLanesMap.entries()) {
+          if (!currentTopIds.has(id)) {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px) scale(0.92)';
+            setTimeout(() => {
+              if (el.parentNode) el.parentNode.removeChild(el);
+            }, 600);
+            activeLanesMap.delete(id);
+          }
+        }
+
+        // 動態無極限刻度 (動態保留 25% 跑道緩衝，跑越多畫面延伸越遠，永無盡頭)
+        const leaderMeters = top5[0]?.meters || 0;
+        const dynamicMax = Math.max(100, Math.ceil(leaderMeters * 1.25 / 50) * 50);
 
         top5.forEach((team, idx) => {
-          const lane = document.createElement('div');
-          lane.className = 'sprint-lane';
+          let lane = activeLanesMap.get(team.id);
+          const topPosition = `calc(${idx} * ((100% - 40px) / 5 + 10px))`;
+          const theme = getAnimalTheme(team.id);
+          const isLeader = (idx === 0);
 
-          // 計算相對領先跑道進度 (15% ~ 82%)
-          const pct = Math.min(82, Math.max(15, Math.floor((team.meters / maxMeters) * 80)));
-          const isLeader = idx === 0;
+          // 計算跑道進度 (0m 起跑線 1% ~ 88% 領先衝刺區)
+          const isZero = ((team.meters || 0) <= 0);
+          const pct = isZero
+            ? 1
+            : Math.min(88, Math.max(4, Math.floor(((team.meters || 0) / dynamicMax) * 85)));
+          const speedlineText = isZero ? '' : (isLeader ? '⚡💨💨' : '💨');
 
-          lane.innerHTML = `
-            <div class="lane-ticks"></div>
-            <div class="lane-team-label">
-              <span>#${idx + 1}</span>
-              <span>${team.emoji} ${team.name}</span>
-            </div>
-            
-            <div class="running-avatar-wrapper" style="left: ${pct}%;">
-              <div class="avatar-speedlines">${isLeader ? '⚡💨💨' : '💨'}</div>
-              <div class="avatar-icon-box">${team.emoji}</div>
-              <div class="avatar-floating-tag">${team.meters.toLocaleString()}m</div>
-            </div>
+          if (!lane) {
+            lane = document.createElement('div');
+            lane.className = `sprint-lane ${isLeader ? 'is-leader-lane' : ''}`;
+            lane.dataset.teamId = team.id;
+            lane.style.top = topPosition;
+            lane.style.opacity = '0';
+            lane.style.transform = 'scale(0.95)';
 
-            <div class="finish-gate">🎀</div>
-          `;
-          lanesContainer.appendChild(lane);
+            lane.innerHTML = `
+              <div class="lane-header-plate">
+                <span class="lane-rank-badge ${isLeader ? 'champ-badge' : ''}">#${idx + 1}</span>
+                <span class="lane-team-name">${team.emoji} ${team.name}</span>
+              </div>
+
+              <div class="lane-track-field">
+                <div class="lane-ticks"></div>
+                
+                <div class="lane-progress-bar" style="width: ${pct}%; background: ${theme.gradient}; box-shadow: 0 0 24px ${theme.glow};">
+                  <div class="lane-progress-beam"></div>
+                  <div class="lane-progress-head" style="box-shadow: 0 0 12px #ffffff, 0 0 24px ${theme.glow};"></div>
+                </div>
+
+                <div class="running-avatar-wrapper" style="left: ${pct}%;">
+                  <div class="avatar-speedlines">${speedlineText}</div>
+                  <div class="avatar-icon-box">${team.emoji}</div>
+                  <div class="avatar-floating-tag" style="border-color: ${theme.glow};">${(team.meters || 0).toLocaleString()}m</div>
+                </div>
+              </div>
+            `;
+            lanesContainer.appendChild(lane);
+            activeLanesMap.set(team.id, lane);
+
+            requestAnimationFrame(() => {
+              lane.style.opacity = '1';
+              lane.style.transform = 'scale(1)';
+            });
+          } else {
+            // 平滑滑動至新名次高度 (上下滑動更動效果關鍵！)
+            lane.style.top = topPosition;
+            if (isLeader) {
+              lane.classList.add('is-leader-lane');
+            } else {
+              lane.classList.remove('is-leader-lane');
+            }
+
+            // 更新專屬彩色進度條寬度 (狂衝前進！)
+            const progressBar = lane.querySelector('.lane-progress-bar');
+            if (progressBar) {
+              progressBar.style.width = `${pct}%`;
+              progressBar.style.background = theme.gradient;
+              progressBar.style.boxShadow = `0 0 24px ${theme.glow}`;
+              const head = progressBar.querySelector('.lane-progress-head');
+              if (head) head.style.boxShadow = `0 0 12px #ffffff, 0 0 24px ${theme.glow}`;
+            }
+
+            // 更新名次徽章
+            const rankBadge = lane.querySelector('.lane-rank-badge');
+            if (rankBadge) {
+              if (rankBadge.textContent !== `#${idx + 1}`) {
+                rankBadge.textContent = `#${idx + 1}`;
+                rankBadge.classList.add('rank-popped');
+                setTimeout(() => rankBadge.classList.remove('rank-popped'), 400);
+              }
+              if (isLeader) rankBadge.classList.add('champ-badge');
+              else rankBadge.classList.remove('champ-badge');
+            }
+
+            // 更新動物狂衝位置與公里標籤
+            const avatarWrapper = lane.querySelector('.running-avatar-wrapper');
+            if (avatarWrapper) {
+              avatarWrapper.style.left = `${pct}%`;
+            }
+
+            const speedlines = lane.querySelector('.avatar-speedlines');
+            if (speedlines) {
+              speedlines.textContent = speedlineText;
+            }
+
+            const floatingTag = lane.querySelector('.avatar-floating-tag');
+            if (floatingTag) {
+              floatingTag.textContent = `${(team.meters || 0).toLocaleString()}m`;
+              floatingTag.style.borderColor = theme.glow;
+            }
+          }
         });
       }
     }
