@@ -3635,12 +3635,7 @@
         if (preview && boundAnimal) {
           preview.innerHTML = `${boundAnimal.emoji} ${boundAnimal.name} <span style="font-size:0.75rem; color:#8c6b2d; font-weight:700;">(🔒 專屬綁定隊伍)</span>`;
         }
-        feedback.innerHTML = `
-          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px;">
-            <span>✅ 找到「${name}」紀錄！已綁定【${boundAnimal ? boundAnimal.emoji + ' ' + boundAnimal.name : '您的陣營'}】(${existing.myMeters || 0}m)</span>
-            <button type="button" onclick="confirmResetPlayerByName('${name.replace(/'/g, "\\'")}')" style="background:#fee2e2; border:1px solid #ef4444; color:#991b1b; padding:3px 10px; border-radius:6px; font-size:0.75rem; cursor:pointer; font-weight:700;">🔄 解除綁定重選</button>
-          </div>
-        `;
+        feedback.innerHTML = `✅ 找到「${name}」參賽紀錄！已鎖定綁定【${boundAnimal ? boundAnimal.emoji + ' ' + boundAnimal.name : '您的陣營'}】，累積 <strong>${existing.myMeters || 0}m</strong>！`;
         feedback.className = "reg-name-feedback valid";
 
         if (btn) {
