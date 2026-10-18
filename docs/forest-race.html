@@ -683,6 +683,14 @@
       background: #fbf2dc;
       color: #946c24;
       font-weight: 700;
+      border: 1px solid rgba(197, 155, 76, 0.45);
+    }
+
+    .focus-v-gap.danger {
+      background: #fee2e2;
+      color: #b91c1c;
+      font-weight: 700;
+      border: 1px solid rgba(239, 68, 68, 0.4);
     }
 
     .focus-v-ellipsis {
@@ -5344,21 +5352,26 @@
         else if (rank === myRank + 1) posIcon = `🌿 ${rank}`;
 
         let gapBadge = '';
-        if (isMe) {
-          if (rank === 1) {
-            gapBadge = '<span class="focus-v-gap gold">🥇 領先全場</span>';
+        if (rank === 1) {
+          // 榜首第 1 名：計算與第 2 名（下一名）的差距
+          const secondTeam = (sorted.length > 1) ? sorted[1] : null;
+          const secondMeters = secondTeam ? secondTeam.meters : 0;
+          const leadOverNext = team.meters - secondMeters;
+
+          if (team.meters === 0 && secondMeters === 0) {
+            gapBadge = '<span class="focus-v-gap behind">並列</span>';
+          } else if (leadOverNext <= 50) {
+            gapBadge = '<span class="focus-v-gap danger">快被超車</span>';
           } else {
-            const gapToLeader = sorted[0].meters - team.meters;
-            gapBadge = `<span class="focus-v-gap ahead">距榜首 ${gapToLeader}m</span>`;
+            gapBadge = '<span class="focus-v-gap gold">遙遙領先</span>';
           }
+        } else if (isMe) {
+          const gapToLeader = sorted[0].meters - team.meters;
+          gapBadge = `<span class="focus-v-gap ahead">距榜首 ${gapToLeader}m</span>`;
         } else {
           if (team.meters > myTeam.meters) {
             const gap = team.meters - myTeam.meters;
-            if (rank === myRank - 1) {
-              gapBadge = `<span class="focus-v-gap ahead">超車差 ${gap}m</span>`;
-            } else {
-              gapBadge = `<span class="focus-v-gap ahead">領先 ${gap}m</span>`;
-            }
+            gapBadge = `<span class="focus-v-gap ahead">領先 ${gap}m</span>`;
           } else if (team.meters < myTeam.meters) {
             const gap = myTeam.meters - team.meters;
             gapBadge = `<span class="focus-v-gap behind">落後 ${gap}m</span>`;
