@@ -2127,7 +2127,6 @@
       <div class="header-branding" onclick="handleHeaderSecretClick()">
         <div class="header-couple-title">
           🌲 森林動物大賽跑
-          <span id="cloud-sync-badge" onclick="event.stopPropagation(); checkCloudStatus();" style="font-size:0.65rem; padding: 2px 7px; border-radius: 10px; background: rgba(217, 119, 6, 0.15); color: #92400e; margin-left: 5px; vertical-align: middle; display: inline-block; cursor: pointer; font-family: -apple-system, sans-serif; font-weight: 600;" title="點擊查看連線狀態">🟡 連線中...</span>
         </div>
         <div class="header-sub-tag">Barry &amp; Winnie · 奔向 12/12 婚禮</div>
       </div>
@@ -2836,11 +2835,17 @@
     }
 
     function updateCloudStatusBadge(status, error) {
-      const badge = document.getElementById('cloud-sync-badge');
-      if (!badge) return;
       if (status === 'connected') {
         isCloudConnected = true;
         cloudErrorMsg = null;
+      } else if (status === 'error') {
+        isCloudConnected = false;
+        cloudErrorMsg = error || "連線受阻，請確認 Firebase Rules 規則允許讀寫";
+      } else if (status === 'offline') {
+        isCloudConnected = false;
+      }
+      const badge = document.getElementById('cloud-sync-badge');
+      if (!badge) return;
         badge.textContent = "🟢 雲端同步中";
         badge.style.background = "rgba(56, 161, 105, 0.15)";
         badge.style.color = "#22543d";
