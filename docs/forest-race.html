@@ -3635,7 +3635,12 @@
         if (preview && boundAnimal) {
           preview.innerHTML = `${boundAnimal.emoji} ${boundAnimal.name} <span style="font-size:0.75rem; color:#8c6b2d; font-weight:700;">(🔒 專屬綁定隊伍)</span>`;
         }
-        feedback.innerHTML = `✅ 找到「${name}」參賽紀錄！已自動綁定【${boundAnimal ? boundAnimal.emoji + ' ' + boundAnimal.name : '您的陣營'}】，累積 <strong>${existing.myMeters || 0}m</strong>！`;
+        feedback.innerHTML = `
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px;">
+            <span>✅ 找到「${name}」紀錄！已綁定【${boundAnimal ? boundAnimal.emoji + ' ' + boundAnimal.name : '您的陣營'}】(${existing.myMeters || 0}m)</span>
+            <button type="button" onclick="confirmResetPlayerByName('${name.replace(/'/g, "\\'")}')" style="background:#fee2e2; border:1px solid #ef4444; color:#991b1b; padding:3px 10px; border-radius:6px; font-size:0.75rem; cursor:pointer; font-weight:700;">🔄 解除綁定重選</button>
+          </div>
+        `;
         feedback.className = "reg-name-feedback valid";
 
         if (btn) {
@@ -5345,11 +5350,18 @@
           } catch(e) {}
         }
         localStorage.removeItem(STORAGE_KEY_USER);
+        localStorage.removeItem(STORAGE_KEY_PLAYERS);
+        for (let i = localStorage.length - 1; i >= 0; i--) {
+          const k = localStorage.key(i);
+          if (k && k.startsWith("forest_race_player_")) {
+            localStorage.removeItem(k);
+          }
+        }
         currentUser = null;
         if (history.replaceState) {
           history.replaceState(null, '', window.location.pathname);
         }
-        alert('🌲 已為您清空跑者紀錄！現在您可以重新輸入姓名並挑選動物陣營。');
+        alert('🌲 已為您徹底清空本機所有選手暫存與綁定隊伍！現在您可以全新輸入姓名並挑選任何動物陣營。');
       }
 
       // 跨瀏覽器專屬續玩 Token (#runner=...&team=...&m=...)
