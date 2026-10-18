@@ -5233,9 +5233,15 @@
 
       sorted.forEach((team, idx) => {
         const isMyTeam = currentUser && (team.id === currentUser.animalId);
-        const row = document.createElement('div');
-        row.className = `rank-row-item ${isMyTeam ? 'is-me' : ''}`;
-        const membersList = (team.members && team.members.length) ? `· ${team.members.join('、')}` : '';
+        const isFinished = (currentGameState && currentGameState.mode === 'finished') || isRaceFinished;
+        let membersDisplay = '';
+        if (isFinished) {
+          const membersList = (team.members && team.members.length) ? `· ${team.members.join('、')}` : '（無登記成員）';
+          membersDisplay = `成員 ${team.membersCount}/5 人 <span style="color:#5a483a; font-weight:600;">${membersList}</span>`;
+        } else {
+          // 賽事進行中保護隱私：不公開選手姓名，僅顯示陣營人數
+          membersDisplay = `陣營名額：${team.membersCount}/5 人 齊心競速中`;
+        }
         const fullBadge = team.membersCount >= 5 ? `<span style="color:#ba3c3c; font-weight:700; margin-left:4px; font-size:0.68rem;">(已額滿)</span>` : '';
         row.innerHTML = `
           <div class="rank-pos-number">${idx + 1}</div>
@@ -5246,7 +5252,7 @@
               ${isMyTeam ? '<span class="rank-my-badge">我的隊伍</span>' : ''}
               ${fullBadge}
             </div>
-            <div class="rank-row-members">成員 ${team.membersCount}/5 人 <span style="color:#5a483a; font-weight:600;">${membersList}</span></div>
+            <div class="rank-row-members">${membersDisplay}</div>
           </div>
           <div class="rank-row-meters">${team.meters.toLocaleString()}m</div>
         `;

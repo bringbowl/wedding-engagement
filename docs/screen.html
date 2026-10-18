@@ -1127,10 +1127,12 @@
 
         top5.forEach((team, idx) => {
           const card = document.createElement('div');
-          card.className = `screen-rank-card ${rankClasses[idx] || ''}`;
-          const membersList = (team.members && team.members.length) 
-            ? team.members.join('、') 
-            : '（等待選手加入中）';
+          let statusText = '🏃 尚無跑者加入 · 等待開跑';
+          if (team.membersCount >= 5) {
+            statusText = '🔥 陣營已滿員 (5/5人) · 全力衝刺中';
+          } else if (team.membersCount > 0) {
+            statusText = `🏃 ${team.membersCount} 位森林跑者齊心狂飆中`;
+          }
 
           card.innerHTML = `
             <div class="card-medal-badge">${medals[idx]}</div>
@@ -1140,7 +1142,7 @@
                 <span>${team.name}</span>
                 <span style="font-size:0.7rem; color:#d1b187; font-weight:600;">(${team.membersCount}/5人)</span>
               </div>
-              <div class="card-members-text">🏃 ${membersList}</div>
+              <div class="card-members-text">${statusText}</div>
             </div>
             <div class="card-meter-box">
               <div class="card-meter-number">${(team.meters || 0).toLocaleString()}</div>
