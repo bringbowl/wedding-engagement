@@ -2843,31 +2843,8 @@
         cloudErrorMsg = error || "連線受阻，請確認 Firebase Rules 規則允許讀寫";
       } else if (status === 'offline') {
         isCloudConnected = false;
-      }
-      const badge = document.getElementById('cloud-sync-badge');
-      if (!badge) return;
-        badge.textContent = "🟢 雲端同步中";
-        badge.style.background = "rgba(56, 161, 105, 0.15)";
-        badge.style.color = "#22543d";
-        badge.title = "已連線至 Firebase Realtime Database，即時連線中！";
       } else if (status === 'connecting') {
-        badge.textContent = "🟡 連線中...";
-        badge.style.background = "rgba(217, 119, 6, 0.15)";
-        badge.style.color = "#92400e";
-        badge.title = "正在與雲端建立連線...";
-      } else if (status === 'error') {
-        isCloudConnected = false;
-        cloudErrorMsg = error || "連線受阻，請確認 Firebase Rules 規則允許讀寫";
-        badge.textContent = "⚠️ 離線暫存";
-        badge.style.background = "rgba(220, 38, 38, 0.15)";
-        badge.style.color = "#991b1b";
-        badge.title = cloudErrorMsg;
-      } else {
-        isCloudConnected = false;
-        badge.textContent = "⚪ 離線模式";
-        badge.style.background = "rgba(107, 114, 128, 0.15)";
-        badge.style.color = "#374151";
-        badge.title = "目前處於離線狀態，數據將暫存在手機中。";
+        // connecting
       }
     }
 
