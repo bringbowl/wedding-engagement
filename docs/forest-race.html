@@ -3022,16 +3022,23 @@
             FOREST_ANIMALS.forEach(animal => {
               const ct = cloudTeams[animal.id];
               if (ct) {
+                let m = ct.meters || 0;
+                // 若為當前使用者隊伍，且本地還有尚未 flush 的點擊，疊加本地暫存步數避免被舊數據覆蓋
+                if (currentUser && currentUser.animalId === animal.id && pendingSyncMeters > 0) {
+                  m += pendingSyncMeters;
+                }
                 teamDataMap[animal.id] = {
-                  meters: ct.meters || 0,
+                  meters: m,
                   membersCount: (ct.membersCount !== undefined) ? ct.membersCount : (ct.members ? ct.members.length : 0),
                   members: ct.members || []
                 };
               }
             });
 
-            // 更新排行榜與儀表板顯示
+            // 更新排行榜、賽道進度條與儀表板顯示 (雲端推送時零延遲即時刷新)
             updateDashboardNumbers();
+            updateAnimalProgressBar();
+            updateFocusLeaderboard();
             
             // 若正在註冊選動物頁，同步刷新名額數量
             const regView = document.getElementById('view-registration');
@@ -4640,10 +4647,8 @@
         blessingDisplay.classList.add('bump');
       }
 
-      // 每 4 步更新一次排行榜
-      if (stepCount % 4 === 0) {
-        updateFocusLeaderboard();
-      }
+      // 每次點擊即時更新排行榜
+      updateFocusLeaderboard();
 
       // 當動物跑到最右端 (100%)，觸發加碼選擇題！
       if (progressPct >= 100) {
