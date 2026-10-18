@@ -2218,8 +2218,8 @@
       
       <!-- 1. 即時聚焦排行榜列 (上下名次與落差) -->
       <div class="focus-leaderboard-bar">
-        <div class="lead-headline">
-          <span>即時賽道排名戰況</span>
+        <div class="lead-headline" onclick="openLeaderboardDrawer()" style="cursor:pointer;" title="點擊展開 50 隊完整總排名">
+          <span>即時賽道排名戰況 <span style="font-size:0.68rem; color:#8c6b2d; font-weight:normal; margin-left:3px;">(看全榜 ›)</span></span>
           <span class="lead-live-indicator"><span class="pulse-dot"></span> LIVE 即時連線</span>
         </div>
 
@@ -5233,6 +5233,8 @@
 
       sorted.forEach((team, idx) => {
         const isMyTeam = currentUser && (team.id === currentUser.animalId);
+        const row = document.createElement('div');
+        row.className = `rank-row-item ${isMyTeam ? 'is-me' : ''}`;
         const isFinished = (currentGameState && currentGameState.mode === 'finished') || isRaceFinished;
         let membersDisplay = '';
         if (isFinished) {
