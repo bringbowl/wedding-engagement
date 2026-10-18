@@ -4724,7 +4724,7 @@
     // =========================================================
     // 10.5 新人與工作人員專屬管理驗證與後台 (Secret Admin Suite)
     // =========================================================
-    const STORAGE_KEY_ADMIN_PASS = 'wedding_forest_admin_pass_v1';
+    const STORAGE_KEY_ADMIN_PASS = 'wedding_forest_admin_pass_v2';
     let secretAdminClickCount = 0;
     let secretAdminClickTimer = null;
 
@@ -4784,7 +4784,9 @@
       const err = document.getElementById('admin-passcode-error');
       const val = input ? input.value.trim() : '';
 
-      if (val === getAdminPassword()) {
+      // 🌟 管理密碼為 1212（或後台自訂密碼）
+      const currentPass = getAdminPassword();
+      if (val === '1212' || val === currentPass) {
         closeAdminPasscodeModal();
         openAdminTriviaDrawer();
       } else {
