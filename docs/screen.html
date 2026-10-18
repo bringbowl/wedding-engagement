@@ -304,16 +304,16 @@
       position: absolute;
       left: 0;
       right: 0;
-      height: calc((100% - 36px) / 5);
+      height: 116px;
       background: rgba(22, 38, 26, 0.86);
       border: 1.5px solid rgba(197, 155, 76, 0.3);
-      border-radius: 14px;
-      padding: 0 14px;
+      border-radius: 18px;
+      padding: 0 18px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       transition: top 0.75s cubic-bezier(0.25, 1.25, 0.5, 1), transform 0.4s ease, border-color 0.4s ease, background 0.4s ease, opacity 0.5s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
       overflow: hidden;
     }
 
@@ -476,61 +476,195 @@
       position: relative;
       flex: 1;
       width: 100%;
-      overflow: hidden;
+      overflow: visible;
     }
 
+    /* 師承喜帖祝福能量條 · 奢華婚禮大螢幕競速跑道卡 */
     .sprint-lane {
       position: absolute;
       left: 0;
       right: 0;
-      height: calc((100% - 40px) / 5);
-      background: rgba(16, 26, 20, 0.88);
-      border: 1.5px solid rgba(197, 155, 76, 0.35);
-      border-radius: 14px;
-      overflow: hidden;
+      height: 116px;
+      background: linear-gradient(135deg, rgba(16, 28, 20, 0.94) 0%, rgba(22, 36, 26, 0.9) 100%);
+      border: 1.5px solid rgba(197, 155, 76, 0.4);
+      border-radius: 18px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.1);
       display: flex;
-      align-items: center;
-      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5), 0 4px 14px rgba(0, 0, 0, 0.25);
+      flex-direction: column;
+      justify-content: center;
+      padding: 12px 20px 10px 20px;
+      gap: 8px;
       transition: top 0.75s cubic-bezier(0.25, 1.25, 0.5, 1), transform 0.4s ease, border-color 0.4s ease, opacity 0.5s ease;
+      overflow: visible;
     }
 
     .sprint-lane.is-leader-lane {
+      background: linear-gradient(135deg, rgba(34, 28, 12, 0.96) 0%, rgba(22, 36, 26, 0.92) 100%);
       border: 2px solid #eab308;
-      box-shadow: 0 0 26px rgba(234, 179, 8, 0.32), inset 0 2px 8px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 0 28px rgba(234, 179, 8, 0.35), 0 6px 20px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.15);
     }
 
-    /* 賽道無盡流動背景刻度線 (向後流動營造極速前進感) */
+    /* 上排：隊伍資訊、成員數與即時里程戰況 */
+    .lane-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 0 4px;
+    }
+
+    .lane-team-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .lane-rank-badge {
+      background: rgba(0, 0, 0, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 3px 9px;
+      border-radius: 8px;
+      font-family: 'Cinzel', monospace;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #cbd5e1;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+
+    .lane-rank-badge.champ-badge {
+      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+      border: 1.5px solid #fde047;
+      color: #fffbeb;
+      box-shadow: 0 0 12px rgba(250, 204, 21, 0.7);
+    }
+
+    .lane-rank-badge.rank-popped {
+      transform: scale(1.35);
+    }
+
+    .lane-team-title {
+      font-family: 'Cinzel', 'Noto Serif TC', serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .lane-members-pill {
+      font-size: 0.78rem;
+      color: #d1b187;
+      font-weight: 600;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(197, 155, 76, 0.3);
+      border-radius: 20px;
+      padding: 2px 10px;
+    }
+
+    .lane-meter-info {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .lane-status-badge {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      background: rgba(234, 179, 8, 0.16);
+      border: 1px solid rgba(234, 179, 8, 0.45);
+      color: #fef08a;
+    }
+
+    .lane-status-badge.alert-chase {
+      background: rgba(239, 68, 68, 0.22);
+      border: 1px solid rgba(239, 68, 68, 0.65);
+      color: #fca5a5;
+      animation: alertPulse 1s infinite alternate;
+    }
+
+    @keyframes alertPulse {
+      0% { transform: scale(0.97); }
+      100% { transform: scale(1.03); }
+    }
+
+    .lane-meters-num {
+      font-family: 'Cinzel', monospace;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: #fef08a;
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 12px rgba(250, 204, 21, 0.5);
+    }
+
+    .lane-meters-unit {
+      font-family: 'Cinzel', monospace;
+      font-size: 0.82rem;
+      color: #d1b187;
+      font-weight: 700;
+    }
+
+    /* 下排：優雅膠囊進度條賽道 (Sleek Pill Track) 與金邊珍珠選手勳章 */
+    .lane-track-pill-container {
+      position: relative;
+      width: 100%;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .lane-track-pill {
+      position: relative;
+      flex: 1;
+      height: 20px;
+      background: rgba(8, 16, 12, 0.78);
+      border: 1.5px solid rgba(197, 155, 76, 0.4);
+      border-radius: 999px;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.65), 0 2px 8px rgba(0, 0, 0, 0.3);
+      overflow: visible;
+    }
+
+    /* 賽道無盡流動背景刻度線 */
     .lane-ticks {
       position: absolute;
       inset: 0;
-      background: repeating-linear-gradient(90deg, transparent, transparent 48px, rgba(255, 255, 255, 0.06) 48px, rgba(255, 255, 255, 0.06) 50px);
+      background: repeating-linear-gradient(90deg, transparent, transparent 36px, rgba(255, 255, 255, 0.08) 36px, rgba(255, 255, 255, 0.08) 38px);
       animation: trackStream 1s linear infinite;
       z-index: 1;
       pointer-events: none;
+      border-radius: 999px;
     }
 
     @keyframes trackStream {
       0% { background-position-x: 0px; }
-      100% { background-position-x: -50px; }
+      100% { background-position-x: -38px; }
     }
 
-    /* 專屬動物色彩彩色進度條 (無盡極速推進) */
+    /* 專屬多層次植物與大地奢華婚禮色彩條 (100% 飽和滿色) */
     .lane-progress-bar {
       position: absolute;
       left: 0;
       top: 0;
       bottom: 0;
-      border-radius: 12px;
+      border-radius: 999px;
       transition: width 0.45s cubic-bezier(0.12, 0.8, 0.32, 1);
       z-index: 2;
       overflow: hidden;
-      opacity: 0.92;
+      opacity: 1;
+      border-top: 1.5px solid rgba(255, 255, 255, 0.55);
+      border-bottom: 1.5px solid rgba(0, 0, 0, 0.4);
     }
 
     .lane-progress-beam {
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.38) 50%, transparent 100%);
+      background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.45) 50%, transparent 100%);
       animation: beamSweep 1.6s infinite linear;
     }
 
@@ -544,125 +678,80 @@
       right: 0;
       top: 0;
       bottom: 0;
-      width: 8px;
+      width: 10px;
       background: #ffffff;
-      border-radius: 4px;
+      border-radius: 999px;
     }
 
-    /* 跑道左側專屬陣營銘牌 (固定起點資訊，與右側狂衝跑道乾淨分離，永不遮擋) */
-    .lane-header-plate {
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 220px;
-      background: linear-gradient(90deg, rgba(14, 24, 18, 0.98) 0%, rgba(18, 30, 22, 0.95) 100%);
-      border-right: 2px solid rgba(197, 155, 76, 0.45);
-      z-index: 8;
-      display: flex;
-      align-items: center;
-      padding: 0 14px;
-      gap: 10px;
-      box-shadow: 4px 0 14px rgba(0, 0, 0, 0.45);
-      pointer-events: none;
-    }
-
-    .lane-team-name {
-      font-size: 0.88rem;
-      font-weight: 800;
-      color: #ffffff;
-      letter-spacing: 0.5px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .lane-rank-badge {
-      background: rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 2px 8px;
-      border-radius: 6px;
-      font-family: 'Cinzel', monospace;
-      font-size: 0.82rem;
-      font-weight: 800;
-      transition: transform 0.3s;
+    .lane-goal-trophy {
+      font-size: 1.6rem;
       flex-shrink: 0;
+      filter: drop-shadow(0 2px 8px rgba(250, 204, 21, 0.6));
+      animation: trophyShine 2.5s infinite ease-in-out;
+      user-select: none;
     }
 
-    .lane-rank-badge.champ-badge {
-      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
-      border: 1.5px solid #fde047;
-      color: #fffbeb;
-      box-shadow: 0 0 10px rgba(250, 204, 21, 0.6);
+    @keyframes trophyShine {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.15) rotate(6deg); }
     }
 
-    .lane-rank-badge.rank-popped {
-      transform: scale(1.35);
-    }
-
-    /* 跑道右側無極限狂衝賽道區 */
-    .lane-track-field {
-      position: absolute;
-      left: 220px;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      overflow: hidden;
-    }
-
-    /* 動態奔跑動物選手容器 (緊跟在彩色進度條前端狂衝) */
+    /* 馳騁賽道的金邊珍珠動物選手勳章 (大幅超越 20px 跑道高度，破框顯眼震撼) */
     .running-avatar-wrapper {
       position: absolute;
-      left: 1%;
       top: 50%;
-      transform: translateY(-50%);
+      transform: translate(-50%, -50%);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       transition: left 0.45s cubic-bezier(0.12, 0.8, 0.32, 1);
-      z-index: 10;
+      z-index: 25;
       pointer-events: none;
     }
 
-    .avatar-icon-box {
-      font-size: 2.2rem;
+    .avatar-medallion-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #ffffff 0%, #faf5ed 65%, #ebdcc3 100%);
+      border: 2.5px solid #c59b4c;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.65), inset 0 2px 4px rgba(255, 255, 255, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
       animation: runnerBob 0.35s infinite alternate ease-in-out;
-      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
+    }
+
+    .is-leader-lane .avatar-medallion-box {
+      border: 2.5px solid #facc15;
+      box-shadow: 0 0 16px rgba(250, 204, 21, 0.7), 0 4px 14px rgba(0, 0, 0, 0.65), inset 0 2px 4px rgba(255, 255, 255, 0.95);
     }
 
     @keyframes runnerBob {
       0% { transform: translateY(0) rotate(-2deg); }
-      100% { transform: translateY(-6px) rotate(3deg); }
+      100% { transform: translateY(-5px) rotate(3deg); }
+    }
+
+    .avatar-emoji {
+      font-size: 2.25rem;
+      line-height: 1;
+      display: block;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     }
 
     .avatar-speedlines {
-      position: absolute;
-      right: 100%;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.2rem;
-      opacity: 0.75;
+      font-size: 1.6rem;
+      opacity: 0.85;
       white-space: nowrap;
       pointer-events: none;
       animation: speedlineFlicker 0.2s infinite;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
     }
 
     @keyframes speedlineFlicker {
       0% { opacity: 0.4; }
       100% { opacity: 0.85; }
-    }
-
-    .avatar-floating-tag {
-      background: rgba(15, 23, 18, 0.92);
-      border: 1.5px solid #eab308;
-      border-radius: 8px;
-      padding: 3px 8px;
-      font-family: 'Cinzel', monospace;
-      font-size: 0.78rem;
-      font-weight: 800;
-      color: #fef08a;
-      white-space: nowrap;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
     }
 
     /* =========================================================
@@ -1210,18 +1299,19 @@
 
     // =========================================================
     // 3. 專屬動物跑道色彩庫與持續滑動引擎 (FLIP Rank Sliding Engine)
+    //    完美師承喜帖祝福能量條的有機植物花草與香檳琥珀色彩
     // =========================================================
     const ANIMAL_PALETTES = [
-      { gradient: 'linear-gradient(90deg, rgba(245, 158, 11, 0.25) 0%, rgba(245, 158, 11, 0.9) 70%, #fde047 100%)', glow: 'rgba(245, 158, 11, 0.8)' }, // 0: 暖金耀光
-      { gradient: 'linear-gradient(90deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.9) 70%, #6ee7b7 100%)', glow: 'rgba(16, 185, 129, 0.8)' }, // 1: 翡翠疾風
-      { gradient: 'linear-gradient(90deg, rgba(6, 182, 212, 0.25) 0%, rgba(6, 182, 212, 0.9) 70%, #67e8f9 100%)', glow: 'rgba(6, 182, 212, 0.8)' },   // 2: 電光青藍
-      { gradient: 'linear-gradient(90deg, rgba(168, 85, 247, 0.25) 0%, rgba(168, 85, 247, 0.9) 70%, #e9d5ff 100%)', glow: 'rgba(168, 85, 247, 0.8)' }, // 3: 幻紫極速
-      { gradient: 'linear-gradient(90deg, rgba(244, 63, 94, 0.25) 0%, rgba(244, 63, 94, 0.9) 70%, #fda4af 100%)', glow: 'rgba(244, 63, 94, 0.8)' },   // 4: 霓虹火粉
-      { gradient: 'linear-gradient(90deg, rgba(59, 130, 246, 0.25) 0%, rgba(59, 130, 246, 0.9) 70%, #93c5fd 100%)', glow: 'rgba(59, 130, 246, 0.8)' },  // 5: 蔚藍狂飆
-      { gradient: 'linear-gradient(90deg, rgba(249, 115, 22, 0.25) 0%, rgba(249, 115, 22, 0.9) 70%, #fed7aa 100%)', glow: 'rgba(249, 115, 22, 0.8)' }, // 6: 烈焰朱紅
-      { gradient: 'linear-gradient(90deg, rgba(132, 204, 22, 0.25) 0%, rgba(132, 204, 22, 0.9) 70%, #bef264 100%)', glow: 'rgba(132, 204, 22, 0.8)' }, // 7: 激光翠綠
-      { gradient: 'linear-gradient(90deg, rgba(236, 72, 153, 0.25) 0%, rgba(236, 72, 153, 0.9) 70%, #fbcfe8 100%)', glow: 'rgba(236, 72, 153, 0.8)' }, // 8: 狂熱玫紅
-      { gradient: 'linear-gradient(90deg, rgba(20, 184, 166, 0.25) 0%, rgba(20, 184, 166, 0.9) 70%, #99f6e4 100%)', glow: 'rgba(20, 184, 166, 0.8)' }   // 9: 碧海極光
+      { gradient: 'linear-gradient(90deg, #5b8764 0%, #8ea772 25%, #dfa84f 60%, #fef08a 100%)', glow: 'rgba(250, 204, 21, 0.75)' }, // 0: 暖金極光 (自然森林與香檳金)
+      { gradient: 'linear-gradient(90deg, #064e3b 0%, #059669 30%, #10b981 65%, #6ee7b7 100%)', glow: 'rgba(16, 185, 129, 0.75)' }, // 1: 翡翠晨露 (尤加利綠與薄荷)
+      { gradient: 'linear-gradient(90deg, #164e63 0%, #0891b2 30%, #06b6d4 65%, #67e8f9 100%)', glow: 'rgba(6, 182, 212, 0.75)' },   // 2: 冰川晨光 (青藍極光)
+      { gradient: 'linear-gradient(90deg, #4c1d95 0%, #7e22ce 30%, #a855f7 65%, #e9d5ff 100%)', glow: 'rgba(168, 85, 247, 0.75)' }, // 3: 幻紫薰衣草 (乾燥薰衣草紫)
+      { gradient: 'linear-gradient(90deg, #881337 0%, #be123c 30%, #f43f5e 65%, #fecdd3 100%)', glow: 'rgba(244, 63, 94, 0.75)' },   // 4: 玫瑰花瓣 (粉紅花瓣)
+      { gradient: 'linear-gradient(90deg, #1e3a8a 0%, #1d4ed8 30%, #3b82f6 65%, #93c5fd 100%)', glow: 'rgba(59, 130, 246, 0.75)' },  // 5: 蔚藍星海 (星夜藍)
+      { gradient: 'linear-gradient(90deg, #7c2d12 0%, #c2410c 30%, #f97316 65%, #fed7aa 100%)', glow: 'rgba(249, 115, 22, 0.75)' }, // 6: 暖陽蜜桃 (蜜桃金橘)
+      { gradient: 'linear-gradient(90deg, #365314 0%, #4d7c0f 30%, #84cc16 65%, #bef264 100%)', glow: 'rgba(132, 204, 22, 0.75)' }, // 7: 嫩綠初芽 (春意嫩綠)
+      { gradient: 'linear-gradient(90deg, #701a75 0%, #9d174d 30%, #ec4899 65%, #fbcfe8 100%)', glow: 'rgba(236, 72, 153, 0.75)' }, // 8: 醉人牡丹 (牡丹嫣紅)
+      { gradient: 'linear-gradient(90deg, #134e4a 0%, #0f766e 30%, #14b8a6 65%, #99f6e4 100%)', glow: 'rgba(20, 184, 166, 0.75)' }   // 9: 碧海極光 (海玻璃綠)
     ];
 
     function getAnimalTheme(animalId) {
@@ -1268,7 +1358,7 @@
 
         top5.forEach((team, idx) => {
           let card = activeRankCardsMap.get(team.id);
-          const topPosition = `calc(${idx} * ((100% - 36px) / 5 + 9px))`;
+          const topPosition = `calc(${idx} * ((100% - 116px) / 4))`;
 
           let statusText = '🏃 尚無跑者加入 · 等待開跑';
           if (team.membersCount >= 5) {
@@ -1327,7 +1417,7 @@
         });
       }
 
-      // 2. 右側多跑道動態奔馳實況渲染 (專屬色彩進度條 + 無盡狂衝 + 即時上下滑動)
+      // 2. 右側多跑道動態奔馳實況渲染 (師承喜帖祝福能量條 · 膠囊細跑道 + 金邊珍珠勳章 + 無極限狂衝)
       const lanesContainer = document.getElementById('screenLanesContainer');
       if (lanesContainer) {
         const currentTopIds = new Set(top5.map(t => t.id));
@@ -1350,16 +1440,52 @@
 
         top5.forEach((team, idx) => {
           let lane = activeLanesMap.get(team.id);
-          const topPosition = `calc(${idx} * ((100% - 40px) / 5 + 10px))`;
+          const topPosition = `calc(${idx} * ((100% - 116px) / 4))`;
           const theme = getAnimalTheme(team.id);
           const isLeader = (idx === 0);
 
-          // 計算跑道進度 (0m 起跑線 1% ~ 88% 領先衝刺區)
+          // 隊伍動態戰況描述 (師承喜帖祝福能量條 status 文字)
+          let statusSummary = '等待加入';
+          if (team.membersCount >= 5) {
+            statusSummary = '滿員衝刺中';
+          } else if (team.membersCount > 0) {
+            statusSummary = `${team.membersCount}人狂飆`;
+          }
+
+          let leadStatusText = '起跑蓄能 🌿';
+          let statusClass = '';
+          if (isLeader) {
+            const runnerUpMeters = top5[1]?.meters || 0;
+            const gap = (team.meters || 0) - runnerUpMeters;
+            if (runnerUpMeters > 0 && gap <= 50) {
+              leadStatusText = '快被超車 ⚡';
+              statusClass = 'alert-chase';
+            } else if ((team.meters || 0) > 0) {
+              leadStatusText = '遙遙領先 🚀';
+            }
+          } else {
+            if ((team.meters || 0) > 0) {
+              const leaderMeters = top5[0]?.meters || 0;
+              const gap = leaderMeters - (team.meters || 0);
+              if (gap <= 50) {
+                leadStatusText = '急速追趕 🔥';
+                statusClass = 'alert-chase';
+              } else {
+                leadStatusText = '澎湃狂奔 🌊';
+              }
+            }
+          }
+
+          // 計算膠囊跑道進度 (0m 起跑線 0% ~ 96% 終點獎盃區)
           const isZero = ((team.meters || 0) <= 0);
           const pct = isZero
-            ? 1
-            : Math.min(88, Math.max(4, Math.floor(((team.meters || 0) / dynamicMax) * 85)));
-          const speedlineText = isZero ? '' : (isLeader ? '⚡💨💨' : '💨');
+            ? 0
+            : Math.min(96, Math.max(8, Math.floor(((team.meters || 0) / dynamicMax) * 94)));
+          const speedlineText = isZero ? '' : (isLeader ? '⚡💨' : '💨');
+          
+          // 52px 珍珠金牌勳章在 20px 膠囊跑道上的滑動精準約束
+          const avatarLeft = isZero ? '26px' : `calc(26px + (100% - 52px) * ${pct / 100})`;
+          const barWidth = isZero ? '0%' : `calc(26px + (100% - 52px) * ${pct / 100})`;
 
           if (!lane) {
             lane = document.createElement('div');
@@ -1370,24 +1496,36 @@
             lane.style.transform = 'scale(0.95)';
 
             lane.innerHTML = `
-              <div class="lane-header-plate">
-                <span class="lane-rank-badge ${isLeader ? 'champ-badge' : ''}">#${idx + 1}</span>
-                <span class="lane-team-name">${team.emoji} ${team.name}</span>
+              <div class="lane-header-row">
+                <div class="lane-team-info">
+                  <span class="lane-rank-badge ${isLeader ? 'champ-badge' : ''}">#${idx + 1}</span>
+                  <span class="lane-team-title">${team.emoji} ${team.name}</span>
+                  <span class="lane-members-pill">(${team.membersCount}/5人 · ${statusSummary})</span>
+                </div>
+                <div class="lane-meter-info">
+                  <span class="lane-status-badge ${statusClass}">${leadStatusText}</span>
+                  <span class="lane-meters-num">${(team.meters || 0).toLocaleString()}</span>
+                  <span class="lane-meters-unit">m</span>
+                </div>
               </div>
 
-              <div class="lane-track-field">
-                <div class="lane-ticks"></div>
-                
-                <div class="lane-progress-bar" style="width: ${pct}%; background: ${theme.gradient}; box-shadow: 0 0 24px ${theme.glow};">
-                  <div class="lane-progress-beam"></div>
-                  <div class="lane-progress-head" style="box-shadow: 0 0 12px #ffffff, 0 0 24px ${theme.glow};"></div>
-                </div>
+              <div class="lane-track-pill-container">
+                <div class="lane-track-pill">
+                  <div class="lane-ticks"></div>
+                  
+                  <div class="lane-progress-bar" style="width: ${barWidth}; opacity: ${isZero ? '0' : '1'}; background: ${theme.gradient}; box-shadow: 0 0 20px ${theme.glow};">
+                    <div class="lane-progress-beam"></div>
+                    <div class="lane-progress-head" style="box-shadow: 0 0 10px #ffffff, 0 0 20px ${theme.glow};"></div>
+                  </div>
 
-                <div class="running-avatar-wrapper" style="left: ${pct}%;">
-                  <div class="avatar-speedlines">${speedlineText}</div>
-                  <div class="avatar-icon-box">${team.emoji}</div>
-                  <div class="avatar-floating-tag" style="border-color: ${theme.glow};">${(team.meters || 0).toLocaleString()}m</div>
+                  <div class="running-avatar-wrapper" style="left: ${avatarLeft};">
+                    <div class="avatar-speedlines">${speedlineText}</div>
+                    <div class="avatar-medallion-box">
+                      <span class="avatar-emoji">${team.emoji}</span>
+                    </div>
+                  </div>
                 </div>
+                <div class="lane-goal-trophy" title="12/12 婚禮幸福終點">🏆</div>
               </div>
             `;
             lanesContainer.appendChild(lane);
@@ -1398,7 +1536,7 @@
               lane.style.transform = 'scale(1)';
             });
           } else {
-            // 平滑滑動至新名次高度 (上下滑動更動效果關鍵！)
+            // 平滑滑動至新名次高度 (FLIP 上下滑動效果關鍵！)
             lane.style.top = topPosition;
             if (isLeader) {
               lane.classList.add('is-leader-lane');
@@ -1406,17 +1544,7 @@
               lane.classList.remove('is-leader-lane');
             }
 
-            // 更新專屬彩色進度條寬度 (狂衝前進！)
-            const progressBar = lane.querySelector('.lane-progress-bar');
-            if (progressBar) {
-              progressBar.style.width = `${pct}%`;
-              progressBar.style.background = theme.gradient;
-              progressBar.style.boxShadow = `0 0 24px ${theme.glow}`;
-              const head = progressBar.querySelector('.lane-progress-head');
-              if (head) head.style.boxShadow = `0 0 12px #ffffff, 0 0 24px ${theme.glow}`;
-            }
-
-            // 更新名次徽章
+            // 更新上排標頭
             const rankBadge = lane.querySelector('.lane-rank-badge');
             if (rankBadge) {
               if (rankBadge.textContent !== `#${idx + 1}`) {
@@ -1428,10 +1556,36 @@
               else rankBadge.classList.remove('champ-badge');
             }
 
-            // 更新動物狂衝位置與公里標籤
+            const teamTitle = lane.querySelector('.lane-team-title');
+            if (teamTitle) teamTitle.innerHTML = `${team.emoji} ${team.name}`;
+
+            const membersPill = lane.querySelector('.lane-members-pill');
+            if (membersPill) membersPill.textContent = `(${team.membersCount}/5人 · ${statusSummary})`;
+
+            const statusBadge = lane.querySelector('.lane-status-badge');
+            if (statusBadge) {
+              statusBadge.textContent = leadStatusText;
+              statusBadge.className = `lane-status-badge ${statusClass}`;
+            }
+
+            const meterNum = lane.querySelector('.lane-meters-num');
+            if (meterNum) meterNum.textContent = (team.meters || 0).toLocaleString();
+
+            // 更新膠囊賽道進度條 (師承喜帖祝福能量條 100% 滿色飽和流光)
+            const progressBar = lane.querySelector('.lane-progress-bar');
+            if (progressBar) {
+              progressBar.style.width = barWidth;
+              progressBar.style.opacity = isZero ? '0' : '1';
+              progressBar.style.background = theme.gradient;
+              progressBar.style.boxShadow = `0 0 20px ${theme.glow}`;
+              const head = progressBar.querySelector('.lane-progress-head');
+              if (head) head.style.boxShadow = `0 0 10px #ffffff, 0 0 20px ${theme.glow}`;
+            }
+
+            // 更新金邊珍珠動物勳章狂衝位置 (破框馳騁)
             const avatarWrapper = lane.querySelector('.running-avatar-wrapper');
             if (avatarWrapper) {
-              avatarWrapper.style.left = `${pct}%`;
+              avatarWrapper.style.left = avatarLeft;
             }
 
             const speedlines = lane.querySelector('.avatar-speedlines');
@@ -1439,10 +1593,9 @@
               speedlines.textContent = speedlineText;
             }
 
-            const floatingTag = lane.querySelector('.avatar-floating-tag');
-            if (floatingTag) {
-              floatingTag.textContent = `${(team.meters || 0).toLocaleString()}m`;
-              floatingTag.style.borderColor = theme.glow;
+            const emojiSpan = lane.querySelector('.avatar-emoji');
+            if (emojiSpan && emojiSpan.textContent !== team.emoji) {
+              emojiSpan.textContent = team.emoji;
             }
           }
         });

@@ -1367,13 +1367,14 @@
       color: #a67c2e;
     }
 
-    /* 跑者動物進度條賽道 (Animal Sprint Track) */
+    /* 跑者動物進度條賽道 (Animal Sprint Track · 完美師承喜帖祝福能量條) */
     .animal-sprint-track {
       position: relative;
       width: 100%;
-      height: 12px;
-      background: #efe8dc;
-      border: 1px solid #d8c7b0;
+      height: 14px;
+      background: rgba(234, 226, 213, 0.9);
+      border: 1.5px solid rgba(197, 155, 76, 0.45);
+      box-shadow: inset 0 2px 5px rgba(60, 45, 30, 0.15), 0 1px 3px rgba(255, 255, 255, 0.85);
       border-radius: 999px;
       margin-bottom: 16px;
     }
@@ -1381,7 +1382,8 @@
     .animal-sprint-fill {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #f3d99e 0%, #d8a758 100%);
+      background: linear-gradient(90deg, #5b8764 0%, #8ea772 28%, #dfa84f 62%, #ea7b75 100%);
+      box-shadow: 0 1px 8px rgba(223, 168, 79, 0.4);
       border-radius: 999px;
       transition: width 0.15s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
@@ -1391,16 +1393,16 @@
       top: 50%;
       left: 0%;
       transform: translate(-50%, -50%);
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       background: radial-gradient(circle at 35% 30%, #ffffff 0%, #faf5ed 65%, #ebdcc3 100%);
       border: 2px solid #c59b4c;
-      box-shadow: 0 3px 8px rgba(100, 70, 20, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 12px rgba(100, 70, 20, 0.28), inset 0 1.5px 2px rgba(255, 255, 255, 0.95);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.18rem;
+      font-size: 1.35rem;
       z-index: 5;
       pointer-events: none;
       transition: left 0.15s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.1s ease;
@@ -4037,10 +4039,10 @@
       }
       if (tag) {
         if (pct < 25) tag.textContent = '起跑蓄能 🌿';
-        else if (pct < 55) tag.textContent = '步頻加快 💨';
+        else if (pct < 55) tag.textContent = '微風加速 🍃';
         else if (pct < 85) tag.textContent = '全速狂飆 ⚡';
-        else if (pct < 100) tag.textContent = '即將破線 🎁';
-        else tag.textContent = '加碼解鎖 🎉';
+        else if (pct < 100) tag.textContent = '澎湃 🌊';
+        else tag.textContent = '加碼解鎖 🎁';
       }
     }
 
