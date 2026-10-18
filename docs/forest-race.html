@@ -2579,8 +2579,8 @@
       </div>
 
       <div class="admin-trivia-body">
-        <div style="background:#fdf9f2; border:1px solid #e3d3bd; border-radius:12px; padding:10px 12px; font-size:0.78rem; color:#6b5847; line-height:1.4;">
-          ✨ 新人可在此隨時新增、修改或刪除婚禮加碼題目！答對者享 10 秒 2X 氮氣衝刺並狂飆 +150m！
+        <div style="background:#fdf9f2; border:1px solid #e3d3bd; border-radius:12px; padding:10px 12px; font-size:0.78rem; color:#6b5847; line-height:1.45;">
+          ✨ 新人可在此隨時新增題目，或在下方題目清單直接點擊<strong>「✏️ 編輯」直接修改題目與答案</strong>，亦可點擊<strong>「🗑️ 刪除」</strong>！修改後全場零延遲即時同步！答對者享 10 秒 2X 氮氣衝刺並狂飆 +150m！
         </div>
 
         <!-- 區塊 0：婚禮現場即時廣播總控 (30秒迷霧森林衝刺 / 封榜結算) -->
@@ -2651,9 +2651,12 @@
 
         <!-- 區塊 2：現有題庫列表 -->
         <div>
-          <div style="font-weight:700; color:#5a483a; font-size:0.88rem; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+          <div style="font-weight:700; color:#5a483a; font-size:0.88rem; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
             <span>現有題目庫 (<span id="admin-trivia-count">0</span> 題)</span>
-            <button onclick="copyTriviaJson()" style="background:#efebe2; border:1px solid #d4c8b8; border-radius:10px; padding:3px 8px; font-size:0.72rem; color:#5a483a; cursor:pointer;">📋 複製題庫 JSON</button>
+            <div style="display:flex; gap:6px;">
+              <button onclick="resetTriviaToDefaults()" style="background:#fef3c7; border:1px solid #fde68a; border-radius:8px; padding:3px 8px; font-size:0.72rem; color:#92400e; font-weight:700; cursor:pointer;" title="將題庫重設為初始的 13 題">🔄 恢復預設 13 題</button>
+              <button onclick="copyTriviaJson()" style="background:#efebe2; border:1px solid #d4c8b8; border-radius:8px; padding:3px 8px; font-size:0.72rem; color:#5a483a; cursor:pointer;">📋 複製題庫 JSON</button>
+            </div>
           </div>
           <div id="admin-trivia-list" style="display:flex; flex-direction:column; gap:8px;">
             <!-- 由 JS 動態注入 -->
@@ -3047,13 +3050,18 @@
           updateCloudStatusBadge('error', err.message);
         });
 
-        // 監聽自訂題庫即時同步
+        // 監聽題庫即時同步 (支援全場題目即時更新)
         rtdb.ref('trivia').on('value', snap => {
           const t = snap.val();
-          if (Array.isArray(t)) {
-            customWeddingTrivia = t;
-            localStorage.setItem(STORAGE_KEY_CUSTOM_TRIVIA, JSON.stringify(customWeddingTrivia));
-            if (document.getElementById('admin-drawer')?.classList?.contains('open')) {
+          if (Array.isArray(t) && t.length > 0) {
+            allWeddingTrivia = t;
+            customWeddingTrivia = allWeddingTrivia;
+            try {
+              localStorage.setItem(STORAGE_KEY_ALL_TRIVIA, JSON.stringify(allWeddingTrivia));
+              localStorage.setItem(STORAGE_KEY_CUSTOM_TRIVIA, JSON.stringify(allWeddingTrivia));
+            } catch(e) {}
+            const modal = document.getElementById('admin-trivia-modal');
+            if (modal && modal.style.display === 'flex') {
               renderAdminTriviaList();
             }
           }
@@ -3357,16 +3365,30 @@
     const STORAGE_KEY_BACKUP = "forest_race_teams_backup_v2";
     const STORAGE_KEY_PLAYERS = "forest_race_players_index_v2";
     const STORAGE_KEY_CUSTOM_TRIVIA = "forest_race_custom_trivia_v1";
+    const STORAGE_KEY_ALL_TRIVIA = "wedding_forest_trivia_pool_v3";
 
-    // 甜蜜題庫池（支援新人後台自訂與預設題庫）
-    let customWeddingTrivia = [];
+    // 甜蜜題庫池（支援新人後台自訂、隨時編輯、修改與刪除所有題目）
+    let allWeddingTrivia = [];
     try {
-      const savedTrivia = localStorage.getItem(STORAGE_KEY_CUSTOM_TRIVIA);
-      if (savedTrivia) customWeddingTrivia = JSON.parse(savedTrivia);
-    } catch(e) {}
+      const savedAll = localStorage.getItem(STORAGE_KEY_ALL_TRIVIA);
+      if (savedAll) {
+        allWeddingTrivia = JSON.parse(savedAll);
+      } else {
+        const savedCustom = localStorage.getItem(STORAGE_KEY_CUSTOM_TRIVIA);
+        const legacyCustom = savedCustom ? JSON.parse(savedCustom) : [];
+        allWeddingTrivia = [...legacyCustom, ...WEDDING_TRIVIA];
+      }
+    } catch(e) {
+      allWeddingTrivia = [...WEDDING_TRIVIA];
+    }
+
+    if (!Array.isArray(allWeddingTrivia) || allWeddingTrivia.length === 0) {
+      allWeddingTrivia = JSON.parse(JSON.stringify(WEDDING_TRIVIA));
+    }
+    let customWeddingTrivia = allWeddingTrivia; // 兼容舊代碼別名
 
     function getAllActiveTrivia() {
-      return [...customWeddingTrivia, ...WEDDING_TRIVIA];
+      return (allWeddingTrivia && allWeddingTrivia.length > 0) ? allWeddingTrivia : WEDDING_TRIVIA;
     }
 
     // 喜帖加碼選擇題進度條 (每跑到最右即可參加一次加碼選擇題)
@@ -5016,6 +5038,100 @@
       if (modal) modal.style.display = 'none';
     }
 
+    let editingTriviaIndex = null;
+
+    function escapeTriviaHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function syncTriviaToStorageAndCloud() {
+      customWeddingTrivia = allWeddingTrivia;
+      try {
+        localStorage.setItem(STORAGE_KEY_ALL_TRIVIA, JSON.stringify(allWeddingTrivia));
+        localStorage.setItem(STORAGE_KEY_CUSTOM_TRIVIA, JSON.stringify(allWeddingTrivia));
+      } catch(e) {}
+      if (rtdb) {
+        rtdb.ref('trivia').set(allWeddingTrivia).catch(e => console.warn("Trivia sync error:", e));
+      }
+    }
+
+    function startEditTrivia(idx) {
+      editingTriviaIndex = idx;
+      renderAdminTriviaList();
+      setTimeout(() => {
+        const box = document.getElementById(`trivia-edit-box-${idx}`);
+        if (box) {
+          box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          const qInput = document.getElementById(`edit-q-${idx}`);
+          if (qInput) qInput.focus();
+        }
+      }, 50);
+    }
+
+    function cancelEditTrivia() {
+      editingTriviaIndex = null;
+      renderAdminTriviaList();
+    }
+
+    function saveEditTrivia(idx) {
+      const qInput = document.getElementById(`edit-q-${idx}`);
+      const q = qInput ? qInput.value.trim() : '';
+      const opt0 = (document.getElementById(`edit-opt-${idx}-0`)?.value || '').trim();
+      const opt1 = (document.getElementById(`edit-opt-${idx}-1`)?.value || '').trim();
+      const opt2 = (document.getElementById(`edit-opt-${idx}-2`)?.value || '').trim();
+      const opt3 = (document.getElementById(`edit-opt-${idx}-3`)?.value || '').trim();
+
+      if (!q || !opt0 || !opt1 || !opt2 || !opt3) {
+        alert("題目標題與四個選項皆不能為空喔！");
+        return;
+      }
+
+      const radio = document.querySelector(`input[name="edit-ans-${idx}"]:checked`);
+      const ans = radio ? parseInt(radio.value, 10) : 0;
+
+      allWeddingTrivia[idx] = {
+        q: q,
+        opts: [opt0, opt1, opt2, opt3],
+        ans: ans,
+        updatedAt: Date.now()
+      };
+
+      editingTriviaIndex = null;
+      syncTriviaToStorageAndCloud();
+      renderAdminTriviaList();
+    }
+
+    function deleteTriviaItem(idx) {
+      const item = allWeddingTrivia[idx];
+      if (!item) return;
+      if (!confirm(`確定要刪除第 ${idx + 1} 題嗎？\n\n「${item.q}」`)) return;
+
+      allWeddingTrivia.splice(idx, 1);
+      if (editingTriviaIndex === idx) {
+        editingTriviaIndex = null;
+      } else if (editingTriviaIndex !== null && editingTriviaIndex > idx) {
+        editingTriviaIndex--;
+      }
+
+      syncTriviaToStorageAndCloud();
+      renderAdminTriviaList();
+    }
+
+    function resetTriviaToDefaults() {
+      if (!confirm("確定要將題庫恢復為預設的 13 題嗎？\n\n您目前自訂或修改過的所有題目將會被重設為最初的婚禮題庫。")) return;
+      allWeddingTrivia = JSON.parse(JSON.stringify(WEDDING_TRIVIA));
+      editingTriviaIndex = null;
+      syncTriviaToStorageAndCloud();
+      renderAdminTriviaList();
+      alert("🎉 題庫已成功恢復為預設 13 道題目！");
+    }
+
     function renderAdminTriviaList() {
       const countEl = document.getElementById('admin-trivia-count');
       const listEl = document.getElementById('admin-trivia-list');
@@ -5025,37 +5141,103 @@
 
       listEl.innerHTML = '';
       all.forEach((item, idx) => {
-        const isCustom = idx < customWeddingTrivia.length;
-        const row = document.createElement('div');
-        row.style.background = '#ffffff';
-        row.style.border = isCustom ? '1.5px solid #d4a758' : '1px solid #ebdccb';
-        row.style.borderRadius = '10px';
-        row.style.padding = '8px 12px';
-        row.style.fontSize = '0.78rem';
-        row.style.display = 'flex';
-        row.style.flexDirection = 'column';
-        row.style.gap = '4px';
+        const isEditing = (editingTriviaIndex === idx);
 
-        const optStr = item.opts.map((o, oIdx) => `${oIdx === item.ans ? '<strong>✓ ' : ''}${String.fromCharCode(65 + oIdx)}. ${o}${oIdx === item.ans ? '</strong>' : ''}`).join(' · ');
+        if (isEditing) {
+          const editBox = document.createElement('div');
+          editBox.id = `trivia-edit-box-${idx}`;
+          editBox.style.background = '#fffdfa';
+          editBox.style.border = '2px solid #dfa84f';
+          editBox.style.borderRadius = '12px';
+          editBox.style.padding = '12px';
+          editBox.style.display = 'flex';
+          editBox.style.flexDirection = 'column';
+          editBox.style.gap = '8px';
+          editBox.style.boxShadow = '0 4px 14px rgba(223, 168, 79, 0.25)';
 
-        row.innerHTML = `
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:6px;">
-            <div style="font-weight:700; color:#3b2d22;">${idx + 1}. ${item.q} ${isCustom ? '<span style="color:#d4a758; font-size:0.68rem; border:1px solid #d4a758; padding:1px 4px; border-radius:4px;">新人自訂</span>' : ''}</div>
-            ${isCustom ? `<button onclick="deleteCustomTrivia(${idx})" style="background:#fde8e8; border:1px solid #f8b4b4; color:#c81e1e; border-radius:6px; padding:2px 6px; font-size:0.68rem; cursor:pointer;">刪除</button>` : ''}
-          </div>
-          <div style="color:#6b5847; font-size:0.72rem; line-height:1.3;">${optStr}</div>
-        `;
-        listEl.appendChild(row);
+          const optsHtml = item.opts.map((opt, oIdx) => `
+            <div style="display:flex; align-items:center; gap:6px;">
+              <input type="radio" name="edit-ans-${idx}" value="${oIdx}" id="edit-ans-${idx}-${oIdx}" ${oIdx === item.ans ? 'checked' : ''} style="cursor:pointer; accent-color:#16a34a; width:16px; height:16px; flex-shrink:0;">
+              <span style="font-weight:700; font-size:0.78rem; color:#493829; min-width:18px;">${String.fromCharCode(65 + oIdx)}.</span>
+              <input type="text" id="edit-opt-${idx}-${oIdx}" value="${escapeTriviaHtml(opt)}" class="admin-text-input" style="flex:1; font-size:0.8rem; padding:6px 8px; border-radius:8px;">
+            </div>
+          `).join('');
+
+          editBox.innerHTML = `
+            <div style="font-weight:800; color:#854d0e; font-size:0.88rem; display:flex; justify-content:space-between; align-items:center;">
+              <span>✏️ 正在編輯第 ${idx + 1} 題</span>
+              <span style="font-size:0.72rem; color:#a16207; font-weight:600;">點選圓圈標記正確答案</span>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:4px;">
+              <label style="font-size:0.75rem; color:#5a483a; font-weight:700;">題目標題 / 提問內容：</label>
+              <input type="text" id="edit-q-${idx}" value="${escapeTriviaHtml(item.q)}" class="admin-text-input" style="font-size:0.82rem; padding:7px 10px; border-radius:8px;">
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px; margin-top:2px;">
+              <label style="font-size:0.75rem; color:#5a483a; font-weight:700;">四個選項（單選正確答案）：</label>
+              ${optsHtml}
+            </div>
+            <div style="display:flex; gap:8px; margin-top:4px;">
+              <button onclick="saveEditTrivia(${idx})" style="flex:1; padding:9px 12px; background:linear-gradient(135deg, #16a34a 0%, #15803d 100%); border:none; border-radius:8px; color:#ffffff; font-weight:700; font-size:0.84rem; cursor:pointer; box-shadow:0 2px 6px rgba(22,163,74,0.3); display:flex; align-items:center; justify-content:center; gap:4px;">
+                <span>💾</span> 儲存修改
+              </button>
+              <button onclick="cancelEditTrivia()" style="padding:9px 14px; background:#f1f5f9; border:1px solid #cbd5e1; border-radius:8px; color:#475569; font-weight:600; font-size:0.82rem; cursor:pointer;">
+                取消
+              </button>
+            </div>
+          `;
+          listEl.appendChild(editBox);
+        } else {
+          const row = document.createElement('div');
+          row.style.background = '#ffffff';
+          row.style.border = '1.5px solid #ebdccb';
+          row.style.borderRadius = '12px';
+          row.style.padding = '10px 12px';
+          row.style.fontSize = '0.78rem';
+          row.style.display = 'flex';
+          row.style.flexDirection = 'column';
+          row.style.gap = '6px';
+          row.style.boxShadow = '0 1px 3px rgba(0,0,0,0.03)';
+
+          const optsGrid = item.opts.map((o, oIdx) => {
+            const isAns = (oIdx === item.ans);
+            return `
+              <div style="color:${isAns ? '#166534' : '#6b5847'}; font-weight:${isAns ? '700' : '400'}; font-size:0.72rem; display:flex; align-items:center; gap:4px; ${isAns ? 'background:#dcfce7; border-radius:4px; padding:2px 6px;' : 'padding:2px 6px;'}">
+                <span style="font-size:0.75rem;">${isAns ? '✅' : '⚪'}</span>
+                <span>${String.fromCharCode(65 + oIdx)}. ${escapeTriviaHtml(o)}</span>
+              </div>
+            `;
+          }).join('');
+
+          row.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
+              <div style="font-weight:700; color:#3b2d22; font-size:0.84rem; line-height:1.35; flex:1;">
+                ${idx + 1}. ${escapeTriviaHtml(item.q)}
+              </div>
+              <div style="display:flex; gap:5px; flex-shrink:0;">
+                <button onclick="startEditTrivia(${idx})" style="background:#fef3c7; border:1px solid #fde68a; color:#92400e; border-radius:6px; padding:3px 8px; font-size:0.72rem; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:2px;" title="在頁面上直接修改此題目">
+                  ✏️ 編輯
+                </button>
+                <button onclick="deleteTriviaItem(${idx})" style="background:#fee2e2; border:1px solid #fecaca; color:#b91c1c; border-radius:6px; padding:3px 8px; font-size:0.72rem; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:2px;" title="刪除此題">
+                  🗑️ 刪除
+                </button>
+              </div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px 8px; background:#faf7f2; border-radius:8px; padding:6px 8px; border:1px solid #f0e6d9;">
+              ${optsGrid}
+            </div>
+          `;
+          listEl.appendChild(row);
+        }
       });
     }
 
     function saveNewCustomTrivia() {
       const qInput = document.getElementById('admin-new-q');
       const q = qInput ? qInput.value.trim() : '';
-      const opt0 = document.getElementById('admin-new-opt-0').value.trim();
-      const opt1 = document.getElementById('admin-new-opt-1').value.trim();
-      const opt2 = document.getElementById('admin-new-opt-2').value.trim();
-      const opt3 = document.getElementById('admin-new-opt-3').value.trim();
+      const opt0 = (document.getElementById('admin-new-opt-0')?.value || '').trim();
+      const opt1 = (document.getElementById('admin-new-opt-1')?.value || '').trim();
+      const opt2 = (document.getElementById('admin-new-opt-2')?.value || '').trim();
+      const opt3 = (document.getElementById('admin-new-opt-3')?.value || '').trim();
 
       if (!q || !opt0 || !opt1 || !opt2 || !opt3) {
         alert("請將題目標題與四個選項全部填寫完整喔！");
@@ -5073,31 +5255,22 @@
         createdAt: Date.now()
       };
 
-      customWeddingTrivia.unshift(newQ);
-      localStorage.setItem(STORAGE_KEY_CUSTOM_TRIVIA, JSON.stringify(customWeddingTrivia));
-      if (rtdb) {
-        rtdb.ref('trivia').set(customWeddingTrivia).catch(e => console.warn(e));
-      }
+      allWeddingTrivia.unshift(newQ);
+      syncTriviaToStorageAndCloud();
 
       // 清空輸入
       if (qInput) qInput.value = '';
-      document.getElementById('admin-new-opt-0').value = '';
-      document.getElementById('admin-new-opt-1').value = '';
-      document.getElementById('admin-new-opt-2').value = '';
-      document.getElementById('admin-new-opt-3').value = '';
+      if (document.getElementById('admin-new-opt-0')) document.getElementById('admin-new-opt-0').value = '';
+      if (document.getElementById('admin-new-opt-1')) document.getElementById('admin-new-opt-1').value = '';
+      if (document.getElementById('admin-new-opt-2')) document.getElementById('admin-new-opt-2').value = '';
+      if (document.getElementById('admin-new-opt-3')) document.getElementById('admin-new-opt-3').value = '';
 
       renderAdminTriviaList();
-      alert("🎉 恭喜！新題目已成功加入題庫，親友在賽跑時將隨機遇到這題！");
+      alert("🎉 恭喜！新題目已成功加入題庫並同步雲端，親友在賽跑時將隨機遇到這題！");
     }
 
     function deleteCustomTrivia(customIdx) {
-      if (!confirm("確定要刪除這道自訂題目嗎？")) return;
-      customWeddingTrivia.splice(customIdx, 1);
-      localStorage.setItem(STORAGE_KEY_CUSTOM_TRIVIA, JSON.stringify(customWeddingTrivia));
-      if (rtdb) {
-        rtdb.ref('trivia').set(customWeddingTrivia).catch(e => console.warn(e));
-      }
-      renderAdminTriviaList();
+      deleteTriviaItem(customIdx);
     }
 
     function copyTriviaJson() {
