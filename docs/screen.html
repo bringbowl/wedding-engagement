@@ -759,18 +759,18 @@
        ========================================================= */
     .screen-mist-banner {
       position: absolute;
-      top: 90px;
+      top: 10px;
       left: 50%;
       transform: translateX(-50%);
-      background: linear-gradient(135deg, rgba(30, 20, 10, 0.96) 0%, rgba(55, 30, 15, 0.98) 100%);
-      border: 2.5px solid #eab308;
-      border-radius: 20px;
-      padding: 14px 32px;
+      background: linear-gradient(135deg, rgba(35, 20, 10, 0.98) 0%, rgba(55, 28, 14, 0.98) 100%);
+      border: 2px solid #eab308;
+      border-radius: 999px;
+      padding: 6px 24px 6px 30px;
       display: none;
       align-items: center;
-      gap: 24px;
-      z-index: 80;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.65), 0 0 36px rgba(234, 179, 8, 0.55);
+      gap: 20px;
+      z-index: 150;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7), 0 0 35px rgba(234, 179, 8, 0.65);
       animation: bannerPulse 1.2s infinite alternate;
     }
 
@@ -790,33 +790,33 @@
 
     .mist-headline {
       font-family: 'Cinzel', 'Noto Serif TC', serif;
-      font-size: 1.45rem;
-      font-weight: 900;
+      font-size: 1.15rem;
+      font-weight: 800;
       color: #fef08a;
       letter-spacing: 1px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .mist-subtext {
-      font-size: 0.88rem;
+      font-size: 0.75rem;
       color: #fed7aa;
-      font-weight: 700;
-      margin-top: 3px;
+      font-weight: 600;
+      margin-top: 1px;
     }
 
     .mist-giant-timer {
       font-family: 'Cinzel', monospace;
-      font-size: 2.8rem;
+      font-size: 2.1rem;
       font-weight: 900;
       color: #ffffff;
       background: #b91c1c;
       border: 2px solid #f87171;
-      padding: 4px 20px;
-      border-radius: 16px;
-      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(185, 28, 28, 0.6);
-      letter-spacing: 2px;
+      padding: 2px 18px;
+      border-radius: 999px;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5), 0 0 16px rgba(239, 68, 68, 0.6);
+      letter-spacing: 1.5px;
     }
 
     /* =========================================================
@@ -1151,6 +1151,9 @@
   <div class="screen-toolbar">
     <button class="tool-btn" id="audioBtn" onclick="toggleAudio()">
       <span>🎵</span> <span id="audioText">播放大自然與氛圍音</span>
+    </button>
+    <button class="tool-btn" id="mistToggleBtn" onclick="toggleMistCountdown()">
+      <span>🌫️</span> <span id="mistToggleText">啟動 30 秒倒數衝刺</span>
     </button>
     <button class="tool-btn" onclick="togglePodiumView()">
       <span>🏆</span> <span>查看頒獎榜</span>
@@ -1604,11 +1607,32 @@
 
     // =========================================================
     // 4. 迷霧森林最後衝刺與頒獎結算狀態處理
-    // =========================================================
+    function toggleMistCountdown() {
+      if (rtdb) {
+        if (!isMistSprintActive) {
+          const now = Date.now();
+          rtdb.ref('gameState').set({
+            mode: 'mist',
+            mistStartedAt: now,
+            mistDuration: 30,
+            mistEndsAt: now + 30000
+          }).catch(e => console.warn(e));
+        } else {
+          rtdb.ref('gameState').set({ mode: 'normal' }).catch(e => console.warn(e));
+        }
+      } else {
+        handleGameState({
+          mode: isMistSprintActive ? 'normal' : 'mist',
+          mistEndsAt: Date.now() + 30000
+        });
+      }
+    }
+
     function handleGameState(state) {
       const mistOverlay = document.getElementById('screenMistOverlay');
       const mistBanner = document.getElementById('screenMistBanner');
       const mistTimer = document.getElementById('screenMistTimer');
+      const toggleText = document.getElementById('mistToggleText');
 
       if (state.mode === 'mist') {
         const endsAt = state.mistEndsAt || (Date.now() + 30000);
@@ -1620,6 +1644,7 @@
           if (mistOverlay) mistOverlay.classList.add('active');
           if (mistBanner) mistBanner.classList.add('active');
           if (mistTimer) mistTimer.textContent = `${remSec}s`;
+          if (toggleText) toggleText.textContent = '🛑 結束倒數回一般模式';
 
           if (mistCountdownTimer) clearInterval(mistCountdownTimer);
           mistCountdownTimer = setInterval(() => {
@@ -1642,6 +1667,7 @@
       isMistSprintActive = false;
       if (mistOverlay) mistOverlay.classList.remove('active');
       if (mistBanner) mistBanner.classList.remove('active');
+      if (toggleText) toggleText.textContent = '🌫️ 啟動 30 秒倒數衝刺';
 
       if (state.mode === 'finished') {
         isRaceFinished = true;
