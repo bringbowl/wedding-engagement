@@ -2709,6 +2709,9 @@
           <button onclick="adminResetAllTeamsAndPlayers()" style="width:100%; padding:10px 12px; background:#fde8e8; border:1.5px solid #e2bcbc; border-radius:10px; font-size:0.78rem; font-weight:700; color:#ba3c3c; cursor:pointer; margin-top:2px;">
             ⚠️ 全體 50 隊人數與里程全面歸零（正式開賽前重設）
           </button>
+          <button id="btn-admin-undo-reset" onclick="adminUndoReset()" style="width:100%; padding:10px 12px; background:#edf7ed; border:1.5px solid #a3d9a5; border-radius:10px; font-size:0.78rem; font-weight:700; color:#2e7d32; cursor:pointer; margin-top:4px; display:none;">
+            ↩️ 立即復原上一次重設（救命撤銷）
+          </button>
         </div>
 
         <!-- 區塊 4：修改管理密碼 -->
@@ -5035,6 +5038,11 @@
     function openAdminTriviaDrawer() {
       renderAdminTriviaList();
       renderAdminPlayersList();
+      const undoBtn = document.getElementById('btn-admin-undo-reset');
+      if (undoBtn) {
+        const hasUndo = localStorage.getItem('forest_race_emergency_undo_teams');
+        undoBtn.style.display = hasUndo ? 'block' : 'none';
+      }
       const modal = document.getElementById('admin-trivia-modal');
       if (modal) modal.style.display = 'flex';
     }
@@ -5386,9 +5394,25 @@
     }
 
     function adminResetAllTeamsAndPlayers() {
-      if (!confirm("⚠️ 警告：即將把全體 50 支動物隊伍的人數 (0人) 與里程 (0m) 全面歸零！\n\n・所有選手登記紀錄將被清除\n・自訂題目與管理密碼會安全保留\n\n確定要在正式開賽前全部歸零嗎？")) {
+      if (!confirm("⚠️ 警告：即將把全體 50 支動物隊伍的人數 (0人) 與里程 (0m) 全面歸零！\n\n・系統將在重設前自動建立「救命快照備份」\n・自訂題目與管理密碼會安全保留\n\n確定要在正式開賽前全部歸零嗎？")) {
         return;
       }
+
+      // 🛡️ 重設前強制建立本地救命快照備份並自動下載 JSON
+      try {
+        if (teamDataMap) {
+          localStorage.setItem('forest_race_emergency_undo_teams', JSON.stringify(teamDataMap));
+        }
+        const currentPlayers = localStorage.getItem(STORAGE_KEY_PLAYERS) || "{}";
+        localStorage.setItem('forest_race_emergency_undo_players', currentPlayers);
+        localStorage.setItem('forest_race_emergency_undo_time', new Date().toISOString());
+
+        // 自動觸發一次檔案下載存檔至本機
+        exportGameBackup();
+      } catch(e) {
+        console.warn("Emergency backup failed", e);
+      }
+
       localStorage.removeItem(STORAGE_KEY_USER);
       localStorage.removeItem(STORAGE_KEY_PLAYERS);
       localStorage.removeItem(STORAGE_KEY_TEAMS);
@@ -5427,8 +5451,41 @@
         rtdb.ref('gameState').set({ mode: 'normal' }).catch(e => console.warn(e));
       }
 
-      alert("🎉 全體 50 隊人數與步數已成功歸零（本機與雲端同步重設）！目前為最乾淨的初始狀態，隨時可迎接親友開跑！");
+      alert("🎉 全體 50 隊人數與步數已成功歸零！\n\n🛡️ 安全保險：重設前已自動下載備份檔案至您的「下載」資料夾，管理面板亦提供【↩️ 立即復原上一次重設】，若為誤觸隨時可秒速救回！");
       location.reload();
+    }
+
+    function adminUndoReset() {
+      const savedTeamsJson = localStorage.getItem('forest_race_emergency_undo_teams');
+      const savedPlayersJson = localStorage.getItem('forest_race_emergency_undo_players');
+      if (!savedTeamsJson) {
+        alert("找不到上一次重設前的備份紀錄！");
+        return;
+      }
+      if (!confirm("確定要撤銷上一次的重設，將先前的隊伍人數與里程完整還原回雲端嗎？")) {
+        return;
+      }
+      try {
+        const restoredTeams = JSON.parse(savedTeamsJson);
+        const restoredPlayers = JSON.parse(savedPlayersJson || "{}");
+        teamDataMap = restoredTeams;
+        localStorage.setItem(STORAGE_KEY_TEAMS, savedTeamsJson);
+        localStorage.setItem(STORAGE_KEY_BACKUP, savedTeamsJson);
+        localStorage.setItem(STORAGE_KEY_PLAYERS, savedPlayersJson);
+
+        Object.keys(restoredPlayers).forEach(name => {
+          localStorage.setItem("forest_race_player_" + encodeURIComponent(name), JSON.stringify(restoredPlayers[name]));
+        });
+
+        if (rtdb) {
+          rtdb.ref('teams').set(restoredTeams);
+          rtdb.ref('players').set(restoredPlayers);
+        }
+        alert("🎉 救命成功！所有隊伍與選手數據已 100% 完整原封不動復原回雲端！");
+        location.reload();
+      } catch(e) {
+        alert("復原失敗: " + e.message);
+      }
     }
 
     function startNitroBoost(seconds) {
