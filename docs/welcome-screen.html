@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Barry & Winnie · 阿沐大螢幕 100% 純淨森林迎賓實景窗</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #141f16;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      user-select: none;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
+    }
+
+    /* 16:9 全景森林背景容器 */
+    .screen-stage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* 森林母圖：調暗 15%、提升飽和與對比，徹底壓抑中央死白強光，呈現深邃溫潤的晨曦暮光感 */
+    .forest-bg {
+      position: absolute;
+      top: -4%;
+      left: -4%;
+      width: 108%;
+      height: 108%;
+      background-image: url("assets/master_forest.jpg"), url("參考素材/Master_Empty.png"), url("file:///Users/winnie/Downloads/wedding-planning/02_結婚專區_1212中壢/02_音樂與影音/參考素材/Master_Empty.png"), url("https://bringbowl.github.io/wedding-engagement/assets/master_forest.jpg");
+      background-size: cover;
+      background-position: center 38%;
+      animation: kenBurns 50s ease-in-out infinite alternate;
+      filter: brightness(0.85) contrast(1.10) saturate(1.15);
+    }
+
+    @keyframes kenBurns {
+      0% {
+        transform: scale(1) translate(0, 0);
+      }
+      50% {
+        transform: scale(1.03) translate(-0.8%, -0.4%);
+      }
+      100% {
+        transform: scale(1.015) translate(0.8%, 0.4%);
+      }
+    }
+
+    /* 晨曦暖金與深翠漸層暗角：收斂中央過曝白光，與阿沐愛迪生暖光穹頂完全融為一體 */
+    .light-mist-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at 50% 34%, rgba(240, 195, 110, 0.12) 0%, rgba(22, 38, 24, 0.32) 58%, rgba(8, 16, 10, 0.70) 100%);
+      pointer-events: none;
+    }
+
+    .canopy-vignette {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(10, 20, 12, 0.45) 0%, transparent 22%, transparent 78%, rgba(6, 14, 8, 0.58) 100%);
+      pointer-events: none;
+    }
+
+    /* 動態晨曦神光呼吸（丁達爾光柱微動流動） */
+    .sunbeams-breathing {
+      position: absolute;
+      top: -10%;
+      left: 18%;
+      width: 75%;
+      height: 120%;
+      background: radial-gradient(ellipse at 46% 32%, rgba(255, 230, 150, 0.18) 0%, rgba(240, 195, 100, 0.08) 45%, transparent 75%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      animation: godRaysDrift 14s ease-in-out infinite alternate;
+      z-index: 4;
+    }
+
+    @keyframes godRaysDrift {
+      0% {
+        opacity: 0.50;
+        transform: rotate(-1.5deg) scale(0.98) translateY(0);
+      }
+      50% {
+        opacity: 0.95;
+        transform: rotate(1deg) scale(1.04) translateY(-1%);
+      }
+      100% {
+        opacity: 0.60;
+        transform: rotate(0deg) scale(1.01) translateY(0.5%);
+      }
+    }
+
+    /* 斑駁樹影緩緩搖曳（微風吹拂林冠的流動陰影） */
+    .dappled-shadows {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 64% 64%, rgba(8, 18, 10, 0.22) 0%, transparent 45%),
+                  radial-gradient(circle at 38% 70%, rgba(8, 18, 10, 0.18) 0%, transparent 40%);
+      pointer-events: none;
+      animation: shadowDrift 18s ease-in-out infinite alternate;
+      z-index: 3;
+    }
+
+    @keyframes shadowDrift {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(1.2%, -0.8%) scale(1.02); }
+      100% { transform: translate(-1%, 0.6%) scale(0.99); }
+    }
+
+    /* 飄浮金色螢火蟲與光斑粒子 Canvas */
+    #particlesCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    /* 真實影片播放容器（供 Google Flow / Veo 3.1 生成之真實毛茸茸動物影片無縫疊播） */
+    .video-overlay-stage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+
+    .video-overlay-stage.active {
+      opacity: 1;
+    }
+
+    #animalVideoPlayer {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* 底部操作控制列 (Hover 顯現，大螢幕播放時完全隱形低調) */
+    .screen-toolbar {
+      position: absolute;
+      bottom: 24px;
+      right: 28px;
+      z-index: 100;
+      display: flex;
+      gap: 10px;
+      opacity: 0.25;
+      transition: opacity 0.3s ease;
+    }
+
+    .screen-toolbar:hover {
+      opacity: 1;
+    }
+
+    .tool-btn {
+      background: rgba(20, 32, 22, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(8px);
+      transition: all 0.2s ease;
+    }
+
+    .tool-btn:hover {
+      background: rgba(77, 102, 80, 0.95);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="screen-stage">
+    <!-- 16:9 純淨全景晨曦森林動態微動背景（真實無遮擋落地景觀窗） -->
+    <div class="forest-bg"></div>
+    <div class="dappled-shadows"></div>
+    <div class="sunbeams-breathing"></div>
+    <div class="light-mist-overlay"></div>
+    <div class="canopy-vignette"></div>
+    <canvas id="particlesCanvas"></canvas>
+
+    <!-- 真實野生動物影片播放圖層 -->
+    <div class="video-overlay-stage" id="videoStage">
+      <video id="animalVideoPlayer" playsinline muted></video>
+    </div>
+  </div>
+
+  <!-- 浮動控制工具列 -->
+  <div class="screen-toolbar">
+    <button class="tool-btn" id="audioBtn" onclick="toggleAudio()">
+      <span>🎵</span> <span id="audioText">播放大自然與木吉他氛圍音</span>
+    </button>
+    <button class="tool-btn" onclick="toggleFullscreen()">
+      <span>⛶</span> <span>全螢幕展示</span>
+    </button>
+  </div>
+
+  <script>
+    // 1. 金色螢火蟲與晨光微塵粒子特效 Canvas
+    const canvas = document.getElementById("particlesCanvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    class Firefly {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.radius = Math.random() * 2.2 + 0.8;
+        this.alpha = Math.random() * 0.7 + 0.2;
+        this.speedX = (Math.random() - 0.5) * 0.35;
+        this.speedY = -Math.random() * 0.3 - 0.1;
+        this.fadeSpeed = Math.random() * 0.008 + 0.004;
+        this.fadingOut = Math.random() > 0.5;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.fadingOut) {
+          this.alpha -= this.fadeSpeed;
+          if (this.alpha <= 0.08) this.fadingOut = false;
+        } else {
+          this.alpha += this.fadeSpeed;
+          if (this.alpha >= 0.85) this.fadingOut = true;
+        }
+        if (this.y < -10 || this.x < -10 || this.x > canvas.width + 10) {
+          this.reset();
+          this.y = canvas.height + 10;
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 225, 130, ${this.alpha})`;
+        ctx.shadowColor = "rgba(255, 210, 90, 0.9)";
+        ctx.shadowBlur = 10;
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    for (let i = 0; i < 48; i++) {
+      particles.push(new Firefly());
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // 2. 全螢幕切換
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          console.log("Fullscreen request failed", err);
+        });
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    // 3. Web Audio 大自然森林微風 ＋ 空靈吉他微音合成器
+    let audioCtx = null;
+    let isPlaying = false;
+    let filterNode = null;
+    let chimeTimer = null;
+
+    function toggleAudio() {
+      if (!isPlaying) {
+        startAudio();
+        document.getElementById("audioText").innerText = "暫停氛圍音效";
+        document.getElementById("audioBtn").style.background = "rgba(77, 102, 80, 0.95)";
+        isPlaying = true;
+      } else {
+        stopAudio();
+        document.getElementById("audioText").innerText = "播放大自然與木吉他氛圍音";
+        document.getElementById("audioBtn").style.background = "rgba(20, 32, 22, 0.85)";
+        isPlaying = false;
+      }
+    }
+
+    function startAudio() {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioContext();
+
+      // 微風白噪音合成
+      const bufferSize = audioCtx.sampleRate * 2;
+      const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const output = noiseBuffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = Math.random() * 2 - 1;
+      }
+
+      const whiteNoise = audioCtx.createBufferSource();
+      whiteNoise.buffer = noiseBuffer;
+      whiteNoise.loop = true;
+
+      filterNode = audioCtx.createBiquadFilter();
+      filterNode.type = "bandpass";
+      filterNode.frequency.setValueAtTime(450, audioCtx.currentTime);
+      filterNode.Q.setValueAtTime(1.2, audioCtx.currentTime);
+
+      const windGain = audioCtx.createGain();
+      windGain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+
+      whiteNoise.connect(filterNode);
+      filterNode.connect(windGain);
+      windGain.connect(audioCtx.destination);
+      whiteNoise.start();
+
+      setInterval(() => {
+        if (filterNode && audioCtx) {
+          filterNode.frequency.setTargetAtTime(350 + Math.random() * 250, audioCtx.currentTime, 1.5);
+        }
+      }, 3000);
+
+      const scale = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25];
+      function playChime() {
+        if (!isPlaying || !audioCtx) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "sine";
+        const freq = scale[Math.floor(Math.random() * scale.length)];
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+        gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 2.8);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 3.0);
+
+        chimeTimer = setTimeout(playChime, 2500 + Math.random() * 3000);
+      }
+      playChime();
+    }
+
+    function stopAudio() {
+      if (audioCtx) {
+        audioCtx.close();
+        audioCtx = null;
+      }
+      if (chimeTimer) clearTimeout(chimeTimer);
+    }
+  </script>
+</body>
+</html>
