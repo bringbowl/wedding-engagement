@@ -305,6 +305,9 @@
     <canvas id="particlesCanvas"></canvas>
   </div>
 
+  <!-- 真實森林大自然環境原音（清溪潺潺流水・晨梢鳥語啼鳴・溪畔樹蛙鳴唱，首尾無縫循環） -->
+  <audio id="forestAmbientAudio" loop preload="auto" src="assets/audio/forest_nature_ambient.mp3"></audio>
+
   <!-- 操作微光提示 Toast（僅供後台手動控制切換，動物漫步時 100% 零文字沉浸式視覺） -->
   <div class="cameo-toast" id="cameoToast">
     <span class="toast-icon">🌿</span>
@@ -335,9 +338,9 @@
       </div>
     </div>
 
-    <!-- 森林深處生態音效按鈕 -->
+    <!-- 森林自然環境原音按鈕 -->
     <button class="tool-btn" id="audioBtn" onclick="toggleAudio()">
-      <span>🎵</span> <span id="audioText">開啟森林深處生態音（清溪流水・鳥語蛙鳴・動物步履）</span>
+      <span>🎵</span> <span id="audioText">開啟森林自然環境音（清溪流水・林鳥啼鳴・溪畔蛙鳴）</span>
     </button>
 
     <!-- 全螢幕按鈕 -->
@@ -632,9 +635,6 @@
       }
       idlePlayer.currentTime = 0;
 
-      // 觸發動物專屬腳步與環境特徵音效
-      playAnimalSound(nextItem.id);
-
       // 1. 確保新影片在底層已經解碼開跑 (此時 idlePlayer 仍在 opacity: 0，完全看不見)
       try {
         await idlePlayer.play();
@@ -716,119 +716,29 @@
     }
 
     // =========================================================
-    // 3. 森林深處多音軌生態音效引擎 (Forest Eco-Audio Engine)
-    // 包含：清溪流淌潺潺水聲、深林微風、偶爾鳥鳴、溪石蛙鳴、動物出沒專屬腳步特徵音
+    // 3. 真實大自然森林環境原音系統 (Real Forest Natural Soundscape)
+    // 採樣自野外真實收音：清澈溪流潺潺流淌、晨梢林鳥婉轉啼鳴、溪畔樹蛙鳴唱
+    // 全程 60 秒首尾無縫循環，且換景時完全靜默自然，無任何突兀切換音效
     // =========================================================
+    const forestAudio = document.getElementById("forestAmbientAudio");
     let isAudioPlaying = false;
-    let streamAudio = null;
-    let birdAudio = null;
-    let frogAudio = null;
-    let birdTimer = null;
-    let frogTimer = null;
-    const animalAudioMap = {};
-
-    function initAudioEngine() {
-      if (streamAudio) return;
-
-      // 1. 溪流流水與深林微風背景聲 (循環播放)
-      streamAudio = new Audio("assets/audio/forest_stream_deep.mp3");
-      streamAudio.loop = true;
-      streamAudio.volume = 0.65;
-
-      // 2. 偶爾清脆鳥鳴
-      birdAudio = new Audio("assets/audio/birds_woodland.mp3");
-      birdAudio.volume = 0.50;
-
-      // 3. 偶爾溪畔蛙鳴
-      frogAudio = new Audio("assets/audio/frogs_stream.mp3");
-      frogAudio.volume = 0.45;
-
-      // 4. 動物出場腳步與特徵音
-      const animalSounds = {
-        deer: "assets/audio/steps_deer.mp3",
-        rabbit: "assets/audio/steps_rabbit.mp3",
-        otter: "assets/audio/steps_otter.mp3",
-        sparrows: "assets/audio/steps_sparrows.mp3",
-        redpandas_playing: "assets/audio/steps_redpandas.mp3",
-        leopard_cat: "assets/audio/steps_leopard_cat.mp3",
-        bear: "assets/audio/steps_bear.mp3",
-        redpanda_curious: "assets/audio/steps_redpandas.mp3",
-        beaver: "assets/audio/steps_beaver.mp3"
-      };
-
-      for (const [id, src] of Object.entries(animalSounds)) {
-        const aud = new Audio(src);
-        aud.preload = "auto";
-        aud.volume = 0.75;
-        animalAudioMap[id] = aud;
-      }
-    }
 
     function startForestAudio() {
-      initAudioEngine();
-      isAudioPlaying = true;
-
-      // 播放清溪水流與微風
-      streamAudio.play().catch(e => console.log("Stream play deferred until gesture:", e));
-
-      // 隨機間隔觸發鳥鳴 (每 7 ~ 15 秒鳴唱一次)
-      scheduleNextBird();
-
-      // 隨機間隔觸發溪畔蛙鳴 (每 9 ~ 20 秒鳴叫一次)
-      scheduleNextFrog();
-
-      updateAudioButtonUI(true);
-      showToast("🌿", "已開啟森林深處清溪流水、鳥叫蛙鳴與動物步履");
+      forestAudio.volume = 0.85;
+      forestAudio.play().then(() => {
+        isAudioPlaying = true;
+        updateAudioButtonUI(true);
+        showToast("🌿", "已開啟真實森林環境音（清溪流水・林鳥啼鳴・溪畔蛙鳴）");
+      }).catch(err => {
+        console.warn("Audio play deferred until user interaction:", err);
+      });
     }
 
     function stopForestAudio() {
+      forestAudio.pause();
       isAudioPlaying = false;
-      if (streamAudio) streamAudio.pause();
-      if (birdAudio) birdAudio.pause();
-      if (frogAudio) frogAudio.pause();
-      clearTimeout(birdTimer);
-      clearTimeout(frogTimer);
       updateAudioButtonUI(false);
-      showToast("🌿", "已暫停森林環境音效");
-    }
-
-    function scheduleNextBird() {
-      clearTimeout(birdTimer);
-      if (!isAudioPlaying) return;
-      const delay = 6000 + Math.random() * 8000;
-      birdTimer = setTimeout(() => {
-        if (isAudioPlaying && birdAudio) {
-          birdAudio.currentTime = 0;
-          birdAudio.play().catch(() => {});
-          scheduleNextBird();
-        }
-      }, delay);
-    }
-
-    function scheduleNextFrog() {
-      clearTimeout(frogTimer);
-      if (!isAudioPlaying) return;
-      const delay = 8000 + Math.random() * 11000;
-      frogTimer = setTimeout(() => {
-        if (isAudioPlaying && frogAudio) {
-          frogAudio.currentTime = 0;
-          frogAudio.play().catch(() => {});
-          scheduleNextFrog();
-        }
-      }, delay);
-    }
-
-    function playAnimalSound(animalId) {
-      if (!isAudioPlaying) return;
-      const sound = animalAudioMap[animalId];
-      if (sound) {
-        // 在新動物畫面淡入浮現 (400ms) 時踏出真實腳步聲
-        setTimeout(() => {
-          if (!isAudioPlaying) return;
-          sound.currentTime = 0;
-          sound.play().catch(e => console.log("Animal step audio deferred:", e));
-        }, 400);
-      }
+      showToast("🌿", "已暫停森林環境音");
     }
 
     function toggleAudio() {
@@ -843,19 +753,21 @@
       const btnText = document.getElementById("audioText");
       const btn = document.getElementById("audioBtn");
       if (playing) {
-        btnText.innerText = "🔊 森林溪流・鳥語蛙鳴・動物步履（播放中）";
+        btnText.innerText = "🔊 森林環境音播放中（清溪流水・鳥叫蛙鳴）";
         btn.style.background = "rgba(45, 92, 55, 0.92)";
         btn.style.borderColor = "rgba(240, 220, 150, 0.9)";
       } else {
-        btnText.innerText = "🎵 開啟森林深處生態音（清溪流水・鳥語蛙鳴・動物步履）";
+        btnText.innerText = "🎵 開啟森林自然環境音（清溪流水・林鳥啼鳴・溪畔蛙鳴）";
         btn.style.background = "rgba(255, 255, 255, 0.08)";
         btn.style.borderColor = "rgba(230, 210, 150, 0.3)";
       }
     }
 
-    // 支援首次任意點擊頁面時預載 Audio 物件
-    window.addEventListener("click", () => {
-      initAudioEngine();
+    // 支援首次任意點擊畫面時自動播放環境音（符合各大瀏覽器安全策略）
+    window.addEventListener("click", (e) => {
+      if (!isAudioPlaying && !e.target.closest(".screen-toolbar")) {
+        startForestAudio();
+      }
     }, { once: true });
 
     // =========================================================
