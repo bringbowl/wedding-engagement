@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Barry &amp; Winnie · 阿沐大螢幕 100% 純淨森林迎賓實景窗 ＋ Veo 3.1 高畫質野生動物動態彩蛋</title>
+  <title>Barry &amp; Winnie · 森林迎賓動態視覺 · 1080p 電影級零晃動雙緩衝播放器</title>
   <style>
     * {
       box-sizing: border-box;
@@ -15,7 +15,7 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      background: #141f16;
+      background: #0d160f;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -35,8 +35,8 @@
       background: #0d160f;
     }
 
-    /* 底層：Veo 1080p 純淨呼吸微動森林背景影片 (Loop 0) */
-    .forest-video-layer {
+    /* 雙緩衝電影級 1080p 影片圖層 (A / B 雙軌無縫交替，徹底消除重影與背景晃動) */
+    .cinema-video-layer {
       position: absolute;
       top: 0;
       left: 0;
@@ -47,39 +47,62 @@
       /* 會場愛迪生暖金穹頂色溫調校：增強對比與深翠綠意，壓抑過曝刺眼感 */
       filter: brightness(0.88) contrast(1.10) saturate(1.15);
       z-index: 1;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateZ(0); /* GPU 硬體加速 */
     }
 
-    /* 上層：Veo 1080p 動物動態彩蛋影片圖層 (平滑無縫交疊) */
-    .cameo-video-layer {
+    .cinema-video-layer.active {
+      opacity: 1;
+      visibility: visible;
+      z-index: 2;
+    }
+
+    /* 晨曦金光暖霧過場遮罩 (Sunbeam Bloom)
+       切換時晨曦暖陽金光穿透林間（200ms 柔和升起，無感切換影片，220ms 自然淡出）
+       100% 消除任何背景交疊、重影、位移晃動，彷彿走入神聖婚禮晨曦森林！ */
+    .sunbeam-bloom-overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: brightness(0.88) contrast(1.10) saturate(1.15);
-      z-index: 2;
-      opacity: 0;
-      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      background: radial-gradient(ellipse at 50% 36%, 
+        rgba(255, 238, 175, 0.95) 0%, 
+        rgba(245, 205, 120, 0.72) 42%, 
+        rgba(180, 135, 65, 0.38) 75%,
+        rgba(15, 28, 18, 0.85) 100%);
+      mix-blend-mode: screen;
       pointer-events: none;
+      z-index: 12;
+      opacity: 0;
+      transition: opacity 0.20s ease-in-out;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
     }
 
-    .cameo-video-layer.active {
+    .sunbeam-bloom-overlay.bloom-active {
       opacity: 1;
-      pointer-events: auto;
     }
 
-    /* 晨曦暖金與深翠漸層暗角（與阿沐 2700K 吊燈完美融合） */
+    /* 電影深翠微暗過場遮罩 (Emerald Dip 模式) */
+    .sunbeam-bloom-overlay.dip-mode {
+      background: rgba(8, 16, 10, 0.98);
+      mix-blend-mode: normal;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    /* 晨曦暖金與深翠漸層暗角（與阿沐 2700K 吊燈完美融合，純色靜態無晃動） */
     .light-mist-overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(ellipse at 50% 34%, rgba(240, 195, 110, 0.10) 0%, rgba(22, 38, 24, 0.28) 58%, rgba(8, 16, 10, 0.65) 100%);
+      background: radial-gradient(ellipse at 50% 34%, rgba(240, 195, 110, 0.08) 0%, rgba(22, 38, 24, 0.24) 58%, rgba(8, 16, 10, 0.65) 100%);
       pointer-events: none;
-      z-index: 3;
+      z-index: 4;
     }
 
     .canopy-vignette {
@@ -88,29 +111,29 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(to bottom, rgba(10, 20, 12, 0.40) 0%, transparent 20%, transparent 80%, rgba(6, 14, 8, 0.55) 100%);
+      background: linear-gradient(to bottom, rgba(10, 20, 12, 0.38) 0%, transparent 20%, transparent 80%, rgba(6, 14, 8, 0.55) 100%);
       pointer-events: none;
-      z-index: 3;
+      z-index: 4;
     }
 
-    /* 動態晨曦丁達爾光柱微動呼吸 */
+    /* 動態晨曦丁達爾光柱微動呼吸（純透明度呼吸，不作 scale/transform，避免任何像素抖動） */
     .sunbeams-breathing {
       position: absolute;
       top: -10%;
       left: 20%;
       width: 70%;
       height: 120%;
-      background: radial-gradient(ellipse at 46% 32%, rgba(255, 230, 150, 0.16) 0%, rgba(240, 195, 100, 0.06) 45%, transparent 75%);
+      background: radial-gradient(ellipse at 46% 32%, rgba(255, 230, 150, 0.15) 0%, rgba(240, 195, 100, 0.05) 45%, transparent 75%);
       mix-blend-mode: screen;
       pointer-events: none;
-      animation: godRaysDrift 14s ease-in-out infinite alternate;
-      z-index: 4;
+      animation: godRaysPulse 12s ease-in-out infinite alternate;
+      z-index: 5;
     }
 
-    @keyframes godRaysDrift {
-      0% { opacity: 0.50; transform: scale(0.98) translateY(0); }
-      50% { opacity: 0.90; transform: scale(1.03) translateY(-1%); }
-      100% { opacity: 0.60; transform: scale(1.01) translateY(0.5%); }
+    @keyframes godRaysPulse {
+      0% { opacity: 0.50; }
+      50% { opacity: 0.85; }
+      100% { opacity: 0.55; }
     }
 
     /* 飄浮金色螢火蟲與光斑粒子 Canvas */
@@ -121,7 +144,7 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 5;
+      z-index: 6;
     }
 
     /* 柔和微光彩蛋提示 Toast（幽雅低調，4秒後自動隱退） */
@@ -130,7 +153,7 @@
       bottom: 84px;
       left: 50%;
       transform: translateX(-50%) translateY(10px);
-      background: rgba(16, 26, 18, 0.86);
+      background: rgba(16, 26, 18, 0.88);
       border: 1px solid rgba(230, 205, 140, 0.5);
       color: #f7eedc;
       padding: 10px 26px;
@@ -141,8 +164,9 @@
       opacity: 0;
       pointer-events: none;
       backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       box-shadow: 0 8px 28px rgba(0,0,0,0.4);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transition: opacity 0.4s ease, transform 0.4s ease;
       display: flex;
       align-items: center;
       gap: 12px;
@@ -161,40 +185,50 @@
     .screen-toolbar {
       position: absolute;
       bottom: 24px;
-      right: 28px;
-      z-index: 100;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
-      gap: 10px;
-      opacity: 0.25;
-      transition: opacity 0.3s ease;
+      align-items: center;
+      gap: 14px;
+      background: rgba(16, 28, 18, 0.78);
+      border: 1px solid rgba(220, 195, 130, 0.35);
+      padding: 8px 20px;
+      border-radius: 40px;
+      z-index: 100;
+      opacity: 0.15;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     }
 
     .screen-toolbar:hover {
       opacity: 1;
+      transform: translateX(-50%) translateY(-2px);
     }
 
     .tool-btn {
-      background: rgba(18, 30, 20, 0.90);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      color: white;
-      padding: 9px 16px;
-      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(230, 210, 150, 0.3);
+      color: #f3efe6;
+      padding: 8px 16px;
+      border-radius: 20px;
       font-size: 0.82rem;
+      letter-spacing: 1px;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
-      backdrop-filter: blur(12px);
+      gap: 7px;
       transition: all 0.2s ease;
     }
 
     .tool-btn:hover {
-      background: rgba(72, 98, 75, 0.95);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+      background: rgba(230, 195, 110, 0.25);
+      border-color: rgba(240, 215, 140, 0.8);
+      color: #fff;
     }
 
-    /* 召喚選單下拉容器 */
+    /* 下拉選單 */
     .cameo-dropdown {
       position: relative;
       display: inline-block;
@@ -209,9 +243,10 @@
       border: 1px solid rgba(220, 195, 130, 0.45);
       border-radius: 14px;
       padding: 8px 0;
-      min-width: 240px;
+      min-width: 250px;
       box-shadow: 0 12px 32px rgba(0,0,0,0.5);
       backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
     .cameo-dropdown:hover .cameo-menu {
@@ -238,11 +273,13 @@
 <body>
 
   <div class="screen-stage" id="screenStage">
-    <!-- 底層：1080p 呼吸感微動晨曦森林空景 (Loop 0 無縫循環) -->
-    <video class="forest-video-layer" id="bgVideo" src="assets/videos/loop0_forest_empty.mp4" playsinline loop muted autoplay></video>
+    <!-- 雙緩衝電影級零卡頓播放器：A / B 圖層交替，徹底消除重影與背景晃動 -->
+    <video class="cinema-video-layer active" id="playerA" playsinline muted preload="auto"></video>
+    <video class="cinema-video-layer" id="playerB" playsinline muted preload="auto"></video>
 
-    <!-- 上層：1080p 野生動物彩蛋影片 (每隔45秒柔和疊化登場) -->
-    <video class="cameo-video-layer" id="cameoVideo" playsinline muted></video>
+    <!-- 晨曦金光暖霧過場層 (Sunbeam Bloom)
+         切換影片時晨曦暖陽金光穿透林間，完全隱藏不同鏡位背景位移，無雙重視覺晃動 -->
+    <div class="sunbeam-bloom-overlay" id="sunbeamBloom"></div>
 
     <!-- 晨曦暖金與暗角光影 -->
     <div class="light-mist-overlay"></div>
@@ -254,7 +291,7 @@
   <!-- 彩蛋提示 Toast -->
   <div class="cameo-toast" id="cameoToast">
     <span class="toast-icon">🦌</span>
-    <span id="toastText">森林彩蛋：成對梅花鹿悠閒漫步中...</span>
+    <span id="toastText">森林探索：成對梅花鹿漫步相依中...</span>
   </div>
 
   <!-- 浮動控制工具列 -->
@@ -262,18 +299,19 @@
     <!-- 召喚動物路過選單 -->
     <div class="cameo-dropdown">
       <button class="tool-btn">
-        <span>🐾</span> <span>播放動物彩蛋 ▼</span>
+        <span>🐾</span> <span>選擇森林動物 ▼</span>
       </button>
       <div class="cameo-menu">
-        <div class="cameo-opt" onclick="triggerCameo('deer')">🦌 成對梅花鹿（草地相依漫步）</div>
-        <div class="cameo-opt" onclick="triggerCameo('redpandas_playing')">🦊 雙小熊貓（倒木嬉戲揮爪）</div>
-        <div class="cameo-opt" onclick="triggerCameo('bear')">🐻 亞洲大黑熊（草地趴平納涼）</div>
-        <div class="cameo-opt" onclick="triggerCameo('otter')">🦦 清溪小水獺（溪石小憩探頭）</div>
-        <div class="cameo-opt" onclick="triggerCameo('beaver')">🦫 呆萌小河狸（溪畔細啃樹枝）</div>
-        <div class="cameo-opt" onclick="triggerCameo('redpanda_curious')">🐼 好奇小熊貓（岩石探頭直視鏡頭）</div>
+        <div class="cameo-opt" onclick="manualPlay('deer')">🦌 成對梅花鹿（草地相依漫步）</div>
+        <div class="cameo-opt" onclick="manualPlay('otter')">🦦 清溪小水獺（溪石小憩探頭）</div>
+        <div class="cameo-opt" onclick="manualPlay('redpandas_playing')">🦊 雙小熊貓（倒木嬉戲揮爪）</div>
+        <div class="cameo-opt" onclick="manualPlay('bear')">🐻 亞洲大黑熊（草地趴平納涼）</div>
+        <div class="cameo-opt" onclick="manualPlay('redpanda_curious')">🐼 好奇小熊貓（岩石嗅聞青苔）</div>
+        <div class="cameo-opt" onclick="manualPlay('beaver')">🦫 呆萌小河狸（溪畔細啃樹枝）</div>
+        <div class="cameo-opt" onclick="manualPlay('forest_empty')">🌿 晨曦空景（微風波光粼粼）</div>
         <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.15); margin: 6px 0;">
-        <div class="cameo-opt" onclick="toggleAutoCycle()" id="autoCycleOpt">⏸️ 暫停自動循環</div>
-        <div class="cameo-opt" onclick="toggleIntervalMode()" id="intervalOpt">⚡ 切換為測試模式 (12秒)</div>
+        <div class="cameo-opt" onclick="toggleAutoPlay()" id="autoPlayOpt">⏸️ 暫停自動巡遊</div>
+        <div class="cameo-opt" onclick="toggleTransitionStyle()" id="transStyleOpt">✨ 過場效果：晨曦金光暖霧</div>
       </div>
     </div>
 
@@ -359,99 +397,229 @@
     animateParticles();
 
     // =========================================================
-    // 2. Veo 3.1 1080p 真實野生動物動態彩蛋播放系統
+    // 2. 雙緩衝電影級零晃動野生動物漫步播放系統
     // =========================================================
-    const cameos = {
-      deer: {
+    const playlist = [
+      {
         id: "deer",
         name: "成對梅花鹿",
         icon: "🦌",
         desc: "陽光草地：一公一母優雅梅花鹿緩步漫步相依...",
         src: "assets/videos/cameo_deer.mp4",
-        duration: 8000
+        duration: 7800
       },
-      redpandas_playing: {
-        id: "redpandas_playing",
-        name: "雙小熊貓嬉戲",
-        icon: "🦊",
-        desc: "倒木青苔：兩隻小熊貓在原木旁揮舞小爪玩耍嬉戲...",
-        src: "assets/videos/cameo_redpandas_playing.mp4",
-        duration: 8000
-      },
-      bear: {
-        id: "bear",
-        name: "亞洲大黑熊",
-        icon: "🐻",
-        desc: "林間草坪：大黑熊慢步走入中央陽光草地大字型趴平納涼...",
-        src: "assets/videos/cameo_bear.mp4",
-        duration: 8000
-      },
-      otter: {
+      {
         id: "otter",
         name: "清溪水獺",
         icon: "🦦",
         desc: "左下淺溪：小水獺順水游來，爬上溪石探頭甩水...",
         src: "assets/videos/cameo_otter.mp4",
-        duration: 8000
+        duration: 7800
       },
-      beaver: {
-        id: "beaver",
-        name: "可愛河狸",
-        icon: "🦫",
-        desc: "溪畔鵝卵石：小河狸爬上溪灘，低頭啃啃細樹枝...",
-        src: "assets/videos/cameo_beaver.mp4",
-        duration: 8000
+      {
+        id: "redpandas_playing",
+        name: "雙小熊貓嬉戲",
+        icon: "🦊",
+        desc: "倒木青苔：兩隻小熊貓在原木旁揮舞小爪玩耍嬉戲...",
+        src: "assets/videos/cameo_redpandas_playing.mp4",
+        duration: 7800
       },
-      redpanda_curious: {
+      {
+        id: "bear",
+        name: "亞洲大黑熊",
+        icon: "🐻",
+        desc: "林間草坪：大黑熊慢步走入中央陽光草地大字型趴平納涼...",
+        src: "assets/videos/cameo_bear.mp4",
+        duration: 7800
+      },
+      {
         id: "redpanda_curious",
         name: "好奇小熊貓",
         icon: "🐼",
         desc: "左下岩石：小熊貓踏出樹後，好奇直視鏡頭嗅聞青苔...",
         src: "assets/videos/cameo_redpanda_curious.mp4",
-        duration: 8000
+        duration: 7800
+      },
+      {
+        id: "beaver",
+        name: "可愛河狸",
+        icon: "🦫",
+        desc: "溪畔鵝卵石：小河狸爬上溪灘，低頭啃啃細樹枝...",
+        src: "assets/videos/cameo_beaver.mp4",
+        duration: 7800
+      },
+      {
+        id: "forest_empty",
+        name: "晨曦空景",
+        icon: "🌿",
+        desc: "林間清溪：陽光微塵隨晨霧流轉，清澈水波細細粼粼...",
+        src: "assets/videos/loop0_forest_empty.mp4",
+        duration: 7600 // 於 7.6 秒平滑切換，完全避開 8 秒末尾回彈！
       }
-    };
+    ];
 
-    const cameoOrder = ["deer", "otter", "redpandas_playing", "bear", "beaver", "redpanda_curious"];
-    let currentCameoIndex = 0;
-    let isCameoActive = false;
-    let autoCycleEnabled = true;
-    let cycleIntervalMs = 45000; // 預設 45 秒悠閒偶遇一次
-    let autoTimer = null;
+    let currentIndex = 0;
+    let isAutoPlay = true;
+    let isTransitioning = false;
+    let transitionTimer = null;
+    let playTimer = null;
     let toastTimer = null;
 
-    const cameoVideo = document.getElementById("cameoVideo");
+    // 過場模式：'bloom' (晨曦金光暖霧) | 'clean' (電影直接切換) | 'dip' (深翠微暗)
+    let transitionStyle = 'bloom';
 
-    function triggerCameo(cameoKey) {
-      if (isCameoActive) return;
-      const item = cameos[cameoKey];
-      if (!item) return;
+    const playerA = document.getElementById("playerA");
+    const playerB = document.getElementById("playerB");
+    let activePlayer = playerA;
+    let idlePlayer = playerB;
 
-      isCameoActive = true;
-      cameoVideo.src = item.src;
-      cameoVideo.currentTime = 0;
+    const sunbeamBloom = document.getElementById("sunbeamBloom");
 
-      cameoVideo.play().then(() => {
-        // 影片載入開始播放，平滑疊化淡入 (0.8s)
-        cameoVideo.classList.add("active");
-        showToast(item.icon, item.desc);
-        playCameoChime(item.id);
+    function initPlayer() {
+      const first = playlist[0];
+      activePlayer.src = first.src;
+      activePlayer.classList.add("active");
+      activePlayer.play().catch(e => console.log("Init play hindered:", e));
 
-        // 在第 7.2 秒時平滑疊化淡出，無縫回歸底層的 Loop 0 空景
+      showToast(first.icon, first.desc);
+      preloadNext();
+      scheduleNext(first.duration);
+    }
+
+    function preloadNext() {
+      const nextIdx = (currentIndex + 1) % playlist.length;
+      idlePlayer.src = playlist[nextIdx].src;
+      idlePlayer.preload = "auto";
+    }
+
+    function transitionTo(targetIndex) {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      if (playTimer) clearTimeout(playTimer);
+
+      const nextItem = playlist[targetIndex];
+      idlePlayer.src = nextItem.src;
+      idlePlayer.currentTime = 0;
+
+      // 執行過場
+      if (transitionStyle === 'bloom') {
+        // 模式 1：晨曦金光暖霧 (最自然浪漫，零背景晃動)
+        sunbeamBloom.classList.remove("dip-mode");
+        sunbeamBloom.classList.add("bloom-active");
+
         setTimeout(() => {
-          cameoVideo.classList.remove("active");
-        }, 7200);
+          // 在金光頂峰 (200ms) 切換底層影片
+          swapPlayers();
+          showToast(nextItem.icon, nextItem.desc);
+          playCameoChime(nextItem.id);
 
-        // 播畢後關閉影片並解除鎖定
+          setTimeout(() => {
+            // 金光自然退去 (220ms)
+            sunbeamBloom.classList.remove("bloom-active");
+            isTransitioning = false;
+            currentIndex = targetIndex;
+            preloadNext();
+            if (isAutoPlay) scheduleNext(nextItem.duration);
+          }, 60);
+
+        }, 200);
+
+      } else if (transitionStyle === 'dip') {
+        // 模式 2：電影深翠微暗場
+        sunbeamBloom.classList.add("dip-mode");
+        sunbeamBloom.classList.add("bloom-active");
+
         setTimeout(() => {
-          cameoVideo.pause();
-          isCameoActive = false;
-        }, 8200);
+          swapPlayers();
+          showToast(nextItem.icon, nextItem.desc);
+          playCameoChime(nextItem.id);
 
+          setTimeout(() => {
+            sunbeamBloom.classList.remove("bloom-active");
+            isTransitioning = false;
+            currentIndex = targetIndex;
+            preloadNext();
+            if (isAutoPlay) scheduleNext(nextItem.duration);
+          }, 60);
+
+        }, 180);
+
+      } else {
+        // 模式 3：電影級直接切換 (Clean Cut, 俐落零延遲)
+        swapPlayers();
+        showToast(nextItem.icon, nextItem.desc);
+        playCameoChime(nextItem.id);
+        isTransitioning = false;
+        currentIndex = targetIndex;
+        preloadNext();
+        if (isAutoPlay) scheduleNext(nextItem.duration);
+      }
+    }
+
+    function swapPlayers() {
+      idlePlayer.play().then(() => {
+        idlePlayer.classList.add("active");
+        activePlayer.classList.remove("active");
+        activePlayer.pause();
+
+        // 交換 active 與 idle 指針
+        const temp = activePlayer;
+        activePlayer = idlePlayer;
+        idlePlayer = temp;
       }).catch(err => {
-        console.warn("Cameo video play hindered:", err);
-        isCameoActive = false;
+        console.warn("Player swap hindered:", err);
       });
+    }
+
+    function scheduleNext(durationMs) {
+      if (!isAutoPlay) return;
+      if (playTimer) clearTimeout(playTimer);
+
+      playTimer = setTimeout(() => {
+        if (isAutoPlay && !isTransitioning) {
+          const nextIdx = (currentIndex + 1) % playlist.length;
+          transitionTo(nextIdx);
+        }
+      }, durationMs);
+    }
+
+    function manualPlay(animalId) {
+      const idx = playlist.findIndex(p => p.id === animalId);
+      if (idx !== -1) {
+        transitionTo(idx);
+      }
+    }
+
+    function toggleAutoPlay() {
+      isAutoPlay = !isAutoPlay;
+      const opt = document.getElementById("autoPlayOpt");
+      if (isAutoPlay) {
+        opt.innerText = "⏸️ 暫停自動巡遊";
+        const currentItem = playlist[currentIndex];
+        scheduleNext(currentItem.duration);
+        showToast("🌿", "已啟動森林動物自然巡遊漫步");
+      } else {
+        opt.innerText = "▶️ 恢復自動巡遊";
+        if (playTimer) clearTimeout(playTimer);
+        showToast("🌿", "已暫停巡遊（可由選單手動點選動物）");
+      }
+    }
+
+    function toggleTransitionStyle() {
+      const opt = document.getElementById("transStyleOpt");
+      if (transitionStyle === 'bloom') {
+        transitionStyle = 'clean';
+        opt.innerText = "🎬 過場效果：電影級俐落切換";
+        showToast("🎬", "已切換為【電影級俐落切換】(無延遲直接轉場)");
+      } else if (transitionStyle === 'clean') {
+        transitionStyle = 'dip';
+        opt.innerText = "🌿 過場效果：森林深翠微暗";
+        showToast("🌿", "已切換為【森林深翠微暗】(典雅微暗場)");
+      } else {
+        transitionStyle = 'bloom';
+        opt.innerText = "✨ 過場效果：晨曦金光暖霧";
+        showToast("✨", "已切換為【晨曦金光暖霧】(極致浪漫、零晃動)");
+      }
     }
 
     function showToast(icon, text) {
@@ -466,61 +634,8 @@
       if (toastTimer) clearTimeout(toastTimer);
       toastTimer = setTimeout(() => {
         toast.classList.remove("show");
-      }, 4500);
+      }, 4200);
     }
-
-    function autoScheduleNext() {
-      if (!autoCycleEnabled) return;
-      if (autoTimer) clearTimeout(autoTimer);
-
-      autoTimer = setTimeout(() => {
-        if (autoCycleEnabled && !isCameoActive) {
-          const nextKey = cameoOrder[currentCameoIndex];
-          currentCameoIndex = (currentCameoIndex + 1) % cameoOrder.length;
-          triggerCameo(nextKey);
-        }
-        autoScheduleNext();
-      }, cycleIntervalMs);
-    }
-
-    function toggleAutoCycle() {
-      autoCycleEnabled = !autoCycleEnabled;
-      const opt = document.getElementById("autoCycleOpt");
-      if (autoCycleEnabled) {
-        opt.innerText = "⏸️ 暫停自動循環";
-        autoScheduleNext();
-        showToast("🌿", "已啟動野生動物彩蛋自動循環");
-      } else {
-        opt.innerText = "▶️ 恢復自動循環";
-        if (autoTimer) clearTimeout(autoTimer);
-        showToast("🌿", "已暫停自動循環（可由選單手動點選播放）");
-      }
-    }
-
-    function toggleIntervalMode() {
-      const opt = document.getElementById("intervalOpt");
-      if (cycleIntervalMs > 20000) {
-        cycleIntervalMs = 12000; // 測試模式 12 秒
-        opt.innerText = "🌸 切換為現場模式 (45秒)";
-        showToast("⚡", "已切換為【測試模式】：每 12 秒彩蛋登場");
-      } else {
-        cycleIntervalMs = 45000; // 現場模式 45 秒
-        opt.innerText = "⚡ 切換為測試模式 (12秒)";
-        showToast("🌸", "已切換為【現場模式】：每 45 秒悠閒偶遇");
-      }
-      if (autoCycleEnabled) {
-        autoScheduleNext();
-      }
-    }
-
-    // 啟動首次彩蛋（網頁載入後 6 秒讓梅花鹿優雅出場）
-    setTimeout(() => {
-      if (autoCycleEnabled && !isCameoActive) {
-        triggerCameo("deer");
-        currentCameoIndex = 1;
-      }
-      autoScheduleNext();
-    }, 6000);
 
     // =========================================================
     // 3. 全螢幕切換
@@ -599,43 +714,23 @@
         if (!isAudioPlaying || !audioCtx) return;
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
-        osc.type = "sine";
-        const freq = scale[Math.floor(Math.random() * scale.length)];
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        const note = scale[Math.floor(Math.random() * scale.length)];
 
-        gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
-        gain.gain.linearRampToValueAtTime(0.045, audioCtx.currentTime + 0.08);
-        gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 2.8);
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(note, audioCtx.currentTime);
+
+        gain.gain.setValueAtTime(0, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.028, audioCtx.currentTime + 0.12);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 2.8);
 
         osc.connect(gain);
         gain.connect(audioCtx.destination);
         osc.start();
-        osc.stop(audioCtx.currentTime + 3.0);
+        osc.stop(audioCtx.currentTime + 2.9);
 
-        chimeTimer = setTimeout(playChime, 2500 + Math.random() * 3000);
+        chimeTimer = setTimeout(playChime, 4000 + Math.random() * 5000);
       }
       playChime();
-    }
-
-    function playCameoChime(id) {
-      if (!audioCtx) return;
-      try {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = "triangle";
-        const baseFreq = id === "bear" ? 180 : (id === "otter" ? 520 : (id === "deer" ? 392 : 440));
-        osc.frequency.setValueAtTime(baseFreq, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.2, audioCtx.currentTime + 0.4);
-
-        gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
-        gain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 0.06);
-        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.2);
-
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 1.25);
-      } catch (err) {}
     }
 
     function stopAudio() {
@@ -645,6 +740,32 @@
       }
       if (chimeTimer) clearTimeout(chimeTimer);
     }
+
+    function playCameoChime(cameoId) {
+      if (!isAudioPlaying || !audioCtx) return;
+      const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+      notes.forEach((freq, idx) => {
+        setTimeout(() => {
+          if (!audioCtx) return;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0, audioCtx.currentTime);
+          gain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 2.0);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 2.1);
+        }, idx * 160);
+      });
+    }
+
+    // 頁面加載完成後啟動雙緩衝播放器
+    window.addEventListener("DOMContentLoaded", () => {
+      initPlayer();
+    });
   </script>
 </body>
 </html>
