@@ -598,12 +598,20 @@
     const sunbeamBloom = document.getElementById("sunbeamBloom");
 
     function initPlayer() {
+      // 確保兩台影片圖層硬體與軟體雙重靜音（零音訊輸出）
+      playerA.muted = true;
+      playerA.volume = 0;
+      playerB.muted = true;
+      playerB.volume = 0;
+
       // 綁定兩台播放器的事件監聽
       bindPlayerEvents(playerA);
       bindPlayerEvents(playerB);
 
       const first = playlist[0];
       activePlayer.src = first.src;
+      activePlayer.muted = true;
+      activePlayer.volume = 0;
       activePlayer.classList.add("active");
       activePlayer.play().catch(e => console.log("Initial play deferred:", e));
 
@@ -667,6 +675,8 @@
         idlePlayer.load();
       }
       idlePlayer.currentTime = 0;
+      idlePlayer.muted = true;
+      idlePlayer.volume = 0;
 
       // 1. 確保新影片在底層已經解碼開跑 (此時 idlePlayer 仍在 opacity: 0，完全看不見)
       try {
@@ -674,6 +684,7 @@
       } catch (err) {
         console.warn("Play() deferred, retrying muted:", err);
         idlePlayer.muted = true;
+        idlePlayer.volume = 0;
         try { await idlePlayer.play(); } catch(e) {}
       }
 
