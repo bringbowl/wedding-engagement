@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Barry & Winnie · 阿沐大螢幕 100% 純淨森林迎賓實景窗</title>
+  <title>Barry &amp; Winnie · 阿沐大螢幕 100% 純淨森林迎賓實景窗 ＋ 真實野生動物動態路過</title>
   <style>
     * {
       box-sizing: border-box;
@@ -141,7 +141,251 @@
       z-index: 5;
     }
 
-    /* 真實影片播放容器（供 Google Flow / Veo 3.1 生成之真實毛茸茸動物影片無縫疊播） */
+    /* =========================================================
+       真實野生動物動態路過彩蛋圖層 (Cameo Animals Layer)
+       ========================================================= */
+    .animals-stage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 8;
+    }
+
+    .cameo-animal {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+      will-change: transform, opacity;
+      transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .cameo-animal img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: brightness(0.92) contrast(1.05);
+    }
+
+    /* 1. 成對梅花鹿（中景陽光草地悠閒漫步相依） */
+    .animal-deer {
+      left: 56%;
+      bottom: 23%;
+      width: 280px;
+      filter: drop-shadow(0 12px 22px rgba(8, 18, 10, 0.65)) drop-shadow(0 0 14px rgba(255, 220, 140, 0.35));
+    }
+    .animal-deer.active {
+      animation: deerSequence 11s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    @keyframes deerSequence {
+      0% {
+        opacity: 0;
+        transform: translate3d(85px, 0, 0) scale(0.96);
+      }
+      18% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      45% {
+        opacity: 1;
+        transform: translate3d(-8px, -2px, 0) scale(1.01);
+      }
+      72% {
+        opacity: 0.98;
+        transform: translate3d(-15px, 1px, 0) scale(1.005);
+      }
+      88% {
+        opacity: 0.75;
+        transform: translate3d(45px, 2px, 0) scale(0.98);
+      }
+      100% {
+        opacity: 0;
+        transform: translate3d(95px, 4px, 0) scale(0.95);
+      }
+    }
+
+    /* 2. 清溪水獺（左下淺溪岩石甩水小憩） */
+    .animal-otter {
+      left: 17%;
+      bottom: 14%;
+      width: 190px;
+      filter: drop-shadow(0 8px 18px rgba(8, 18, 10, 0.60)) drop-shadow(0 0 10px rgba(180, 230, 255, 0.35));
+    }
+    .animal-otter.active {
+      animation: otterSequence 9.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    @keyframes otterSequence {
+      0% {
+        opacity: 0;
+        transform: translate3d(-30px, 40px, 0) scale(0.92);
+      }
+      22% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: translate3d(4px, -3px, 0) scale(1.02);
+      }
+      74% {
+        opacity: 0.95;
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      90% {
+        opacity: 0.60;
+        transform: translate3d(-20px, 30px, 0) scale(0.94);
+      }
+      100% {
+        opacity: 0;
+        transform: translate3d(-35px, 48px, 0) scale(0.90);
+      }
+    }
+
+    /* 3. 小熊貓（左側倒木青苔四足漫步嗅聞） */
+    .animal-redpanda {
+      left: 27%;
+      bottom: 19%;
+      width: 220px;
+      filter: drop-shadow(0 10px 20px rgba(8, 18, 10, 0.60)) drop-shadow(0 0 12px rgba(255, 180, 100, 0.35));
+    }
+    .animal-redpanda.active {
+      animation: redpandaSequence 10s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    @keyframes redpandaSequence {
+      0% {
+        opacity: 0;
+        transform: translate3d(-80px, 0, 0) scale(0.95);
+      }
+      20% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      52% {
+        opacity: 1;
+        transform: translate3d(24px, -2px, 0) scale(1.015);
+      }
+      76% {
+        opacity: 0.95;
+        transform: translate3d(12px, 0, 0) scale(1);
+      }
+      90% {
+        opacity: 0.65;
+        transform: translate3d(-50px, 2px, 0) scale(0.97);
+      }
+      100% {
+        opacity: 0;
+        transform: translate3d(-90px, 4px, 0) scale(0.94);
+      }
+    }
+
+    /* 4. 森林貓頭鷹（右上老樹枝停駐歪頭眨眼） */
+    .animal-owl {
+      right: 15%;
+      top: 13.5%;
+      width: 140px;
+      filter: drop-shadow(0 12px 24px rgba(8, 18, 10, 0.70)) drop-shadow(0 0 12px rgba(255, 230, 160, 0.40));
+    }
+    .animal-owl.active {
+      animation: owlSequence 10.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    @keyframes owlSequence {
+      0% {
+        opacity: 0;
+        transform: translate3d(50px, -45px, 0) scale(1.12);
+      }
+      18% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      44% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) rotate(-3.5deg) scale(1.02);
+      }
+      70% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) rotate(2.5deg) scale(1.01);
+      }
+      88% {
+        opacity: 0.85;
+        transform: translate3d(-35px, -25px, 0) scale(1.06);
+      }
+      100% {
+        opacity: 0;
+        transform: translate3d(-90px, -65px, 0) scale(1.15);
+      }
+    }
+
+    /* 5. 亞洲黑熊（中景草地漫步散步） */
+    .animal-bear {
+      left: 43%;
+      bottom: 22%;
+      width: 250px;
+      filter: drop-shadow(0 14px 26px rgba(8, 18, 10, 0.75)) drop-shadow(0 0 10px rgba(240, 210, 150, 0.25));
+    }
+    .animal-bear.active {
+      animation: bearSequence 11s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    @keyframes bearSequence {
+      0% {
+        opacity: 0;
+        transform: translate3d(90px, 0, 0) scale(0.95);
+      }
+      20% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      48% {
+        opacity: 1;
+        transform: translate3d(-10px, -3px, 0) scale(1.015);
+      }
+      75% {
+        opacity: 0.96;
+        transform: translate3d(15px, 0, 0) scale(1);
+      }
+      90% {
+        opacity: 0.65;
+        transform: translate3d(60px, 2px, 0) scale(0.97);
+      }
+      100% {
+        opacity: 0;
+        transform: translate3d(105px, 5px, 0) scale(0.94);
+      }
+    }
+
+    /* 柔和微光彩蛋提示 Toast（幽默精緻，4秒後自動隱退） */
+    .cameo-toast {
+      position: absolute;
+      bottom: 86px;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: rgba(18, 28, 20, 0.82);
+      border: 1px solid rgba(230, 200, 140, 0.45);
+      color: #f7eedc;
+      padding: 9px 24px;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      letter-spacing: 1.5px;
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .cameo-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .cameo-toast .toast-icon {
+      font-size: 1.2rem;
+    }
+
+    /* 真實影片播放容器（供載入自備 MP4 影片無縫切換） */
     .video-overlay-stage {
       position: absolute;
       top: 0;
@@ -149,22 +393,24 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 10;
+      z-index: 20;
       opacity: 0;
       transition: opacity 0.8s ease;
+      background: #000;
     }
 
     .video-overlay-stage.active {
       opacity: 1;
+      pointer-events: auto;
     }
 
-    #animalVideoPlayer {
+    #customVideoPlayer {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    /* 底部操作控制列 (Hover 顯現，大螢幕播放時完全隱形低調) */
+    /* 底部操作控制列 (Hover 顯現，大螢幕播放時隱形低調) */
     .screen-toolbar {
       position: absolute;
       bottom: 24px;
@@ -172,7 +418,7 @@
       z-index: 100;
       display: flex;
       gap: 10px;
-      opacity: 0.25;
+      opacity: 0.28;
       transition: opacity 0.3s ease;
     }
 
@@ -181,7 +427,7 @@
     }
 
     .tool-btn {
-      background: rgba(20, 32, 22, 0.85);
+      background: rgba(20, 32, 22, 0.88);
       border: 1px solid rgba(255, 255, 255, 0.25);
       color: white;
       padding: 10px 18px;
@@ -191,14 +437,54 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
       transition: all 0.2s ease;
     }
 
     .tool-btn:hover {
       background: rgba(77, 102, 80, 0.95);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+    }
+
+    /* 召喚選單下拉容器 */
+    .cameo-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .cameo-menu {
+      display: none;
+      position: absolute;
+      bottom: 48px;
+      right: 0;
+      background: rgba(18, 30, 20, 0.94);
+      border: 1px solid rgba(220, 190, 130, 0.4);
+      border-radius: 12px;
+      padding: 8px 0;
+      min-width: 190px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.45);
+      backdrop-filter: blur(14px);
+    }
+
+    .cameo-dropdown:hover .cameo-menu {
+      display: block;
+    }
+
+    .cameo-opt {
+      padding: 9px 18px;
+      font-size: 0.82rem;
+      color: #e4ebe5;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.15s ease;
+    }
+
+    .cameo-opt:hover {
+      background: rgba(85, 115, 88, 0.6);
+      color: #fff;
     }
   </style>
 </head>
@@ -213,17 +499,92 @@
     <div class="canopy-vignette"></div>
     <canvas id="particlesCanvas"></canvas>
 
-    <!-- 真實野生動物影片播放圖層 -->
-    <div class="video-overlay-stage" id="videoStage">
-      <video id="animalVideoPlayer" playsinline muted></video>
+    <!-- 真實毛茸茸野生動物路過彩蛋圖層 -->
+    <div class="animals-stage">
+      <!-- 1. 成對梅花鹿 -->
+      <div class="cameo-animal animal-deer" id="animal-deer">
+        <picture>
+          <source srcset="assets/animal_deer.webp" type="image/webp">
+          <img src="assets/animal_deer.png" alt="成對梅花鹿">
+        </picture>
+      </div>
+
+      <!-- 2. 清溪水獺 -->
+      <div class="cameo-animal animal-otter" id="animal-otter">
+        <picture>
+          <source srcset="assets/animal_otter.webp" type="image/webp">
+          <img src="assets/animal_otter.png" alt="清溪水獺">
+        </picture>
+      </div>
+
+      <!-- 3. 超萌小熊貓 -->
+      <div class="cameo-animal animal-redpanda" id="animal-redpanda">
+        <picture>
+          <source srcset="assets/animal_redpanda.webp" type="image/webp">
+          <img src="assets/animal_redpanda.png" alt="小熊貓">
+        </picture>
+      </div>
+
+      <!-- 4. 森林貓頭鷹 -->
+      <div class="cameo-animal animal-owl" id="animal-owl">
+        <picture>
+          <source srcset="assets/animal_owl.webp" type="image/webp">
+          <img src="assets/animal_owl.png" alt="森林貓頭鷹">
+        </picture>
+      </div>
+
+      <!-- 5. 亞洲黑熊 -->
+      <div class="cameo-animal animal-bear" id="animal-bear">
+        <picture>
+          <source srcset="assets/animal_bear.webp" type="image/webp">
+          <img src="assets/animal_bear.png" alt="亞洲黑熊">
+        </picture>
+      </div>
     </div>
+
+    <!-- 自備影片播放圖層 (可選切換) -->
+    <div class="video-overlay-stage" id="videoStage">
+      <video id="customVideoPlayer" playsinline loop muted></video>
+    </div>
+  </div>
+
+  <!-- 彩蛋提示 Toast -->
+  <div class="cameo-toast" id="cameoToast">
+    <span class="toast-icon">🦌</span>
+    <span id="toastText">森林訪客：成對梅花鹿悠閒漫步中...</span>
   </div>
 
   <!-- 浮動控制工具列 -->
   <div class="screen-toolbar">
+    <!-- 召喚動物路過選單 -->
+    <div class="cameo-dropdown">
+      <button class="tool-btn">
+        <span>🐾</span> <span>召喚動物路過 ▼</span>
+      </button>
+      <div class="cameo-menu">
+        <div class="cameo-opt" onclick="triggerAnimal('deer')">🦌 成對梅花鹿（草地相依）</div>
+        <div class="cameo-opt" onclick="triggerAnimal('otter')">🦦 清溪小水獺（溪石甩水）</div>
+        <div class="cameo-opt" onclick="triggerAnimal('redpanda')">🐼 萌萌小熊貓（倒木嗅聞）</div>
+        <div class="cameo-opt" onclick="triggerAnimal('owl')">🦉 森林貓頭鷹（老樹枝歪頭）</div>
+        <div class="cameo-opt" onclick="triggerAnimal('bear')">🐻 亞洲大黑熊（草地散步）</div>
+        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.15); margin: 6px 0;">
+        <div class="cameo-opt" onclick="toggleAutoCycle()" id="autoCycleOpt">⏸️ 暫停自動循環</div>
+        <div class="cameo-opt" onclick="toggleIntervalMode()" id="intervalOpt">⚡ 切換為測試模式 (12秒)</div>
+      </div>
+    </div>
+
+    <!-- 氛圍音效按鈕 -->
     <button class="tool-btn" id="audioBtn" onclick="toggleAudio()">
       <span>🎵</span> <span id="audioText">播放大自然與木吉他氛圍音</span>
     </button>
+
+    <!-- 自備 MP4 影片載入支援 -->
+    <button class="tool-btn" onclick="document.getElementById('videoFileInput').click()">
+      <span>🎞️</span> <span>載入影片</span>
+    </button>
+    <input type="file" id="videoFileInput" accept="video/mp4,video/webm" style="display:none;" onchange="loadCustomVideo(event)">
+
+    <!-- 全螢幕按鈕 -->
     <button class="tool-btn" onclick="toggleFullscreen()">
       <span>⛶</span> <span>全螢幕展示</span>
     </button>
@@ -297,7 +658,134 @@
     }
     animateParticles();
 
-    // 2. 全螢幕切換
+    // =========================================================
+    // 2. 動物路過彩蛋管理系統 (Cameo Animals System)
+    // =========================================================
+    const animals = [
+      { id: "deer", name: "成對梅花鹿", icon: "🦌", desc: "成對梅花鹿於陽光草地悠閒漫步相依...", duration: 11000 },
+      { id: "otter", name: "清溪水獺", icon: "🦦", desc: "小水獺於左下淺溪甩水小憩...", duration: 9500 },
+      { id: "redpanda", name: "萌萌小熊貓", icon: "🐼", desc: "小熊貓四足漫步倒木、好奇嗅聞青苔...", duration: 10000 },
+      { id: "owl", name: "森林貓頭鷹", icon: "🦉", desc: "貓頭鷹輕巧停駐右上枝頭，好奇歪頭俯瞰...", duration: 10500 },
+      { id: "bear", name: "亞洲黑熊", icon: "🐻", desc: "大黑熊慢步走入林間草地散步納涼...", duration: 11000 }
+    ];
+
+    let currentAnimalIndex = 0;
+    let isAnimalActive = false;
+    let autoCycleEnabled = true;
+    let cycleIntervalMs = 45000; // 預設 45 秒循環一次
+    let autoTimer = null;
+    let toastTimer = null;
+
+    function triggerAnimal(animalId) {
+      if (isAnimalActive) return; // 避免重疊衝突
+      const animal = animals.find(a => a.id === animalId);
+      if (!animal) return;
+
+      const el = document.getElementById(`animal-${animal.id}`);
+      if (!el) return;
+
+      isAnimalActive = true;
+      el.classList.add("active");
+
+      // 播放微弱的大自然腳步音效
+      playAnimalChime(animal.id);
+
+      // 顯示 Toast 提示
+      showToast(animal.icon, animal.desc);
+
+      setTimeout(() => {
+        el.classList.remove("active");
+        isAnimalActive = false;
+      }, animal.duration);
+    }
+
+    function showToast(icon, text) {
+      const toast = document.getElementById("cameoToast");
+      const iconEl = toast.querySelector(".toast-icon");
+      const textEl = document.getElementById("toastText");
+      iconEl.innerText = icon;
+      textEl.innerText = text;
+      toast.classList.add("show");
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 4200);
+    }
+
+    function autoScheduleNext() {
+      if (!autoCycleEnabled) return;
+      if (autoTimer) clearTimeout(autoTimer);
+      
+      autoTimer = setTimeout(() => {
+        if (autoCycleEnabled && !isAnimalActive) {
+          const next = animals[currentAnimalIndex];
+          currentAnimalIndex = (currentAnimalIndex + 1) % animals.length;
+          triggerAnimal(next.id);
+        }
+        autoScheduleNext();
+      }, cycleIntervalMs);
+    }
+
+    function toggleAutoCycle() {
+      autoCycleEnabled = !autoCycleEnabled;
+      const opt = document.getElementById("autoCycleOpt");
+      if (autoCycleEnabled) {
+        opt.innerText = "⏸️ 暫停自動循環";
+        autoScheduleNext();
+        showToast("🌿", "已啟動野生動物自動路過循環");
+      } else {
+        opt.innerText = "▶️ 恢復自動循環";
+        if (autoTimer) clearTimeout(autoTimer);
+        showToast("🌿", "已暫停動物路過循環（可由選單手動召喚）");
+      }
+    }
+
+    function toggleIntervalMode() {
+      const opt = document.getElementById("intervalOpt");
+      if (cycleIntervalMs > 20000) {
+        cycleIntervalMs = 12000; // 測試模式 12 秒
+        opt.innerText = "🌸 切換為現場模式 (45秒)";
+        showToast("⚡", "已切換為【測試模式】：每 12 秒路過一次");
+      } else {
+        cycleIntervalMs = 45000; // 現場模式 45 秒
+        opt.innerText = "⚡ 切換為測試模式 (12秒)";
+        showToast("🌸", "已切換為【現場模式】：每 45 秒悠閒偶遇");
+      }
+      if (autoCycleEnabled) {
+        autoScheduleNext();
+      }
+    }
+
+    // 啟動首次定時器（載入後 6 秒先讓梅花鹿優雅出場）
+    setTimeout(() => {
+      if (autoCycleEnabled && !isAnimalActive) {
+        triggerAnimal("deer");
+        currentAnimalIndex = 1;
+      }
+      autoScheduleNext();
+    }, 6000);
+
+    // =========================================================
+    // 3. 自備 MP4 影片載入與切換功能
+    // =========================================================
+    function loadCustomVideo(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const videoStage = document.getElementById("videoStage");
+      const videoPlayer = document.getElementById("customVideoPlayer");
+      const fileUrl = URL.createObjectURL(file);
+
+      videoPlayer.src = fileUrl;
+      videoStage.classList.add("active");
+      videoPlayer.play().catch(err => console.log("Video play error:", err));
+      showToast("🎬", `已載入影片：${file.name}`);
+    }
+
+    // =========================================================
+    // 4. 全螢幕切換
+    // =========================================================
     function toggleFullscreen() {
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen().catch(err => {
@@ -310,7 +798,9 @@
       }
     }
 
-    // 3. Web Audio 大自然森林微風 ＋ 空靈吉他微音合成器
+    // =========================================================
+    // 5. Web Audio 大自然森林微風 ＋ 空靈吉他微音合成器
+    // =========================================================
     let audioCtx = null;
     let isPlaying = false;
     let filterNode = null;
@@ -325,7 +815,7 @@
       } else {
         stopAudio();
         document.getElementById("audioText").innerText = "播放大自然與木吉他氛圍音";
-        document.getElementById("audioBtn").style.background = "rgba(20, 32, 22, 0.85)";
+        document.getElementById("audioBtn").style.background = "rgba(20, 32, 22, 0.88)";
         isPlaying = false;
       }
     }
@@ -375,7 +865,7 @@
         osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
 
         gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
-        gain.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.08);
+        gain.gain.linearRampToValueAtTime(0.045, audioCtx.currentTime + 0.08);
         gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 2.8);
 
         osc.connect(gain);
@@ -386,6 +876,27 @@
         chimeTimer = setTimeout(playChime, 2500 + Math.random() * 3000);
       }
       playChime();
+    }
+
+    function playAnimalChime(id) {
+      if (!audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "triangle";
+        const baseFreq = id === "owl" ? 330 : (id === "bear" ? 180 : (id === "otter" ? 520 : 440));
+        osc.frequency.setValueAtTime(baseFreq, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.25, audioCtx.currentTime + 0.3);
+
+        gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.2);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 1.25);
+      } catch (err) {}
     }
 
     function stopAudio() {
