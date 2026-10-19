@@ -3538,16 +3538,35 @@
     }
 
     function saveTeams() {
-      saveAllState();
+      saveAllState(true);
     }
 
-    function saveAllState() {
+    let saveStateDebounceTimer = null;
+    let lastUrlReplaceTime = 0;
+
+    function saveAllState(immediate = false) {
+      if (immediate) {
+        if (saveStateDebounceTimer) {
+          clearTimeout(saveStateDebounceTimer);
+          saveStateDebounceTimer = null;
+        }
+        executeActualSaveState();
+        return;
+      }
+      if (!saveStateDebounceTimer) {
+        saveStateDebounceTimer = setTimeout(() => {
+          saveStateDebounceTimer = null;
+          executeActualSaveState();
+        }, 1200);
+      }
+    }
+
+    function executeActualSaveState() {
       // 1. 儲存目前跑者與名下即時備份
       if (currentUser && currentUser.name) {
-        localStorage.setItem(STORAGE_KEY_USER, JSON.stringify(currentUser));
-        localStorage.setItem("forest_race_player_" + encodeURIComponent(currentUser.name), JSON.stringify(currentUser));
-        
         try {
+          localStorage.setItem(STORAGE_KEY_USER, JSON.stringify(currentUser));
+          localStorage.setItem("forest_race_player_" + encodeURIComponent(currentUser.name), JSON.stringify(currentUser));
           const players = JSON.parse(localStorage.getItem(STORAGE_KEY_PLAYERS) || "{}");
           players[currentUser.name] = {
             name: currentUser.name,
@@ -3558,22 +3577,31 @@
           localStorage.setItem(STORAGE_KEY_PLAYERS, JSON.stringify(players));
         } catch(e) {}
 
-        // 3. 網址狀態同步（方便跨瀏覽器無縫找回或複製連結續玩）
-        try {
-          const hashStr = `runner=${encodeURIComponent(currentUser.name)}&team=${currentUser.animalId}&m=${currentUser.myMeters || 0}`;
-          if (history.replaceState) {
-            history.replaceState(null, '', '#' + hashStr);
-          }
-        } catch(e) {}
+        // 3. 網址狀態同步（每 3 秒最多更新一次，防止瀏覽器 history API 阻塞）
+        const now = Date.now();
+        if (now - lastUrlReplaceTime > 3000) {
+          lastUrlReplaceTime = now;
+          try {
+            const hashStr = `runner=${encodeURIComponent(currentUser.name)}&team=${currentUser.animalId}&m=${currentUser.myMeters || 0}`;
+            if (history.replaceState) {
+              history.replaceState(null, '', '#' + hashStr);
+            }
+          } catch(e) {}
+        }
       }
 
       // 2. 儲存全隊資料與自動鏡像備份
       if (teamDataMap) {
-        const json = JSON.stringify(teamDataMap);
-        localStorage.setItem(STORAGE_KEY_TEAMS, json);
-        localStorage.setItem(STORAGE_KEY_BACKUP, json);
+        try {
+          const json = JSON.stringify(teamDataMap);
+          localStorage.setItem(STORAGE_KEY_TEAMS, json);
+          localStorage.setItem(STORAGE_KEY_BACKUP, json);
+        } catch(e) {}
       }
     }
+
+    window.addEventListener('beforeunload', () => saveAllState(true));
+
 
     // =========================================================
     // 5. 渲染動物選擇清單 (帶 5 人上限限制)
@@ -4114,14 +4142,14 @@
       let ctx = null;
       let W = 0, H = 0, DPR = 1, raf = 0, last = 0;
       const parts = [];
-      const MAX = 1100;
+      const MAX = 80; // 降低粒子上限至 80 顆，大幅減少手機 GPU 負擔，完全消除發燙
       const sprites = { star: [], petal: [], leaf: [] };
       let initialized = false;
 
       function resize() {
         if (!canvas) canvas = document.getElementById('forest-particles-canvas');
         if (!canvas) return;
-        DPR = Math.min(window.devicePixelRatio || 1, 2);
+        DPR = Math.min(window.devicePixelRatio || 1, 1.25); // 限制解析度上限，節省 60% 像素著色計算
         W = window.innerWidth;
         H = window.innerHeight;
         canvas.width = Math.round(W * DPR);
@@ -4285,38 +4313,34 @@
         return streakTheme;
       }
 
-      // 噴灑量與高度控制（花瓣縮小精緻化，高度直衝森林畫面上半段，單擊有感 8~10 片，連點 32~42 片）
+      // 噴灑量與高度控制（輕量高質感化，單擊 5~7 片，連點 12~16 片，節省 80% 手機 GPU 負擔）
       function getProgressiveEmission(combo, isNitro) {
         const c = Math.max(1, combo || 1);
-        let burstCount = 8;
-        let minSpeed = 340;
-        let maxSpeed = 480;
-        let burstLife = 1.6;
+        let burstCount = 6;
+        let minSpeed = 320;
+        let maxSpeed = 440;
+        let burstLife = 0.95;
 
         if (c === 1) {
-          // 單次輕點：8~10 片精緻小花瓣，躍起直衝森林畫面中段
-          burstCount = isNitro ? 14 : (Math.random() < 0.5 ? 8 : 10);
-          minSpeed = isNitro ? 380 : 340;
-          maxSpeed = isNitro ? 540 : 480;
-          burstLife = 1.6;
+          burstCount = isNitro ? 8 : 5;
+          minSpeed = isNitro ? 360 : 320;
+          maxSpeed = isNitro ? 500 : 440;
+          burstLife = 0.9;
         } else if (c <= 3) {
-          // 輕快起步 (Combo 2~3)：14~18 片
-          burstCount = isNitro ? 22 : (Math.random() < 0.5 ? 14 : 18);
-          minSpeed = isNitro ? 420 : 380;
-          maxSpeed = isNitro ? 580 : 520;
-          burstLife = 1.75;
+          burstCount = isNitro ? 11 : 7;
+          minSpeed = isNitro ? 400 : 360;
+          maxSpeed = isNitro ? 540 : 480;
+          burstLife = 0.95;
         } else if (c <= 6) {
-          // 穩定狂飆 (Combo 4~6)：22~28 片
-          burstCount = isNitro ? 34 : (Math.random() < 0.5 ? 22 : 28);
-          minSpeed = isNitro ? 460 : 420;
-          maxSpeed = isNitro ? 640 : 580;
-          burstLife = 1.9;
+          burstCount = isNitro ? 14 : 9;
+          minSpeed = isNitro ? 440 : 400;
+          maxSpeed = isNitro ? 580 : 520;
+          burstLife = 1.05;
         } else {
-          // 極速連點 (Combo 7+)：32~42 片細緻花瓣漫天飛揚，直達森林畫面中段！
-          burstCount = isNitro ? 52 : (Math.random() < 0.5 ? 32 : 42);
-          minSpeed = isNitro ? 520 : 460;
-          maxSpeed = isNitro ? 720 : 660;
-          burstLife = 2.1;
+          burstCount = isNitro ? 18 : 12;
+          minSpeed = isNitro ? 480 : 440;
+          maxSpeed = isNitro ? 640 : 580;
+          burstLife = 1.15;
         }
 
         return { burstCount, minSpeed, maxSpeed, burstLife };
@@ -4330,9 +4354,9 @@
         const { burstCount, minSpeed, maxSpeed, burstLife } = getProgressiveEmission(combo, isNitro);
 
         for (let i = 0; i < burstCount; i++) {
-          const a = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 0.62; // 自然扇形朝上方森林噴灑
+          const a = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 0.58;
           const sp = rand(minSpeed, maxSpeed);
-          make(chosenTheme, x + rand(-24, 24), y + rand(-4, 4), Math.cos(a) * sp, Math.sin(a) * sp, rand(burstLife * 0.85, burstLife * 1.15));
+          make(chosenTheme, x + rand(-18, 18), y + rand(-4, 4), Math.cos(a) * sp, Math.sin(a) * sp, rand(burstLife * 0.85, burstLife * 1.15));
         }
 
         start();
@@ -4349,20 +4373,20 @@
         ensureCanvas();
         if (!canvas) return;
         const activeTheme = (theme === 'petals' ? 'petal' : (theme === 'leaves' ? 'leaf' : (theme === 'gold' ? 'star' : (theme || pick(['star', 'petal', 'leaf'])))));
-        const count = 90;
+        const count = 30; // 降低禮砲發數至 30 顆，華麗且絲滑不發燙
 
-        // 左下角禮砲（朝右上 60° 狂轟）
+        // 左下角禮砲
         for (let i = 0; i < count; i++) {
           const a = -Math.PI / 2 + (Math.random() * 0.7 - 0.1);
-          const sp = rand(550, 1100);
-          make(activeTheme, 0, H * 0.94, Math.cos(a) * sp, Math.sin(a) * sp, rand(2.8, 4.5));
+          const sp = rand(550, 950);
+          make(activeTheme, 0, H * 0.94, Math.cos(a) * sp, Math.sin(a) * sp, rand(2.2, 3.2));
         }
 
-        // 右下角禮砲（朝左上 120° 狂轟）
+        // 右下角禮砲
         for (let i = 0; i < count; i++) {
           const a = -Math.PI / 2 - (Math.random() * 0.7 - 0.1);
-          const sp = rand(550, 1100);
-          make(activeTheme, W, H * 0.94, Math.cos(a) * sp, Math.sin(a) * sp, rand(2.8, 4.5));
+          const sp = rand(550, 950);
+          make(activeTheme, W, H * 0.94, Math.cos(a) * sp, Math.sin(a) * sp, rand(2.2, 3.2));
         }
 
         start();
@@ -4403,27 +4427,22 @@
           }
         }
 
-        // 兩階段極速硬體貼圖繪製 (Pass 0: source-over, Pass 1: lighter 金鑽光芒)
-        for (let pass = 0; pass < 2; pass++) {
-          ctx.globalCompositeOperation = pass === 0 ? 'source-over' : 'lighter';
-          for (let i = 0; i < parts.length; i++) {
-            const p = parts[i];
-            const isStar = p.type === 'star';
-            if ((pass === 0) === isStar) continue;
-            let a = Math.min(1, p.life / 0.6, (p.max - p.life) / 0.08 + 0.2);
-            if (isStar) a *= 0.72 + 0.28 * Math.sin(t * p.tw + p.phase);
-            if (a <= 0.01) continue;
-            ctx.globalAlpha = a;
-            const c = Math.cos(p.rot), s = Math.sin(p.rot);
-            const sx = p.size * (isStar ? 1 : Math.cos(p.flip));
-            const sy = p.size;
-            ctx.setTransform(DPR * c * sx, DPR * s * sx, -DPR * s * sy, DPR * c * sy, DPR * p.x, DPR * p.y);
-            ctx.drawImage(p.img, -0.5, -0.5, 1, 1);
-          }
+        // 單次高效極速貼圖繪製 (減少 50% 迴圈與合成器重繪負擔)
+        for (let i = 0; i < parts.length; i++) {
+          const p = parts[i];
+          const isStar = p.type === 'star';
+          let a = Math.min(1, p.life / 0.45, (p.max - p.life) / 0.08 + 0.2);
+          if (isStar) a *= 0.72 + 0.28 * Math.sin(t * p.tw + p.phase);
+          if (a <= 0.01) continue;
+          ctx.globalAlpha = a;
+          const c = Math.cos(p.rot), s = Math.sin(p.rot);
+          const sx = p.size * (isStar ? 1 : Math.cos(p.flip));
+          const sy = p.size;
+          ctx.setTransform(DPR * c * sx, DPR * s * sx, -DPR * s * sy, DPR * c * sy, DPR * p.x, DPR * p.y);
+          ctx.drawImage(p.img, -0.5, -0.5, 1, 1);
         }
 
         ctx.globalAlpha = 1;
-        ctx.globalCompositeOperation = 'source-over';
 
         if (parts.length > 0) {
           raf = requestAnimationFrame(loop);
@@ -4535,29 +4554,36 @@
       }, 450);
     }
 
+    let lastPuffTime = 0;
     function spawnRunnerPuff() {
+      const now = Date.now();
+      if (now - lastPuffTime < 180) return; // 節流：每 180ms 最多產生一次塵土，避免 DOM 頻繁建立垃圾回收
+      lastPuffTime = now;
+
       const track = document.getElementById('track-viewport');
-      const avatar = document.getElementById('runner-avatar');
-      if (!track || !avatar) return;
+      if (!track) return;
 
       const puff = document.createElement('div');
       puff.className = 'runner-puff-cloud';
       puff.textContent = Math.random() < 0.25 ? '✨' : '💨';
 
-      const avatarRect = avatar.getBoundingClientRect();
-      const trackRect = track.getBoundingClientRect();
-      const left = (avatarRect.left - trackRect.left) + avatarRect.width / 2 + (Math.random() * 20 - 10);
-      const top = (avatarRect.top - trackRect.top) + avatarRect.height - 10;
+      // 使用純比例數學計算位置，零 getBoundingClientRect，徹底消除強制同步回流 (Reflow)！
+      const trackW = track.clientWidth || 360;
+      const trackH = track.clientHeight || 450;
+      const left = (trackW / 2) + (Math.random() * 20 - 10);
+      const top = trackH * 0.72;
 
       puff.style.left = `${left}px`;
       puff.style.top = `${top}px`;
       track.appendChild(puff);
-      setTimeout(() => puff.remove(), 550);
+      setTimeout(() => puff.remove(), 450);
     }
 
     // =========================================================
     // 8.8 輕快爽快的點擊奔跑核心 (Tap to Run Engine)
     // =========================================================
+    let lastLeaderboardUpdate = 0;
+
     function handleTapRun(event) {
       if (event && event.stopPropagation) {
         event.stopPropagation();
@@ -4592,12 +4618,12 @@
         playStepSound(260 + (stepCount % 4) * 20);
       }
 
-      // 按鈕微震反饋
+      // 按鈕微震反饋（純 CSS 類切換，零 offsetWidth 強制重繪）
       const runBtn = document.getElementById('btn-blessing-run');
       if (runBtn) {
-        runBtn.classList.remove('boom');
-        void runBtn.offsetWidth;
         runBtn.classList.add('boom');
+        clearTimeout(runBtn._boomTimer);
+        runBtn._boomTimer = setTimeout(() => runBtn.classList.remove('boom'), 120);
       }
 
       // 步距計算：迷霧森林 30 秒衝刺期間 6m (3X 狂暴)！氮氣加速中 4m (2X)，基礎 2m
@@ -4617,17 +4643,12 @@
       const progressPct = Math.min(100, Math.floor((triviaProgressMeters / TRIVIA_CYCLE_METERS) * 100));
       updateAnimalProgressBar(progressPct);
 
-      saveAllState();
+      saveAllState(); // 防抖儲存，不再每次點擊阻塞磁碟 I/O
       scheduleCloudSync(stepDistance);
 
-      // 喜帖 60FPS 離線 Sprite 純粹主題噴灑（全花瓣 / 全落葉 / 全金蔥 隨機，且帶天降雨落）
+      // 純粹主題噴灑（直接使用點擊事件座標或中央位置，零 getBoundingClientRect 阻塞）
       let burstX = window.innerWidth / 2;
-      let burstY = window.innerHeight * 0.55;
-      if (runBtn) {
-        const r = runBtn.getBoundingClientRect();
-        burstX = r.left + r.width / 2;
-        burstY = r.top + r.height * 0.35;
-      }
+      let burstY = window.innerHeight * 0.58;
       if (event && event.clientX && event.clientY) {
         burstX = event.clientX;
         burstY = event.clientY;
@@ -4636,7 +4657,6 @@
         burstY = event.touches[0].clientY;
       }
 
-      // 喜帖 60FPS 離線 Sprite 純粹主題漸進式噴灑（隨著連點步頻越來越澎湃）
       FX.burst(burstX, burstY, combo, isNitro);
 
       // 直向賽道縱深奔馳視覺推進與角色前蹬微跳
@@ -4648,19 +4668,22 @@
       // 路邊隨機掠過花草與里程木牌
       spawnRoadsideScenery(stepDistance);
 
-      // 更新儀表板公里數與排行榜
+      // 更新儀表板公里數
       updateDashboardNumbers();
 
-      // 計數動畫跳動
+      // 計數動畫跳動（純 CSS 定時器，零 offsetWidth 回流）
       const blessingDisplay = document.getElementById('blessing-count-display');
       if (blessingDisplay) {
-        blessingDisplay.classList.remove('bump');
-        void blessingDisplay.offsetWidth;
         blessingDisplay.classList.add('bump');
+        clearTimeout(blessingDisplay._bumpTimer);
+        blessingDisplay._bumpTimer = setTimeout(() => blessingDisplay.classList.remove('bump'), 160);
       }
 
-      // 每次點擊即時更新排行榜
-      updateFocusLeaderboard();
+      // 排行榜更新節流：每 350ms 最多排序刷新一次，保證手機極速連點零卡頓
+      if (now - lastLeaderboardUpdate > 350) {
+        lastLeaderboardUpdate = now;
+        updateFocusLeaderboard();
+      }
 
       // 當動物跑到最右端 (100%)，觸發加碼選擇題！
       if (progressPct >= 100) {
@@ -4680,17 +4703,15 @@
     function advanceTrackVisual(meters, isNitro) {
       roadScrollY += meters * 14;
       
-      const track = document.getElementById('track-viewport');
       const dust = document.getElementById('dust-trail');
       const avatar = document.getElementById('runner-avatar');
 
-      // 玩家動物角色向前蹬地跳躍衝刺動畫
+      // 玩家動物角色向前蹬地跳躍衝刺動畫（純定時切換，零強制回流）
       if (avatar) {
-        avatar.classList.remove('striding');
-        void avatar.offsetWidth; // 強制重繪觸發動畫
         avatar.classList.add('striding');
+        clearTimeout(avatar._strideTimer);
+        avatar._strideTimer = setTimeout(() => avatar.classList.remove('striding'), 180);
       }
-
 
       // 腳下揚塵
       if (dust) {
@@ -4702,11 +4723,15 @@
       }
     }
 
-    // 每次點擊跳出的 +2m / +4m 浮動字樣 (帶連擊獎勵反饋)
+    // 每次點擊跳出的 +2m / +4m 浮動字樣（帶節流與純數學定位，極速流暢）
+    let lastGainTime = 0;
     function spawnFloatingGain(meters, isNitro, event) {
+      const now = Date.now();
+      if (now - lastGainTime < 140) return; // 節流：140ms 最多浮現一次，節省 DOM 垃圾回收負擔
+      lastGainTime = now;
+
       const track = document.getElementById('track-viewport');
-      const avatar = document.getElementById('runner-avatar');
-      if (!track || !avatar) return;
+      if (!track) return;
 
       const gain = document.createElement('div');
       let comboTag = '';
@@ -4725,17 +4750,17 @@
         gain.textContent = `+${meters}m${comboTag}`;
       }
 
-      const trackRect = track.getBoundingClientRect();
-      const avatarRect = avatar.getBoundingClientRect();
-
-      const left = (avatarRect.left - trackRect.left) + 24 + (Math.random() * 14 - 7);
-      const top = (avatarRect.top - trackRect.top) - 10;
+      // 純比例定位，零 getBoundingClientRect！
+      const trackW = track.clientWidth || 360;
+      const trackH = track.clientHeight || 450;
+      const left = (trackW / 2) + 24 + (Math.random() * 16 - 8);
+      const top = trackH * 0.65 - 10;
 
       gain.style.left = `${left}px`;
       gain.style.top = `${top}px`;
 
       track.appendChild(gain);
-      setTimeout(() => gain.remove(), 650);
+      setTimeout(() => gain.remove(), 550);
     }
 
     // 路邊掠過的花草與里程木牌 (3D 縱深由遠及近流動)
