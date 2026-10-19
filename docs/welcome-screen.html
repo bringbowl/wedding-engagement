@@ -35,7 +35,7 @@
       background: #0d160f;
     }
 
-    /* 雙緩衝電影級 1080p 影片圖層 (A / B 雙軌無縫交替，徹底消除重影與背景晃動) */
+    /* 雙緩衝電影級 1080p 影片圖層 (A / B 雙軌 2.0s 深度交叉淡入淡出，消除跳格與晃動) */
     .cinema-video-layer {
       position: absolute;
       top: 0;
@@ -45,22 +45,39 @@
       object-fit: cover;
       display: block;
       /* 會場愛迪生暖金穹頂色溫調校：增強對比與深翠綠意，壓抑過曝刺眼感 */
-      filter: brightness(0.88) contrast(1.10) saturate(1.15);
+      filter: brightness(0.90) contrast(1.08) saturate(1.15);
       z-index: 1;
       opacity: 0;
       visibility: hidden;
-      transform: translateZ(0); /* GPU 硬體加速 */
+      transform: scale(1.0);
+      /* 電影級 2 秒超柔滑交叉溶解，徹底消除突然跳格 */
+      transition: opacity 2.0s cubic-bezier(0.25, 1, 0.5, 1);
+      will-change: opacity, transform;
     }
 
     .cinema-video-layer.active {
       opacity: 1;
       visibility: visible;
       z-index: 2;
+      /* 頂級自然運鏡：18秒超平緩呼吸感攝影機微推微移，賦予大自然生生不息的活態感 */
+      animation: cameraGliding 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes cameraGliding {
+      0% {
+        transform: scale(1.0) translate(0%, 0%);
+      }
+      50% {
+        transform: scale(1.026) translate(-0.5%, -0.3%);
+      }
+      100% {
+        transform: scale(1.014) translate(0.4%, 0.25%);
+      }
     }
 
     /* 晨曦金光暖霧過場遮罩 (Sunbeam Bloom)
-       切換時晨曦暖陽金光穿透林間（200ms 柔和升起，無感切換影片，220ms 自然淡出）
-       100% 消除任何背景交疊、重影、位移晃動，彷彿走入神聖婚禮晨曦森林！ */
+       切換時晨曦暖陽金光柔柔漫射穿透林間（1.0s 緩緩升起，自然融合不同視角，1.0s 緩緩散開）
+       完全消除任何背景突兀跳切，如真實微風撫過晨霧漫步林間！ */
     .sunbeam-bloom-overlay {
       position: absolute;
       top: 0;
@@ -68,17 +85,17 @@
       width: 100%;
       height: 100%;
       background: radial-gradient(ellipse at 50% 36%, 
-        rgba(255, 238, 175, 0.95) 0%, 
-        rgba(245, 205, 120, 0.72) 42%, 
-        rgba(180, 135, 65, 0.38) 75%,
-        rgba(15, 28, 18, 0.85) 100%);
+        rgba(255, 238, 175, 0.45) 0%, 
+        rgba(245, 205, 120, 0.28) 45%, 
+        rgba(180, 135, 65, 0.12) 75%,
+        transparent 100%);
       mix-blend-mode: screen;
       pointer-events: none;
       z-index: 12;
       opacity: 0;
-      transition: opacity 0.20s ease-in-out;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      transition: opacity 1.0s ease-in-out;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
     }
 
     .sunbeam-bloom-overlay.bloom-active {
@@ -87,7 +104,7 @@
 
     /* 電影深翠微暗過場遮罩 (Emerald Dip 模式) */
     .sunbeam-bloom-overlay.dip-mode {
-      background: rgba(8, 16, 10, 0.98);
+      background: rgba(8, 16, 10, 0.95);
       mix-blend-mode: normal;
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
@@ -318,9 +335,9 @@
       </div>
     </div>
 
-    <!-- 氛圍音效按鈕 -->
+    <!-- 森林深處生態音效按鈕 -->
     <button class="tool-btn" id="audioBtn" onclick="toggleAudio()">
-      <span>🎵</span> <span id="audioText">播放大自然與木吉他氛圍音</span>
+      <span>🎵</span> <span id="audioText">開啟森林深處生態音（清溪流水・鳥語蛙鳴・動物步履）</span>
     </button>
 
     <!-- 全螢幕按鈕 -->
@@ -400,217 +417,283 @@
     animateParticles();
 
     // =========================================================
-    // 2. 雙緩衝電影級零晃動野生動物漫步播放系統
+    // 2. 雙緩衝電影級自然運鏡・野生動物客串播放系統
+    // 晨曦林間清溪為主舞台，每隔一段時間動物自然出沒走入鏡頭，宛如真實森林
     // =========================================================
     const playlist = [
+      {
+        id: "forest_empty",
+        name: "晨曦林間清溪",
+        icon: "🌿",
+        src: "assets/videos/loop0_forest_empty.mp4",
+        duration: 7200
+      },
       {
         id: "deer",
         name: "成對梅花鹿",
         icon: "🦌",
-        desc: "陽光草地：一公一母優雅梅花鹿緩步漫步相依...",
         src: "assets/videos/cameo_deer.mp4",
-        duration: 7800
+        duration: 8000
+      },
+      {
+        id: "forest_empty",
+        name: "晨曦林間清溪",
+        icon: "🌿",
+        src: "assets/videos/loop0_forest_empty.mp4",
+        duration: 7200
       },
       {
         id: "rabbit",
-        name: "萌兔好奇",
+        name: "萌兔好奇對視",
         icon: "🐇",
-        desc: "前景草地：小萌兔一蹦一跳衝到鏡頭正前方，快速抽動粉鼻好奇對視...",
         src: "assets/videos/cameo_rabbit.mp4",
-        duration: 7800
+        duration: 8000
+      },
+      {
+        id: "forest_empty",
+        name: "晨曦林間清溪",
+        icon: "🌿",
+        src: "assets/videos/loop0_forest_empty.mp4",
+        duration: 7200
       },
       {
         id: "otter",
-        name: "清溪水獺",
+        name: "清溪小水獺",
         icon: "🦦",
-        desc: "左下淺溪：小水獺順水游來，爬上溪石探頭甩水...",
         src: "assets/videos/cameo_otter.mp4",
-        duration: 7800
+        duration: 8000
+      },
+      {
+        id: "forest_empty",
+        name: "晨曦林間清溪",
+        icon: "🌿",
+        src: "assets/videos/loop0_forest_empty.mp4",
+        duration: 7200
       },
       {
         id: "sparrows",
-        name: "靈動麻雀",
+        name: "靈動麻雀群",
         icon: "🐦",
-        desc: "近景青苔石：三隻小麻雀輕盈飛降啄食金色光斑，歪頭盯著鏡頭眨眨眼...",
         src: "assets/videos/cameo_sparrows.mp4",
-        duration: 7800
+        duration: 8000
+      },
+      {
+        id: "forest_empty",
+        name: "晨曦林間清溪",
+        icon: "🌿",
+        src: "assets/videos/loop0_forest_empty.mp4",
+        duration: 7200
+      },
+      {
+        id: "leopard_cat",
+        name: "台灣石虎凝視",
+        icon: "🐆",
+        src: "assets/videos/cameo_leopard_cat.mp4",
+        duration: 8000
+      },
+      {
+        id: "forest_empty",
+        name: "晨曦林間清溪",
+        icon: "🌿",
+        src: "assets/videos/loop0_forest_empty.mp4",
+        duration: 7200
       },
       {
         id: "redpandas_playing",
         name: "雙小熊貓嬉戲",
         icon: "🦊",
-        desc: "倒木青苔：兩隻小熊貓在原木旁揮舞小爪玩耍嬉戲...",
         src: "assets/videos/cameo_redpandas_playing.mp4",
-        duration: 7800
+        duration: 8000
       },
       {
-        id: "leopard_cat",
-        name: "台灣石虎",
-        icon: "🐆",
-        desc: "林邊灌木：優雅石虎邁著無聲貓步踏入近景，微伏身子好奇凝視...",
-        src: "assets/videos/cameo_leopard_cat.mp4",
-        duration: 7800
+        id: "forest_empty",
+        name: "晨曦林間清溪",
+        icon: "🌿",
+        src: "assets/videos/loop0_forest_empty.mp4",
+        duration: 7200
       },
       {
         id: "bear",
-        name: "亞洲大黑熊",
+        name: "大黑熊草地納涼",
         icon: "🐻",
-        desc: "林間草坪：大黑熊慢步走入中央陽光草地大字型趴平納涼...",
         src: "assets/videos/cameo_bear.mp4",
-        duration: 7800
+        duration: 8000
       },
       {
-        id: "redpanda_curious",
-        name: "好奇小熊貓",
-        icon: "🐼",
-        desc: "左下岩石：小熊貓踏出樹後，好奇直視鏡頭嗅聞青苔...",
-        src: "assets/videos/cameo_redpanda_curious.mp4",
-        duration: 7800
+        id: "forest_empty",
+        name: "晨曦林間清溪",
+        icon: "🌿",
+        src: "assets/videos/loop0_forest_empty.mp4",
+        duration: 7200
       },
       {
         id: "beaver",
-        name: "可愛河狸",
+        name: "可愛河狸啃枝",
         icon: "🦫",
-        desc: "溪畔鵝卵石：小河狸爬上溪灘，低頭啃啃細樹枝...",
         src: "assets/videos/cameo_beaver.mp4",
         duration: 7800
       },
       {
         id: "forest_empty",
-        name: "晨曦空景",
+        name: "晨曦林間清溪",
         icon: "🌿",
-        desc: "林間清溪：陽光微塵隨晨霧流轉，清澈水波細細粼粼...",
         src: "assets/videos/loop0_forest_empty.mp4",
-        duration: 7600 // 於 7.6 秒平滑切換，完全避開 8 秒末尾回彈！
+        duration: 7200
+      },
+      {
+        id: "redpanda_curious",
+        name: "小熊貓好奇嗅苔",
+        icon: "🐼",
+        src: "assets/videos/cameo_redpanda_curious.mp4",
+        duration: 8000
       }
     ];
 
     let currentIndex = 0;
     let isAutoPlay = true;
     let isTransitioning = false;
-    let transitionTimer = null;
-    let playTimer = null;
+    let watchdogTimer = null;
     let toastTimer = null;
-
-    // 過場模式：'bloom' (晨曦金光暖霧) | 'clean' (電影直接切換) | 'dip' (深翠微暗)
-    let transitionStyle = 'bloom';
 
     const playerA = document.getElementById("playerA");
     const playerB = document.getElementById("playerB");
     let activePlayer = playerA;
     let idlePlayer = playerB;
-
     const sunbeamBloom = document.getElementById("sunbeamBloom");
 
     function initPlayer() {
+      // 綁定兩台播放器的事件監聽
+      bindPlayerEvents(playerA);
+      bindPlayerEvents(playerB);
+
       const first = playlist[0];
       activePlayer.src = first.src;
       activePlayer.classList.add("active");
-      activePlayer.play().catch(e => console.log("Init play hindered:", e));
+      activePlayer.play().catch(e => console.log("Initial play deferred:", e));
 
-      // 100% 純淨森林視窗：動物漫步不彈出文字 Toast，營造置身大自然的真實感
-      preloadNext();
-      scheduleNext(first.duration);
+      // 充裕預載下一部影片
+      preloadUpcoming(1);
+
+      // 啟動首段看門狗計時器
+      armWatchdog(first.duration);
     }
 
-    function preloadNext() {
+    function bindPlayerEvents(player) {
+      // 主動時間監聽：在影片結束前 2.0 秒啟動優雅無縫溶解過場
+      player.ontimeupdate = () => {
+        if (player !== activePlayer || !isAutoPlay || isTransitioning) return;
+        if (player.duration && player.currentTime >= (player.duration - 2.0)) {
+          triggerNext();
+        }
+      };
+
+      player.onended = () => {
+        if (player === activePlayer && isAutoPlay && !isTransitioning) {
+          triggerNext();
+        }
+      };
+
+      player.onerror = (err) => {
+        console.warn("Video layer encountered issue, safely advancing:", err);
+        if (player === activePlayer && !isTransitioning) {
+          triggerNext();
+        }
+      };
+    }
+
+    function triggerNext() {
+      if (isTransitioning) return;
       const nextIdx = (currentIndex + 1) % playlist.length;
-      idlePlayer.src = playlist[nextIdx].src;
-      idlePlayer.preload = "auto";
+      performTransition(nextIdx);
     }
 
-    function transitionTo(targetIndex) {
+    function armWatchdog(durationMs) {
+      clearTimeout(watchdogTimer);
+      // 安全看門狗：若網路緩衝或未觸發 timeupdate，最遲於 duration + 1.2 秒強制推進，確保永不卡死
+      watchdogTimer = setTimeout(() => {
+        if (isAutoPlay && !isTransitioning) {
+          console.log("Watchdog safely advancing scene");
+          triggerNext();
+        }
+      }, (durationMs || 8000) + 1200);
+    }
+
+    async function performTransition(targetIndex) {
       if (isTransitioning) return;
       isTransitioning = true;
-      if (playTimer) clearTimeout(playTimer);
+      clearTimeout(watchdogTimer);
 
       const nextItem = playlist[targetIndex];
-      idlePlayer.src = nextItem.src;
+      const targetUrl = new URL(nextItem.src, window.location.href).href;
+
+      if (idlePlayer.src !== targetUrl) {
+        idlePlayer.src = nextItem.src;
+        idlePlayer.load();
+      }
       idlePlayer.currentTime = 0;
 
-      // 執行過場
-      if (transitionStyle === 'bloom') {
-        // 模式 1：晨曦金光暖霧 (最自然浪漫，零背景晃動)
-        sunbeamBloom.classList.remove("dip-mode");
-        sunbeamBloom.classList.add("bloom-active");
+      // 觸發動物專屬腳步與環境特徵音效
+      playAnimalSound(nextItem.id);
 
-        setTimeout(() => {
-          // 在金光頂峰 (200ms) 切換底層影片
-          swapPlayers();
-          playCameoChime(nextItem.id);
-
-          setTimeout(() => {
-            // 金光自然退去 (220ms)
-            sunbeamBloom.classList.remove("bloom-active");
-            isTransitioning = false;
-            currentIndex = targetIndex;
-            preloadNext();
-            if (isAutoPlay) scheduleNext(nextItem.duration);
-          }, 60);
-
-        }, 200);
-
-      } else if (transitionStyle === 'dip') {
-        // 模式 2：電影深翠微暗場
-        sunbeamBloom.classList.add("dip-mode");
-        sunbeamBloom.classList.add("bloom-active");
-
-        setTimeout(() => {
-          swapPlayers();
-          playCameoChime(nextItem.id);
-
-          setTimeout(() => {
-            sunbeamBloom.classList.remove("bloom-active");
-            isTransitioning = false;
-            currentIndex = targetIndex;
-            preloadNext();
-            if (isAutoPlay) scheduleNext(nextItem.duration);
-          }, 60);
-
-        }, 180);
-
-      } else {
-        // 模式 3：電影級直接切換 (Clean Cut, 俐落零延遲)
-        swapPlayers();
-        playCameoChime(nextItem.id);
-        isTransitioning = false;
-        currentIndex = targetIndex;
-        preloadNext();
-        if (isAutoPlay) scheduleNext(nextItem.duration);
+      // 1. 確保新影片在底層已經解碼開跑 (此時 idlePlayer 仍在 opacity: 0，完全看不見)
+      try {
+        await idlePlayer.play();
+      } catch (err) {
+        console.warn("Play() deferred, retrying muted:", err);
+        idlePlayer.muted = true;
+        try { await idlePlayer.play(); } catch(e) {}
       }
-    }
 
-    function swapPlayers() {
-      idlePlayer.play().then(() => {
-        idlePlayer.classList.add("active");
-        activePlayer.classList.remove("active");
+      // 2. 升起晨曦金色暖霧 (1.0s 柔和升起，融合畫面避免生硬跳格)
+      sunbeamBloom.classList.add("bloom-active");
+
+      // 3. 雙圖層無縫 2.0 秒交叉溶解 (Cross-Dissolve)
+      idlePlayer.classList.add("active");
+      activePlayer.classList.remove("active");
+
+      // 4. 1.0s 後，金光暖霧自然散去
+      setTimeout(() => {
+        sunbeamBloom.classList.remove("bloom-active");
+      }, 1000);
+
+      // 5. 2.0s 後，交叉過場完全結束
+      setTimeout(() => {
         activePlayer.pause();
+        activePlayer.currentTime = 0;
 
         // 交換 active 與 idle 指針
         const temp = activePlayer;
         activePlayer = idlePlayer;
         idlePlayer = temp;
-      }).catch(err => {
-        console.warn("Player swap hindered:", err);
-      });
+
+        currentIndex = targetIndex;
+        isTransitioning = false;
+
+        // 為下一部影片充裕預載 (保證有整整 6~8 秒的下載緩衝時間)
+        const upcomingIdx = (currentIndex + 1) % playlist.length;
+        preloadUpcoming(upcomingIdx);
+
+        // 重設定時保護看門狗
+        if (isAutoPlay) {
+          armWatchdog(nextItem.duration);
+        }
+      }, 2000);
     }
 
-    function scheduleNext(durationMs) {
-      if (!isAutoPlay) return;
-      if (playTimer) clearTimeout(playTimer);
-
-      playTimer = setTimeout(() => {
-        if (isAutoPlay && !isTransitioning) {
-          const nextIdx = (currentIndex + 1) % playlist.length;
-          transitionTo(nextIdx);
-        }
-      }, durationMs);
+    function preloadUpcoming(index) {
+      const upcomingItem = playlist[index];
+      const targetUrl = new URL(upcomingItem.src, window.location.href).href;
+      if (idlePlayer.src !== targetUrl) {
+        idlePlayer.src = upcomingItem.src;
+        idlePlayer.preload = "auto";
+        idlePlayer.load();
+      }
     }
 
     function manualPlay(animalId) {
       const idx = playlist.findIndex(p => p.id === animalId);
       if (idx !== -1) {
-        transitionTo(idx);
+        performTransition(idx);
       }
     }
 
@@ -619,33 +702,165 @@
       const opt = document.getElementById("autoPlayOpt");
       if (isAutoPlay) {
         opt.innerText = "⏸️ 暫停自動巡遊";
-        const currentItem = playlist[currentIndex];
-        scheduleNext(currentItem.duration);
+        triggerNext();
         showToast("🌿", "已啟動森林動物自然巡遊漫步");
       } else {
         opt.innerText = "▶️ 恢復自動巡遊";
-        if (playTimer) clearTimeout(playTimer);
+        clearTimeout(watchdogTimer);
         showToast("🌿", "已暫停巡遊（可由選單手動點選動物）");
       }
     }
 
     function toggleTransitionStyle() {
-      const opt = document.getElementById("transStyleOpt");
-      if (transitionStyle === 'bloom') {
-        transitionStyle = 'clean';
-        opt.innerText = "🎬 過場效果：電影級俐落切換";
-        showToast("🎬", "已切換為【電影級俐落切換】(無延遲直接轉場)");
-      } else if (transitionStyle === 'clean') {
-        transitionStyle = 'dip';
-        opt.innerText = "🌿 過場效果：森林深翠微暗";
-        showToast("🌿", "已切換為【森林深翠微暗】(典雅微暗場)");
-      } else {
-        transitionStyle = 'bloom';
-        opt.innerText = "✨ 過場效果：晨曦金光暖霧";
-        showToast("✨", "已切換為【晨曦金光暖霧】(極致浪漫、零晃動)");
+      showToast("✨", "當前已套用【晨曦金光暖霧 ＋ 2.0s 自然運鏡】");
+    }
+
+    // =========================================================
+    // 3. 森林深處多音軌生態音效引擎 (Forest Eco-Audio Engine)
+    // 包含：清溪流淌潺潺水聲、深林微風、偶爾鳥鳴、溪石蛙鳴、動物出沒專屬腳步特徵音
+    // =========================================================
+    let isAudioPlaying = false;
+    let streamAudio = null;
+    let birdAudio = null;
+    let frogAudio = null;
+    let birdTimer = null;
+    let frogTimer = null;
+    const animalAudioMap = {};
+
+    function initAudioEngine() {
+      if (streamAudio) return;
+
+      // 1. 溪流流水與深林微風背景聲 (循環播放)
+      streamAudio = new Audio("assets/audio/forest_stream_deep.mp3");
+      streamAudio.loop = true;
+      streamAudio.volume = 0.65;
+
+      // 2. 偶爾清脆鳥鳴
+      birdAudio = new Audio("assets/audio/birds_woodland.mp3");
+      birdAudio.volume = 0.50;
+
+      // 3. 偶爾溪畔蛙鳴
+      frogAudio = new Audio("assets/audio/frogs_stream.mp3");
+      frogAudio.volume = 0.45;
+
+      // 4. 動物出場腳步與特徵音
+      const animalSounds = {
+        deer: "assets/audio/steps_deer.mp3",
+        rabbit: "assets/audio/steps_rabbit.mp3",
+        otter: "assets/audio/steps_otter.mp3",
+        sparrows: "assets/audio/steps_sparrows.mp3",
+        redpandas_playing: "assets/audio/steps_redpandas.mp3",
+        leopard_cat: "assets/audio/steps_leopard_cat.mp3",
+        bear: "assets/audio/steps_bear.mp3",
+        redpanda_curious: "assets/audio/steps_redpandas.mp3",
+        beaver: "assets/audio/steps_beaver.mp3"
+      };
+
+      for (const [id, src] of Object.entries(animalSounds)) {
+        const aud = new Audio(src);
+        aud.preload = "auto";
+        aud.volume = 0.75;
+        animalAudioMap[id] = aud;
       }
     }
 
+    function startForestAudio() {
+      initAudioEngine();
+      isAudioPlaying = true;
+
+      // 播放清溪水流與微風
+      streamAudio.play().catch(e => console.log("Stream play deferred until gesture:", e));
+
+      // 隨機間隔觸發鳥鳴 (每 7 ~ 15 秒鳴唱一次)
+      scheduleNextBird();
+
+      // 隨機間隔觸發溪畔蛙鳴 (每 9 ~ 20 秒鳴叫一次)
+      scheduleNextFrog();
+
+      updateAudioButtonUI(true);
+      showToast("🌿", "已開啟森林深處清溪流水、鳥叫蛙鳴與動物步履");
+    }
+
+    function stopForestAudio() {
+      isAudioPlaying = false;
+      if (streamAudio) streamAudio.pause();
+      if (birdAudio) birdAudio.pause();
+      if (frogAudio) frogAudio.pause();
+      clearTimeout(birdTimer);
+      clearTimeout(frogTimer);
+      updateAudioButtonUI(false);
+      showToast("🌿", "已暫停森林環境音效");
+    }
+
+    function scheduleNextBird() {
+      clearTimeout(birdTimer);
+      if (!isAudioPlaying) return;
+      const delay = 6000 + Math.random() * 8000;
+      birdTimer = setTimeout(() => {
+        if (isAudioPlaying && birdAudio) {
+          birdAudio.currentTime = 0;
+          birdAudio.play().catch(() => {});
+          scheduleNextBird();
+        }
+      }, delay);
+    }
+
+    function scheduleNextFrog() {
+      clearTimeout(frogTimer);
+      if (!isAudioPlaying) return;
+      const delay = 8000 + Math.random() * 11000;
+      frogTimer = setTimeout(() => {
+        if (isAudioPlaying && frogAudio) {
+          frogAudio.currentTime = 0;
+          frogAudio.play().catch(() => {});
+          scheduleNextFrog();
+        }
+      }, delay);
+    }
+
+    function playAnimalSound(animalId) {
+      if (!isAudioPlaying) return;
+      const sound = animalAudioMap[animalId];
+      if (sound) {
+        // 在新動物畫面淡入浮現 (400ms) 時踏出真實腳步聲
+        setTimeout(() => {
+          if (!isAudioPlaying) return;
+          sound.currentTime = 0;
+          sound.play().catch(e => console.log("Animal step audio deferred:", e));
+        }, 400);
+      }
+    }
+
+    function toggleAudio() {
+      if (!isAudioPlaying) {
+        startForestAudio();
+      } else {
+        stopForestAudio();
+      }
+    }
+
+    function updateAudioButtonUI(playing) {
+      const btnText = document.getElementById("audioText");
+      const btn = document.getElementById("audioBtn");
+      if (playing) {
+        btnText.innerText = "🔊 森林溪流・鳥語蛙鳴・動物步履（播放中）";
+        btn.style.background = "rgba(45, 92, 55, 0.92)";
+        btn.style.borderColor = "rgba(240, 220, 150, 0.9)";
+      } else {
+        btnText.innerText = "🎵 開啟森林深處生態音（清溪流水・鳥語蛙鳴・動物步履）";
+        btn.style.background = "rgba(255, 255, 255, 0.08)";
+        btn.style.borderColor = "rgba(230, 210, 150, 0.3)";
+      }
+    }
+
+    // 支援首次任意點擊頁面時預載 Audio 物件
+    window.addEventListener("click", () => {
+      initAudioEngine();
+    }, { once: true });
+
+    // =========================================================
+    // 4. 操作微光提示 Toast
+    // =========================================================
     function showToast(icon, text) {
       const toast = document.getElementById("cameoToast");
       const iconEl = toast.querySelector(".toast-icon");
@@ -658,11 +873,11 @@
       if (toastTimer) clearTimeout(toastTimer);
       toastTimer = setTimeout(() => {
         toast.classList.remove("show");
-      }, 4200);
+      }, 3500);
     }
 
     // =========================================================
-    // 3. 全螢幕切換
+    // 5. 全螢幕切換
     // =========================================================
     function toggleFullscreen() {
       if (!document.fullscreenElement) {
@@ -674,116 +889,6 @@
           document.exitFullscreen();
         }
       }
-    }
-
-    // =========================================================
-    // 4. Web Audio 大自然微風 ＋ 空靈吉他微音合成器
-    // =========================================================
-    let audioCtx = null;
-    let isAudioPlaying = false;
-    let filterNode = null;
-    let chimeTimer = null;
-
-    function toggleAudio() {
-      if (!isAudioPlaying) {
-        startAudio();
-        document.getElementById("audioText").innerText = "暫停氛圍音效";
-        document.getElementById("audioBtn").style.background = "rgba(72, 98, 75, 0.95)";
-        isAudioPlaying = true;
-      } else {
-        stopAudio();
-        document.getElementById("audioText").innerText = "播放大自然與木吉他氛圍音";
-        document.getElementById("audioBtn").style.background = "rgba(18, 30, 20, 0.90)";
-        isAudioPlaying = false;
-      }
-    }
-
-    function startAudio() {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      audioCtx = new AudioContext();
-
-      // 微風白噪音合成
-      const bufferSize = audioCtx.sampleRate * 2;
-      const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-      const output = noiseBuffer.getChannelData(0);
-      for (let i = 0; i < bufferSize; i++) {
-        output[i] = Math.random() * 2 - 1;
-      }
-
-      const whiteNoise = audioCtx.createBufferSource();
-      whiteNoise.buffer = noiseBuffer;
-      whiteNoise.loop = true;
-
-      filterNode = audioCtx.createBiquadFilter();
-      filterNode.type = "bandpass";
-      filterNode.frequency.setValueAtTime(450, audioCtx.currentTime);
-      filterNode.Q.setValueAtTime(1.2, audioCtx.currentTime);
-
-      const windGain = audioCtx.createGain();
-      windGain.gain.setValueAtTime(0.035, audioCtx.currentTime);
-
-      whiteNoise.connect(filterNode);
-      filterNode.connect(windGain);
-      windGain.connect(audioCtx.destination);
-      whiteNoise.start();
-
-      setInterval(() => {
-        if (filterNode && audioCtx) {
-          filterNode.frequency.setTargetAtTime(350 + Math.random() * 250, audioCtx.currentTime, 1.5);
-        }
-      }, 3000);
-
-      const scale = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25];
-      function playChime() {
-        if (!isAudioPlaying || !audioCtx) return;
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        const note = scale[Math.floor(Math.random() * scale.length)];
-
-        osc.type = "sine";
-        osc.frequency.setValueAtTime(note, audioCtx.currentTime);
-
-        gain.gain.setValueAtTime(0, audioCtx.currentTime);
-        gain.gain.linearRampToValueAtTime(0.028, audioCtx.currentTime + 0.12);
-        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 2.8);
-
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 2.9);
-
-        chimeTimer = setTimeout(playChime, 4000 + Math.random() * 5000);
-      }
-      playChime();
-    }
-
-    function stopAudio() {
-      if (audioCtx) {
-        audioCtx.close();
-        audioCtx = null;
-      }
-      if (chimeTimer) clearTimeout(chimeTimer);
-    }
-
-    function playCameoChime(cameoId) {
-      if (!isAudioPlaying || !audioCtx) return;
-      const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
-      notes.forEach((freq, idx) => {
-        setTimeout(() => {
-          if (!audioCtx) return;
-          const osc = audioCtx.createOscillator();
-          const gain = audioCtx.createGain();
-          osc.type = "sine";
-          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-          gain.gain.setValueAtTime(0, audioCtx.currentTime);
-          gain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.08);
-          gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 2.0);
-          osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.start();
-          osc.stop(audioCtx.currentTime + 2.1);
-        }, idx * 160);
-      });
     }
 
     // 頁面加載完成後啟動雙緩衝播放器
