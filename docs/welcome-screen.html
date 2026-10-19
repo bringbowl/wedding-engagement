@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Barry &amp; Winnie · 阿沐大螢幕 森林沉浸式空拍漫遊 · 野生動物一鏡到底探索</title>
+  <title>Barry &amp; Winnie · 阿沐大螢幕 100% 純淨森林迎賓實景窗 ＋ Veo 3.1 高畫質野生動物動態彩蛋</title>
   <style>
     * {
       box-sizing: border-box;
@@ -15,7 +15,7 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      background: #0a120c;
+      background: #141f16;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -24,143 +24,96 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
     }
 
-    /* 16:9 全景空拍漫遊主舞台容器 */
-    .drone-stage {
+    /* 16:9 全景森林大螢幕舞台 */
+    .screen-stage {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: #080f0a;
+      background: #0d160f;
     }
 
-    /* 雙層無縫雙緩衝影片播放器 (Dual Video Buffers) */
-    .drone-player-layer {
+    /* 底層：Veo 1080p 純淨呼吸微動森林背景影片 (Loop 0) */
+    .forest-video-layer {
       position: absolute;
-      top: -4%;
-      left: -4%;
-      width: 108%;
-      height: 108%;
-      opacity: 0;
-      transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1);
-      will-change: opacity, transform;
-      pointer-events: none;
-    }
-
-    .drone-player-layer.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .drone-video {
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      /* 針對阿沐會場愛迪生暖金穹頂進行色調微調：抑止死白高光，增強綠意飽和與林間深邃度 */
-      filter: brightness(0.92) contrast(1.10) saturate(1.18);
-      transform-origin: center center;
+      /* 會場愛迪生暖金穹頂色溫調校：增強對比與深翠綠意，壓抑過曝刺眼感 */
+      filter: brightness(0.88) contrast(1.10) saturate(1.15);
+      z-index: 1;
     }
 
-    /* =========================================================
-       空拍機鏡頭自然航行與運鏡動態 (Drone Camera Kinetic Dynamics)
-       ========================================================= */
-    /* 站點 1：樹冠懸停（微風徐徐、輕微航向微晃） */
-    .drone-cam-owl {
-      animation: droneHoverCanopy 14s ease-in-out infinite alternate;
-    }
-    @keyframes droneHoverCanopy {
-      0% { transform: scale(1.02) translate(0, 0) rotate(0deg); }
-      50% { transform: scale(1.06) translate(-1%, -0.8%) rotate(-0.6deg); }
-      100% { transform: scale(1.04) translate(0.8%, 0.5%) rotate(0.4deg); }
-    }
-
-    /* 站點 2：掠水低空巡航（沿溪流平滑推進） */
-    .drone-cam-bear {
-      animation: droneGlideStream 14s ease-in-out infinite alternate;
-    }
-    @keyframes droneGlideStream {
-      0% { transform: scale(1.0) translate(0, 0); }
-      50% { transform: scale(1.05) translate(-0.6%, -1.2%) rotate(0.4deg); }
-      100% { transform: scale(1.03) translate(0.5%, 0.8%) rotate(-0.3deg); }
-    }
-
-    /* 站點 3：陽光深林推進（緩慢推入陽光光束腹地） */
-    .drone-cam-deer {
-      animation: dronePushGlade 14s ease-in-out infinite alternate;
-    }
-    @keyframes dronePushGlade {
-      0% { transform: scale(1.01) translate(-0.5%, 0); }
-      50% { transform: scale(1.07) translate(0.8%, -0.6%) rotate(-0.5deg); }
-      100% { transform: scale(1.04) translate(-0.4%, 0.6%) rotate(0.3deg); }
-    }
-
-    /* 站點 4：竹林原木平移（側向慢速橫移打探） */
-    .drone-cam-redpanda {
-      animation: dronePanLogs 14s ease-in-out infinite alternate;
-    }
-    @keyframes dronePanLogs {
-      0% { transform: scale(1.02) translate(-1.2%, 0) rotate(-0.4deg); }
-      50% { transform: scale(1.06) translate(1.0%, -0.8%) rotate(0.5deg); }
-      100% { transform: scale(1.03) translate(-0.3%, 0.5%) rotate(-0.2deg); }
-    }
-
-    /* =========================================================
-       空拍穿梭過渡轉場特效（薄霧金光掠過，無縫連貫）
-       ========================================================= */
-    /* 鏡頭穿林流動晨霧過渡層 */
-    .drone-mist-transition {
+    /* 上層：Veo 1080p 動物動態彩蛋影片圖層 (平滑無縫交疊) */
+    .cameo-video-layer {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(ellipse at 50% 50%, rgba(255, 240, 190, 0.55) 0%, rgba(45, 75, 48, 0.45) 50%, rgba(10, 20, 12, 0.85) 100%);
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.88) contrast(1.10) saturate(1.15);
+      z-index: 2;
       opacity: 0;
-      mix-blend-mode: screen;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
       pointer-events: none;
-      z-index: 20;
-      transition: opacity 1.1s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .drone-mist-transition.sweeping {
-      opacity: 0.88;
+    .cameo-video-layer.active {
+      opacity: 1;
+      pointer-events: auto;
     }
 
-    /* 常駐氛圍光影與暗角（營造如同置身大自然景觀窗的沉浸深度） */
-    .ambient-atmosphere {
+    /* 晨曦暖金與深翠漸層暗角（與阿沐 2700K 吊燈完美融合） */
+    .light-mist-overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(ellipse at 50% 38%, rgba(255, 215, 120, 0.08) 0%, rgba(18, 32, 20, 0.25) 60%, rgba(6, 14, 8, 0.65) 100%),
-                  linear-gradient(to bottom, rgba(8, 16, 10, 0.40) 0%, transparent 18%, transparent 80%, rgba(6, 12, 7, 0.55) 100%);
+      background: radial-gradient(ellipse at 50% 34%, rgba(240, 195, 110, 0.10) 0%, rgba(22, 38, 24, 0.28) 58%, rgba(8, 16, 10, 0.65) 100%);
       pointer-events: none;
-      z-index: 15;
+      z-index: 3;
     }
 
-    /* 動態丁達爾神光呼吸 */
-    .god-rays {
+    .canopy-vignette {
       position: absolute;
-      top: -15%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(10, 20, 12, 0.40) 0%, transparent 20%, transparent 80%, rgba(6, 14, 8, 0.55) 100%);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    /* 動態晨曦丁達爾光柱微動呼吸 */
+    .sunbeams-breathing {
+      position: absolute;
+      top: -10%;
       left: 20%;
       width: 70%;
-      height: 130%;
-      background: radial-gradient(ellipse at 50% 30%, rgba(255, 235, 160, 0.15) 0%, rgba(240, 200, 110, 0.05) 50%, transparent 75%);
+      height: 120%;
+      background: radial-gradient(ellipse at 46% 32%, rgba(255, 230, 150, 0.16) 0%, rgba(240, 195, 100, 0.06) 45%, transparent 75%);
       mix-blend-mode: screen;
       pointer-events: none;
-      animation: godRaysPulse 12s ease-in-out infinite alternate;
-      z-index: 16;
-    }
-    @keyframes godRaysPulse {
-      0% { opacity: 0.45; transform: scale(0.96) rotate(-1deg); }
-      50% { opacity: 0.90; transform: scale(1.04) rotate(1deg); }
-      100% { opacity: 0.55; transform: scale(1.0) rotate(0deg); }
+      animation: godRaysDrift 14s ease-in-out infinite alternate;
+      z-index: 4;
     }
 
-    /* 飄浮金色螢火蟲粒子 Canvas */
+    @keyframes godRaysDrift {
+      0% { opacity: 0.50; transform: scale(0.98) translateY(0); }
+      50% { opacity: 0.90; transform: scale(1.03) translateY(-1%); }
+      100% { opacity: 0.60; transform: scale(1.01) translateY(0.5%); }
+    }
+
+    /* 飄浮金色螢火蟲與光斑粒子 Canvas */
     #particlesCanvas {
       position: absolute;
       top: 0;
@@ -168,84 +121,22 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 18;
+      z-index: 5;
     }
 
-    /* =========================================================
-       空拍航行導航章節條（精緻極簡，宛如自然探索紀錄片 HUD）
-       ========================================================= */
-    .flight-nav-bar {
-      position: absolute;
-      top: 32px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      background: rgba(14, 24, 16, 0.65);
-      border: 1px solid rgba(220, 195, 130, 0.35);
-      padding: 8px 22px;
-      border-radius: 30px;
-      backdrop-filter: blur(14px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-      z-index: 50;
-      transition: opacity 0.4s ease;
-      opacity: 0.75;
-    }
-
-    .flight-nav-bar:hover {
-      opacity: 1;
-    }
-
-    .flight-step {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.82rem;
-      color: #9eb6a2;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .flight-step.active {
-      color: #ffe6a0;
-      font-weight: 600;
-      text-shadow: 0 0 10px rgba(255, 220, 130, 0.6);
-      transform: scale(1.05);
-    }
-
-    .flight-step-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #4a664e;
-      transition: all 0.3s ease;
-    }
-
-    .flight-step.active .flight-step-dot {
-      background: #ffd56b;
-      box-shadow: 0 0 8px #ffd56b;
-      transform: scale(1.4);
-    }
-
-    .flight-arrow {
-      color: rgba(220, 195, 130, 0.35);
-      font-size: 0.75rem;
-    }
-
-    /* 探索動態浮動 Toast 提示 */
-    .drone-toast {
+    /* 柔和微光彩蛋提示 Toast（幽雅低調，4秒後自動隱退） */
+    .cameo-toast {
       position: absolute;
       bottom: 84px;
       left: 50%;
       transform: translateX(-50%) translateY(10px);
-      background: rgba(14, 24, 16, 0.85);
-      border: 1px solid rgba(230, 205, 140, 0.45);
+      background: rgba(16, 26, 18, 0.86);
+      border: 1px solid rgba(230, 205, 140, 0.5);
       color: #f7eedc;
-      padding: 10px 24px;
+      padding: 10px 26px;
       border-radius: 30px;
       font-size: 0.88rem;
-      letter-spacing: 1.2px;
+      letter-spacing: 1.5px;
       z-index: 50;
       opacity: 0;
       pointer-events: none;
@@ -254,15 +145,19 @@
       transition: opacity 0.5s ease, transform 0.5s ease;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
-    .drone-toast.show {
+    .cameo-toast.show {
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
 
-    /* 底部操作控制工具列 (Hover 顯現) */
+    .cameo-toast .toast-icon {
+      font-size: 1.25rem;
+    }
+
+    /* 底部操作控制列 (Hover 顯現，大螢幕播放時隱形低調) */
     .screen-toolbar {
       position: absolute;
       bottom: 24px;
@@ -270,7 +165,7 @@
       z-index: 100;
       display: flex;
       gap: 10px;
-      opacity: 0.22;
+      opacity: 0.25;
       transition: opacity 0.3s ease;
     }
 
@@ -279,7 +174,7 @@
     }
 
     .tool-btn {
-      background: rgba(16, 28, 18, 0.90);
+      background: rgba(18, 30, 20, 0.90);
       border: 1px solid rgba(255, 255, 255, 0.25);
       color: white;
       padding: 9px 16px;
@@ -299,31 +194,31 @@
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
     }
 
-    /* 導航下拉選單 */
-    .dropdown {
+    /* 召喚選單下拉容器 */
+    .cameo-dropdown {
       position: relative;
       display: inline-block;
     }
 
-    .dropdown-menu {
+    .cameo-menu {
       display: none;
       position: absolute;
       bottom: 46px;
       right: 0;
-      background: rgba(14, 26, 16, 0.95);
+      background: rgba(16, 28, 18, 0.96);
       border: 1px solid rgba(220, 195, 130, 0.45);
       border-radius: 14px;
       padding: 8px 0;
-      min-width: 230px;
+      min-width: 240px;
       box-shadow: 0 12px 32px rgba(0,0,0,0.5);
       backdrop-filter: blur(16px);
     }
 
-    .dropdown:hover .dropdown-menu {
+    .cameo-dropdown:hover .cameo-menu {
       display: block;
     }
 
-    .dropdown-opt {
+    .cameo-opt {
       padding: 10px 18px;
       font-size: 0.82rem;
       color: #e6eee7;
@@ -334,109 +229,51 @@
       transition: background 0.15s ease;
     }
 
-    .dropdown-opt:hover {
+    .cameo-opt:hover {
       background: rgba(85, 118, 88, 0.65);
       color: #fff;
-    }
-
-    /* 拖曳載入自訂影片浮層 */
-    .drop-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(12, 22, 14, 0.86);
-      border: 3px dashed rgba(240, 210, 140, 0.8);
-      z-index: 200;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      color: #f7eedc;
-      font-size: 1.3rem;
-      gap: 12px;
-      backdrop-filter: blur(8px);
-    }
-
-    .drop-overlay.active {
-      display: flex;
     }
   </style>
 </head>
 <body>
 
-  <div class="drone-stage" id="droneStage">
-    <!-- 雙緩衝無縫運鏡影片圖層 A -->
-    <div class="drone-player-layer active" id="layerA">
-      <video class="drone-video" id="videoA" playsinline muted preload="auto"></video>
-    </div>
+  <div class="screen-stage" id="screenStage">
+    <!-- 底層：1080p 呼吸感微動晨曦森林空景 (Loop 0 無縫循環) -->
+    <video class="forest-video-layer" id="bgVideo" src="assets/videos/loop0_forest_empty.mp4" playsinline loop muted autoplay></video>
 
-    <!-- 雙緩衝無縫運鏡影片圖層 B -->
-    <div class="drone-player-layer" id="layerB">
-      <video class="drone-video" id="videoB" playsinline muted preload="auto"></video>
-    </div>
+    <!-- 上層：1080p 野生動物彩蛋影片 (每隔45秒柔和疊化登場) -->
+    <video class="cameo-video-layer" id="cameoVideo" playsinline muted></video>
 
-    <!-- 空拍機穿林薄霧與金光過渡轉場層 -->
-    <div class="drone-mist-transition" id="mistSweep"></div>
-
-    <!-- 大自然呼吸神光與空間光影 -->
-    <div class="god-rays"></div>
-    <div class="ambient-atmosphere"></div>
+    <!-- 晨曦暖金與暗角光影 -->
+    <div class="light-mist-overlay"></div>
+    <div class="canopy-vignette"></div>
+    <div class="sunbeams-breathing"></div>
     <canvas id="particlesCanvas"></canvas>
   </div>
 
-  <!-- 頂部空拍漫遊章節導航（即時呈現空拍機航向） -->
-  <div class="flight-nav-bar">
-    <div class="flight-step active" id="nav-owl" onclick="jumpToStation(0)">
-      <span class="flight-step-dot"></span>
-      <span>🦉 樹梢樹冠</span>
-    </div>
-    <span class="flight-arrow">❯</span>
-    <div class="flight-step" id="nav-bear" onclick="jumpToStation(1)">
-      <span class="flight-step-dot"></span>
-      <span>🐻 溪流抓魚</span>
-    </div>
-    <span class="flight-arrow">❯</span>
-    <div class="flight-step" id="nav-deer" onclick="jumpToStation(2)">
-      <span class="flight-step-dot"></span>
-      <span>🦌 叢林深鹿</span>
-    </div>
-    <span class="flight-arrow">❯</span>
-    <div class="flight-step" id="nav-redpanda" onclick="jumpToStation(3)">
-      <span class="flight-step-dot"></span>
-      <span>🦊 原木熊貓</span>
-    </div>
+  <!-- 彩蛋提示 Toast -->
+  <div class="cameo-toast" id="cameoToast">
+    <span class="toast-icon">🦌</span>
+    <span id="toastText">森林彩蛋：成對梅花鹿悠閒漫步中...</span>
   </div>
 
-  <!-- 探索導航 Toast 提示 -->
-  <div class="drone-toast" id="droneToast">
-    <span id="toastIcon">🦉</span>
-    <span id="toastText">空拍視角升入樹冠：剛好看到貓頭鷹在左右觀看...</span>
-  </div>
-
-  <!-- 拖曳自訂影片提示 -->
-  <div class="drop-overlay" id="dropOverlay">
-    <span style="font-size: 2.8rem;">🎬</span>
-    <span>放開滑鼠即可載入您的專屬空拍 / Veo 影片</span>
-    <span style="font-size: 0.85rem; opacity: 0.7;">支援 .mp4 或 .webm 格式</span>
-  </div>
-
-  <!-- 底部操作控制列 -->
+  <!-- 浮動控制工具列 -->
   <div class="screen-toolbar">
-    <!-- 導航選擇 -->
-    <div class="dropdown">
+    <!-- 召喚動物路過選單 -->
+    <div class="cameo-dropdown">
       <button class="tool-btn">
-        <span>✈️</span> <span>空拍巡弋站點 ▼</span>
+        <span>🐾</span> <span>播放動物彩蛋 ▼</span>
       </button>
-      <div class="dropdown-menu">
-        <div class="dropdown-opt" onclick="jumpToStation(0)">🦉 飛往樹冠：貓頭鷹左右觀看</div>
-        <div class="dropdown-opt" onclick="jumpToStation(1)">🐻 俯衝溪流：溪畔大熊涉水抓魚</div>
-        <div class="dropdown-opt" onclick="jumpToStation(2)">🦌 深入叢林：成對梅花鹿悠閒漫步</div>
-        <div class="dropdown-opt" onclick="jumpToStation(3)">🦊 轉向原木：兩隻小熊貓揮爪嬉戲</div>
+      <div class="cameo-menu">
+        <div class="cameo-opt" onclick="triggerCameo('deer')">🦌 成對梅花鹿（草地相依漫步）</div>
+        <div class="cameo-opt" onclick="triggerCameo('redpandas_playing')">🦊 雙小熊貓（倒木嬉戲揮爪）</div>
+        <div class="cameo-opt" onclick="triggerCameo('bear')">🐻 亞洲大黑熊（草地趴平納涼）</div>
+        <div class="cameo-opt" onclick="triggerCameo('otter')">🦦 清溪小水獺（溪石小憩探頭）</div>
+        <div class="cameo-opt" onclick="triggerCameo('beaver')">🦫 呆萌小河狸（溪畔細啃樹枝）</div>
+        <div class="cameo-opt" onclick="triggerCameo('redpanda_curious')">🐼 好奇小熊貓（岩石探頭直視鏡頭）</div>
         <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.15); margin: 6px 0;">
-        <div class="dropdown-opt" onclick="toggleFlightPause()" id="pauseOpt">⏸️ 暫停漫遊 (定格當前視角)</div>
-        <div class="dropdown-opt" onclick="toggleFlightSpeed()" id="speedOpt">⚡ 巡航速度：標準沉浸 (12秒)</div>
+        <div class="cameo-opt" onclick="toggleAutoCycle()" id="autoCycleOpt">⏸️ 暫停自動循環</div>
+        <div class="cameo-opt" onclick="toggleIntervalMode()" id="intervalOpt">⚡ 切換為測試模式 (12秒)</div>
       </div>
     </div>
 
@@ -445,21 +282,15 @@
       <span>🎵</span> <span id="audioText">播放大自然與木吉他氛圍音</span>
     </button>
 
-    <!-- 自備影片按鈕 -->
-    <button class="tool-btn" onclick="document.getElementById('videoFileInput').click()">
-      <span>📁</span> <span>載入影片</span>
-    </button>
-    <input type="file" id="videoFileInput" accept="video/mp4,video/webm" style="display:none;" onchange="loadCustomVideo(event)">
-
     <!-- 全螢幕按鈕 -->
     <button class="tool-btn" onclick="toggleFullscreen()">
-      <span>⛶</span> <span>全螢幕</span>
+      <span>⛶</span> <span>全螢幕展示</span>
     </button>
   </div>
 
   <script>
     // =========================================================
-    // 1. 金色螢火蟲與微光塵埃粒子 Canvas
+    // 1. 金色螢火蟲與晨光微塵粒子特效 Canvas
     // =========================================================
     const canvas = document.getElementById("particlesCanvas");
     const ctx = canvas.getContext("2d");
@@ -479,10 +310,10 @@
       reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.radius = Math.random() * 2.0 + 0.8;
+        this.radius = Math.random() * 2.2 + 0.8;
         this.alpha = Math.random() * 0.7 + 0.2;
-        this.speedX = (Math.random() - 0.5) * 0.4;
-        this.speedY = -Math.random() * 0.35 - 0.1;
+        this.speedX = (Math.random() - 0.5) * 0.35;
+        this.speedY = -Math.random() * 0.3 - 0.1;
         this.fadeSpeed = Math.random() * 0.008 + 0.004;
         this.fadingOut = Math.random() > 0.5;
       }
@@ -505,15 +336,15 @@
         ctx.save();
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 230, 140, ${this.alpha})`;
-        ctx.shadowColor = "rgba(255, 215, 90, 0.8)";
-        ctx.shadowBlur = 8;
+        ctx.fillStyle = `rgba(255, 225, 130, ${this.alpha})`;
+        ctx.shadowColor = "rgba(255, 210, 90, 0.9)";
+        ctx.shadowBlur = 10;
         ctx.fill();
         ctx.restore();
       }
     }
 
-    for (let i = 0; i < 42; i++) {
+    for (let i = 0; i < 48; i++) {
       particles.push(new Firefly());
     }
 
@@ -528,178 +359,104 @@
     animateParticles();
 
     // =========================================================
-    // 2. 一鏡到底空拍機漫遊探險系統 (Continuous Drone Journey Engine)
+    // 2. Veo 3.1 1080p 真實野生動物動態彩蛋播放系統
     // =========================================================
-    const flightRoute = [
-      {
-        id: "owl",
-        name: "樹梢樹冠",
-        icon: "🦉",
-        desc: "空拍機緩緩升入樹梢：剛好看到貓頭鷹在左右觀看、守護森林...",
-        src: "assets/videos/clip_owl.mp4",
-        cameraClass: "drone-cam-owl",
-        soundFreq: 330
-      },
-      {
-        id: "bear",
-        name: "溪流抓魚",
-        icon: "🐻",
-        desc: "空拍機穿林俯衝掠過溪流：剛好看到大熊在清淺水流中涉水巡弋抓魚...",
-        src: "assets/videos/clip_bear.mp4",
-        cameraClass: "drone-cam-bear",
-        soundFreq: 180
-      },
-      {
+    const cameos = {
+      deer: {
         id: "deer",
-        name: "叢林深鹿",
+        name: "成對梅花鹿",
         icon: "🦌",
-        desc: "鏡頭沿溪深入叢林秘境：晨曦光柱灑落，剛好看到成對梅花鹿漫步相依...",
-        src: "assets/videos/clip_deer.mp4",
-        cameraClass: "drone-cam-deer",
-        soundFreq: 440
+        desc: "陽光草地：一公一母優雅梅花鹿緩步漫步相依...",
+        src: "assets/videos/cameo_deer.mp4",
+        duration: 8000
       },
-      {
-        id: "redpanda",
-        name: "原木熊貓",
+      redpandas_playing: {
+        id: "redpandas_playing",
+        name: "雙小熊貓嬉戲",
         icon: "🦊",
-        desc: "鏡頭自然轉向青苔原木竹林：剛好看到兩隻小熊貓在原木上揮手嬉戲探險...",
-        src: "assets/videos/clip_redpanda.mp4",
-        cameraClass: "drone-cam-redpanda",
-        soundFreq: 520
+        desc: "倒木青苔：兩隻小熊貓在原木旁揮舞小爪玩耍嬉戲...",
+        src: "assets/videos/cameo_redpandas_playing.mp4",
+        duration: 8000
+      },
+      bear: {
+        id: "bear",
+        name: "亞洲大黑熊",
+        icon: "🐻",
+        desc: "林間草坪：大黑熊慢步走入中央陽光草地大字型趴平納涼...",
+        src: "assets/videos/cameo_bear.mp4",
+        duration: 8000
+      },
+      otter: {
+        id: "otter",
+        name: "清溪水獺",
+        icon: "🦦",
+        desc: "左下淺溪：小水獺順水游來，爬上溪石探頭甩水...",
+        src: "assets/videos/cameo_otter.mp4",
+        duration: 8000
+      },
+      beaver: {
+        id: "beaver",
+        name: "可愛河狸",
+        icon: "🦫",
+        desc: "溪畔鵝卵石：小河狸爬上溪灘，低頭啃啃細樹枝...",
+        src: "assets/videos/cameo_beaver.mp4",
+        duration: 8000
+      },
+      redpanda_curious: {
+        id: "redpanda_curious",
+        name: "好奇小熊貓",
+        icon: "🐼",
+        desc: "左下岩石：小熊貓踏出樹後，好奇直視鏡頭嗅聞青苔...",
+        src: "assets/videos/cameo_redpanda_curious.mp4",
+        duration: 8000
       }
-    ];
+    };
 
-    let currentStationIndex = 0;
-    let flightStayMs = 12000; // 每站停留時間 (預設 12 秒)
-    let isTransitioning = false;
-    let flightPaused = false;
-    let flightTimer = null;
-    let activePlayer = "A"; // "A" 或 "B" 交替雙緩衝
-
-    const layerA = document.getElementById("layerA");
-    const layerB = document.getElementById("layerB");
-    const videoA = document.getElementById("videoA");
-    const videoB = document.getElementById("videoB");
-    const mistSweep = document.getElementById("mistSweep");
-
-    // 初始化啟動
-    function initFlight() {
-      const station = flightRoute[0];
-      videoA.src = station.src;
-      videoA.loop = true;
-      videoA.className = `drone-video ${station.cameraClass}`;
-      videoA.play().then(() => {
-        updateNavHUD(0);
-        showToast(station.icon, station.desc);
-        playStationChime(station.soundFreq);
-        preloadNextStation(1);
-        scheduleNextStation();
-      }).catch(err => {
-        console.warn("First video auto-play:", err);
-        scheduleNextStation();
-      });
-    }
-
-    // 預載下一站影片進非使用中緩衝器
-    function preloadNextStation(nextIndex) {
-      const nextStation = flightRoute[nextIndex];
-      const inactiveVideo = activePlayer === "A" ? videoB : videoA;
-      inactiveVideo.src = nextStation.src;
-      inactiveVideo.loop = true;
-      inactiveVideo.className = `drone-video ${nextStation.cameraClass}`;
-      inactiveVideo.load();
-    }
-
-    // 排程下一站空拍過渡
-    function scheduleNextStation() {
-      if (flightTimer) clearTimeout(flightTimer);
-      if (flightPaused) return;
-
-      flightTimer = setTimeout(() => {
-        if (!flightPaused && !isTransitioning) {
-          const nextIndex = (currentStationIndex + 1) % flightRoute.length;
-          flyToStation(nextIndex);
-        }
-      }, flightStayMs);
-    }
-
-    // 執行無縫空拍運鏡過渡
-    function flyToStation(targetIndex) {
-      if (isTransitioning) return;
-      isTransitioning = true;
-
-      const targetStation = flightRoute[targetIndex];
-      const currentLayer = activePlayer === "A" ? layerA : layerB;
-      const nextLayer = activePlayer === "A" ? layerB : layerA;
-      const nextVideo = activePlayer === "A" ? videoB : videoA;
-
-      // 1. 空拍薄霧與金光掃過鏡頭 (Mist Sweep)
-      mistSweep.classList.add("sweeping");
-
-      // 2. 音效與提示
-      playStationChime(targetStation.soundFreq);
-      showToast(targetStation.icon, targetStation.desc);
-      updateNavHUD(targetIndex);
-
-      // 3. 確保下一個影片已經載入並開始流暢播放
-      nextVideo.src = targetStation.src;
-      nextVideo.className = `drone-video ${targetStation.cameraClass}`;
-      nextVideo.currentTime = 0;
-      
-      nextVideo.play().then(() => {
-        // 4. 薄霧濃密處 (0.55秒時) 快速平滑交疊切換視角
-        setTimeout(() => {
-          nextLayer.classList.add("active");
-          currentLayer.classList.remove("active");
-
-          // 5. 薄霧漸漸散開，呈現全新叢林視角
-          setTimeout(() => {
-            mistSweep.classList.remove("sweeping");
-
-            // 切換當前活動播放器狀態
-            activePlayer = activePlayer === "A" ? "B" : "A";
-            currentStationIndex = targetIndex;
-            isTransitioning = false;
-
-            // 預先載入下一站
-            const upcomingIndex = (targetIndex + 1) % flightRoute.length;
-            preloadNextStation(upcomingIndex);
-
-            // 繼續前進排程
-            scheduleNextStation();
-          }, 600);
-        }, 550);
-      }).catch(err => {
-        console.warn("Transition video play:", err);
-        mistSweep.classList.remove("sweeping");
-        isTransitioning = false;
-        scheduleNextStation();
-      });
-    }
-
-    // 手動點選跳轉站點
-    function jumpToStation(index) {
-      if (index === currentStationIndex && !flightPaused) return;
-      flyToStation(index);
-    }
-
-    // 更新頂部章節導航條
-    function updateNavHUD(index) {
-      const stepIds = ["nav-owl", "nav-bear", "nav-deer", "nav-redpanda"];
-      stepIds.forEach((id, i) => {
-        const el = document.getElementById(id);
-        if (el) {
-          if (i === index) el.classList.add("active");
-          else el.classList.remove("active");
-        }
-      });
-    }
-
-    // 顯示探索 Toast 提示
+    const cameoOrder = ["deer", "otter", "redpandas_playing", "bear", "beaver", "redpanda_curious"];
+    let currentCameoIndex = 0;
+    let isCameoActive = false;
+    let autoCycleEnabled = true;
+    let cycleIntervalMs = 45000; // 預設 45 秒悠閒偶遇一次
+    let autoTimer = null;
     let toastTimer = null;
+
+    const cameoVideo = document.getElementById("cameoVideo");
+
+    function triggerCameo(cameoKey) {
+      if (isCameoActive) return;
+      const item = cameos[cameoKey];
+      if (!item) return;
+
+      isCameoActive = true;
+      cameoVideo.src = item.src;
+      cameoVideo.currentTime = 0;
+
+      cameoVideo.play().then(() => {
+        // 影片載入開始播放，平滑疊化淡入 (0.8s)
+        cameoVideo.classList.add("active");
+        showToast(item.icon, item.desc);
+        playCameoChime(item.id);
+
+        // 在第 7.2 秒時平滑疊化淡出，無縫回歸底層的 Loop 0 空景
+        setTimeout(() => {
+          cameoVideo.classList.remove("active");
+        }, 7200);
+
+        // 播畢後關閉影片並解除鎖定
+        setTimeout(() => {
+          cameoVideo.pause();
+          isCameoActive = false;
+        }, 8200);
+
+      }).catch(err => {
+        console.warn("Cameo video play hindered:", err);
+        isCameoActive = false;
+      });
+    }
+
     function showToast(icon, text) {
-      const toast = document.getElementById("droneToast");
-      const iconEl = document.getElementById("toastIcon");
+      const toast = document.getElementById("cameoToast");
+      const iconEl = toast.querySelector(".toast-icon");
       const textEl = document.getElementById("toastText");
 
       iconEl.innerText = icon;
@@ -709,94 +466,64 @@
       if (toastTimer) clearTimeout(toastTimer);
       toastTimer = setTimeout(() => {
         toast.classList.remove("show");
-      }, 4800);
+      }, 4500);
     }
 
-    // 暫停/恢復空拍前進
-    function toggleFlightPause() {
-      flightPaused = !flightPaused;
-      const opt = document.getElementById("pauseOpt");
-      if (flightPaused) {
-        opt.innerText = "▶️ 繼續漫遊 (自動巡弋)";
-        if (flightTimer) clearTimeout(flightTimer);
-        showToast("⏸️", "已暫停空拍巡弋（固定欣賞當前視角）");
+    function autoScheduleNext() {
+      if (!autoCycleEnabled) return;
+      if (autoTimer) clearTimeout(autoTimer);
+
+      autoTimer = setTimeout(() => {
+        if (autoCycleEnabled && !isCameoActive) {
+          const nextKey = cameoOrder[currentCameoIndex];
+          currentCameoIndex = (currentCameoIndex + 1) % cameoOrder.length;
+          triggerCameo(nextKey);
+        }
+        autoScheduleNext();
+      }, cycleIntervalMs);
+    }
+
+    function toggleAutoCycle() {
+      autoCycleEnabled = !autoCycleEnabled;
+      const opt = document.getElementById("autoCycleOpt");
+      if (autoCycleEnabled) {
+        opt.innerText = "⏸️ 暫停自動循環";
+        autoScheduleNext();
+        showToast("🌿", "已啟動野生動物彩蛋自動循環");
       } else {
-        opt.innerText = "⏸️ 暫停漫遊 (定格當前視角)";
-        showToast("✈️", "繼續前行：空拍機正穿梭於叢林深處...");
-        scheduleNextStation();
+        opt.innerText = "▶️ 恢復自動循環";
+        if (autoTimer) clearTimeout(autoTimer);
+        showToast("🌿", "已暫停自動循環（可由選單手動點選播放）");
       }
     }
 
-    // 切換巡弋節奏速度
-    function toggleFlightSpeed() {
-      const opt = document.getElementById("speedOpt");
-      if (flightStayMs === 12000) {
-        flightStayMs = 20000; // 悠閒長駐 20 秒
-        opt.innerText = "⚡ 巡航速度：悠閒長駐 (20秒)";
-        showToast("🌸", "已切換為【悠閒長駐模式】：每站停留 20 秒細細品味");
-      } else if (flightStayMs === 20000) {
-        flightStayMs = 7000; // 快速巡禮 7 秒
-        opt.innerText = "⚡ 巡航速度：快速巡禮 (7秒)";
-        showToast("⚡", "已切換為【快速巡禮模式】：每 7 秒穿梭轉場");
+    function toggleIntervalMode() {
+      const opt = document.getElementById("intervalOpt");
+      if (cycleIntervalMs > 20000) {
+        cycleIntervalMs = 12000; // 測試模式 12 秒
+        opt.innerText = "🌸 切換為現場模式 (45秒)";
+        showToast("⚡", "已切換為【測試模式】：每 12 秒彩蛋登場");
       } else {
-        flightStayMs = 12000; // 標準沉浸 12 秒
-        opt.innerText = "⚡ 巡航速度：標準沉浸 (12秒)";
-        showToast("🌿", "已切換為【標準沉浸模式】：每站停留 12 秒");
+        cycleIntervalMs = 45000; // 現場模式 45 秒
+        opt.innerText = "⚡ 切換為測試模式 (12秒)";
+        showToast("🌸", "已切換為【現場模式】：每 45 秒悠閒偶遇");
       }
-      if (!flightPaused) {
-        scheduleNextStation();
+      if (autoCycleEnabled) {
+        autoScheduleNext();
       }
     }
 
-    // 延遲 1 秒啟動以確保 DOM 與資源就緒
-    window.addEventListener("DOMContentLoaded", () => {
-      setTimeout(initFlight, 800);
-    });
-
-    // =========================================================
-    // 3. 自備影片載入與拖曳支援
-    // =========================================================
-    function loadCustomVideo(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      playCustomVideoFile(file);
-    }
-
-    function playCustomVideoFile(file) {
-      const fileUrl = URL.createObjectURL(file);
-      const activeVideo = activePlayer === "A" ? videoA : videoB;
-      activeVideo.src = fileUrl;
-      activeVideo.loop = true;
-      activeVideo.play().then(() => {
-        showToast("🎬", `正在播放自備影片：${file.name}`);
-        flightPaused = true;
-        document.getElementById("pauseOpt").innerText = "▶️ 恢復空拍漫遊";
-      }).catch(err => console.log("Play error:", err));
-    }
-
-    // 拖曳上傳
-    const stage = document.getElementById("droneStage");
-    const dropOverlay = document.getElementById("dropOverlay");
-
-    window.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      dropOverlay.classList.add("active");
-    });
-    window.addEventListener("dragleave", (e) => {
-      if (e.relatedTarget === null) {
-        dropOverlay.classList.remove("active");
+    // 啟動首次彩蛋（網頁載入後 6 秒讓梅花鹿優雅出場）
+    setTimeout(() => {
+      if (autoCycleEnabled && !isCameoActive) {
+        triggerCameo("deer");
+        currentCameoIndex = 1;
       }
-    });
-    window.addEventListener("drop", (e) => {
-      e.preventDefault();
-      dropOverlay.classList.remove("active");
-      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-        playCustomVideoFile(e.dataTransfer.files[0]);
-      }
-    });
+      autoScheduleNext();
+    }, 6000);
 
     // =========================================================
-    // 4. 全螢幕切換
+    // 3. 全螢幕切換
     // =========================================================
     function toggleFullscreen() {
       if (!document.fullscreenElement) {
@@ -811,7 +538,7 @@
     }
 
     // =========================================================
-    // 5. 大自然微風與立體聲混音 Web Audio
+    // 4. Web Audio 大自然微風 ＋ 空靈吉他微音合成器
     // =========================================================
     let audioCtx = null;
     let isAudioPlaying = false;
@@ -827,7 +554,7 @@
       } else {
         stopAudio();
         document.getElementById("audioText").innerText = "播放大自然與木吉他氛圍音";
-        document.getElementById("audioBtn").style.background = "rgba(16, 28, 18, 0.90)";
+        document.getElementById("audioBtn").style.background = "rgba(18, 30, 20, 0.90)";
         isAudioPlaying = false;
       }
     }
@@ -863,9 +590,9 @@
 
       setInterval(() => {
         if (filterNode && audioCtx) {
-          filterNode.frequency.setTargetAtTime(320 + Math.random() * 260, audioCtx.currentTime, 1.8);
+          filterNode.frequency.setTargetAtTime(350 + Math.random() * 250, audioCtx.currentTime, 1.5);
         }
-      }, 3500);
+      }, 3000);
 
       const scale = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25];
       function playChime() {
@@ -885,28 +612,29 @@
         osc.start();
         osc.stop(audioCtx.currentTime + 3.0);
 
-        chimeTimer = setTimeout(playChime, 2400 + Math.random() * 2800);
+        chimeTimer = setTimeout(playChime, 2500 + Math.random() * 3000);
       }
       playChime();
     }
 
-    function playStationChime(baseFreq) {
+    function playCameoChime(id) {
       if (!audioCtx) return;
       try {
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = "triangle";
+        const baseFreq = id === "bear" ? 180 : (id === "otter" ? 520 : (id === "deer" ? 392 : 440));
         osc.frequency.setValueAtTime(baseFreq, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.25, audioCtx.currentTime + 0.45);
+        osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.2, audioCtx.currentTime + 0.4);
 
         gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
-        gain.gain.linearRampToValueAtTime(0.035, audioCtx.currentTime + 0.08);
-        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.4);
+        gain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 0.06);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.2);
 
         osc.connect(gain);
         gain.connect(audioCtx.destination);
         osc.start();
-        osc.stop(audioCtx.currentTime + 1.45);
+        osc.stop(audioCtx.currentTime + 1.25);
       } catch (err) {}
     }
 
