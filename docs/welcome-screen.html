@@ -288,10 +288,10 @@
     <canvas id="particlesCanvas"></canvas>
   </div>
 
-  <!-- 彩蛋提示 Toast -->
+  <!-- 操作微光提示 Toast（僅供後台手動控制切換，動物漫步時 100% 零文字沉浸式視覺） -->
   <div class="cameo-toast" id="cameoToast">
-    <span class="toast-icon">🦌</span>
-    <span id="toastText">森林探索：成對梅花鹿漫步相依中...</span>
+    <span class="toast-icon">🌿</span>
+    <span id="toastText"></span>
   </div>
 
   <!-- 浮動控制工具列 -->
@@ -508,7 +508,7 @@
       activePlayer.classList.add("active");
       activePlayer.play().catch(e => console.log("Init play hindered:", e));
 
-      showToast(first.icon, first.desc);
+      // 100% 純淨森林視窗：動物漫步不彈出文字 Toast，營造置身大自然的真實感
       preloadNext();
       scheduleNext(first.duration);
     }
@@ -537,7 +537,6 @@
         setTimeout(() => {
           // 在金光頂峰 (200ms) 切換底層影片
           swapPlayers();
-          showToast(nextItem.icon, nextItem.desc);
           playCameoChime(nextItem.id);
 
           setTimeout(() => {
@@ -558,7 +557,6 @@
 
         setTimeout(() => {
           swapPlayers();
-          showToast(nextItem.icon, nextItem.desc);
           playCameoChime(nextItem.id);
 
           setTimeout(() => {
@@ -574,7 +572,6 @@
       } else {
         // 模式 3：電影級直接切換 (Clean Cut, 俐落零延遲)
         swapPlayers();
-        showToast(nextItem.icon, nextItem.desc);
         playCameoChime(nextItem.id);
         isTransitioning = false;
         currentIndex = targetIndex;
