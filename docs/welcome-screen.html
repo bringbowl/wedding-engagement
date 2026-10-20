@@ -35,7 +35,7 @@
       background: #0d160f;
     }
 
-    /* 雙緩衝電影級 1080p 影片圖層 (A / B 雙軌 2.0s 深度交叉淡入淡出，消除跳格與晃動) */
+    /* 雙緩衝電影級 1080p 影片圖層 (A / B 雙軌頂層覆蓋式交叉淡入，徹底消除跳格、暗屏與晃動) */
     .cinema-video-layer {
       position: absolute;
       top: 0;
@@ -48,31 +48,20 @@
       filter: brightness(0.90) contrast(1.08) saturate(1.15);
       z-index: 1;
       opacity: 0;
-      visibility: hidden;
       transform: scale(1.0);
-      /* 電影級 2 秒超柔滑交叉溶解，徹底消除突然跳格 */
-      transition: opacity 2.0s cubic-bezier(0.25, 1, 0.5, 1);
-      will-change: opacity, transform;
+      /* 電影級 1.8 秒超柔滑頂層交叉覆蓋，底層持續播放絕無暗屏 */
+      transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: opacity;
     }
 
     .cinema-video-layer.active {
       opacity: 1;
-      visibility: visible;
       z-index: 2;
-      /* 頂級自然運鏡：18秒超平緩呼吸感攝影機微推微移，賦予大自然生生不息的活態感 */
-      animation: cameraGliding 18s ease-in-out infinite alternate;
     }
 
-    @keyframes cameraGliding {
-      0% {
-        transform: scale(1.0) translate(0%, 0%);
-      }
-      50% {
-        transform: scale(1.026) translate(-0.5%, -0.3%);
-      }
-      100% {
-        transform: scale(1.014) translate(0.4%, 0.25%);
-      }
+    .cinema-video-layer.incoming {
+      opacity: 1;
+      z-index: 3; /* 頂層淡入，完全平滑覆蓋底層，底層在下方持續播放，絕不掉幀 */
     }
 
     /* 晨曦金光暖霧過場遮罩 (Sunbeam Bloom)
@@ -608,10 +597,10 @@
     }
 
     function bindPlayerEvents(player) {
-      // 主動時間監聽：在影片結束前 2.0 秒啟動優雅無縫溶解過場
+      // 主動時間監聽：在影片結束前 1.8 秒啟動頂層覆蓋過場（剛好在最後一幀前無縫銜接）
       player.ontimeupdate = () => {
         if (player !== activePlayer || !isAutoPlay || isTransitioning) return;
-        if (player.duration && player.currentTime >= (player.duration - 2.0)) {
+        if (player.duration && player.currentTime >= (player.duration - 1.8)) {
           triggerNext();
         }
       };
@@ -663,7 +652,7 @@
       idlePlayer.muted = true;
       idlePlayer.volume = 0;
 
-      // 1. 確保新影片在底層已經解碼開跑 (此時 idlePlayer 仍在 opacity: 0，完全看不見)
+      // 1. 確保新影片在頂層 (z-index: 3) 已經解碼開跑
       try {
         await idlePlayer.play();
       } catch (err) {
@@ -673,22 +662,27 @@
         try { await idlePlayer.play(); } catch(e) {}
       }
 
-      // 2. 升起晨曦金色暖霧 (1.0s 柔和升起，融合畫面避免生硬跳格)
+      // 2. 升起晨曦金色暖霧光芒 (融合畫面避免生硬)
       sunbeamBloom.classList.add("bloom-active");
 
-      // 3. 雙圖層無縫 2.0 秒交叉溶解 (Cross-Dissolve)
-      idlePlayer.classList.add("active");
-      activePlayer.classList.remove("active");
+      // 3. 頂層新影片 (idlePlayer) 柔和淡入，底層舊影片 (activePlayer) 保持在下方持續播放！
+      idlePlayer.classList.add("incoming");
 
-      // 4. 1.0s 後，金光暖霧自然散去
+      // 4. 0.9s 後，金光暖霧自然散去
       setTimeout(() => {
         sunbeamBloom.classList.remove("bloom-active");
-      }, 1000);
+      }, 900);
 
-      // 5. 2.0s 後，交叉過場完全結束
+      // 5. 1.8s 後，頂層新影片已 100% 不透明，無縫切換完成
       setTimeout(() => {
+        // 底層舊影片功成身退
+        activePlayer.classList.remove("active");
         activePlayer.pause();
         activePlayer.currentTime = 0;
+
+        // 新影片升為 active (z-index: 2)
+        idlePlayer.classList.remove("incoming");
+        idlePlayer.classList.add("active");
 
         // 交換 active 與 idle 指針
         const temp = activePlayer;
@@ -706,7 +700,7 @@
         if (isAutoPlay) {
           armWatchdog(nextItem.duration);
         }
-      }, 2000);
+      }, 1800);
     }
 
     function preloadUpcoming(index) {
