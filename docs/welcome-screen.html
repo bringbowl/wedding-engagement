@@ -82,9 +82,9 @@
       pointer-events: none;
       z-index: 12;
       opacity: 0;
-      transition: opacity 1.0s ease-in-out;
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
+      transition: opacity 0.8s ease-in-out;
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
     }
 
     .sunbeam-bloom-overlay.bloom-active {
@@ -311,23 +311,27 @@
         <span>🐾</span> <span>選擇森林動物 ▼</span>
       </button>
       <div class="cameo-menu">
-        <div class="cameo-opt" onclick="manualPlay('deer_noses')">🦌 成對梅花鹿（碰鼻相依親暱漫步）</div>
-        <div class="cameo-opt" onclick="manualPlay('owl')">🦉 森林貓頭鷹（飛降樹梢歪頭凝視）</div>
-        <div class="cameo-opt" onclick="manualPlay('rabbit')">🐇 萌兔好奇（蹦跳鏡頭前抽鼻對視）</div>
+        <div style="padding: 6px 14px; font-size: 0.75rem; color: #b7d8b2; letter-spacing: 1px; font-weight: bold;">🌊 清溪水石區</div>
         <div class="cameo-opt" onclick="manualPlay('otter')">🦦 清溪小水獺（溪石小憩探頭甩水）</div>
+        <div class="cameo-opt" onclick="manualPlay('beaver')">🦫 呆萌小河狸（溪畔細啃樹枝）</div>
         <div class="cameo-opt" onclick="manualPlay('sparrows')">🐦 靈動麻雀群（飛降青苔石啄光斑）</div>
+        <div style="padding: 6px 14px; font-size: 0.75rem; color: #b7d8b2; letter-spacing: 1px; font-weight: bold;">🌿 晨霧青苔岩石區</div>
         <div class="cameo-opt" onclick="manualPlay('redpanda_walking')">🐼 小熊貓漫步（溪畔青苔岩石漫步）</div>
+        <div class="cameo-opt" onclick="manualPlay('redpanda_curious')">🐼 好奇小熊貓（青苔岩石嗅聞探頭）</div>
+        <div class="cameo-opt" onclick="manualPlay('rabbit')">🐇 萌兔好奇（蹦跳鏡頭前抽鼻對視）</div>
+        <div style="padding: 6px 14px; font-size: 0.75rem; color: #b7d8b2; letter-spacing: 1px; font-weight: bold;">☀️ 陽光草地秘境區</div>
+        <div class="cameo-opt" onclick="manualPlay('deer_noses')">🦌 成對梅花鹿（碰鼻相依親暱漫步）</div>
         <div class="cameo-opt" onclick="manualPlay('redpandas_playing')">🦊 雙小熊貓（倒木嬉戲揮爪玩耍）</div>
         <div class="cameo-opt" onclick="manualPlay('bear')">🐻 亞洲大黑熊（草地趴平悠閒納涼）</div>
-        <div class="cameo-opt" onclick="manualPlay('beaver')">🦫 呆萌小河狸（溪畔細啃樹枝）</div>
-        <div class="cameo-opt" onclick="manualPlay('redpanda_curious')">🐼 好奇小熊貓（青苔岩石嗅聞探頭）</div>
+        <div style="padding: 6px 14px; font-size: 0.75rem; color: #b7d8b2; letter-spacing: 1px; font-weight: bold;">🦉 樹梢林冠區</div>
+        <div class="cameo-opt" onclick="manualPlay('owl')">🦉 森林貓頭鷹（飛降樹梢歪頭凝視）</div>
         <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.15); margin: 6px 0;">
-        <div class="cameo-opt" onclick="manualPlay('forest_empty')">🌿 晨曦清溪空景（清澈水波細細粼粼）</div>
-        <div class="cameo-opt" onclick="manualPlay('forest_sunlight')">☀️ 晨曦金芒空景（暖陽穿透薄霧流轉）</div>
+        <div class="cameo-opt" onclick="manualPlay('forest_empty')">🌊 晨曦清溪空景（清澈水波細細粼粼）</div>
         <div class="cameo-opt" onclick="manualPlay('forest_misty')">🌫️ 晨霧流溪空景（林間水氣瀰漫流淌）</div>
+        <div class="cameo-opt" onclick="manualPlay('forest_sunlight')">☀️ 晨曦金芒空景（暖陽穿透薄霧流轉）</div>
         <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.15); margin: 6px 0;">
         <div class="cameo-opt" onclick="toggleAutoPlay()" id="autoPlayOpt">⏸️ 暫停自動巡遊</div>
-        <div class="cameo-opt" onclick="toggleTransitionStyle()" id="transStyleOpt">✨ 過場效果：晨曦金光暖霧</div>
+        <div class="cameo-opt" onclick="toggleTransitionStyle()" id="transStyleOpt">✨ 過場效果：自然生態分區漫步</div>
       </div>
     </div>
 
@@ -413,58 +417,27 @@
     animateParticles();
 
     // =========================================================
-    // 2. 雙緩衝電影級自然運鏡・野生動物客串播放系統
-    // 晨曦林間清溪為主舞台，每隔一段時間動物自然出沒走入鏡頭，宛如真實森林
+    // 2. 雙緩衝電影級自然運鏡・四大生態分區漫步巡遊系統
+    // 按照「清澈溪流 ➔ 岸邊青苔 ➔ 陽光草地 ➔ 樹梢林冠」生態動線自然推進
+    // 每個生態分區由靜謐空景深呼吸（約 15 秒），再由該區域野生動物自然登場
     // =========================================================
     const playlist = [
+      // -------------------------------------------------------
+      // 🗺️ 第一分區：【清澈溪流與水石之境】（Creek & Running Water）
+      // -------------------------------------------------------
       {
-        id: "forest_empty",
-        name: "晨曦林間清溪",
-        icon: "🌿",
+        id: "forest_empty_1",
+        name: "晨曦清溪流淌",
+        icon: "🌊",
         src: "assets/videos/loop0_forest_empty.mp4",
-        duration: 7200
-      },
-      {
-        id: "deer_noses",
-        name: "成對梅花鹿",
-        icon: "🦌",
-        src: "assets/videos/cameo_deer_noses.mp4",
-        duration: 9800
-      },
-      {
-        id: "forest_sunlight",
-        name: "晨曦金芒穿透",
-        icon: "☀️",
-        src: "assets/videos/loop1_forest_sunlight.mp4",
         duration: 7500
       },
       {
-        id: "owl",
-        name: "森林貓頭鷹",
-        icon: "🦉",
-        src: "assets/videos/cameo_owl.mp4",
-        duration: 8000
-      },
-      {
-        id: "forest_misty",
-        name: "晨霧流溪粼粼",
-        icon: "🌫️",
-        src: "assets/videos/loop2_forest_misty_stream.mp4",
-        duration: 7500
-      },
-      {
-        id: "rabbit",
-        name: "萌兔好奇對視",
-        icon: "🐇",
-        src: "assets/videos/cameo_rabbit.mp4",
-        duration: 8000
-      },
-      {
-        id: "forest_empty",
-        name: "晨曦林間清溪",
-        icon: "🌿",
+        id: "forest_empty_2",
+        name: "清溪水波粼粼",
+        icon: "🌊",
         src: "assets/videos/loop0_forest_empty.mp4",
-        duration: 7200
+        duration: 7500
       },
       {
         id: "otter",
@@ -474,22 +447,33 @@
         duration: 8000
       },
       {
-        id: "forest_sunlight",
-        name: "晨曦金芒穿透",
-        icon: "☀️",
-        src: "assets/videos/loop1_forest_sunlight.mp4",
-        duration: 7500
+        id: "beaver",
+        name: "溪畔可愛河狸",
+        icon: "🦫",
+        src: "assets/videos/cameo_beaver.mp4",
+        duration: 7800
       },
       {
         id: "sparrows",
-        name: "靈動麻雀群",
+        name: "靈動麻雀群啄光",
         icon: "🐦",
         src: "assets/videos/cameo_sparrows.mp4",
         duration: 8000
       },
+
+      // -------------------------------------------------------
+      // 🌿 第二分區：【晨霧岸邊青苔與岩石】（Mossy Riverbank & Rocks）
+      // -------------------------------------------------------
       {
-        id: "forest_misty",
-        name: "晨霧流溪粼粼",
+        id: "forest_misty_1",
+        name: "晨霧林間流溪",
+        icon: "🌫️",
+        src: "assets/videos/loop2_forest_misty_stream.mp4",
+        duration: 7500
+      },
+      {
+        id: "forest_misty_2",
+        name: "晨霧水氣瀰漫",
         icon: "🌫️",
         src: "assets/videos/loop2_forest_misty_stream.mp4",
         duration: 7500
@@ -502,25 +486,50 @@
         duration: 8000
       },
       {
-        id: "forest_empty",
-        name: "晨曦林間清溪",
-        icon: "🌿",
-        src: "assets/videos/loop0_forest_empty.mp4",
-        duration: 7200
-      },
-      {
-        id: "redpandas_playing",
-        name: "雙小熊貓嬉戲",
-        icon: "🦊",
-        src: "assets/videos/cameo_redpandas_playing.mp4",
+        id: "redpanda_curious",
+        name: "好奇小熊貓嗅苔",
+        icon: "🐼",
+        src: "assets/videos/cameo_redpanda_curious.mp4",
         duration: 8000
       },
       {
-        id: "forest_sunlight",
+        id: "rabbit",
+        name: "萌兔好奇對視",
+        icon: "🐇",
+        src: "assets/videos/cameo_rabbit.mp4",
+        duration: 8000
+      },
+
+      // -------------------------------------------------------
+      // ☀️ 第三分區：【陽光林間草地深處】（Sunlit Woodland Meadow）
+      // -------------------------------------------------------
+      {
+        id: "forest_sunlight_1",
         name: "晨曦金芒穿透",
         icon: "☀️",
         src: "assets/videos/loop1_forest_sunlight.mp4",
         duration: 7500
+      },
+      {
+        id: "forest_sunlight_2",
+        name: "林間暖陽灑落",
+        icon: "☀️",
+        src: "assets/videos/loop1_forest_sunlight.mp4",
+        duration: 7500
+      },
+      {
+        id: "deer_noses",
+        name: "成對梅花鹿碰鼻",
+        icon: "🦌",
+        src: "assets/videos/cameo_deer_noses.mp4",
+        duration: 9800
+      },
+      {
+        id: "redpandas_playing",
+        name: "雙小熊貓倒木嬉戲",
+        icon: "🦊",
+        src: "assets/videos/cameo_redpandas_playing.mp4",
+        duration: 8000
       },
       {
         id: "bear",
@@ -529,32 +538,15 @@
         src: "assets/videos/cameo_bear.mp4",
         duration: 8000
       },
+
+      // -------------------------------------------------------
+      // 🦉 第四分區：【高聳樹梢林冠俯瞰】（High Forest Canopy）
+      // -------------------------------------------------------
       {
-        id: "forest_misty",
-        name: "晨霧流溪粼粼",
-        icon: "🌫️",
-        src: "assets/videos/loop2_forest_misty_stream.mp4",
-        duration: 7500
-      },
-      {
-        id: "beaver",
-        name: "可愛河狸啃枝",
-        icon: "🦫",
-        src: "assets/videos/cameo_beaver.mp4",
-        duration: 7800
-      },
-      {
-        id: "forest_sunlight",
-        name: "晨曦金芒穿透",
-        icon: "☀️",
-        src: "assets/videos/loop1_forest_sunlight.mp4",
-        duration: 7500
-      },
-      {
-        id: "redpanda_curious",
-        name: "小熊貓好奇嗅苔",
-        icon: "🐼",
-        src: "assets/videos/cameo_redpanda_curious.mp4",
+        id: "owl",
+        name: "森林貓頭鷹凝視",
+        icon: "🦉",
+        src: "assets/videos/cameo_owl.mp4",
         duration: 8000
       }
     ];
@@ -714,7 +706,7 @@
     }
 
     function manualPlay(animalId) {
-      let idx = playlist.findIndex(p => p.id === animalId);
+      let idx = playlist.findIndex(p => p.id === animalId || p.id.startsWith(animalId));
       if (idx === -1 && animalId === 'deer') {
         idx = playlist.findIndex(p => p.id === 'deer_noses');
       }
@@ -729,7 +721,7 @@
       if (isAutoPlay) {
         opt.innerText = "⏸️ 暫停自動巡遊";
         triggerNext();
-        showToast("🌿", "已啟動森林動物自然巡遊漫步");
+        showToast("🌿", "已啟動森林生態分區自然漫步");
       } else {
         opt.innerText = "▶️ 恢復自動巡遊";
         clearTimeout(watchdogTimer);
@@ -738,7 +730,7 @@
     }
 
     function toggleTransitionStyle() {
-      showToast("✨", "當前已套用【晨曦金光暖霧 ＋ 2.0s 自然運鏡】");
+      showToast("✨", "當前已套用【自然生態分區漫步 · 1.8s 頂層無縫覆蓋】");
     }
 
     // =========================================================
