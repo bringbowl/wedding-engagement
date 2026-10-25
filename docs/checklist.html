@@ -1,0 +1,1335 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>結婚午宴 ・ 現場分工與準備檢查表 ｜ 羅聖明 ♥ 戴婉錡</title>
+  <meta name="description" content="Barry & Winnie 12/12 結婚午宴現場工作人員分工與準備檢查表，支援手機端即時勾選與進度儲存。">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Noto+Serif+TC:wght@500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --forest-deep: #18281c;
+      --forest-dark: #27382b;
+      --forest-mid:  #354b3a;
+      --sage:        #5b8764;
+      --sage-light:  #edf3ee;
+      --sage-tint:   #e5efe7;
+      --gold:        #c59b4c;
+      --gold-d:      #9a7428;
+      --gold-l:      #f4ecd8;
+      --cream:       #faf7f0;
+      --parchment:   #f4eee2;
+      --ink:         #1f2823;
+      --ink-muted:   #5a6b5f;
+      --line:        #d0dcd2;
+      --bg-page:     #edf1ee;
+
+      /* 角色色彩 */
+      --badge-couple: #b58327;
+      --badge-chief:  #27382b;
+      --badge-bridesmaid: #9c4a6e;
+      --badge-groomsman:  #2e7d6b;
+      --badge-reception:  #206f94;
+      --badge-amy:        #635544;
+      --badge-sound:      #41536b;
+      --badge-photo:      #b07d2b;
+      --badge-mua:        #b84a62;
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body {
+      margin: 0; padding: 0;
+      background: var(--bg-page);
+      color: var(--ink);
+      font-family: "Noto Serif TC", "Songti TC", serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 16px 14px 80px;
+    }
+
+    /* Top Nav Buttons */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--forest-deep);
+      text-decoration: none;
+      background: #fff;
+      border: 1px solid var(--line);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      transition: all .15s;
+    }
+    .nav-btn.gsheet {
+      background: var(--cream);
+      border-color: var(--gold);
+      color: var(--gold-d);
+      font-weight: 700;
+    }
+    .nav-btn:hover {
+      background: var(--sage-tint);
+      border-color: var(--sage);
+    }
+
+    /* Cover Header */
+    header.hero {
+      text-align: center;
+      padding: 28px 18px 22px;
+      margin-bottom: 16px;
+      border-radius: 16px;
+      color: #fff;
+      background: linear-gradient(155deg, #18281c 0%, #27382b 55%, #354b3a 100%);
+      border: 2px solid var(--gold);
+      box-shadow: 0 10px 30px rgba(18, 30, 22, 0.22);
+      position: relative;
+      overflow: hidden;
+    }
+    header.hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 50% 15%, rgba(197, 155, 76, 0.2), transparent 70%);
+      pointer-events: none;
+    }
+    .ey {
+      font-family: "Cormorant Garamond", serif;
+      letter-spacing: .32em;
+      font-size: 12.5px;
+      color: var(--gold-l);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    header.hero h1 {
+      font-weight: 900;
+      font-size: 24px;
+      margin: 8px 0 6px;
+      letter-spacing: .08em;
+      text-shadow: 0 2px 8px rgba(0,0,0,.35);
+    }
+    .rule {
+      width: 70px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 10px auto;
+    }
+    .meta {
+      font-size: 12.5px;
+      color: #e4ebe5;
+      letter-spacing: .15em;
+    }
+
+    /* Sticky Progress & Controls Bar */
+    .sticky-bar {
+      position: sticky;
+      top: 10px;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1.5px solid var(--gold);
+      border-radius: 14px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 20px rgba(24, 40, 28, 0.12);
+    }
+    .prog-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .prog-track {
+      flex: 1;
+      height: 10px;
+      background: #e2ece4;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .prog-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--sage), var(--gold));
+      border-radius: 999px;
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .prog-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--forest-deep);
+      white-space: nowrap;
+    }
+    .prog-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .btn-act {
+      font-family: inherit;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--forest-deep);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all .15s;
+    }
+    .btn-act:hover {
+      background: var(--sage-tint);
+      border-color: var(--sage);
+    }
+    .btn-act.danger:hover {
+      background: #fde8e8;
+      border-color: #d9534f;
+      color: #c9302c;
+    }
+
+    /* Filter Chips */
+    .filter-scroll {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 4px 2px 2px;
+      scrollbar-width: none;
+    }
+    .filter-scroll::-webkit-scrollbar { display: none; }
+    .filter-chip {
+      flex-shrink: 0;
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #f8faf8;
+      color: var(--ink-muted);
+      cursor: pointer;
+      transition: all .15s;
+      font-weight: 600;
+    }
+    .filter-chip.active {
+      background: var(--forest-dark);
+      border-color: var(--forest-dark);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(39, 56, 43, 0.25);
+    }
+
+    /* Role Legend */
+    .role-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 10px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 12px;
+    }
+    .role-legend-title {
+      font-weight: 700;
+      color: var(--forest-deep);
+      margin-right: 4px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .tag-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Section Card */
+    .sec-card {
+      background: #fff;
+      border: 1.5px solid var(--line);
+      border-radius: 14px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(24, 40, 28, 0.05);
+      transition: border-color .2s;
+    }
+    .sec-card:hover {
+      border-color: var(--gold);
+    }
+    .sec-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 16px;
+      background: linear-gradient(90deg, #f7faf8, #fff);
+      border-bottom: 1px solid var(--line);
+      cursor: pointer;
+      user-select: none;
+    }
+    .sec-badge {
+      flex-shrink: 0;
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: #fff;
+      background: var(--forest-dark);
+      border-radius: 8px;
+      padding: 4px 10px;
+      min-width: 58px;
+      text-align: center;
+      letter-spacing: .05em;
+    }
+    .sec-title-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .sec-zh {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--forest-deep);
+    }
+    .sec-en {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 11.5px;
+      color: var(--gold-d);
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .sec-stat {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--forest-mid);
+      white-space: nowrap;
+    }
+    .sec-arrow {
+      font-size: 14px;
+      color: var(--ink-muted);
+      transition: transform .2s ease;
+    }
+    .sec-card.collapsed .sec-arrow {
+      transform: rotate(-90deg);
+    }
+    .sec-card.collapsed .items-list {
+      display: none;
+    }
+
+    /* Item Row */
+    .items-list {
+      padding: 6px 10px 12px;
+    }
+    .item-subgroup {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--gold-d);
+      letter-spacing: .08em;
+      border-left: 3px solid var(--gold);
+      padding: 2px 0 2px 8px;
+      margin: 12px 6px 6px;
+    }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 8px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background .12s ease;
+      position: relative;
+    }
+    .check-item:active, .check-item:hover {
+      background: #f7faf8;
+    }
+    .check-item.hidden {
+      display: none !important;
+    }
+    .check-item input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .custom-box {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border: 2px solid #a4b8ab;
+      border-radius: 6px;
+      margin-top: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      transition: all .15s ease;
+    }
+    .custom-box::after {
+      content: "";
+      width: 10px;
+      height: 5px;
+      border-left: 2.5px solid #fff;
+      border-bottom: 2.5px solid #fff;
+      transform: rotate(-45deg) scale(0);
+      transition: transform .15s ease;
+      margin-top: -2px;
+    }
+    .check-item input:checked ~ .custom-box {
+      background: var(--sage);
+      border-color: var(--sage);
+    }
+    .check-item input:checked ~ .custom-box::after {
+      transform: rotate(-45deg) scale(1);
+    }
+    .item-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .item-title {
+      font-size: 14.5px;
+      line-height: 1.55;
+      color: var(--ink);
+      font-weight: 500;
+      transition: all .15s;
+    }
+    .item-desc {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--ink-muted);
+      margin-top: 3px;
+    }
+    .check-item input:checked ~ .item-content .item-title {
+      color: #9ab0a0;
+      text-decoration: line-through;
+    }
+    .check-item input:checked ~ .item-content .item-desc {
+      color: #b0c2b5;
+    }
+
+    /* Badges */
+    .role-badge {
+      flex-shrink: 0;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 3px 10px;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+    .role-couple    { background: var(--badge-couple); }
+    .role-chief     { background: var(--badge-chief); }
+    .role-bridesmaid{ background: var(--badge-bridesmaid); }
+    .role-groomsman { background: var(--badge-groomsman); }
+    .role-reception { background: var(--badge-reception); }
+    .role-amy       { background: var(--badge-amy); }
+    .role-sound     { background: var(--badge-sound); }
+    .role-photo     { background: var(--badge-photo); }
+    .role-mua       { background: var(--badge-mua); }
+
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--ink-muted);
+      margin-top: 36px;
+      letter-spacing: .12em;
+    }
+    footer .glyph {
+      color: var(--gold);
+      margin: 0 6px;
+    }
+
+    @media print {
+      body { background: #fff; }
+      .wrap { max-width: none; padding: 0; }
+      .top-bar, .sticky-bar, .filter-scroll, .prog-actions { display: none !important; }
+      .sec-card { box-shadow: none; border-color: #ccc; break-inside: avoid; }
+      .sec-card.collapsed .items-list { display: block !important; }
+      .sec-head { background: #f0f0f0; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Top Navigation Bar -->
+  <div class="top-bar">
+    <a href="index.html" class="nav-btn">‹ 返回工作台首頁</a>
+    <div style="display:flex; gap:8px;">
+      <a href="guests.html" class="nav-btn">📋 賓客排桌速查 ›</a>
+      <a href="https://docs.google.com/spreadsheets/d/1ZRQiqfzctmH7RrxwF75vulaNOXhzmxL4k0WwNPgBnaw/edit?gid=2033431526#gid=2033431526" target="_blank" rel="noopener" class="nav-btn gsheet">📊 Google 試算表原始母檔 ↗</a>
+    </div>
+  </div>
+
+  <!-- Hero Header -->
+  <header class="hero">
+    <div class="ey">WEDDING DAY OPERATIONS &middot; SHARED LIVE CHECKLIST</div>
+    <h1>結婚當天 ・ 現場分工與準備檢查表</h1>
+    <div class="rule"></div>
+    <div class="meta">BARRY &amp; WINNIE　・　桃園中壢 Amour 阿沐 水漾森林 E 廳　・　2026.12.12</div>
+  </header>
+
+  <!-- Sticky Progress & Filter Bar -->
+  <div class="sticky-bar">
+    <div class="prog-row">
+      <div class="prog-track">
+        <div class="prog-fill" id="prog-fill"></div>
+      </div>
+      <div class="prog-label">
+        <span id="done-cnt">0</span> / <span id="total-cnt">0</span> (<span id="pct-cnt">0%</span>)
+      </div>
+      <div class="prog-actions">
+        <button type="button" class="btn-act" onclick="expandAllSections(true)">全部展開</button>
+        <button type="button" class="btn-act danger" onclick="resetAllChecklist()">重置進度</button>
+      </div>
+    </div>
+
+    <!-- Role Filter Chips -->
+    <div class="filter-scroll" id="filter-scroll">
+      <button class="filter-chip active" data-filter="all">🌟 全部人員</button>
+      <button class="filter-chip" data-filter="couple">👑 新郎新娘</button>
+      <button class="filter-chip" data-filter="chief">🎯 總召</button>
+      <button class="filter-chip" data-filter="reception">💵 禮金接待</button>
+      <button class="filter-chip" data-filter="bridesmaid">👗 伴娘 (文魚/Linda)</button>
+      <button class="filter-chip" data-filter="groomsman">🤵 伴郎 (Ollie/2千)</button>
+      <button class="filter-chip" data-filter="amy">🎬 婚顧主持 (Amy)</button>
+      <button class="filter-chip" data-filter="sound">🎛️ 音響燈光</button>
+      <button class="filter-chip" data-filter="photo">📷 婚攝婚錄 (水牛/萊玥)</button>
+      <button class="filter-chip" data-filter="mua">💄 新秘 (妃妃團隊)</button>
+    </div>
+  </div>
+
+  <!-- Role Legend -->
+  <div class="role-legend">
+    <span class="role-legend-title">人員職責色彩：</span>
+    <span class="tag-item"><span class="role-badge role-couple">新郎新娘</span></span>
+    <span class="tag-item"><span class="role-badge role-chief">總召</span></span>
+    <span class="tag-item"><span class="role-badge role-reception">禮金接待</span></span>
+    <span class="tag-item"><span class="role-badge role-bridesmaid">伴娘</span></span>
+    <span class="tag-item"><span class="role-badge role-groomsman">伴郎</span></span>
+    <span class="tag-item"><span class="role-badge role-amy">婚顧主持</span></span>
+    <span class="tag-item"><span class="role-badge role-sound">音響燈光</span></span>
+    <span class="tag-item"><span class="role-badge role-photo">婚攝婚錄</span></span>
+    <span class="tag-item"><span class="role-badge role-mua">新娘秘書</span></span>
+  </div>
+
+  <!-- Checklist Container -->
+  <div id="checklist-container">
+
+    <!-- Section 1: 出發前物資裝箱 -->
+    <section class="sec-card" data-sec="1">
+      <div class="sec-head" onclick="toggleSection(this)">
+        <span class="sec-badge">出發前</span>
+        <div class="sec-title-wrap">
+          <span class="sec-zh">出發前物資裝箱與點收（帶齊才出門）</span>
+          <span class="sec-en">BEFORE LEAVING &middot; INVENTORY CHECK</span>
+        </div>
+        <span class="sec-stat" data-sec-stat>0/14</span>
+        <span class="sec-arrow">▾</span>
+      </div>
+      <div class="items-list">
+        <div class="item-subgroup">新人行頭與重要儀式物件</div>
+        <label class="check-item" data-owner="couple">
+          <input type="checkbox" data-id="item-1">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">結婚對戒與戒指盒（交由伴郎隨身保管）</div>
+            <div class="item-desc">求婚戒與結婚對戒，出門前再次確認盒內戒指在位。</div>
+          </div>
+          <span class="role-badge role-couple">新郎新娘</span>
+        </label>
+        <label class="check-item" data-owner="couple">
+          <input type="checkbox" data-id="item-2">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">雙方誓詞卡／精緻誓言本（新郎、新娘各一）</div>
+            <div class="item-desc">手寫或列印謄入誓約，證婚時手持宣讀。</div>
+          </div>
+          <span class="role-badge role-couple">新郎新娘</span>
+        </label>
+        <label class="check-item" data-owner="couple">
+          <input type="checkbox" data-id="item-3">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">新娘三套禮服 ＆ 新郎西裝（含品位室租借西裝）</div>
+            <div class="item-desc">① 晨光白紗 ② 二進水藍色晚禮服（好跳舞款） ③ 三進送客澎裙；新郎襯衫、皮鞋、領結。</div>
+          </div>
+          <span class="role-badge role-couple">新郎新娘</span>
+        </label>
+        <label class="check-item" data-owner="couple">
+          <input type="checkbox" data-id="item-4">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">新娘隨身急救包（NuBra、雙面膠、別針、彎頭吸管、止痛藥、防磨貼）</div>
+            <div class="item-desc">由伴娘貼身隨行攜帶，保護妝髮防走光。</div>
+          </div>
+          <span class="role-badge role-bridesmaid">伴娘</span>
+        </label>
+
+        <div class="item-subgroup">全場禮物、道具與大額現金</div>
+        <label class="check-item" data-owner="couple">
+          <input type="checkbox" data-id="item-5">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">全場位上禮：罐頭豬 LuLu 動物森林派對萌粒（150~180 個）</div>
+            <div class="item-desc">預先裝箱，到場後由接待人員逐桌擺放至每位賓客席前。</div>
+          </div>
+          <span class="role-badge role-couple">新郎新娘</span>
+        </label>
+        <label class="check-item" data-owner="couple">
+          <input type="checkbox" data-id="item-6">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">活動獲獎獎品（共 18 份裝箱）</div>
+            <div class="item-desc">Kahoot 前三名（3 份）＋ 森林賽跑前三名陣營（每名次 5 人，共 15 份）。</div>
+          </div>
+          <span class="role-badge role-couple">新郎新娘</span>
+        </label>
+        <label class="check-item" data-owner="couple">
+          <input type="checkbox" data-id="item-7">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">二進熱舞造型墨鏡 × 6 副 ＆ 伴郎肩膀磁吸動物玩偶 × 2 隻</div>
+            <div class="item-desc">Ollie 與 2千 肩膀磁吸玩偶、6 人 K-POP 熱舞墨鏡備妥。</div>
+          </div>
+          <span class="role-badge role-couple">新郎新娘</span>
+        </label>
+        <label class="check-item" data-owner="couple">
+          <input type="checkbox" data-id="item-8">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">送客喜糖（乖乖 ＆ 巧克力）</div>
+            <div class="item-desc">新人自備乖乖與巧克力，阿沐會館提供喜糖提籃。</div>
+          </div>
+          <span class="role-badge role-couple">新郎新娘</span>
+        </label>
+        <label class="check-item" data-owner="chief">
+          <input type="checkbox" data-id="item-9">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">大額現金尾款保管專用防盜背包（阿沐約40萬 ＋ 廠商尾款紅包）</div>
+            <div class="item-desc">大額新鈔已封妥，指定總召或核心家長專人貼身保管不離手。</div>
+          </div>
+          <span class="role-badge role-chief">總召</span>
+        </label>
+
+        <div class="item-subgroup">接待與文宣道具箱</div>
+        <label class="check-item" data-owner="reception">
+          <input type="checkbox" data-id="item-10">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">禮金簿 2~3 本、計算機 2 台、紅筆/原子筆/簽名筆數支</div>
+            <div class="item-desc">禮金桌點收核心用具，裝於透明文具盒。</div>
+          </div>
+          <span class="role-badge role-reception">禮金接待</span>
+        </label>
+        <label class="check-item" data-owner="reception">
+          <input type="checkbox" data-id="item-11">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">紙本喜帖 Demo 樣張（2~3 份）＋ 謝卡 ＋ 森林簽到投入框</div>
+            <div class="item-desc">展示於接待桌供賓客欣賞索取與簽到祝福。</div>
+          </div>
+          <span class="role-badge role-reception">禮金接待</span>
+        </label>
+        <label class="check-item" data-owner="couple">
+          <input type="checkbox" data-id="item-12">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">寶可夢／森林動物玩偶佈置公仔（已清潔除塵）</div>
+            <div class="item-desc">供背板木樁與相本桌陳列點綴童話森林氛圍。</div>
+          </div>
+          <span class="role-badge role-couple">新郎新娘</span>
+        </label>
+        <label class="check-item" data-owner="reception">
+          <input type="checkbox" data-id="item-13">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">喜餅補發名冊（中西式需補送親友清單）</div>
+            <div class="item-desc">若有當日補發喜餅，清冊需預先核對完畢。</div>
+          </div>
+          <span class="role-badge role-reception">禮金接待</span>
+        </label>
+        <label class="check-item" data-owner="chief">
+          <input type="checkbox" data-id="item-14">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">工作人員紅包袋（攝影、錄影、新秘、主持、音控、伴郎伴娘等）</div>
+            <div class="item-desc">當日感謝禮金，由總召掌握發放時機。</div>
+          </div>
+          <span class="role-badge role-chief">總召</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Section 2: 10:00~10:45 阿沐到場報到與晨光準備 -->
+    <section class="sec-card" data-sec="2">
+      <div class="sec-head" onclick="toggleSection(this)">
+        <span class="sec-badge">10:00</span>
+        <div class="sec-title-wrap">
+          <span class="sec-zh">阿沐到場報到與晨光準備（10:00–10:45）</span>
+          <span class="sec-en">ARRIVAL & MORNING PREPARATION</span>
+        </div>
+        <span class="sec-stat" data-sec-stat>0/8</span>
+        <span class="sec-arrow">▾</span>
+      </div>
+      <div class="items-list">
+        <label class="check-item" data-owner="chief">
+          <input type="checkbox" data-id="item-15">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">阿沐開放入場！新人、新秘、水牛、萊玥、伴郎伴娘、總召準時抵達會館</div>
+            <div class="item-desc">中壢阿沐延平路二段 371 號，新娘房就位，卸下物資箱。</div>
+          </div>
+          <span class="role-badge role-chief">總召</span>
+        </label>
+        <label class="check-item" data-owner="mua">
+          <input type="checkbox" data-id="item-16">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">新秘妃妃團隊（1老師＋2助理）進新娘房更衣梳化與戴頭紗</div>
+            <div class="item-desc">完成婉錡白紗定妝與髮型、男方親友妝容對點。</div>
+          </div>
+          <span class="role-badge role-mua">新娘秘書</span>
+        </label>
+        <label class="check-item" data-owner="couple">
+          <input type="checkbox" data-id="item-17">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">新郎西裝著裝整燙、佩戴胸花</div>
+            <div class="item-desc">聖明完成帥氣晨光西裝造型，等待 10:45 First Look。</div>
+          </div>
+          <span class="role-badge role-couple">新郎新娘</span>
+        </label>
+        <label class="check-item" data-owner="bridesmaid">
+          <input type="checkbox" data-id="item-18">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">伴娘（文魚、Linda）著鼠尾草綠/暖香檳金禮服就位、協助新娘</div>
+            <div class="item-desc">協助白紗裙襬整理、隨身急救包備妥。</div>
+          </div>
+          <span class="role-badge role-bridesmaid">伴娘</span>
+        </label>
+        <label class="check-item" data-owner="groomsman">
+          <input type="checkbox" data-id="item-19">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">伴郎（Ollie、2千）西裝整燙、肩膀磁吸動物玩偶試戴固定</div>
+            <div class="item-desc">確認磁吸玩偶緊固不掉，妥善保管戒指盒。</div>
+          </div>
+          <span class="role-badge role-groomsman">伴郎</span>
+        </label>
+        <label class="check-item" data-owner="photo">
+          <input type="checkbox" data-id="item-20">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">水牛（平面雙機）與萊玥（動態雙機）架設器材，開拍靜物特寫</div>
+            <div class="item-desc">拍攝婚戒、喜帖長卡、捧花、白紗懸掛、LuLu豬萌粒等細節。</div>
+          </div>
+          <span class="role-badge role-photo">婚攝婚錄</span>
+        </label>
+        <label class="check-item" data-owner="chief">
+          <input type="checkbox" data-id="item-21">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">工作人員便當清點發放（已確認 9 份 ＋ 蘿蒔花藝 TBD）</div>
+            <div class="item-desc">攝影2、錄影2、新秘3、主持1、音控1；11:00 彩排前讓大家先吃飽備戰。</div>
+          </div>
+          <span class="role-badge role-chief">總召</span>
+        </label>
+        <label class="check-item" data-owner="chief">
+          <input type="checkbox" data-id="item-22">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">真花捧花與胸花組配送簽收（貳月 / 蘿蒔花藝專人直送新娘房）</div>
+            <div class="item-desc">新娘捧花、新郎胸花、主婚人胸花×4、伴郎伴娘花飾。</div>
+          </div>
+          <span class="role-badge role-chief">總召</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Section 3: 10:45~11:00 新娘房 First Look -->
+    <section class="sec-card" data-sec="3">
+      <div class="sec-head" onclick="toggleSection(this)">
+        <span class="sec-badge">10:45</span>
+        <div class="sec-title-wrap">
+          <span class="sec-zh">新娘房 First Look 浪漫相見（10:45–11:00）</span>
+          <span class="sec-en">FIRST LOOK & BOUQUET PRESENTATION</span>
+        </div>
+        <span class="sec-stat" data-sec-stat>0/4</span>
+        <span class="sec-arrow">▾</span>
+      </div>
+      <div class="items-list">
+        <label class="check-item" data-owner="couple">
+          <input type="checkbox" data-id="item-23">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">新郎手持鮮花捧花輕敲房門，First Look 感動相見！</div>
+            <div class="item-desc">取代闖關奔波！聖明第一眼見到白紗婉錡，深情獻上捧花、擁抱親吻。</div>
+          </div>
+          <span class="role-badge role-couple">新郎新娘</span>
+        </label>
+        <label class="check-item" data-owner="photo">
+          <input type="checkbox" data-id="item-24">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">水牛與萊玥捕捉 First Look 真情落淚與驚喜特寫鏡頭</div>
+            <div class="item-desc">記錄兩人最真實動容的眼神與捧花交接時刻。</div>
+          </div>
+          <span class="role-badge role-photo">婚攝婚錄</span>
+        </label>
+        <label class="check-item" data-owner="bridesmaid">
+          <input type="checkbox" data-id="item-25">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">伴郎伴娘新娘房內溫馨大合照、拍攝晨光精緻類婚紗</div>
+            <div class="item-desc">6 人好友齊聚狂拍，不慌不忙優雅迎戰午宴！</div>
+          </div>
+          <span class="role-badge role-bridesmaid">伴娘</span>
+        </label>
+        <label class="check-item" data-owner="chief">
+          <input type="checkbox" data-id="item-26">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">提醒雙方主婚人 10:55 於宴會廳集合準備 11:00 總彩排</div>
+            <div class="item-desc">男女方父母引導入場走位位置。</div>
+          </div>
+          <span class="role-badge role-chief">總召</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Section 4: 11:00~11:25 午宴進場總彩排 -->
+    <section class="sec-card" data-sec="4">
+      <div class="sec-head" onclick="toggleSection(this)">
+        <span class="sec-badge">11:00</span>
+        <div class="sec-title-wrap">
+          <span class="sec-zh">午宴進場總彩排【🔒 時間不能動】（11:00–11:25）</span>
+          <span class="sec-en">GRAND REHEARSAL & HARDWARE TEST</span>
+        </div>
+        <span class="sec-stat" data-sec-stat>0/6</span>
+        <span class="sec-arrow">▾</span>
+      </div>
+      <div class="items-list">
+        <label class="check-item" data-owner="amy">
+          <input type="checkbox" data-id="item-27">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">Amy 婚顧帶領進場走位彩排（儐相 ➔ 主婚人 ➔ 新郎 ➔ 新娘交手）</div>
+            <div class="item-desc">確認紅毯步速、交手儀式走位、主桌帶位入座。</div>
+          </div>
+          <span class="role-badge role-amy">婚顧主持</span>
+        </label>
+        <label class="check-item" data-owner="sound">
+          <input type="checkbox" data-id="item-28">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">中央舞台 LED 大螢幕滑門測試【定案方案 C 雙重聯動】</div>
+            <div class="item-desc">實測左右滑開秒數、二進熱舞走出來點位、三進漫步走進螢幕深處動線。</div>
+          </div>
+          <span class="role-badge role-sound">音響燈光</span>
+        </label>
+        <label class="check-item" data-owner="sound">
+          <input type="checkbox" data-id="item-29">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">影音設備對點：開場影片 1080p MP4、成長影片、Kahoot 投影畫面</div>
+            <div class="item-desc">筆電 HDMI 畫面測試、全場投影畫面比例與無線麥克風音量確認。</div>
+          </div>
+          <span class="role-badge role-sound">音響燈光</span>
+        </label>
+        <label class="check-item" data-owner="couple">
+          <input type="checkbox" data-id="item-30">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">二進 K-POP 三段式熱舞走位過場音樂對點（80~90秒）</div>
+            <div class="item-desc">①女團 ➔ ②男團 ➔ ③新人合體 定格 Ending Pose 與舞台合照走位確認。</div>
+          </div>
+          <span class="role-badge role-couple">新郎新娘</span>
+        </label>
+        <label class="check-item" data-owner="sound">
+          <input type="checkbox" data-id="item-31">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">大螢幕連線測試：「森林動物大賽跑」大螢幕廣播端（screen.html）</div>
+            <div class="item-desc">確認即時賽道跑者動畫流暢、30 秒迷霧衝刺效果與頒獎台正常運作。</div>
+          </div>
+          <span class="role-badge role-sound">音響燈光</span>
+        </label>
+        <label class="check-item" data-owner="photo">
+          <input type="checkbox" data-id="item-32">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">彩排後阿沐歐風城堡造景類婚紗快拍（11:25–11:30）</div>
+            <div class="item-desc">水牛與萊玥引導新人與伴郎伴娘拍攝氣勢大片。</div>
+          </div>
+          <span class="role-badge role-photo">婚攝婚錄</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Section 5: 11:30~12:30 迎賓接待與禮金桌 -->
+    <section class="sec-card" data-sec="5">
+      <div class="sec-head" onclick="toggleSection(this)">
+        <span class="sec-badge">11:30</span>
+        <div class="sec-title-wrap">
+          <span class="sec-zh">迎賓接待與禮金桌就位【🔒 時間不能動】（11:30–12:30）</span>
+          <span class="sec-en">RECEPTION & GUEST WELCOMING</span>
+        </div>
+        <span class="sec-stat" data-sec-stat>0/8</span>
+        <span class="sec-arrow">▾</span>
+      </div>
+      <div class="items-list">
+        <label class="check-item" data-owner="reception">
+          <input type="checkbox" data-id="item-33">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">禮金桌就位：禮金簿、紅包袋、計算機、簽字筆備妥，專人點收禮金</div>
+            <div class="item-desc">唱名、編號、金額登記，現金隨即收入防盜背包貼身保管。</div>
+          </div>
+          <span class="role-badge role-reception">禮金接待</span>
+        </label>
+        <label class="check-item" data-owner="reception">
+          <input type="checkbox" data-id="item-34">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">賓客查驗排桌筆電/平板就位（開啟 Google 試算表 或 guests.html）</div>
+            <div class="item-desc">接待人員即時輸入賓客姓名，秒查桌號並親切引導帶位。</div>
+          </div>
+          <span class="role-badge role-reception">禮金接待</span>
+        </label>
+        <label class="check-item" data-owner="sound">
+          <input type="checkbox" data-id="item-35">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">會館大螢幕開啟「迎賓動態視覺」（welcome-screen.html）</div>
+            <div class="item-desc">播放童話森林動態、隨機彩蛋小鹿、水獺、小熊貓動畫。</div>
+          </div>
+          <span class="role-badge role-sound">音響燈光</span>
+        </label>
+        <label class="check-item" data-owner="reception">
+          <input type="checkbox" data-id="item-36">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">全場桌上位上禮逐桌確認：每席桌前已擺放「罐頭豬 LuLu 動物森林派對萌粒」</div>
+            <div class="item-desc">無 Onlygo/無抽獎，位上禮人手一隻，賓客入座拆盒驚喜破冰！</div>
+          </div>
+          <span class="role-badge role-reception">禮金接待</span>
+        </label>
+        <label class="check-item" data-owner="reception">
+          <input type="checkbox" data-id="item-37">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">森林簽到區佈置：簽到投入框與簽名筆備妥，引導賓客留念</div>
+            <div class="item-desc">陳列紙本喜帖 Demo 樣張與婚紗謝卡供親友索取。</div>
+          </div>
+          <span class="role-badge role-reception">禮金接待</span>
+        </label>
+        <label class="check-item" data-owner="reception">
+          <input type="checkbox" data-id="item-38">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">喜餅發放確認：核對補發清單發放並劃記簽收</div>
+            <div class="item-desc">核對 Google 試算表補餅名冊，發放無誤。</div>
+          </div>
+          <span class="role-badge role-reception">禮金接待</span>
+        </label>
+        <label class="check-item" data-owner="photo">
+          <input type="checkbox" data-id="item-39">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">婚攝婚錄於迎賓背板與新娘房捕捉賓客互動與合影</div>
+            <div class="item-desc">捕捉賓客入座拆 LuLu 豬萌粒開箱、新娘房親友合影打卡。</div>
+          </div>
+          <span class="role-badge role-photo">婚攝婚錄</span>
+        </label>
+        <label class="check-item" data-owner="chief">
+          <input type="checkbox" data-id="item-40">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">12:20 提醒全場入席，總召與 Amy 統計出席率準備開席</div>
+            <div class="item-desc">確認主桌及親友桌入座情況，通知廚房準備出菜。</div>
+          </div>
+          <span class="role-badge role-chief">總召</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Section 6: 12:30~13:15 一進 ＆ 證婚 ＆ Kahoot -->
+    <section class="sec-card" data-sec="6">
+      <div class="sec-head" onclick="toggleSection(this)">
+        <span class="sec-badge">12:30</span>
+        <div class="sec-title-wrap">
+          <span class="sec-zh">一進 ＆ 證婚 ＆ 成長影片 ＆ Kahoot 益智挑戰（12:30–13:15）</span>
+          <span class="sec-en">FIRST ENTRANCE & KAHOOT TRIVIA</span>
+        </div>
+        <span class="sec-stat" data-sec-stat>0/7</span>
+        <span class="sec-arrow">▾</span>
+      </div>
+      <div class="items-list">
+        <label class="check-item" data-owner="sound">
+          <input type="checkbox" data-id="item-41">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">12:28 準時播放開場影片【方案 A：全新製作・山海穿梭大片 90秒】</div>
+            <div class="item-desc">全場燈光暗下，播放山海自然史詩大片，全場震撼破冰！</div>
+          </div>
+          <span class="role-badge role-sound">音響燈光</span>
+        </label>
+        <label class="check-item" data-owner="amy">
+          <input type="checkbox" data-id="item-42">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">12:30 盛大第一次進場：儐相 ➔ 男方主婚人 ➔ 新郎 ➔ 新娘交手儀式</div>
+            <div class="item-desc">女方主婚人入席主桌，新人牽手登上舞台。</div>
+          </div>
+          <span class="role-badge role-amy">婚顧主持</span>
+        </label>
+        <label class="check-item" data-owner="groomsman">
+          <input type="checkbox" data-id="item-43">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">12:40 結婚儀式：伴郎遞交戒指盒，新人手持誓詞本交換誓言、互戴對戒</div>
+            <div class="item-desc">雙方宣讀親撰誓詞，浪漫溫馨感動全場（不安排接有錢花/抽捧花）。</div>
+          </div>
+          <span class="role-badge role-groomsman">伴郎</span>
+        </label>
+        <label class="check-item" data-owner="amy">
+          <input type="checkbox" data-id="item-44">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">12:45 致詞 ＆ 舉杯：邀請貴賓/主婚人致詞，全場舉杯開席！</div>
+            <div class="item-desc">依致詞名單引導上台，會館端遞上 6 只香檳酒杯。</div>
+          </div>
+          <span class="role-badge role-amy">婚顧主持</span>
+        </label>
+        <label class="check-item" data-owner="sound">
+          <input type="checkbox" data-id="item-45">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">12:55 正式開席出菜【🔒 時間不能動】＆ 13:00 播放新人成長故事影片</div>
+            <div class="item-desc">出前菜冷盤，全場賓客享用佳餚與溫馨成長影片。</div>
+          </div>
+          <span class="role-badge role-sound">音響燈光</span>
+        </label>
+        <label class="check-item" data-owner="amy">
+          <input type="checkbox" data-id="item-46">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">13:05 全場 Kahoot 益智挑戰賽（8題默契趣事，大螢幕即時戰況）</div>
+            <div class="item-desc">新人台上逗趣主持，全場手機搶答，笑聲不斷！</div>
+          </div>
+          <span class="role-badge role-amy">婚顧主持</span>
+        </label>
+        <label class="check-item" data-owner="chief">
+          <input type="checkbox" data-id="item-47">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">Kahoot 頒發前三名精美好禮（3 份），新人揮手退場換裝</div>
+            <div class="item-desc">總召協助遞獎品，獲獎者台上合照；新人 13:15 離席換裝。</div>
+          </div>
+          <span class="role-badge role-chief">總召</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Section 7: 13:15~14:15 二進熱舞 ＆ 敬酒動物賽跑 -->
+    <section class="sec-card" data-sec="7">
+      <div class="sec-head" onclick="toggleSection(this)">
+        <span class="sec-badge">13:15</span>
+        <div class="sec-title-wrap">
+          <span class="sec-zh">二進熱舞 ＆ 逐桌敬酒 ＆ 動物賽跑【🔒 時間不能動】（13:15–14:15）</span>
+          <span class="sec-en">SECOND ENTRANCE & FOREST ANIMAL RACE</span>
+        </div>
+        <span class="sec-stat" data-sec-stat>0/7</span>
+        <span class="sec-arrow">▾</span>
+      </div>
+      <div class="items-list">
+        <label class="check-item" data-owner="mua">
+          <input type="checkbox" data-id="item-48">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">13:15~13:40 新娘更換二進水藍色晚禮服（換好動舞鞋，25分鐘）</div>
+            <div class="item-desc">新秘妃妃快速換裝與精緻髮型調整；伴娘文魚、Linda 協助換鞋。</div>
+          </div>
+          <span class="role-badge role-mua">新娘秘書</span>
+        </label>
+        <label class="check-item" data-owner="groomsman">
+          <input type="checkbox" data-id="item-49">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">13:35 伴郎 Ollie & 2千 確認西裝肩膀磁吸玩偶牢固、熱舞墨鏡就位</div>
+            <div class="item-desc">跳舞道具就緒，伴郎伴娘於舞台滑門後方就位。</div>
+          </div>
+          <span class="role-badge role-groomsman">伴郎</span>
+        </label>
+        <label class="check-item" data-owner="couple">
+          <input type="checkbox" data-id="item-50">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">13:40 二進引爆：大螢幕滑開！K-POP 三段式熱舞秀震撼登場！</div>
+            <div class="item-desc">① 婉錡＋伴娘女團秀 ➔ ② 聖明＋伴郎男團接力 ➔ ③ 新郎新娘甜蜜合體 Ending Pose！</div>
+          </div>
+          <span class="role-badge role-couple">新郎新娘</span>
+        </label>
+        <label class="check-item" data-owner="amy">
+          <input type="checkbox" data-id="item-51">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">13:45 Amy 廣播啟動「森林動物大賽跑」！大螢幕切換賽道投影</div>
+            <div class="item-desc">「新人逐桌敬酒了！大螢幕開啟 15 分鐘森林動物大賽跑，快掃碼點擊手機幫動物衝刺！」</div>
+          </div>
+          <span class="role-badge role-amy">婚顧主持</span>
+        </label>
+        <label class="check-item" data-owner="groomsman">
+          <input type="checkbox" data-id="item-52">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">13:45~14:05 新人逐桌敬酒，伴郎伴娘隨行拿假酒/蔓越莓汁</div>
+            <div class="item-desc">新人優雅向各桌長輩致謝；賓客邊吃邊點手機玩賽跑，完全不無聊！</div>
+          </div>
+          <span class="role-badge role-groomsman">伴郎</span>
+        </label>
+        <label class="check-item" data-owner="sound">
+          <input type="checkbox" data-id="item-53">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">14:05 敬酒結束新人回舞台，賽跑最後 30 秒迷霧終極狂暴衝刺！</div>
+            <div class="item-desc">後台（forest-race.html?admin=1）觸發 30 秒迷霧狂暴！全場起立盲打瘋狂衝刺！</div>
+          </div>
+          <span class="role-badge role-sound">音響燈光</span>
+        </label>
+        <label class="check-item" data-owner="chief">
+          <input type="checkbox" data-id="item-54">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">14:10 揭曉賽跑前三名動物陣營，頒發 15 份組員好禮！</div>
+            <div class="item-desc">總召與招待人員協助迅速分送冠軍、亞軍、季軍陣營禮品（每組5人共15份）。</div>
+          </div>
+          <span class="role-badge role-chief">總召</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Section 8: 14:15~15:30 三進謝幕 ＆ 送客合影 ＆ 尾款點收 -->
+    <section class="sec-card" data-sec="8">
+      <div class="sec-head" onclick="toggleSection(this)">
+        <span class="sec-badge">14:15</span>
+        <div class="sec-title-wrap">
+          <span class="sec-zh">三進謝幕 ＆ 送客合影 ＆ 尾款點收（14:15–15:30）</span>
+          <span class="sec-en">THIRD ENTRANCE & FINALE FAREWELL</span>
+        </div>
+        <span class="sec-stat" data-sec-stat>0/6</span>
+        <span class="sec-arrow">▾</span>
+      </div>
+      <div class="items-list">
+        <label class="check-item" data-owner="mua">
+          <input type="checkbox" data-id="item-55">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">14:15~14:40 新娘回【舞台後方休息室】更換第三套送客造型（25分鐘）</div>
+            <div class="item-desc">妃妃精緻補妝、更換送客澎裙造型；全場賓客享用甜點水果。</div>
+          </div>
+          <span class="role-badge role-mua">新娘秘書</span>
+        </label>
+        <label class="check-item" data-owner="couple">
+          <input type="checkbox" data-id="item-56">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">14:40 三次進場：大螢幕滑開新人登場，發表真情致謝詞、全體舉杯</div>
+            <div class="item-desc">聖明與婉錡感謝父母養育之恩與全場好友蒞臨。</div>
+          </div>
+          <span class="role-badge role-couple">新郎新娘</span>
+        </label>
+        <label class="check-item" data-owner="sound">
+          <input type="checkbox" data-id="item-57">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">14:43 【方案 C 浪漫謝幕】：新人漫步「走進大螢幕深處」退場！</div>
+            <div class="item-desc">大螢幕閉合浮現「Happily Ever After」字樣，新人自螢幕後走道直達外場送客背板。</div>
+          </div>
+          <span class="role-badge role-sound">音響燈光</span>
+        </label>
+        <label class="check-item" data-owner="photo">
+          <input type="checkbox" data-id="item-58">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">14:45 送客合影【🔒 時間不能動】：發放乖乖 ＆ 巧克力喜糖</div>
+            <div class="item-desc">水牛與萊玥引導全體親友至森林背板合影，新人親送喜糖。</div>
+          </div>
+          <span class="role-badge role-photo">婚攝婚錄</span>
+        </label>
+        <label class="check-item" data-owner="chief">
+          <input type="checkbox" data-id="item-59">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">15:30 尾款現金點收與廠商結清（會館約40萬 ＋ 各廠商尾款紅包）</div>
+            <div class="item-desc">總召與會館業務逐筆核對消費帳單，完成現金尾款點交與紅包發放。</div>
+          </div>
+          <span class="role-badge role-chief">總召</span>
+        </label>
+        <label class="check-item" data-owner="chief">
+          <input type="checkbox" data-id="item-60">
+          <span class="custom-box"></span>
+          <div class="item-content">
+            <div class="item-title">15:45 會場物資打包裝箱撤場（禮服、相框、公仔道具全數裝車）</div>
+            <div class="item-desc">檢查休息室無遺留物品，圓滿賦歸！🎉</div>
+          </div>
+          <span class="role-badge role-chief">總召</span>
+        </label>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    BARRY <span class="glyph">&#10022;</span> WINNIE <span class="glyph">&#10022;</span> FOREVER &amp; ALWAYS<br>
+    <span style="font-size:11px; color:#889b8d; margin-top:4px; display:inline-block;">2026.12.12 &middot; 桃園中壢 Amour 阿沐婚宴會館</span>
+  </footer>
+
+</div>
+
+<script>
+  // =========================================================
+  // 本地快取與進度統計 (LocalStorage & Progress Tracking)
+  // =========================================================
+  const STORAGE_KEY = 'bw_wedding_1212_checklist_state';
+
+  function getStoredState() {
+    try {
+      const data = localStorage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : {};
+    } catch(e) {
+      return {};
+    }
+  }
+
+  function saveStoredState(state) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch(e) {}
+  }
+
+  function initChecklist() {
+    const state = getStoredState();
+    const checkboxes = document.querySelectorAll('input[type="checkbox"][data-id]');
+
+    checkboxes.forEach(cb => {
+      const id = cb.getAttribute('data-id');
+      if (state[id] === true) {
+        cb.checked = true;
+      }
+      cb.addEventListener('change', () => {
+        const curState = getStoredState();
+        curState[id] = cb.checked;
+        saveStoredState(curState);
+        updateProgress();
+      });
+    });
+
+    updateProgress();
+    initFilters();
+  }
+
+  function updateProgress() {
+    const allCbs = Array.from(document.querySelectorAll('input[type="checkbox"][data-id]'));
+    const total = allCbs.length;
+    const checked = allCbs.filter(cb => cb.checked).length;
+    const pct = total === 0 ? 0 : Math.round((checked / total) * 100);
+
+    document.getElementById('total-cnt').textContent = total;
+    document.getElementById('done-cnt').textContent = checked;
+    document.getElementById('pct-cnt').textContent = pct + '%';
+    document.getElementById('prog-fill').style.width = pct + '%';
+
+    // 更新各 section 的統計數字
+    document.querySelectorAll('.sec-card').forEach(card => {
+      const cbs = Array.from(card.querySelectorAll('input[type="checkbox"][data-id]'));
+      const secTotal = cbs.length;
+      const secDone = cbs.filter(cb => cb.checked).length;
+      const statElem = card.querySelector('[data-sec-stat]');
+      if (statElem) {
+        statElem.textContent = `${secDone}/${secTotal}`;
+      }
+    });
+  }
+
+  function toggleSection(headElem) {
+    const card = headElem.closest('.sec-card');
+    card.classList.toggle('collapsed');
+  }
+
+  function expandAllSections(expand) {
+    document.querySelectorAll('.sec-card').forEach(card => {
+      if (expand) card.classList.remove('collapsed');
+      else card.classList.add('collapsed');
+    });
+  }
+
+  function resetAllChecklist() {
+    if (confirm('確定要清空所有已勾選的檢查進度嗎？此動作無法復原。')) {
+      localStorage.removeItem(STORAGE_KEY);
+      document.querySelectorAll('input[type="checkbox"][data-id]').forEach(cb => {
+        cb.checked = false;
+      });
+      updateProgress();
+    }
+  }
+
+  // =========================================================
+  // 人員身份過濾器 (Role Filter)
+  // =========================================================
+  function initFilters() {
+    const chips = document.querySelectorAll('.filter-chip');
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+
+        const filter = chip.getAttribute('data-filter');
+        applyFilter(filter);
+      });
+    });
+  }
+
+  function applyFilter(filter) {
+    const items = document.querySelectorAll('.check-item');
+    items.forEach(item => {
+      const owner = item.getAttribute('data-owner');
+      if (filter === 'all' || owner === filter) {
+        item.classList.remove('hidden');
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+
+    // 檢查各區塊是否還有可見項目，若無可見項目可收合或標記
+    document.querySelectorAll('.sec-card').forEach(card => {
+      const visibleItems = card.querySelectorAll('.check-item:not(.hidden)');
+      if (visibleItems.length === 0 && filter !== 'all') {
+        card.style.opacity = '0.4';
+      } else {
+        card.style.opacity = '1';
+      }
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', initChecklist);
+</script>
+</body>
+</html>

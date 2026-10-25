@@ -1,0 +1,1364 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>結婚盛宴 ・ 賓客對照表 ｜ BARRY ♥ WINNIE</title>
+<meta name="description" content="Barry & Winnie 結婚午宴 接待・禮金桌・排桌帶位用賓客對照表，童話水漾森林系風格，可直接列印。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Noto+Serif+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest-deep: #1d3022;
+    --forest-dark: #27382b;
+    --forest-mid:  #354b3a;
+    --sage:        #5b8764;
+    --sage-light:  #edf3ee;
+    --sage-tint:   #e5efe7;
+    --gold:        #c59b4c;
+    --gold-d:      #9a7428;
+    --gold-l:      #f4ecd8;
+    --cream:       #faf7f0;
+    --parchment:   #f4eee2;
+    --ink:         #1f2823;
+    --ink-muted:   #5a6b5f;
+    --line:        #d0dcd2;
+    --bg-page:     #edf1ee;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg-page);
+    color: var(--ink);
+    font-family: "Noto Serif TC", "Songti TC", serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 18px 80px;
+  }
+
+  /* Top Navigation Bar */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--forest-deep);
+    text-decoration: none;
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    transition: all .15s;
+  }
+  .nav-btn.gsheet {
+    background: var(--cream);
+    border-color: var(--gold);
+    color: var(--gold-d);
+    font-weight: 700;
+  }
+  .nav-btn:hover {
+    background: var(--sage-tint);
+    border-color: var(--sage);
+  }
+
+  /* Cover Banner (童話森林風) */
+  .cover {
+    text-align: center;
+    padding: 36px 24px 28px;
+    margin-bottom: 22px;
+    background: linear-gradient(155deg, #18281c 0%, #27382b 55%, #354b3a 100%);
+    border: 2px solid var(--gold);
+    border-radius: 16px;
+    color: #fff;
+    box-shadow: 0 12px 36px rgba(18, 30, 22, 0.22);
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at 50% 15%, rgba(197, 155, 76, 0.15), transparent 70%);
+    pointer-events: none;
+  }
+  .cover .ey {
+    font-family: "Cormorant Garamond", serif;
+    letter-spacing: .45em;
+    font-size: 14px;
+    color: var(--gold-l);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .cover h1 {
+    font-weight: 900;
+    font-size: 34px;
+    margin: 10px 0 8px;
+    letter-spacing: .12em;
+    text-shadow: 0 2px 10px rgba(0,0,0,.35);
+  }
+  .cover .names {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 24px;
+    letter-spacing: .2em;
+    color: var(--gold-l);
+    font-weight: 700;
+  }
+  .cover .rule {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 14px auto 12px;
+  }
+  .cover .meta {
+    font-size: 13.5px;
+    color: #e4ebe5;
+    letter-spacing: .22em;
+  }
+
+  /* Real-time Statistics Cards */
+  .stats-bar {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 16px 0 24px;
+  }
+  .stat-card {
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 18px;
+    text-align: center;
+    min-width: 120px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  }
+  .stat-card b {
+    display: block;
+    font-size: 22px;
+    color: var(--forest-dark);
+    font-weight: 900;
+  }
+  .stat-card span {
+    font-size: 12px;
+    color: var(--sage);
+    font-weight: 600;
+  }
+
+  /* Section Header */
+  .sec-h {
+    font-weight: 900;
+    color: var(--forest-dark);
+    font-size: 22px;
+    margin: 34px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--gold);
+    display: flex;
+    align-items: baseline;
+    letter-spacing: .08em;
+  }
+  .sec-h .en {
+    font-family: "Cormorant Garamond", serif;
+    color: var(--gold-d);
+    font-size: 16px;
+    letter-spacing: .22em;
+    margin-left: 12px;
+    font-weight: 700;
+  }
+
+  /* Table Cards */
+  .card {
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 18px 16px;
+    margin: 0 0 18px;
+    box-shadow: 0 4px 14px rgba(29, 48, 34, 0.05);
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .card.main {
+    border: 2px solid var(--gold);
+    background: #fffdf9;
+    box-shadow: 0 6px 20px rgba(197, 155, 76, 0.15);
+  }
+  .card-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .tname {
+    font-weight: 900;
+    font-size: 21px;
+    color: var(--forest-dark);
+    letter-spacing: .05em;
+  }
+  .tname .badge {
+    font-size: 12px;
+    background: var(--gold);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 10px;
+    vertical-align: middle;
+    margin-left: 8px;
+    font-weight: 700;
+    letter-spacing: .06em;
+  }
+  .tloc {
+    font-size: 13.5px;
+    color: var(--sage);
+    font-weight: 500;
+  }
+  .tcount {
+    margin-left: auto;
+    font-size: 13.5px;
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  /* Table Styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .seat th, .seat td {
+    border: 1px solid var(--line);
+    padding: 6px 8px;
+    font-size: 13.5px;
+  }
+  .seat th {
+    background: var(--sage-tint);
+    color: var(--forest-deep);
+    font-weight: 700;
+  }
+  .card.main .seat th {
+    background: var(--gold-l);
+    color: var(--forest-dark);
+  }
+  .seat .num {
+    width: 48px;
+    text-align: center;
+    color: var(--sage);
+    font-weight: 600;
+  }
+  .seat .nm {
+    width: 28%;
+  }
+  .seat .nm.filled {
+    font-weight: 700;
+    color: var(--forest-deep);
+  }
+  .seat .ph {
+    color: #bdc9c0;
+  }
+  .seat .rel {
+    width: 25%;
+  }
+  .seat .note {
+    color: var(--ink-muted);
+    font-size: 12.5px;
+  }
+  .seat tbody td {
+    height: 29px;
+  }
+
+  /* Gift Sheets */
+  .sheet {
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 16px 18px 20px;
+    margin: 0 0 24px;
+    box-shadow: 0 4px 16px rgba(29, 48, 34, 0.05);
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .sheet-title {
+    font-weight: 900;
+    color: var(--forest-dark);
+    font-size: 19px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    border-bottom: 1.5px solid var(--sage-tint);
+    padding-bottom: 8px;
+  }
+  .sheet-title .pg {
+    font-size: 13px;
+    color: var(--sage);
+    font-weight: 600;
+    margin-left: auto;
+  }
+  .gift th, .gift td {
+    border: 1px solid var(--line);
+    padding: 7px 8px;
+    font-size: 13.5px;
+  }
+  .gift th {
+    background: var(--sage-tint);
+    color: var(--forest-deep);
+    font-weight: 700;
+  }
+  .gift .g-seq {
+    width: 50px;
+    text-align: center;
+    color: var(--sage);
+    font-weight: 600;
+  }
+  .gift .g-nm {
+    width: 20%;
+  }
+  .gift .g-nm.filled {
+    font-weight: 700;
+  }
+  .gift .g-rel {
+    width: 20%;
+  }
+  .gift .g-tb {
+    width: 16%;
+    text-align: center;
+  }
+  .gift .g-pax {
+    width: 9%;
+    text-align: center;
+  }
+  .gift .g-amt {
+    width: 18%;
+  }
+  .gift .g-ck {
+    width: 12%;
+    text-align: center;
+    font-size: 12px;
+    color: var(--sage);
+  }
+  .gift tbody td {
+    height: 31px;
+  }
+
+  /* Lookup Sheets */
+  .hint {
+    font-size: 12.5px;
+    color: var(--ink-muted);
+    margin: 0 0 12px;
+    font-style: italic;
+  }
+  .lk-wrap {
+    display: flex;
+    gap: 16px;
+  }
+  .lookup {
+    flex: 1;
+  }
+  .lookup th, .lookup td {
+    border: 1px solid var(--line);
+    padding: 6px 8px;
+    font-size: 13px;
+  }
+  .lookup th {
+    background: var(--sage-tint);
+    color: var(--forest-deep);
+    font-weight: 700;
+  }
+  .lookup .l-nm {
+    width: 38%;
+  }
+  .lookup .l-nm.filled {
+    font-weight: 700;
+  }
+  .lookup .l-tb {
+    width: 32%;
+    text-align: center;
+  }
+  .lookup .l-rel {
+    width: 30%;
+    color: var(--ink-muted);
+    font-size: 12px;
+  }
+  .lookup tbody td {
+    height: 28px;
+  }
+
+  /* Footer */
+  .foot {
+    text-align: center;
+    color: var(--ink-muted);
+    font-size: 12px;
+    margin-top: 36px;
+    letter-spacing: .15em;
+  }
+  .foot .glyph {
+    color: var(--gold);
+    margin: 0 8px;
+  }
+
+  /* Print Styles */
+  @media print {
+    html, body {
+      background: #fff;
+      color: #000;
+    }
+    .wrap {
+      max-width: none;
+      padding: 0;
+      margin: 0;
+    }
+    .top-bar {
+      display: none !important;
+    }
+    .cover {
+      box-shadow: none;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      margin-bottom: 16px;
+      padding: 22px 16px 18px;
+    }
+    .card, .sheet {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      box-shadow: none;
+      border: 1px solid #aaa;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      margin-bottom: 16px;
+      padding: 12px 14px 14px;
+    }
+    .card.main {
+      border: 1.5px solid var(--gold);
+    }
+    th, td {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      border-color: #bbb;
+    }
+    .sec-h {
+      page-break-before: auto;
+    }
+    @page {
+      size: A4 portrait;
+      margin: 12mm 10mm;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Top Navigation -->
+  <div class="top-bar">
+    <a href="index.html" class="nav-btn">‹ 返回工作台首頁</a>
+    <div style="display:flex; gap:8px; align-items:center;">
+      <a href="checklist.html" class="nav-btn">📝 現場分工表 ›</a>
+      <a href="https://docs.google.com/spreadsheets/d/1ZRQiqfzctmH7RrxwF75vulaNOXhzmxL4k0WwNPgBnaw/edit?gid=2033431526#gid=2033431526" target="_blank" rel="noopener" class="nav-btn gsheet">📊 Google 試算表原始母檔 (Excel) ↗</a>
+    </div>
+  </div>
+
+  <!-- Cover Header -->
+  <div class="cover">
+    <div class="ey">Seating &amp; Reception Guide</div>
+    <h1>結婚盛宴 ・ 賓客對照表</h1>
+    <div class="names">BARRY &amp; WINNIE</div>
+    <div class="rule"></div>
+    <div class="meta">桃園中壢阿沐會館 · 水漾森林 E 廳　・　2026.12.12 (六) 午宴</div>
+  </div>
+
+  <!-- Real-time Stats -->
+  <div class="stats-bar">
+    <div class="stat-card">
+      <b>22 桌</b>
+      <span>全場規劃桌數</span>
+    </div>
+    <div class="stat-card">
+      <b>3 桌</b>
+      <span>已排定桌數</span>
+    </div>
+    <div class="stat-card">
+      <b>15 位</b>
+      <span>已登錄親友數</span>
+    </div>
+    <div class="stat-card">
+      <b>24 人</b>
+      <span>預估出席總人數</span>
+    </div>
+    <div class="stat-card">
+      <b>1 位</b>
+      <span>素食餐點需求</span>
+    </div>
+    <div class="stat-card">
+      <b>1 盒</b>
+      <span>喜餅發放總數</span>
+    </div>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="sec-h">① 依桌次 <span class="en">BY TABLE</span></div>
+<section class=" card main">
+  <div class="card-head">
+    <div class="tname">主桌 <span class="badge">主桌</span></div>
+    <div class="tloc">舞台正前方中央（雙方新人與父母至親長輩）</div>
+    <div class="tcount">本桌目前 8 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">羅聖明</td><td class="rel">新郎</td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm filled">羅茂松</td><td class="rel">新郎爸爸</td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm filled">張秀緞</td><td class="rel">新郎媽媽</td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm filled">戴婉錡</td><td class="rel">新娘</td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm filled">戴建勳</td><td class="rel">新娘爸爸</td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm filled">郭乃華</td><td class="rel">新娘媽媽</td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm filled">戴蔡美惠</td><td class="rel">新娘奶奶</td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm filled">林碧霞</td><td class="rel">新娘外婆</td><td class="note">全素</td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">女方爸爸親友桌 </div>
+    <div class="tloc">前排・舞台右側（女方至親長輩／戴家親戚）</div>
+    <div class="tcount">本桌目前 8 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">蔡文成（2人）</td><td class="rel">五舅公/爸爸舅舅</td><td class="note">餅:訂婚已拿不需</td></tr>
+<tr><td class="num">2</td><td class="nm filled">鄭榮杰（2人）</td><td class="rel">大伯父/爸爸堂哥</td><td class="note">餅:1中1西</td></tr>
+<tr><td class="num">3</td><td class="nm filled">戴淑娟（2人）</td><td class="rel">大姑姑/爸爸大姐</td><td class="note">餅:訂婚已拿不需</td></tr>
+<tr><td class="num">4</td><td class="nm filled">戴淑秋（2人）</td><td class="rel">小姑姑/爸爸小妹</td><td class="note">餅:訂婚已拿不需</td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">女方媽媽親友桌 </div>
+    <div class="tloc">前排・舞台右側（女方至親長輩／郭家親戚）</div>
+    <div class="tcount">本桌目前 8 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">郭乃萍（5人）</td><td class="rel">二姨/媽媽二妹</td><td class="note">餅:訂婚已拿不需</td></tr>
+<tr><td class="num">2</td><td class="nm filled">郭乃瑜</td><td class="rel">三姨/媽媽小妹</td><td class="note">餅:訂婚已拿不需</td></tr>
+<tr><td class="num">3</td><td class="nm filled">郭祐任（2人）</td><td class="rel">舅舅/媽媽弟弟</td><td class="note">餅:訂婚已拿不需</td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">男方親戚尊長桌 </div>
+    <div class="tloc">前排・舞台左側（男方至親長輩／至親尊長）</div>
+    <div class="tcount">本桌預估 10~12 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">男方親友長輩桌 </div>
+    <div class="tloc">左區前段（男方親友／世交長輩）</div>
+    <div class="tcount">本桌預估 10~12 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">女方親友長輩桌 </div>
+    <div class="tloc">右區前段（女方親友／老鄰居）</div>
+    <div class="tcount">本桌預估 10~12 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">第 7 桌 </div>
+    <div class="tloc">前排中央（雙方長輩世交）</div>
+    <div class="tcount">本桌預估 10~12 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">第 8 桌 </div>
+    <div class="tloc">左區中段（男方親友／好友桌）</div>
+    <div class="tcount">本桌預估 10~12 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">第 9 桌 </div>
+    <div class="tloc">右區中段（女方親友／好友桌）</div>
+    <div class="tcount">本桌預估 10~12 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">第 10 桌 </div>
+    <div class="tloc">左區中段（新郎大學同窗好友桌）</div>
+    <div class="tcount">本桌預估 10~12 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">第 11 桌 </div>
+    <div class="tloc">右區中段（新娘閨蜜同學好友桌）</div>
+    <div class="tcount">本桌預估 10~12 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">第 12 桌 </div>
+    <div class="tloc">左區中段（新郎高中／摯友桌）</div>
+    <div class="tcount">本桌預估 10~12 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">第 13 桌 </div>
+    <div class="tloc">右區中段（新娘好友同窗桌）</div>
+    <div class="tcount">本桌預估 10~12 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">第 14 桌 </div>
+    <div class="tloc">左區後段（新郎職場同事好友桌）</div>
+    <div class="tcount">本桌預估 10~12 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">第 15 桌 </div>
+    <div class="tloc">右區後段（新娘職場同事好友桌）</div>
+    <div class="tcount">本桌預估 10~12 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">第 16 桌 </div>
+    <div class="tloc">後區中央（男女雙方共同好友桌）</div>
+    <div class="tcount">本桌預估 10~12 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">第 17 桌 </div>
+    <div class="tloc">後區左側（男方同樂好友桌）</div>
+    <div class="tcount">本桌預估 10~12 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">第 18 桌 </div>
+    <div class="tloc">後區右側（女方同樂好友桌）</div>
+    <div class="tcount">本桌預估 10~12 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">第 19 桌 </div>
+    <div class="tloc">後區（親友彈性備用桌 A）</div>
+    <div class="tcount">本桌預估 10~12 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">第 20 桌 </div>
+    <div class="tloc">後區（親友彈性備用桌 B）</div>
+    <div class="tcount">本桌預估 10~12 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">第 21 桌 </div>
+    <div class="tloc">側邊（婚禮工作團隊／婚攝音控新秘桌）</div>
+    <div class="tcount">本桌預估 10~12 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">第 22 桌 </div>
+    <div class="tloc">側邊（接待伴郎伴娘／工作人員預備桌）</div>
+    <div class="tcount">本桌預估 10~12 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+  <!-- Section 2 -->
+  <div class="sec-h" style="page-break-before: always;">② 禮金桌核對簽收表 <span class="en">GIFT &amp; CASH DESK</span></div>
+  <section class="sheet gift-sheet">
+    <div class="sheet-title">
+      <span>🌿 禮金桌核對簽收表（依桌次編號排序）</span>
+      <span class="pg">現場收禮與發餅對照</span>
+    </div>
+    <table class="gift">
+      <thead>
+        <tr>
+          <th class="g-seq">編號</th>
+          <th class="g-nm">賓客大名</th>
+          <th class="g-rel">關係／稱謂</th>
+          <th class="g-tb">桌次</th>
+          <th class="g-pax">人數</th>
+          <th class="g-amt">禮金金額</th>
+          <th class="g-ck">喜餅發放</th>
+        </tr>
+      </thead>
+      <tbody>
+<tr><td class="g-seq">1</td><td class="g-nm filled">羅聖明</td><td class="g-rel">新郎</td><td class="g-tb">主桌</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">2</td><td class="g-nm filled">羅茂松</td><td class="g-rel">新郎爸爸</td><td class="g-tb">主桌</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">3</td><td class="g-nm filled">張秀緞</td><td class="g-rel">新郎媽媽</td><td class="g-tb">主桌</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">4</td><td class="g-nm filled">戴婉錡</td><td class="g-rel">新娘</td><td class="g-tb">主桌</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">5</td><td class="g-nm filled">戴建勳</td><td class="g-rel">新娘爸爸</td><td class="g-tb">主桌</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">6</td><td class="g-nm filled">郭乃華</td><td class="g-rel">新娘媽媽</td><td class="g-tb">主桌</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">7</td><td class="g-nm filled">戴蔡美惠</td><td class="g-rel">新娘奶奶</td><td class="g-tb">主桌</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">8</td><td class="g-nm filled">林碧霞</td><td class="g-rel">新娘外婆</td><td class="g-tb">主桌</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">9</td><td class="g-nm filled">蔡文成</td><td class="g-rel">五舅公/爸爸舅舅</td><td class="g-tb">女方爸爸親友桌</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">訂婚已拿不需</td></tr>
+<tr><td class="g-seq">10</td><td class="g-nm filled">鄭榮杰</td><td class="g-rel">大伯父/爸爸堂哥</td><td class="g-tb">女方爸爸親友桌</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">1中1西</td></tr>
+<tr><td class="g-seq">11</td><td class="g-nm filled">戴淑娟</td><td class="g-rel">大姑姑/爸爸大姐</td><td class="g-tb">女方爸爸親友桌</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">訂婚已拿不需</td></tr>
+<tr><td class="g-seq">12</td><td class="g-nm filled">戴淑秋</td><td class="g-rel">小姑姑/爸爸小妹</td><td class="g-tb">女方爸爸親友桌</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">訂婚已拿不需</td></tr>
+<tr><td class="g-seq">13</td><td class="g-nm filled">郭乃萍</td><td class="g-rel">二姨/媽媽二妹</td><td class="g-tb">女方媽媽親友桌</td><td class="g-pax">5</td><td class="g-amt"></td><td class="g-ck">訂婚已拿不需</td></tr>
+<tr><td class="g-seq">14</td><td class="g-nm filled">郭乃瑜</td><td class="g-rel">三姨/媽媽小妹</td><td class="g-tb">女方媽媽親友桌</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">訂婚已拿不需</td></tr>
+<tr><td class="g-seq">15</td><td class="g-nm filled">郭祐任</td><td class="g-rel">舅舅/媽媽弟弟</td><td class="g-tb">女方媽媽親友桌</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">訂婚已拿不需</td></tr>
+<tr><td class="g-seq">16</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">17</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">18</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">19</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">20</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">21</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">22</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">23</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">24</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">25</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">26</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">27</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">28</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">29</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">30</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">31</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">32</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">33</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">34</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">35</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">36</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">37</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">38</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">39</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">40</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">41</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">42</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">43</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">44</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">45</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Section 3 -->
+  <div class="sec-h" style="page-break-before: always;">③ 賓客快速查桌表 <span class="en">GUEST LOOKUP (NAME ➔ TABLE)</span></div>
+  <section class="sheet lookup-sheet">
+    <div class="sheet-title">
+      <span>🌿 賓客快速查桌表</span>
+      <span class="pg">按姓名拼音／筆劃排序</span>
+    </div>
+    <p class="hint">💡 現場接待專用：賓客報上大名，可於 1 秒內迅速查得所屬桌次與稱謂。</p>
+    <div class="lk-wrap">
+      <table class="lookup">
+        <thead><tr><th class="l-nm">賓客姓名</th><th class="l-tb">桌次</th><th class="l-rel">稱謂／關係</th></tr></thead>
+        <tbody>
+<tr><td class="l-nm filled">蔡文成</td><td class="l-tb">女方爸爸親友桌</td><td class="l-rel">五舅公/爸爸舅舅</td></tr>
+<tr><td class="l-nm filled">戴婉錡</td><td class="l-tb">主桌</td><td class="l-rel">新娘</td></tr>
+<tr><td class="l-nm filled">戴建勳</td><td class="l-tb">主桌</td><td class="l-rel">新娘爸爸</td></tr>
+<tr><td class="l-nm filled">戴淑娟</td><td class="l-tb">女方爸爸親友桌</td><td class="l-rel">大姑姑/爸爸大姐</td></tr>
+<tr><td class="l-nm filled">戴淑秋</td><td class="l-tb">女方爸爸親友桌</td><td class="l-rel">小姑姑/爸爸小妹</td></tr>
+<tr><td class="l-nm filled">戴蔡美惠</td><td class="l-tb">主桌</td><td class="l-rel">新娘奶奶</td></tr>
+<tr><td class="l-nm filled">郭乃瑜</td><td class="l-tb">女方媽媽親友桌</td><td class="l-rel">三姨/媽媽小妹</td></tr>
+<tr><td class="l-nm filled">郭乃華</td><td class="l-tb">主桌</td><td class="l-rel">新娘媽媽</td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+        </tbody>
+      </table>
+      <table class="lookup">
+        <thead><tr><th class="l-nm">賓客姓名</th><th class="l-tb">桌次</th><th class="l-rel">稱謂／關係</th></tr></thead>
+        <tbody>
+<tr><td class="l-nm filled">郭乃萍</td><td class="l-tb">女方媽媽親友桌</td><td class="l-rel">二姨/媽媽二妹</td></tr>
+<tr><td class="l-nm filled">郭祐任</td><td class="l-tb">女方媽媽親友桌</td><td class="l-rel">舅舅/媽媽弟弟</td></tr>
+<tr><td class="l-nm filled">林碧霞</td><td class="l-tb">主桌</td><td class="l-rel">新娘外婆</td></tr>
+<tr><td class="l-nm filled">羅聖明</td><td class="l-tb">主桌</td><td class="l-rel">新郎</td></tr>
+<tr><td class="l-nm filled">羅茂松</td><td class="l-tb">主桌</td><td class="l-rel">新郎爸爸</td></tr>
+<tr><td class="l-nm filled">張秀緞</td><td class="l-tb">主桌</td><td class="l-rel">新郎媽媽</td></tr>
+<tr><td class="l-nm filled">鄭榮杰</td><td class="l-tb">女方爸爸親友桌</td><td class="l-rel">大伯父/爸爸堂哥</td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="foot">
+    <span>Barry ♥ Winnie Wedding Banquet</span>
+    <span class="glyph">✦</span>
+    <span>2026.12.12 Amour 水漾森林 E 廳</span>
+    <span class="glyph">✦</span>
+    <span>童話森林系婚禮接待手冊</span>
+  </div>
+
+</div>
+</body>
+</html>
