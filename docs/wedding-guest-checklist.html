@@ -1,0 +1,1855 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>結婚盛宴 ・ 賓客對照表 ｜ BARRY ♥ WINNIE</title>
+<meta name="description" content="Barry & Winnie 結婚午宴 接待・禮金桌・排桌帶位用賓客對照表，童話水漾森林系風格，可直接列印。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Noto+Serif+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest-deep: #1d3022;
+    --forest-dark: #27382b;
+    --forest-mid:  #354b3a;
+    --sage:        #5b8764;
+    --sage-light:  #edf3ee;
+    --sage-tint:   #e5efe7;
+    --gold:        #c59b4c;
+    --gold-d:      #9a7428;
+    --gold-l:      #f4ecd8;
+    --cream:       #faf7f0;
+    --parchment:   #f4eee2;
+    --ink:         #1f2823;
+    --ink-muted:   #5a6b5f;
+    --line:        #d0dcd2;
+    --bg-page:     #edf1ee;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg-page);
+    color: var(--ink);
+    font-family: "Noto Serif TC", "Songti TC", serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 18px 80px;
+  }
+
+  /* Top Navigation Bar */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--forest-deep);
+    text-decoration: none;
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    transition: all .15s;
+  }
+  .nav-btn.gsheet {
+    background: var(--cream);
+    border-color: var(--gold);
+    color: var(--gold-d);
+    font-weight: 700;
+  }
+  .nav-btn:hover {
+    background: var(--sage-tint);
+    border-color: var(--sage);
+  }
+
+  /* Cover Banner (童話森林風) */
+  .cover {
+    text-align: center;
+    padding: 36px 24px 28px;
+    margin-bottom: 22px;
+    background: linear-gradient(155deg, #18281c 0%, #27382b 55%, #354b3a 100%);
+    border: 2px solid var(--gold);
+    border-radius: 16px;
+    color: #fff;
+    box-shadow: 0 12px 36px rgba(18, 30, 22, 0.22);
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at 50% 15%, rgba(197, 155, 76, 0.15), transparent 70%);
+    pointer-events: none;
+  }
+  .cover .ey {
+    font-family: "Cormorant Garamond", serif;
+    letter-spacing: .45em;
+    font-size: 14px;
+    color: var(--gold-l);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .cover h1 {
+    font-weight: 900;
+    font-size: 34px;
+    margin: 10px 0 8px;
+    letter-spacing: .12em;
+    text-shadow: 0 2px 10px rgba(0,0,0,.35);
+  }
+  .cover .names {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 24px;
+    letter-spacing: .2em;
+    color: var(--gold-l);
+    font-weight: 700;
+  }
+  .cover .rule {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 14px auto 12px;
+  }
+  .cover .meta {
+    font-size: 13.5px;
+    color: #e4ebe5;
+    letter-spacing: .22em;
+  }
+
+  /* Real-time Statistics Cards */
+  .stats-bar {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 16px 0 24px;
+  }
+  .stat-card {
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 18px;
+    text-align: center;
+    min-width: 120px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  }
+  .stat-card b {
+    display: block;
+    font-size: 22px;
+    color: var(--forest-dark);
+    font-weight: 900;
+  }
+  .stat-card span {
+    font-size: 12px;
+    color: var(--sage);
+    font-weight: 600;
+  }
+
+  /* Section Header */
+  .sec-h {
+    font-weight: 900;
+    color: var(--forest-dark);
+    font-size: 22px;
+    margin: 34px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--gold);
+    display: flex;
+    align-items: baseline;
+    letter-spacing: .08em;
+  }
+  .sec-h .en {
+    font-family: "Cormorant Garamond", serif;
+    color: var(--gold-d);
+    font-size: 16px;
+    letter-spacing: .22em;
+    margin-left: 12px;
+    font-weight: 700;
+  }
+
+  /* Table Cards */
+  .card {
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 18px 16px;
+    margin: 0 0 18px;
+    box-shadow: 0 4px 14px rgba(29, 48, 34, 0.05);
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .card.main {
+    border: 2px solid var(--gold);
+    background: #fffdf9;
+    box-shadow: 0 6px 20px rgba(197, 155, 76, 0.15);
+  }
+  .card-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .tname {
+    font-weight: 900;
+    font-size: 21px;
+    color: var(--forest-dark);
+    letter-spacing: .05em;
+  }
+  .tname .badge {
+    font-size: 12px;
+    background: var(--gold);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 10px;
+    vertical-align: middle;
+    margin-left: 8px;
+    font-weight: 700;
+    letter-spacing: .06em;
+  }
+  .tloc {
+    font-size: 13.5px;
+    color: var(--sage);
+    font-weight: 500;
+  }
+  .tcount {
+    margin-left: auto;
+    font-size: 13.5px;
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  /* Table Styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .seat th, .seat td {
+    border: 1px solid var(--line);
+    padding: 6px 8px;
+    font-size: 13.5px;
+  }
+  .seat th {
+    background: var(--sage-tint);
+    color: var(--forest-deep);
+    font-weight: 700;
+  }
+  .card.main .seat th {
+    background: var(--gold-l);
+    color: var(--forest-dark);
+  }
+  .seat .num {
+    width: 48px;
+    text-align: center;
+    color: var(--sage);
+    font-weight: 600;
+  }
+  .seat .nm {
+    width: 28%;
+  }
+  .seat .nm.filled {
+    font-weight: 700;
+    color: var(--forest-deep);
+  }
+  .seat .ph {
+    color: #bdc9c0;
+  }
+  .seat .rel {
+    width: 25%;
+  }
+  .seat .note {
+    color: var(--ink-muted);
+    font-size: 12.5px;
+  }
+  .seat tbody td {
+    height: 29px;
+  }
+
+  /* Gift Sheets */
+  .sheet {
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 16px 18px 20px;
+    margin: 0 0 24px;
+    box-shadow: 0 4px 16px rgba(29, 48, 34, 0.05);
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .sheet-title {
+    font-weight: 900;
+    color: var(--forest-dark);
+    font-size: 19px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    border-bottom: 1.5px solid var(--sage-tint);
+    padding-bottom: 8px;
+  }
+  .sheet-title .pg {
+    font-size: 13px;
+    color: var(--sage);
+    font-weight: 600;
+    margin-left: auto;
+  }
+  .gift th, .gift td {
+    border: 1px solid var(--line);
+    padding: 7px 8px;
+    font-size: 13.5px;
+  }
+  .gift th {
+    background: var(--sage-tint);
+    color: var(--forest-deep);
+    font-weight: 700;
+  }
+  .gift .g-seq {
+    width: 50px;
+    text-align: center;
+    color: var(--sage);
+    font-weight: 600;
+  }
+  .gift .g-nm {
+    width: 20%;
+  }
+  .gift .g-nm.filled {
+    font-weight: 700;
+  }
+  .gift .g-rel {
+    width: 20%;
+  }
+  .gift .g-tb {
+    width: 16%;
+    text-align: center;
+  }
+  .gift .g-pax {
+    width: 9%;
+    text-align: center;
+  }
+  .gift .g-amt {
+    width: 18%;
+  }
+  .gift .g-ck {
+    width: 12%;
+    text-align: center;
+    font-size: 12px;
+    color: var(--sage);
+  }
+  .gift tbody td {
+    height: 31px;
+  }
+
+  /* Lookup Sheets */
+  .hint {
+    font-size: 12.5px;
+    color: var(--ink-muted);
+    margin: 0 0 12px;
+    font-style: italic;
+  }
+  .lk-wrap {
+    display: flex;
+    gap: 16px;
+  }
+  .lookup {
+    flex: 1;
+  }
+  .lookup th, .lookup td {
+    border: 1px solid var(--line);
+    padding: 6px 8px;
+    font-size: 13px;
+  }
+  .lookup th {
+    background: var(--sage-tint);
+    color: var(--forest-deep);
+    font-weight: 700;
+  }
+  .lookup .l-nm {
+    width: 38%;
+  }
+  .lookup .l-nm.filled {
+    font-weight: 700;
+  }
+  .lookup .l-tb {
+    width: 32%;
+    text-align: center;
+  }
+  .lookup .l-rel {
+    width: 30%;
+    color: var(--ink-muted);
+    font-size: 12px;
+  }
+  .lookup tbody td {
+    height: 28px;
+  }
+
+  /* Footer */
+  .foot {
+    text-align: center;
+    color: var(--ink-muted);
+    font-size: 12px;
+    margin-top: 36px;
+    letter-spacing: .15em;
+  }
+  .foot .glyph {
+    color: var(--gold);
+    margin: 0 8px;
+  }
+
+  /* Print Styles */
+  @media print {
+    html, body {
+      background: #fff;
+      color: #000;
+    }
+    .wrap {
+      max-width: none;
+      padding: 0;
+      margin: 0;
+    }
+    .top-bar {
+      display: none !important;
+    }
+    .cover {
+      box-shadow: none;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      margin-bottom: 16px;
+      padding: 22px 16px 18px;
+    }
+    .card, .sheet {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      box-shadow: none;
+      border: 1px solid #aaa;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      margin-bottom: 16px;
+      padding: 12px 14px 14px;
+    }
+    .card.main {
+      border: 1.5px solid var(--gold);
+    }
+    th, td {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      border-color: #bbb;
+    }
+    .sec-h {
+      page-break-before: auto;
+    }
+    @page {
+      size: A4 portrait;
+      margin: 12mm 10mm;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Top Navigation -->
+  <div class="top-bar">
+    <a href="https://docs.google.com/spreadsheets/d/1ZRQiqfzctmH7RrxwF75vulaNOXhzmxL4k0WwNPgBnaw/edit" target="_blank" rel="noopener" class="nav-btn gsheet">📊 Google 試算表即時母檔 ↗</a>
+    <span style="font-size:12px; color:var(--ink-muted);">資料來源：線上 Google 試算表（雙方父母邀請 ＆ 賓客總表）</span>
+  </div>
+
+  <!-- Cover Header -->
+  <div class="cover">
+    <div class="ey">Seating &amp; Reception Guide</div>
+    <h1>結婚盛宴 ・ 賓客對照表</h1>
+    <div class="names">BARRY &amp; WINNIE</div>
+    <div class="rule"></div>
+    <div class="meta">桃園中壢阿沐會館 · 水漾森林 E 廳　・　2026.12.12 (六) 午宴</div>
+  </div>
+
+  <!-- Real-time Stats -->
+  <div class="stats-bar">
+    <div class="stat-card">
+      <b>27 桌（1 主桌 ＋ 26 客桌）</b>
+      <span>全場規劃桌數</span>
+    </div>
+    <div class="stat-card">
+      <b>27 桌</b>
+      <span>已排定桌數</span>
+    </div>
+    <div class="stat-card">
+      <b>182 位</b>
+      <span>已登錄親友數</span>
+    </div>
+    <div class="stat-card">
+      <b>252 人</b>
+      <span>預估出席總人數</span>
+    </div>
+    <div class="stat-card">
+      <b>5 位</b>
+      <span>素食餐點需求</span>
+    </div>
+    <div class="stat-card">
+      <b>142 盒</b>
+      <span>喜餅發放總數</span>
+    </div>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="sec-h">① 依桌次 <span class="en">BY TABLE</span></div>
+<section class=" card main">
+  <div class="card-head">
+    <div class="tname">主桌 <span class="badge">主桌</span></div>
+    <div class="tloc">舞台正前方花圈（雙方新人與父母至親長輩・12人席）</div>
+    <div class="tcount">本桌目前 11 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">羅聖明</td><td class="rel">新郎</td><td class="note"></td></tr>
+<tr><td class="num">2</td><td class="nm filled">戴婉錡</td><td class="rel">新娘</td><td class="note"></td></tr>
+<tr><td class="num">3</td><td class="nm filled">羅茂松</td><td class="rel">男方爸爸</td><td class="note"></td></tr>
+<tr><td class="num">4</td><td class="nm filled">張秀緞</td><td class="rel">男方媽媽</td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm filled">戴建勳</td><td class="rel">女方爸爸</td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm filled">郭乃華</td><td class="rel">女方媽媽</td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm filled">戴蔡美惠</td><td class="rel">女方-奶奶</td><td class="note">餅:已領取</td></tr>
+<tr><td class="num">8</td><td class="nm filled">林碧霞</td><td class="rel">女方-外婆</td><td class="note">素食；餅:已領取</td></tr>
+<tr><td class="num">9</td><td class="nm filled">張敏珠</td><td class="rel">男方-媒婆</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">10</td><td class="nm filled">張添吉</td><td class="rel">男方-舅舅</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">11</td><td class="nm filled">蔡文成</td><td class="rel">女方-舅公</td><td class="note">餅:已領取；其餘家人坐第一桌</td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">1  銀杏 </div>
+    <div class="tloc">第 1 列第 1 排（舞台左前至尊席・女方親戚長輩）</div>
+    <div class="tcount">本桌目前 7 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">-蔡文成（的老婆）</td><td class="rel">女方-舅公婆</td><td class="note">餅:已領取</td></tr>
+<tr><td class="num">2</td><td class="nm filled">鄭榮杰（2人）</td><td class="rel">女方-爸爸堂哥</td><td class="note">餅:中＋西；不收禮</td></tr>
+<tr><td class="num">3</td><td class="nm filled">戴淑娟（2人）</td><td class="rel">女方-姑姑</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">4</td><td class="nm filled">戴淑秋（2人）</td><td class="rel">女方-姑姑</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">2 楓 </div>
+    <div class="tloc">第 1 列第 2 排（羅家阿嬤親戚・男方親戚）</div>
+    <div class="tcount">本桌目前 10 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">吳上福（2人）</td><td class="rel">男方-舅公</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">2</td><td class="nm filled">徐鴻鈞（3人）</td><td class="rel">男方-姨婆</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">3</td><td class="nm filled">廖聿為（3人）</td><td class="rel">男方-姨婆</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">4</td><td class="nm filled">鳳英（2人）</td><td class="rel">男方-長輩</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">3 雪松 </div>
+    <div class="tloc">第 1 列第 3 排（羅家長輩親戚・男方親戚）</div>
+    <div class="tcount">本桌目前 10 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">羅茂騰</td><td class="rel">男方-叔叔</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">2</td><td class="nm filled">羅家豐（2人）</td><td class="rel">男方-長輩</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">3</td><td class="nm filled">羅冬燮（2人）</td><td class="rel">男方-長輩</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">4</td><td class="nm filled">健銘（3人）</td><td class="rel">男方-長輩</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">5</td><td class="nm filled">樹興（2人）</td><td class="rel">男方-長輩</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">4 木棉 </div>
+    <div class="tloc">第 1 列第 4 排（新秘通道旁・羅家長輩親戚）</div>
+    <div class="tcount">本桌目前 10 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">羅藤精（2人）</td><td class="rel">男方-長輩</td><td class="note">不收禮</td></tr>
+<tr><td class="num">2</td><td class="nm filled">樹輝（2人）</td><td class="rel">男方-長輩</td><td class="note">不收禮</td></tr>
+<tr><td class="num">3</td><td class="nm filled">羽辰（2人）</td><td class="rel">男方-長輩</td><td class="note">不收禮</td></tr>
+<tr><td class="num">4</td><td class="nm filled">羅茂仁（2人）</td><td class="rel">男方-叔叔</td><td class="note">不收禮</td></tr>
+<tr><td class="num">5</td><td class="nm filled">羅秀琴</td><td class="rel">男方-姑姑</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">6</td><td class="nm filled">張文達</td><td class="rel">男方-姑丈</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">5 尤加利 </div>
+    <div class="tloc">第 2 列第 1 排（郭家親戚・女方親戚）</div>
+    <div class="tcount">本桌目前 8 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">郭乃萍（5人）</td><td class="rel">女方-阿姨</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">2</td><td class="nm filled">郭乃瑜</td><td class="rel">女方-阿姨</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">3</td><td class="nm filled">郭祐任（2人）</td><td class="rel">女方-舅舅</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">4</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">6 鼠尾草 </div>
+    <div class="tloc">第 2 列第 2 排（張家親戚・男方親戚）</div>
+    <div class="tcount">本桌目前 11 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">張坤輝</td><td class="rel">男方-張家親戚</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">2</td><td class="nm filled">黃彩朋</td><td class="rel">男方-張家親戚</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">3</td><td class="nm filled">張睿善</td><td class="rel">男方-張家親戚</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">4</td><td class="nm filled">陳銘鳳</td><td class="rel">男方-張家親戚</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">5</td><td class="nm filled">陳麗詩</td><td class="rel">男方-張家親戚</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">6</td><td class="nm filled">陳宗佑</td><td class="rel">男方-張家親戚</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">7</td><td class="nm filled">陳榮興</td><td class="rel">男方-張家親戚</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">8</td><td class="nm filled">陳詩語</td><td class="rel">男方-張家親戚</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">9</td><td class="nm filled">江義璽</td><td class="rel">男方-張家親戚</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">10</td><td class="nm filled">張雅茹（2人）</td><td class="rel">男方-張家親戚</td><td class="note">1張兒童椅；、兒童椅×1；餅:已領取；不收禮</td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">7 迷迭香 </div>
+    <div class="tloc">第 2 列第 3 排（科智所同學好友）</div>
+    <div class="tcount">本桌目前 9 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">賴蓁蓁（2人）</td><td class="rel"></td><td class="note">餅:需要一盒；921239622.0</td></tr>
+<tr><td class="num">2</td><td class="nm filled">李雯琪</td><td class="rel"></td><td class="note">餅:需要一盒；918018463.0</td></tr>
+<tr><td class="num">3</td><td class="nm filled">蕭宇軒</td><td class="rel"></td><td class="note">餅:需要一盒；938570318.0</td></tr>
+<tr><td class="num">4</td><td class="nm filled">張登凱</td><td class="rel"></td><td class="note">餅:需要一盒；978630402.0</td></tr>
+<tr><td class="num">5</td><td class="nm filled">呂馨（2人）</td><td class="rel"></td><td class="note">餅:需要一盒；987956981.0</td></tr>
+<tr><td class="num">6</td><td class="nm filled">王薇婷</td><td class="rel"></td><td class="note">餅:需要一盒；983740389.0</td></tr>
+<tr><td class="num">7</td><td class="nm filled">黃柏穎</td><td class="rel"></td><td class="note">餅:需要一盒；953148712.0</td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">8 常春藤 </div>
+    <div class="tloc">第 2 列第 4 排（平鎮高中管樂團好友）</div>
+    <div class="tcount">本桌目前 9 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">邱于軒（Apple)（2人）</td><td class="rel"></td><td class="note">餅:需要一盒；937859682.0</td></tr>
+<tr><td class="num">2</td><td class="nm filled">耿念慈</td><td class="rel"></td><td class="note">餅:需要一盒；988713995.0</td></tr>
+<tr><td class="num">3</td><td class="nm filled">陳璽君</td><td class="rel"></td><td class="note">餅:需要一盒；931654311.0</td></tr>
+<tr><td class="num">4</td><td class="nm filled">游淩鈞（幽靈）</td><td class="rel"></td><td class="note">餅:需要一盒；985775352.0</td></tr>
+<tr><td class="num">5</td><td class="nm filled">呂政峰</td><td class="rel"></td><td class="note">餅:需要一盒；918985535.0</td></tr>
+<tr><td class="num">6</td><td class="nm filled">劉姵旻</td><td class="rel"></td><td class="note">蛋奶素；餅:需要一盒</td></tr>
+<tr><td class="num">7</td><td class="nm filled">謝宏杰（宗翰）</td><td class="rel"></td><td class="note">餅:需要一盒</td></tr>
+<tr><td class="num">8</td><td class="nm filled">闕啟峯</td><td class="rel"></td><td class="note">餅:需要一盒；903055488.0</td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">9 仙人掌 </div>
+    <div class="tloc">第 2 列第 5 排（羅氏宗親長輩好友）</div>
+    <div class="tcount">本桌目前 10 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">羅永金</td><td class="rel">男方-羅氏宗親</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">2</td><td class="nm filled">羅文生（2人）</td><td class="rel">男方-羅氏宗親</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">3</td><td class="nm filled">羅木堂</td><td class="rel">男方-羅氏宗親</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">4</td><td class="nm filled">羅武財</td><td class="rel">男方-羅氏宗親</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">5</td><td class="nm filled">羅文樹</td><td class="rel">男方-羅氏宗親</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">6</td><td class="nm filled">羅國明</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">7</td><td class="nm filled">吳正全（3人）</td><td class="rel">男方-舅公</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">10 向日葵 </div>
+    <div class="tloc">第 3 列第 1 排（紅毯左側走道首排・羅家親戚長輩）</div>
+    <div class="tcount">本桌目前 10 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">張育綾</td><td class="rel">男方-表妹</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">2</td><td class="nm filled">張育貞</td><td class="rel">男方-表妹</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">3</td><td class="nm filled">羅吳春妹、看護（2人）</td><td class="rel">男方-奶奶</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">4</td><td class="nm filled">羅秋香</td><td class="rel">男方-姑姑</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">5</td><td class="nm filled">張英華</td><td class="rel">男方-姑丈</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">6</td><td class="nm filled">張峻源</td><td class="rel">男方－表弟</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">7</td><td class="nm filled">張峻凱</td><td class="rel">男方－表弟</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">8</td><td class="nm filled">羅婕寧</td><td class="rel">男方-姊姊</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">9</td><td class="nm filled">羅聖評</td><td class="rel">男方-哥哥</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">11 鬱金香 </div>
+    <div class="tloc">第 3 列第 2 排（紅毯左側走道・千禧龍＋小鮮奶）</div>
+    <div class="tcount">本桌目前 9 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">Forever室友 文魚</td><td class="rel">伴娘</td><td class="note">餅:需要一盒；933851010.0</td></tr>
+<tr><td class="num">2</td><td class="nm filled">袁家祥</td><td class="rel"></td><td class="note">餅:需要一盒；975609220.0</td></tr>
+<tr><td class="num">3</td><td class="nm filled">梁雅婷（2人）</td><td class="rel"></td><td class="note">餅:需要一盒；910758260.0</td></tr>
+<tr><td class="num">4</td><td class="nm filled">黃亭捷</td><td class="rel"></td><td class="note">餅:需要一盒；983520082.0</td></tr>
+<tr><td class="num">5</td><td class="nm filled">沈哲緯</td><td class="rel"></td><td class="note">餅:需要一盒；930319378.0</td></tr>
+<tr><td class="num">6</td><td class="nm filled">陳羽釩</td><td class="rel"></td><td class="note">餅:需要一盒；963276942.0</td></tr>
+<tr><td class="num">7</td><td class="nm filled">姚宇澤</td><td class="rel"></td><td class="note">餅:需要一盒；971677537.0</td></tr>
+<tr><td class="num">8</td><td class="nm filled">馬家秀</td><td class="rel"></td><td class="note">餅:需要一盒；989960528.0</td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">12 蒲公英 </div>
+    <div class="tloc">第 3 列第 3 排（紅毯左側走道・中山大學＋平鎮管樂）</div>
+    <div class="tcount">本桌目前 10 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">練紹成（2人）</td><td class="rel"></td><td class="note">1張兒童椅；、兒童椅×1；餅:需要一盒；921691812.0</td></tr>
+<tr><td class="num">2</td><td class="nm filled">盧志翔</td><td class="rel"></td><td class="note">餅:需要一盒；928980227.0</td></tr>
+<tr><td class="num">3</td><td class="nm filled">馮柏睿</td><td class="rel"></td><td class="note">餅:需要一盒；975086698.0</td></tr>
+<tr><td class="num">4</td><td class="nm filled">邱竹韻</td><td class="rel"></td><td class="note">餅:需要一盒；933970832.0</td></tr>
+<tr><td class="num">5</td><td class="nm filled">張毓凌Polina</td><td class="rel"></td><td class="note">餅:需要一盒；953871488.0</td></tr>
+<tr><td class="num">6</td><td class="nm filled">洪嘉駿/雜草</td><td class="rel"></td><td class="note">餅:需要一盒；975957961.0</td></tr>
+<tr><td class="num">7</td><td class="nm filled">曹宇鈞</td><td class="rel"></td><td class="note">餅:需要一盒；988269654.0</td></tr>
+<tr><td class="num">8</td><td class="nm filled">李彥君</td><td class="rel"></td><td class="note">餅:需要一盒；928866010.0</td></tr>
+<tr><td class="num">9</td><td class="nm filled">姚詠馨</td><td class="rel"></td><td class="note">餅:需要一盒</td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">13 洋甘菊 </div>
+    <div class="tloc">第 3 列第 4 排（紅毯左側走道・中山大學好友）</div>
+    <div class="tcount">本桌目前 7 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">劉肱池</td><td class="rel"></td><td class="note">餅:需要一盒；983083589.0</td></tr>
+<tr><td class="num">2</td><td class="nm filled">張寓科Yorick</td><td class="rel"></td><td class="note">餅:需要一盒；928381311.0</td></tr>
+<tr><td class="num">3</td><td class="nm filled">高仕丞</td><td class="rel"></td><td class="note">餅:需要一盒；937974275.0</td></tr>
+<tr><td class="num">4</td><td class="nm filled">洪晟豪</td><td class="rel"></td><td class="note">餅:需要一盒；932760663.0</td></tr>
+<tr><td class="num">5</td><td class="nm filled">王文弘</td><td class="rel"></td><td class="note">餅:需要一盒；976692752.0</td></tr>
+<tr><td class="num">6</td><td class="nm filled">陳柏愷</td><td class="rel"></td><td class="note">餅:需要一盒</td></tr>
+<tr><td class="num">7</td><td class="nm filled">姜鐙鈞</td><td class="rel"></td><td class="note">餅:需要一盒</td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">14 小雛菊 </div>
+    <div class="tloc">第 3 列第 5 排（紅毯左側走道・淡江大學伴郎死黨）</div>
+    <div class="tcount">本桌目前 10 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">陳威銘</td><td class="rel"></td><td class="note">餅:需要一盒；953211325.0</td></tr>
+<tr><td class="num">2</td><td class="nm filled">江仁杉（3人）</td><td class="rel"></td><td class="note">1張兒童椅；、兒童椅×1；餅:需要一盒；937912399.0</td></tr>
+<tr><td class="num">3</td><td class="nm filled">Mitchie</td><td class="rel"></td><td class="note">餅:需要一盒；935310829.0</td></tr>
+<tr><td class="num">4</td><td class="nm filled">蕭允誠</td><td class="rel"></td><td class="note">餅:需要一盒；953606856.0</td></tr>
+<tr><td class="num">5</td><td class="nm filled">蔡雨壯</td><td class="rel"></td><td class="note">餅:需要一盒；963163405.0</td></tr>
+<tr><td class="num">6</td><td class="nm filled">許咨緯</td><td class="rel"></td><td class="note">餅:需要一盒；931801229.0</td></tr>
+<tr><td class="num">7</td><td class="nm filled">劉鎮桓（2人）</td><td class="rel"></td><td class="note">餅:需要一盒；932160930.0</td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">15 洋桔梗 </div>
+    <div class="tloc">第 4 列第 1 排（紅毯右側走道首排・趨勢科技溫馨群）</div>
+    <div class="tcount">本桌目前 10 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">王勃淵</td><td class="rel"></td><td class="note">餅:需要一盒；919011087.0</td></tr>
+<tr><td class="num">2</td><td class="nm filled">陳昱銘 Timmy</td><td class="rel"></td><td class="note">餅:需要一盒；916838205.0</td></tr>
+<tr><td class="num">3</td><td class="nm filled">林宛臻（2人）</td><td class="rel"></td><td class="note">餅:需要一盒；934006398.0</td></tr>
+<tr><td class="num">4</td><td class="nm filled">Bill Kuo (郭哲銘)</td><td class="rel"></td><td class="note">餅:需要一盒；953546538.0</td></tr>
+<tr><td class="num">5</td><td class="nm filled">Sylvia（2人）</td><td class="rel"></td><td class="note">餅:需要一盒；928836568.0</td></tr>
+<tr><td class="num">6</td><td class="nm filled">石銘謙</td><td class="rel"></td><td class="note">餅:需要一盒；909345672.0</td></tr>
+<tr><td class="num">7</td><td class="nm filled">Tony</td><td class="rel"></td><td class="note">餅:需要一盒</td></tr>
+<tr><td class="num">8</td><td class="nm filled">Will</td><td class="rel"></td><td class="note">餅:需要一盒</td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">16 玫瑰花 </div>
+    <div class="tloc">第 4 列第 2 排（紅毯右側走道・銘婉再輝佳＋VR伴娘閨蜜）</div>
+    <div class="tcount">本桌目前 10 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">Ollie</td><td class="rel">伴郎</td><td class="note">餅:需要一盒；912068976.0</td></tr>
+<tr><td class="num">2</td><td class="nm filled">李佳諭</td><td class="rel">伴娘</td><td class="note">餅:需要一盒；989889073.0</td></tr>
+<tr><td class="num">3</td><td class="nm filled">劉良謙</td><td class="rel">伴郎</td><td class="note">餅:需要一盒；936101236.0</td></tr>
+<tr><td class="num">4</td><td class="nm filled">Ginny（2人）</td><td class="rel"></td><td class="note">餅:需要一盒；926399379.0</td></tr>
+<tr><td class="num">5</td><td class="nm filled">林毅聖  Eason Lin</td><td class="rel"></td><td class="note">餅:需要一盒；926405805.0</td></tr>
+<tr><td class="num">6</td><td class="nm filled">陳彥儒 Andy Y</td><td class="rel"></td><td class="note">餅:需要一盒；988324225.0</td></tr>
+<tr><td class="num">7</td><td class="nm filled">Yoi/李宥誼</td><td class="rel"></td><td class="note">餅:需要一盒；916928603.0</td></tr>
+<tr><td class="num">8</td><td class="nm filled">Hank Chang</td><td class="rel"></td><td class="note">餅:需要一盒；988737791.0</td></tr>
+<tr><td class="num">9</td><td class="nm filled">Ziv</td><td class="rel"></td><td class="note">餅:需要一盒</td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">17 滿天星 </div>
+    <div class="tloc">第 4 列第 3 排（紅毯右側走道・趨勢科技22屆福委）</div>
+    <div class="tcount">本桌目前 9 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">葉崇文（2人）</td><td class="rel"></td><td class="note">1張兒童椅；、兒童椅×1；餅:需要一盒；926697646.0</td></tr>
+<tr><td class="num">2</td><td class="nm filled">王真儀Jenny</td><td class="rel"></td><td class="note">餅:需要一盒；981223524.0</td></tr>
+<tr><td class="num">3</td><td class="nm filled">Wendy Jiang</td><td class="rel"></td><td class="note">餅:需要一盒；911781729.0</td></tr>
+<tr><td class="num">4</td><td class="nm filled">劉宭守</td><td class="rel"></td><td class="note">餅:需要一盒；933218267.0</td></tr>
+<tr><td class="num">5</td><td class="nm filled">Sherry Su</td><td class="rel"></td><td class="note">餅:需要一盒；911952865.0</td></tr>
+<tr><td class="num">6</td><td class="nm filled">Ivy 張簡</td><td class="rel"></td><td class="note">餅:需要一盒；912050313.0</td></tr>
+<tr><td class="num">7</td><td class="nm filled">Lucy</td><td class="rel"></td><td class="note">餅:需要一盒；925899131.0</td></tr>
+<tr><td class="num">8</td><td class="nm filled">Dino Lai</td><td class="rel"></td><td class="note">餅:需要一盒；988324608.0</td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">18 薰衣草 </div>
+    <div class="tloc">第 4 列第 4 排（紅毯右側走道・趨勢科技Support團隊）</div>
+    <div class="tcount">本桌目前 13 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">Teresa Y Wu</td><td class="rel"></td><td class="note">餅:需要一盒；931061045.0</td></tr>
+<tr><td class="num">2</td><td class="nm filled">彭彥榕（3人）</td><td class="rel"></td><td class="note">1張兒童椅；、兒童椅×1；餅:需要一盒；933260026.0</td></tr>
+<tr><td class="num">3</td><td class="nm filled">高子恩 / Lance Kao</td><td class="rel"></td><td class="note">餅:需要一盒；921866830.0</td></tr>
+<tr><td class="num">4</td><td class="nm filled">Lilian 黃莉苓</td><td class="rel"></td><td class="note">餅:需要一盒；912453055.0</td></tr>
+<tr><td class="num">5</td><td class="nm filled">劉楓嵐 Michelle</td><td class="rel"></td><td class="note">餅:需要一盒；930632831.0</td></tr>
+<tr><td class="num">6</td><td class="nm filled">Wenze(張玉旻)</td><td class="rel"></td><td class="note">餅:需要一盒；930167026.0</td></tr>
+<tr><td class="num">7</td><td class="nm filled">張怡翎</td><td class="rel"></td><td class="note">餅:需要一盒；989993710.0</td></tr>
+<tr><td class="num">8</td><td class="nm filled">Kazuna Lin（3人）</td><td class="rel"></td><td class="note">餅:需要一盒；975518920.0</td></tr>
+<tr><td class="num">9</td><td class="nm filled">Joy Sun</td><td class="rel"></td><td class="note">餅:需要一盒；970088098.0</td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">19 櫻花 </div>
+    <div class="tloc">第 4 列第 5 排（紅毯右側走道・中央大學資管好友）</div>
+    <div class="tcount">本桌目前 8 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">陳芃諭（2人）</td><td class="rel"></td><td class="note">餅:需要一盒；911938843.0</td></tr>
+<tr><td class="num">2</td><td class="nm filled">黃星豪（2人）</td><td class="rel"></td><td class="note">餅:需要一盒；966206217.0</td></tr>
+<tr><td class="num">3</td><td class="nm filled">范逸凱（2人）</td><td class="rel"></td><td class="note">餅:需要一盒；935761300.0</td></tr>
+<tr><td class="num">4</td><td class="nm filled">楊文瀚</td><td class="rel"></td><td class="note">餅:需要一盒；975062976.0</td></tr>
+<tr><td class="num">5</td><td class="nm filled">劉思辰</td><td class="rel"></td><td class="note">餅:需要一盒；936207923.0</td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">20 小蒼蘭 </div>
+    <div class="tloc">第 4 列第 6 排（紅毯右側走道末排・中央大學資管好友）</div>
+    <div class="tcount">本桌目前 8 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">陳彤</td><td class="rel"></td><td class="note">餅:需要一盒；938323409.0</td></tr>
+<tr><td class="num">2</td><td class="nm filled">Miko</td><td class="rel"></td><td class="note">餅:需要一盒；937128154.0</td></tr>
+<tr><td class="num">3</td><td class="nm filled">黃芝毓（呱呱）</td><td class="rel"></td><td class="note">餅:需要一盒；910927661.0</td></tr>
+<tr><td class="num">4</td><td class="nm filled">黃晉豪</td><td class="rel"></td><td class="note">餅:需要一盒；975196227.0</td></tr>
+<tr><td class="num">5</td><td class="nm filled">黃芃璇</td><td class="rel"></td><td class="note">餅:需要一盒；918664297.0</td></tr>
+<tr><td class="num">6</td><td class="nm filled">Luli</td><td class="rel"></td><td class="note">蛋奶素；餅:需要一盒；970428200.0</td></tr>
+<tr><td class="num">7</td><td class="nm filled">徐大舜</td><td class="rel"></td><td class="note">餅:需要一盒；988807711.0</td></tr>
+<tr><td class="num">8</td><td class="nm filled">張皓鈞</td><td class="rel"></td><td class="note">餅:需要一盒；988069821.0</td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">21 繡球花 </div>
+    <div class="tloc">第 5 列第 1 排（舞台右前第 1 排至尊席・男方爸爸結拜長輩）</div>
+    <div class="tcount">本桌目前 9 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">楊鑫坤（2人）</td><td class="rel">男方-爸爸結拜</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">2</td><td class="nm filled">廖金城（2人）</td><td class="rel">男方-爸爸結拜</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">3</td><td class="nm filled">陳志成（3人）</td><td class="rel">男方-爸爸結拜</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">4</td><td class="nm filled">許延亮（2人）</td><td class="rel">男方-爸爸結拜</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">5</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">22 山茶花 </div>
+    <div class="tloc">第 5 列第 2 排（舞台右前第 2 排・男方爸爸員工／結拜長輩）</div>
+    <div class="tcount">本桌目前 10 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">許秀敏（2人）</td><td class="rel">男方－爸爸員工</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">2</td><td class="nm filled">陳弘益</td><td class="rel">男方－爸爸員工</td><td class="note">餅:已領取；不收禮</td></tr>
+<tr><td class="num">3</td><td class="nm filled">魏文治</td><td class="rel">男方－爸爸員工</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">4</td><td class="nm filled">武美姬</td><td class="rel">男方－爸爸員工</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">5</td><td class="nm filled">徐正弦</td><td class="rel">男方－爸爸員工</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">6</td><td class="nm filled">游和紘（2人）</td><td class="rel">男方-爸爸結拜</td><td class="note">1素食；餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">7</td><td class="nm filled">楊進財（2人）</td><td class="rel">男方-爸爸結拜</td><td class="note">2素食；餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">23 百合 </div>
+    <div class="tloc">第 5 列第 3 排（安靜舒適區・男方爸爸協會長輩席 1）</div>
+    <div class="tcount">本桌目前 10 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">侯力升（2人）</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">2</td><td class="nm filled">徐慧伶</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">3</td><td class="nm filled">戴瑞琴（2人）</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">4</td><td class="nm filled">黃宗明（2人）</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">5</td><td class="nm filled">謝伊凡</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">6</td><td class="nm filled">呂國振</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">7</td><td class="nm filled">陳勝財</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">24 海芋 </div>
+    <div class="tloc">第 5 列第 4 排（安靜舒適區・男方爸爸協會長輩席 2）</div>
+    <div class="tcount">本桌目前 10 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">劉文掌（2人）</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">2</td><td class="nm filled">卓菊蘭</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">3</td><td class="nm filled">黃秋榮</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">4</td><td class="nm filled">魏寶蘭</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">5</td><td class="nm filled">劉范菊妹</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">6</td><td class="nm filled">葉彩婕（2人）</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">7</td><td class="nm filled">陳素貞</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">8</td><td class="nm filled">謝瑞貞</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">25 梔子花 </div>
+    <div class="tloc">第 5 列第 5 排（安靜舒適區・男方爸爸協會長輩席 3）</div>
+    <div class="tcount">本桌目前 10 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">余國淦（2人）</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">2</td><td class="nm filled">羅木松（2人）</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">3</td><td class="nm filled">鄭瑞德（2人）</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">4</td><td class="nm filled">蕭素女（2人）</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">5</td><td class="nm filled">黃銘輝（2人）</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class=" card">
+  <div class="card-head">
+    <div class="tname">26 油桐花 </div>
+    <div class="tloc">第 5 列第 6 排（安靜舒適區・男方爸爸協會長輩席 4）</div>
+    <div class="tcount">本桌目前 10 人</div>
+  </div>
+  <table class="seat">
+    <thead>
+      <tr>
+        <th class="num">座位</th>
+        <th class="nm">賓客姓名</th>
+        <th class="rel">關係／稱謂</th>
+        <th class="note">飲食需求與特殊備註</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="num">1</td><td class="nm filled">邱祝忠（2人）</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">2</td><td class="nm filled">張劍輝（2人）</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">3</td><td class="nm filled">李宏毅（2人）</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">4</td><td class="nm filled">李泳宗（2人）</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">5</td><td class="nm filled">陳金龍（2人）</td><td class="rel">男方-協會好友</td><td class="note">餅:需要一盒；不收禮</td></tr>
+<tr><td class="num">6</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">7</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">8</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">9</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">10</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">11</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+<tr><td class="num">12</td><td class="nm blank"><span class="ph">—</span></td><td class="rel"></td><td class="note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+  <!-- Section 2 -->
+  <div class="sec-h" style="page-break-before: always;">② 禮金桌核對簽收表 <span class="en">GIFT &amp; CASH DESK</span></div>
+  <section class="sheet gift-sheet">
+    <div class="sheet-title">
+      <span>🌿 禮金桌核對簽收表（依桌次編號排序）</span>
+      <span class="pg">現場收禮與發餅對照</span>
+    </div>
+    <table class="gift">
+      <thead>
+        <tr>
+          <th class="g-seq">編號</th>
+          <th class="g-nm">賓客大名</th>
+          <th class="g-rel">關係／稱謂</th>
+          <th class="g-tb">桌次</th>
+          <th class="g-pax">人數</th>
+          <th class="g-amt">禮金金額</th>
+          <th class="g-ck">喜餅發放</th>
+        </tr>
+      </thead>
+      <tbody>
+<tr><td class="g-seq">1</td><td class="g-nm filled">戴蔡美惠</td><td class="g-rel">女方-奶奶</td><td class="g-tb">主桌</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">2</td><td class="g-nm filled">林碧霞</td><td class="g-rel">女方-外婆</td><td class="g-tb">主桌</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">3</td><td class="g-nm filled">張敏珠</td><td class="g-rel">男方-媒婆</td><td class="g-tb">主桌</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">4</td><td class="g-nm filled">張添吉</td><td class="g-rel">男方-舅舅</td><td class="g-tb">主桌</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">5</td><td class="g-nm filled">蔡文成</td><td class="g-rel">女方-舅公</td><td class="g-tb">主桌</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">6</td><td class="g-nm filled">-蔡文成（的老婆）</td><td class="g-rel">女方-舅公婆</td><td class="g-tb">1  銀杏</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">7</td><td class="g-nm filled">鄭榮杰</td><td class="g-rel">女方-爸爸堂哥</td><td class="g-tb">1  銀杏</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">中＋西</td></tr>
+<tr><td class="g-seq">8</td><td class="g-nm filled">戴淑娟</td><td class="g-rel">女方-姑姑</td><td class="g-tb">1  銀杏</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">9</td><td class="g-nm filled">戴淑秋</td><td class="g-rel">女方-姑姑</td><td class="g-tb">1  銀杏</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">10</td><td class="g-nm filled">吳上福</td><td class="g-rel">男方-舅公</td><td class="g-tb">2 楓</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">11</td><td class="g-nm filled">徐鴻鈞</td><td class="g-rel">男方-姨婆</td><td class="g-tb">2 楓</td><td class="g-pax">3</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">12</td><td class="g-nm filled">廖聿為</td><td class="g-rel">男方-姨婆</td><td class="g-tb">2 楓</td><td class="g-pax">3</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">13</td><td class="g-nm filled">鳳英</td><td class="g-rel">男方-長輩</td><td class="g-tb">2 楓</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">14</td><td class="g-nm filled">羅茂騰</td><td class="g-rel">男方-叔叔</td><td class="g-tb">3 雪松</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">15</td><td class="g-nm filled">羅家豐</td><td class="g-rel">男方-長輩</td><td class="g-tb">3 雪松</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">16</td><td class="g-nm filled">羅冬燮</td><td class="g-rel">男方-長輩</td><td class="g-tb">3 雪松</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">17</td><td class="g-nm filled">健銘</td><td class="g-rel">男方-長輩</td><td class="g-tb">3 雪松</td><td class="g-pax">3</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">18</td><td class="g-nm filled">樹興</td><td class="g-rel">男方-長輩</td><td class="g-tb">3 雪松</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">19</td><td class="g-nm filled">羅藤精</td><td class="g-rel">男方-長輩</td><td class="g-tb">4 木棉</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">20</td><td class="g-nm filled">樹輝</td><td class="g-rel">男方-長輩</td><td class="g-tb">4 木棉</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">21</td><td class="g-nm filled">羽辰</td><td class="g-rel">男方-長輩</td><td class="g-tb">4 木棉</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">22</td><td class="g-nm filled">羅茂仁</td><td class="g-rel">男方-叔叔</td><td class="g-tb">4 木棉</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">23</td><td class="g-nm filled">羅秀琴</td><td class="g-rel">男方-姑姑</td><td class="g-tb">4 木棉</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">24</td><td class="g-nm filled">張文達</td><td class="g-rel">男方-姑丈</td><td class="g-tb">4 木棉</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">25</td><td class="g-nm filled">郭乃萍</td><td class="g-rel">女方-阿姨</td><td class="g-tb">5 尤加利</td><td class="g-pax">5</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">26</td><td class="g-nm filled">郭乃瑜</td><td class="g-rel">女方-阿姨</td><td class="g-tb">5 尤加利</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">27</td><td class="g-nm filled">郭祐任</td><td class="g-rel">女方-舅舅</td><td class="g-tb">5 尤加利</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">28</td><td class="g-nm filled">張坤輝</td><td class="g-rel">男方-張家親戚</td><td class="g-tb">6 鼠尾草</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">29</td><td class="g-nm filled">黃彩朋</td><td class="g-rel">男方-張家親戚</td><td class="g-tb">6 鼠尾草</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">30</td><td class="g-nm filled">張睿善</td><td class="g-rel">男方-張家親戚</td><td class="g-tb">6 鼠尾草</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">31</td><td class="g-nm filled">陳銘鳳</td><td class="g-rel">男方-張家親戚</td><td class="g-tb">6 鼠尾草</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">32</td><td class="g-nm filled">陳麗詩</td><td class="g-rel">男方-張家親戚</td><td class="g-tb">6 鼠尾草</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">33</td><td class="g-nm filled">陳宗佑</td><td class="g-rel">男方-張家親戚</td><td class="g-tb">6 鼠尾草</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">34</td><td class="g-nm filled">陳榮興</td><td class="g-rel">男方-張家親戚</td><td class="g-tb">6 鼠尾草</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">35</td><td class="g-nm filled">陳詩語</td><td class="g-rel">男方-張家親戚</td><td class="g-tb">6 鼠尾草</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">36</td><td class="g-nm filled">江義璽</td><td class="g-rel">男方-張家親戚</td><td class="g-tb">6 鼠尾草</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">37</td><td class="g-nm filled">張雅茹</td><td class="g-rel">男方-張家親戚</td><td class="g-tb">6 鼠尾草</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">38</td><td class="g-nm filled">賴蓁蓁</td><td class="g-rel"></td><td class="g-tb">7 迷迭香</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">39</td><td class="g-nm filled">李雯琪</td><td class="g-rel"></td><td class="g-tb">7 迷迭香</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">40</td><td class="g-nm filled">蕭宇軒</td><td class="g-rel"></td><td class="g-tb">7 迷迭香</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">41</td><td class="g-nm filled">張登凱</td><td class="g-rel"></td><td class="g-tb">7 迷迭香</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">42</td><td class="g-nm filled">呂馨</td><td class="g-rel"></td><td class="g-tb">7 迷迭香</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">43</td><td class="g-nm filled">王薇婷</td><td class="g-rel"></td><td class="g-tb">7 迷迭香</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">44</td><td class="g-nm filled">黃柏穎</td><td class="g-rel"></td><td class="g-tb">7 迷迭香</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">45</td><td class="g-nm filled">邱于軒（Apple)</td><td class="g-rel"></td><td class="g-tb">8 常春藤</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">46</td><td class="g-nm filled">耿念慈</td><td class="g-rel"></td><td class="g-tb">8 常春藤</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">47</td><td class="g-nm filled">陳璽君</td><td class="g-rel"></td><td class="g-tb">8 常春藤</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">48</td><td class="g-nm filled">游淩鈞（幽靈）</td><td class="g-rel"></td><td class="g-tb">8 常春藤</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">49</td><td class="g-nm filled">呂政峰</td><td class="g-rel"></td><td class="g-tb">8 常春藤</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">50</td><td class="g-nm filled">劉姵旻</td><td class="g-rel"></td><td class="g-tb">8 常春藤</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">51</td><td class="g-nm filled">謝宏杰（宗翰）</td><td class="g-rel"></td><td class="g-tb">8 常春藤</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">52</td><td class="g-nm filled">闕啟峯</td><td class="g-rel"></td><td class="g-tb">8 常春藤</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">53</td><td class="g-nm filled">羅永金</td><td class="g-rel">男方-羅氏宗親</td><td class="g-tb">9 仙人掌</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">54</td><td class="g-nm filled">羅文生</td><td class="g-rel">男方-羅氏宗親</td><td class="g-tb">9 仙人掌</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">55</td><td class="g-nm filled">羅木堂</td><td class="g-rel">男方-羅氏宗親</td><td class="g-tb">9 仙人掌</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">56</td><td class="g-nm filled">羅武財</td><td class="g-rel">男方-羅氏宗親</td><td class="g-tb">9 仙人掌</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">57</td><td class="g-nm filled">羅文樹</td><td class="g-rel">男方-羅氏宗親</td><td class="g-tb">9 仙人掌</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">58</td><td class="g-nm filled">羅國明</td><td class="g-rel">男方-協會好友</td><td class="g-tb">9 仙人掌</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">59</td><td class="g-nm filled">吳正全</td><td class="g-rel">男方-舅公</td><td class="g-tb">9 仙人掌</td><td class="g-pax">3</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">60</td><td class="g-nm filled">張育綾</td><td class="g-rel">男方-表妹</td><td class="g-tb">10 向日葵</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">61</td><td class="g-nm filled">張育貞</td><td class="g-rel">男方-表妹</td><td class="g-tb">10 向日葵</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">62</td><td class="g-nm filled">羅吳春妹、看護</td><td class="g-rel">男方-奶奶</td><td class="g-tb">10 向日葵</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">63</td><td class="g-nm filled">羅秋香</td><td class="g-rel">男方-姑姑</td><td class="g-tb">10 向日葵</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">64</td><td class="g-nm filled">張英華</td><td class="g-rel">男方-姑丈</td><td class="g-tb">10 向日葵</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">65</td><td class="g-nm filled">張峻源</td><td class="g-rel">男方－表弟</td><td class="g-tb">10 向日葵</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">66</td><td class="g-nm filled">張峻凱</td><td class="g-rel">男方－表弟</td><td class="g-tb">10 向日葵</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">67</td><td class="g-nm filled">羅婕寧</td><td class="g-rel">男方-姊姊</td><td class="g-tb">10 向日葵</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">68</td><td class="g-nm filled">羅聖評</td><td class="g-rel">男方-哥哥</td><td class="g-tb">10 向日葵</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">69</td><td class="g-nm filled">Forever室友 文魚</td><td class="g-rel">伴娘</td><td class="g-tb">11 鬱金香</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">70</td><td class="g-nm filled">袁家祥</td><td class="g-rel"></td><td class="g-tb">11 鬱金香</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">71</td><td class="g-nm filled">梁雅婷</td><td class="g-rel"></td><td class="g-tb">11 鬱金香</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">72</td><td class="g-nm filled">黃亭捷</td><td class="g-rel"></td><td class="g-tb">11 鬱金香</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">73</td><td class="g-nm filled">沈哲緯</td><td class="g-rel"></td><td class="g-tb">11 鬱金香</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">74</td><td class="g-nm filled">陳羽釩</td><td class="g-rel"></td><td class="g-tb">11 鬱金香</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">75</td><td class="g-nm filled">姚宇澤</td><td class="g-rel"></td><td class="g-tb">11 鬱金香</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">76</td><td class="g-nm filled">馬家秀</td><td class="g-rel"></td><td class="g-tb">11 鬱金香</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">77</td><td class="g-nm filled">練紹成</td><td class="g-rel"></td><td class="g-tb">12 蒲公英</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">78</td><td class="g-nm filled">盧志翔</td><td class="g-rel"></td><td class="g-tb">12 蒲公英</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">79</td><td class="g-nm filled">馮柏睿</td><td class="g-rel"></td><td class="g-tb">12 蒲公英</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">80</td><td class="g-nm filled">邱竹韻</td><td class="g-rel"></td><td class="g-tb">12 蒲公英</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">81</td><td class="g-nm filled">張毓凌Polina</td><td class="g-rel"></td><td class="g-tb">12 蒲公英</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">82</td><td class="g-nm filled">洪嘉駿/雜草</td><td class="g-rel"></td><td class="g-tb">12 蒲公英</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">83</td><td class="g-nm filled">曹宇鈞</td><td class="g-rel"></td><td class="g-tb">12 蒲公英</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">84</td><td class="g-nm filled">李彥君</td><td class="g-rel"></td><td class="g-tb">12 蒲公英</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">85</td><td class="g-nm filled">姚詠馨</td><td class="g-rel"></td><td class="g-tb">12 蒲公英</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">86</td><td class="g-nm filled">劉肱池</td><td class="g-rel"></td><td class="g-tb">13 洋甘菊</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">87</td><td class="g-nm filled">張寓科Yorick</td><td class="g-rel"></td><td class="g-tb">13 洋甘菊</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">88</td><td class="g-nm filled">高仕丞</td><td class="g-rel"></td><td class="g-tb">13 洋甘菊</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">89</td><td class="g-nm filled">洪晟豪</td><td class="g-rel"></td><td class="g-tb">13 洋甘菊</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">90</td><td class="g-nm filled">王文弘</td><td class="g-rel"></td><td class="g-tb">13 洋甘菊</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">91</td><td class="g-nm filled">陳柏愷</td><td class="g-rel"></td><td class="g-tb">13 洋甘菊</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">92</td><td class="g-nm filled">姜鐙鈞</td><td class="g-rel"></td><td class="g-tb">13 洋甘菊</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">93</td><td class="g-nm filled">陳威銘</td><td class="g-rel"></td><td class="g-tb">14 小雛菊</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">94</td><td class="g-nm filled">江仁杉</td><td class="g-rel"></td><td class="g-tb">14 小雛菊</td><td class="g-pax">3</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">95</td><td class="g-nm filled">Mitchie</td><td class="g-rel"></td><td class="g-tb">14 小雛菊</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">96</td><td class="g-nm filled">蕭允誠</td><td class="g-rel"></td><td class="g-tb">14 小雛菊</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">97</td><td class="g-nm filled">蔡雨壯</td><td class="g-rel"></td><td class="g-tb">14 小雛菊</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">98</td><td class="g-nm filled">許咨緯</td><td class="g-rel"></td><td class="g-tb">14 小雛菊</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">99</td><td class="g-nm filled">劉鎮桓</td><td class="g-rel"></td><td class="g-tb">14 小雛菊</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">100</td><td class="g-nm filled">王勃淵</td><td class="g-rel"></td><td class="g-tb">15 洋桔梗</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">101</td><td class="g-nm filled">陳昱銘 Timmy</td><td class="g-rel"></td><td class="g-tb">15 洋桔梗</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">102</td><td class="g-nm filled">林宛臻</td><td class="g-rel"></td><td class="g-tb">15 洋桔梗</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">103</td><td class="g-nm filled">Bill Kuo (郭哲銘)</td><td class="g-rel"></td><td class="g-tb">15 洋桔梗</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">104</td><td class="g-nm filled">Sylvia</td><td class="g-rel"></td><td class="g-tb">15 洋桔梗</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">105</td><td class="g-nm filled">石銘謙</td><td class="g-rel"></td><td class="g-tb">15 洋桔梗</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">106</td><td class="g-nm filled">Tony</td><td class="g-rel"></td><td class="g-tb">15 洋桔梗</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">107</td><td class="g-nm filled">Will</td><td class="g-rel"></td><td class="g-tb">15 洋桔梗</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">108</td><td class="g-nm filled">Ollie</td><td class="g-rel">伴郎</td><td class="g-tb">16 玫瑰花</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">109</td><td class="g-nm filled">李佳諭</td><td class="g-rel">伴娘</td><td class="g-tb">16 玫瑰花</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">110</td><td class="g-nm filled">劉良謙</td><td class="g-rel">伴郎</td><td class="g-tb">16 玫瑰花</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">111</td><td class="g-nm filled">Ginny</td><td class="g-rel"></td><td class="g-tb">16 玫瑰花</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">112</td><td class="g-nm filled">林毅聖  Eason Lin</td><td class="g-rel"></td><td class="g-tb">16 玫瑰花</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">113</td><td class="g-nm filled">陳彥儒 Andy Y</td><td class="g-rel"></td><td class="g-tb">16 玫瑰花</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">114</td><td class="g-nm filled">Yoi/李宥誼</td><td class="g-rel"></td><td class="g-tb">16 玫瑰花</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">115</td><td class="g-nm filled">Hank Chang</td><td class="g-rel"></td><td class="g-tb">16 玫瑰花</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">116</td><td class="g-nm filled">Ziv</td><td class="g-rel"></td><td class="g-tb">16 玫瑰花</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">117</td><td class="g-nm filled">葉崇文</td><td class="g-rel"></td><td class="g-tb">17 滿天星</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">118</td><td class="g-nm filled">王真儀Jenny</td><td class="g-rel"></td><td class="g-tb">17 滿天星</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">119</td><td class="g-nm filled">Wendy Jiang</td><td class="g-rel"></td><td class="g-tb">17 滿天星</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">120</td><td class="g-nm filled">劉宭守</td><td class="g-rel"></td><td class="g-tb">17 滿天星</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">121</td><td class="g-nm filled">Sherry Su</td><td class="g-rel"></td><td class="g-tb">17 滿天星</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">122</td><td class="g-nm filled">Ivy 張簡</td><td class="g-rel"></td><td class="g-tb">17 滿天星</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">123</td><td class="g-nm filled">Lucy</td><td class="g-rel"></td><td class="g-tb">17 滿天星</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">124</td><td class="g-nm filled">Dino Lai</td><td class="g-rel"></td><td class="g-tb">17 滿天星</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">125</td><td class="g-nm filled">Teresa Y Wu</td><td class="g-rel"></td><td class="g-tb">18 薰衣草</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">126</td><td class="g-nm filled">彭彥榕</td><td class="g-rel"></td><td class="g-tb">18 薰衣草</td><td class="g-pax">3</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">127</td><td class="g-nm filled">高子恩 / Lance Kao</td><td class="g-rel"></td><td class="g-tb">18 薰衣草</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">128</td><td class="g-nm filled">Lilian 黃莉苓</td><td class="g-rel"></td><td class="g-tb">18 薰衣草</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">129</td><td class="g-nm filled">劉楓嵐 Michelle</td><td class="g-rel"></td><td class="g-tb">18 薰衣草</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">130</td><td class="g-nm filled">Wenze(張玉旻)</td><td class="g-rel"></td><td class="g-tb">18 薰衣草</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">131</td><td class="g-nm filled">張怡翎</td><td class="g-rel"></td><td class="g-tb">18 薰衣草</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">132</td><td class="g-nm filled">Kazuna Lin</td><td class="g-rel"></td><td class="g-tb">18 薰衣草</td><td class="g-pax">3</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">133</td><td class="g-nm filled">Joy Sun</td><td class="g-rel"></td><td class="g-tb">18 薰衣草</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">134</td><td class="g-nm filled">陳芃諭</td><td class="g-rel"></td><td class="g-tb">19 櫻花</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">135</td><td class="g-nm filled">黃星豪</td><td class="g-rel"></td><td class="g-tb">19 櫻花</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">136</td><td class="g-nm filled">范逸凱</td><td class="g-rel"></td><td class="g-tb">19 櫻花</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">137</td><td class="g-nm filled">楊文瀚</td><td class="g-rel"></td><td class="g-tb">19 櫻花</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">138</td><td class="g-nm filled">劉思辰</td><td class="g-rel"></td><td class="g-tb">19 櫻花</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">139</td><td class="g-nm filled">陳彤</td><td class="g-rel"></td><td class="g-tb">20 小蒼蘭</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">140</td><td class="g-nm filled">Miko</td><td class="g-rel"></td><td class="g-tb">20 小蒼蘭</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">141</td><td class="g-nm filled">黃芝毓（呱呱）</td><td class="g-rel"></td><td class="g-tb">20 小蒼蘭</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">142</td><td class="g-nm filled">黃晉豪</td><td class="g-rel"></td><td class="g-tb">20 小蒼蘭</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">143</td><td class="g-nm filled">黃芃璇</td><td class="g-rel"></td><td class="g-tb">20 小蒼蘭</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">144</td><td class="g-nm filled">Luli</td><td class="g-rel"></td><td class="g-tb">20 小蒼蘭</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">145</td><td class="g-nm filled">徐大舜</td><td class="g-rel"></td><td class="g-tb">20 小蒼蘭</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">146</td><td class="g-nm filled">張皓鈞</td><td class="g-rel"></td><td class="g-tb">20 小蒼蘭</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">147</td><td class="g-nm filled">楊鑫坤</td><td class="g-rel">男方-爸爸結拜</td><td class="g-tb">21 繡球花</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">148</td><td class="g-nm filled">廖金城</td><td class="g-rel">男方-爸爸結拜</td><td class="g-tb">21 繡球花</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">149</td><td class="g-nm filled">陳志成</td><td class="g-rel">男方-爸爸結拜</td><td class="g-tb">21 繡球花</td><td class="g-pax">3</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">150</td><td class="g-nm filled">許延亮</td><td class="g-rel">男方-爸爸結拜</td><td class="g-tb">21 繡球花</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">151</td><td class="g-nm filled">許秀敏</td><td class="g-rel">男方－爸爸員工</td><td class="g-tb">22 山茶花</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">152</td><td class="g-nm filled">陳弘益</td><td class="g-rel">男方－爸爸員工</td><td class="g-tb">22 山茶花</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">已領取</td></tr>
+<tr><td class="g-seq">153</td><td class="g-nm filled">魏文治</td><td class="g-rel">男方－爸爸員工</td><td class="g-tb">22 山茶花</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">154</td><td class="g-nm filled">武美姬</td><td class="g-rel">男方－爸爸員工</td><td class="g-tb">22 山茶花</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">155</td><td class="g-nm filled">徐正弦</td><td class="g-rel">男方－爸爸員工</td><td class="g-tb">22 山茶花</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">156</td><td class="g-nm filled">游和紘</td><td class="g-rel">男方-爸爸結拜</td><td class="g-tb">22 山茶花</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">157</td><td class="g-nm filled">楊進財</td><td class="g-rel">男方-爸爸結拜</td><td class="g-tb">22 山茶花</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">158</td><td class="g-nm filled">侯力升</td><td class="g-rel">男方-協會好友</td><td class="g-tb">23 百合</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">159</td><td class="g-nm filled">徐慧伶</td><td class="g-rel">男方-協會好友</td><td class="g-tb">23 百合</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">160</td><td class="g-nm filled">戴瑞琴</td><td class="g-rel">男方-協會好友</td><td class="g-tb">23 百合</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">161</td><td class="g-nm filled">黃宗明</td><td class="g-rel">男方-協會好友</td><td class="g-tb">23 百合</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">162</td><td class="g-nm filled">謝伊凡</td><td class="g-rel">男方-協會好友</td><td class="g-tb">23 百合</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">163</td><td class="g-nm filled">呂國振</td><td class="g-rel">男方-協會好友</td><td class="g-tb">23 百合</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">164</td><td class="g-nm filled">陳勝財</td><td class="g-rel">男方-協會好友</td><td class="g-tb">23 百合</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">165</td><td class="g-nm filled">劉文掌</td><td class="g-rel">男方-協會好友</td><td class="g-tb">24 海芋</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">166</td><td class="g-nm filled">卓菊蘭</td><td class="g-rel">男方-協會好友</td><td class="g-tb">24 海芋</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">167</td><td class="g-nm filled">黃秋榮</td><td class="g-rel">男方-協會好友</td><td class="g-tb">24 海芋</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">168</td><td class="g-nm filled">魏寶蘭</td><td class="g-rel">男方-協會好友</td><td class="g-tb">24 海芋</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">169</td><td class="g-nm filled">劉范菊妹</td><td class="g-rel">男方-協會好友</td><td class="g-tb">24 海芋</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">170</td><td class="g-nm filled">葉彩婕</td><td class="g-rel">男方-協會好友</td><td class="g-tb">24 海芋</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">171</td><td class="g-nm filled">陳素貞</td><td class="g-rel">男方-協會好友</td><td class="g-tb">24 海芋</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">172</td><td class="g-nm filled">謝瑞貞</td><td class="g-rel">男方-協會好友</td><td class="g-tb">24 海芋</td><td class="g-pax">1</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">173</td><td class="g-nm filled">余國淦</td><td class="g-rel">男方-協會好友</td><td class="g-tb">25 梔子花</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">174</td><td class="g-nm filled">羅木松</td><td class="g-rel">男方-協會好友</td><td class="g-tb">25 梔子花</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">175</td><td class="g-nm filled">鄭瑞德</td><td class="g-rel">男方-協會好友</td><td class="g-tb">25 梔子花</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">176</td><td class="g-nm filled">蕭素女</td><td class="g-rel">男方-協會好友</td><td class="g-tb">25 梔子花</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">177</td><td class="g-nm filled">黃銘輝</td><td class="g-rel">男方-協會好友</td><td class="g-tb">25 梔子花</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">178</td><td class="g-nm filled">邱祝忠</td><td class="g-rel">男方-協會好友</td><td class="g-tb">26 油桐花</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">179</td><td class="g-nm filled">張劍輝</td><td class="g-rel">男方-協會好友</td><td class="g-tb">26 油桐花</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">180</td><td class="g-nm filled">李宏毅</td><td class="g-rel">男方-協會好友</td><td class="g-tb">26 油桐花</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">181</td><td class="g-nm filled">李泳宗</td><td class="g-rel">男方-協會好友</td><td class="g-tb">26 油桐花</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">182</td><td class="g-nm filled">陳金龍</td><td class="g-rel">男方-協會好友</td><td class="g-tb">26 油桐花</td><td class="g-pax">2</td><td class="g-amt"></td><td class="g-ck">需要一盒</td></tr>
+<tr><td class="g-seq">183</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">184</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">185</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">186</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">187</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">188</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">189</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">190</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">191</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">192</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">193</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">194</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">195</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">196</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">197</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">198</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">199</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">200</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">201</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">202</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">203</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">204</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">205</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">206</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">207</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">208</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">209</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">210</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">211</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+<tr><td class="g-seq">212</td><td class="g-nm"></td><td class="g-rel"></td><td class="g-tb"></td><td class="g-pax"></td><td class="g-amt"></td><td class="g-ck"></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Section 3 -->
+  <div class="sec-h" style="page-break-before: always;">③ 賓客快速查桌表 <span class="en">GUEST LOOKUP (NAME ➔ TABLE)</span></div>
+  <section class="sheet lookup-sheet">
+    <div class="sheet-title">
+      <span>🌿 賓客快速查桌表</span>
+      <span class="pg">按姓名拼音／筆劃排序</span>
+    </div>
+    <p class="hint">💡 現場接待專用：賓客報上大名，可於 1 秒內迅速查得所屬桌次與稱謂。</p>
+    <div class="lk-wrap">
+      <table class="lookup">
+        <thead><tr><th class="l-nm">賓客姓名</th><th class="l-tb">桌次</th><th class="l-rel">稱謂／關係</th></tr></thead>
+        <tbody>
+<tr><td class="l-nm filled">-蔡文成（的老婆）</td><td class="l-tb">1  銀杏</td><td class="l-rel">女方-舅公婆</td></tr>
+<tr><td class="l-nm filled">Bill Kuo (郭哲銘)</td><td class="l-tb">15 洋桔梗</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">蔡文成</td><td class="l-tb">主桌</td><td class="l-rel">女方-舅公</td></tr>
+<tr><td class="l-nm filled">蔡雨壯</td><td class="l-tb">14 小雛菊</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">曹宇鈞</td><td class="l-tb">12 蒲公英</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">陳勝財</td><td class="l-tb">23 百合</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">陳威銘</td><td class="l-tb">14 小雛菊</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">陳宗佑</td><td class="l-tb">6 鼠尾草</td><td class="l-rel">男方-張家親戚</td></tr>
+<tr><td class="l-nm filled">陳弘益</td><td class="l-tb">22 山茶花</td><td class="l-rel">男方－爸爸員工</td></tr>
+<tr><td class="l-nm filled">陳彤</td><td class="l-tb">20 小蒼蘭</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">陳彥儒 Andy Y</td><td class="l-tb">16 玫瑰花</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">陳志成</td><td class="l-tb">21 繡球花</td><td class="l-rel">男方-爸爸結拜</td></tr>
+<tr><td class="l-nm filled">陳昱銘 Timmy</td><td class="l-tb">15 洋桔梗</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">陳柏愷</td><td class="l-tb">13 洋甘菊</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">陳榮興</td><td class="l-tb">6 鼠尾草</td><td class="l-rel">男方-張家親戚</td></tr>
+<tr><td class="l-nm filled">陳璽君</td><td class="l-tb">8 常春藤</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">陳素貞</td><td class="l-tb">24 海芋</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">陳羽釩</td><td class="l-tb">11 鬱金香</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">陳芃諭</td><td class="l-tb">19 櫻花</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">陳詩語</td><td class="l-tb">6 鼠尾草</td><td class="l-rel">男方-張家親戚</td></tr>
+<tr><td class="l-nm filled">陳金龍</td><td class="l-tb">26 油桐花</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">陳銘鳳</td><td class="l-tb">6 鼠尾草</td><td class="l-rel">男方-張家親戚</td></tr>
+<tr><td class="l-nm filled">陳麗詩</td><td class="l-tb">6 鼠尾草</td><td class="l-rel">男方-張家親戚</td></tr>
+<tr><td class="l-nm filled">戴淑娟</td><td class="l-tb">1  銀杏</td><td class="l-rel">女方-姑姑</td></tr>
+<tr><td class="l-nm filled">戴淑秋</td><td class="l-tb">1  銀杏</td><td class="l-rel">女方-姑姑</td></tr>
+<tr><td class="l-nm filled">戴瑞琴</td><td class="l-tb">23 百合</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">戴蔡美惠</td><td class="l-tb">主桌</td><td class="l-rel">女方-奶奶</td></tr>
+<tr><td class="l-nm filled">Dino Lai</td><td class="l-tb">17 滿天星</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">范逸凱</td><td class="l-tb">19 櫻花</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">馮柏睿</td><td class="l-tb">12 蒲公英</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">鳳英</td><td class="l-tb">2 楓</td><td class="l-rel">男方-長輩</td></tr>
+<tr><td class="l-nm filled">Forever室友 文魚</td><td class="l-tb">11 鬱金香</td><td class="l-rel">伴娘</td></tr>
+<tr><td class="l-nm filled">高仕丞</td><td class="l-tb">13 洋甘菊</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">高子恩 / Lance Kao</td><td class="l-tb">18 薰衣草</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">耿念慈</td><td class="l-tb">8 常春藤</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">Ginny</td><td class="l-tb">16 玫瑰花</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">郭乃瑜</td><td class="l-tb">5 尤加利</td><td class="l-rel">女方-阿姨</td></tr>
+<tr><td class="l-nm filled">郭乃萍</td><td class="l-tb">5 尤加利</td><td class="l-rel">女方-阿姨</td></tr>
+<tr><td class="l-nm filled">郭祐任</td><td class="l-tb">5 尤加利</td><td class="l-rel">女方-舅舅</td></tr>
+<tr><td class="l-nm filled">Hank Chang</td><td class="l-tb">16 玫瑰花</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">洪嘉駿/雜草</td><td class="l-tb">12 蒲公英</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">洪晟豪</td><td class="l-tb">13 洋甘菊</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">侯力升</td><td class="l-tb">23 百合</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">黃亭捷</td><td class="l-tb">11 鬱金香</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">黃宗明</td><td class="l-tb">23 百合</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">黃彩朋</td><td class="l-tb">6 鼠尾草</td><td class="l-rel">男方-張家親戚</td></tr>
+<tr><td class="l-nm filled">黃星豪</td><td class="l-tb">19 櫻花</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">黃晉豪</td><td class="l-tb">20 小蒼蘭</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">黃柏穎</td><td class="l-tb">7 迷迭香</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">黃秋榮</td><td class="l-tb">24 海芋</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">黃芃璇</td><td class="l-tb">20 小蒼蘭</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">黃芝毓（呱呱）</td><td class="l-tb">20 小蒼蘭</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">黃銘輝</td><td class="l-tb">25 梔子花</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">Ivy 張簡</td><td class="l-tb">17 滿天星</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">健銘</td><td class="l-tb">3 雪松</td><td class="l-rel">男方-長輩</td></tr>
+<tr><td class="l-nm filled">姜鐙鈞</td><td class="l-tb">13 洋甘菊</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">江仁杉</td><td class="l-tb">14 小雛菊</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">江義璽</td><td class="l-tb">6 鼠尾草</td><td class="l-rel">男方-張家親戚</td></tr>
+<tr><td class="l-nm filled">Joy Sun</td><td class="l-tb">18 薰衣草</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">Kazuna Lin</td><td class="l-tb">18 薰衣草</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">賴蓁蓁</td><td class="l-tb">7 迷迭香</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">李佳諭</td><td class="l-tb">16 玫瑰花</td><td class="l-rel">伴娘</td></tr>
+<tr><td class="l-nm filled">李宏毅</td><td class="l-tb">26 油桐花</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">李彥君</td><td class="l-tb">12 蒲公英</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">李泳宗</td><td class="l-tb">26 油桐花</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">李雯琪</td><td class="l-tb">7 迷迭香</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">練紹成</td><td class="l-tb">12 蒲公英</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">梁雅婷</td><td class="l-tb">11 鬱金香</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">廖聿為</td><td class="l-tb">2 楓</td><td class="l-rel">男方-姨婆</td></tr>
+<tr><td class="l-nm filled">廖金城</td><td class="l-tb">21 繡球花</td><td class="l-rel">男方-爸爸結拜</td></tr>
+<tr><td class="l-nm filled">Lilian 黃莉苓</td><td class="l-tb">18 薰衣草</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">林宛臻</td><td class="l-tb">15 洋桔梗</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">林毅聖  Eason Lin</td><td class="l-tb">16 玫瑰花</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">林碧霞</td><td class="l-tb">主桌</td><td class="l-rel">女方-外婆</td></tr>
+<tr><td class="l-nm filled">劉姵旻</td><td class="l-tb">8 常春藤</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">劉宭守</td><td class="l-tb">17 滿天星</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">劉思辰</td><td class="l-tb">19 櫻花</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">劉文掌</td><td class="l-tb">24 海芋</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">劉楓嵐 Michelle</td><td class="l-tb">18 薰衣草</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">劉肱池</td><td class="l-tb">13 洋甘菊</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">劉良謙</td><td class="l-tb">16 玫瑰花</td><td class="l-rel">伴郎</td></tr>
+<tr><td class="l-nm filled">劉范菊妹</td><td class="l-tb">24 海芋</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">劉鎮桓</td><td class="l-tb">14 小雛菊</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">盧志翔</td><td class="l-tb">12 蒲公英</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">Lucy</td><td class="l-tb">17 滿天星</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">Luli</td><td class="l-tb">20 小蒼蘭</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">羅冬燮</td><td class="l-tb">3 雪松</td><td class="l-rel">男方-長輩</td></tr>
+<tr><td class="l-nm filled">羅吳春妹、看護</td><td class="l-tb">10 向日葵</td><td class="l-rel">男方-奶奶</td></tr>
+<tr><td class="l-nm filled">羅國明</td><td class="l-tb">9 仙人掌</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">羅婕寧</td><td class="l-tb">10 向日葵</td><td class="l-rel">男方-姊姊</td></tr>
+<tr><td class="l-nm filled">羅家豐</td><td class="l-tb">3 雪松</td><td class="l-rel">男方-長輩</td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+        </tbody>
+      </table>
+      <table class="lookup">
+        <thead><tr><th class="l-nm">賓客姓名</th><th class="l-tb">桌次</th><th class="l-rel">稱謂／關係</th></tr></thead>
+        <tbody>
+<tr><td class="l-nm filled">羅文樹</td><td class="l-tb">9 仙人掌</td><td class="l-rel">男方-羅氏宗親</td></tr>
+<tr><td class="l-nm filled">羅文生</td><td class="l-tb">9 仙人掌</td><td class="l-rel">男方-羅氏宗親</td></tr>
+<tr><td class="l-nm filled">羅木堂</td><td class="l-tb">9 仙人掌</td><td class="l-rel">男方-羅氏宗親</td></tr>
+<tr><td class="l-nm filled">羅木松</td><td class="l-tb">25 梔子花</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">羅武財</td><td class="l-tb">9 仙人掌</td><td class="l-rel">男方-羅氏宗親</td></tr>
+<tr><td class="l-nm filled">羅永金</td><td class="l-tb">9 仙人掌</td><td class="l-rel">男方-羅氏宗親</td></tr>
+<tr><td class="l-nm filled">羅秀琴</td><td class="l-tb">4 木棉</td><td class="l-rel">男方-姑姑</td></tr>
+<tr><td class="l-nm filled">羅秋香</td><td class="l-tb">10 向日葵</td><td class="l-rel">男方-姑姑</td></tr>
+<tr><td class="l-nm filled">羅聖評</td><td class="l-tb">10 向日葵</td><td class="l-rel">男方-哥哥</td></tr>
+<tr><td class="l-nm filled">羅茂仁</td><td class="l-tb">4 木棉</td><td class="l-rel">男方-叔叔</td></tr>
+<tr><td class="l-nm filled">羅茂騰</td><td class="l-tb">3 雪松</td><td class="l-rel">男方-叔叔</td></tr>
+<tr><td class="l-nm filled">羅藤精</td><td class="l-tb">4 木棉</td><td class="l-rel">男方-長輩</td></tr>
+<tr><td class="l-nm filled">呂國振</td><td class="l-tb">23 百合</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">呂政峰</td><td class="l-tb">8 常春藤</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">呂馨</td><td class="l-tb">7 迷迭香</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">馬家秀</td><td class="l-tb">11 鬱金香</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">Miko</td><td class="l-tb">20 小蒼蘭</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">Mitchie</td><td class="l-tb">14 小雛菊</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">Ollie</td><td class="l-tb">16 玫瑰花</td><td class="l-rel">伴郎</td></tr>
+<tr><td class="l-nm filled">彭彥榕</td><td class="l-tb">18 薰衣草</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">邱于軒（Apple)</td><td class="l-tb">8 常春藤</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">邱祝忠</td><td class="l-tb">26 油桐花</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">邱竹韻</td><td class="l-tb">12 蒲公英</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">闕啟峯</td><td class="l-tb">8 常春藤</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">沈哲緯</td><td class="l-tb">11 鬱金香</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">Sherry Su</td><td class="l-tb">17 滿天星</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">石銘謙</td><td class="l-tb">15 洋桔梗</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">樹興</td><td class="l-tb">3 雪松</td><td class="l-rel">男方-長輩</td></tr>
+<tr><td class="l-nm filled">樹輝</td><td class="l-tb">4 木棉</td><td class="l-rel">男方-長輩</td></tr>
+<tr><td class="l-nm filled">Sylvia</td><td class="l-tb">15 洋桔梗</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">Teresa Y Wu</td><td class="l-tb">18 薰衣草</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">Tony</td><td class="l-tb">15 洋桔梗</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">王勃淵</td><td class="l-tb">15 洋桔梗</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">王文弘</td><td class="l-tb">13 洋甘菊</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">王真儀Jenny</td><td class="l-tb">17 滿天星</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">王薇婷</td><td class="l-tb">7 迷迭香</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">魏寶蘭</td><td class="l-tb">24 海芋</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">魏文治</td><td class="l-tb">22 山茶花</td><td class="l-rel">男方－爸爸員工</td></tr>
+<tr><td class="l-nm filled">Wendy Jiang</td><td class="l-tb">17 滿天星</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">Wenze(張玉旻)</td><td class="l-tb">18 薰衣草</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">Will</td><td class="l-tb">15 洋桔梗</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">吳上福</td><td class="l-tb">2 楓</td><td class="l-rel">男方-舅公</td></tr>
+<tr><td class="l-nm filled">吳正全</td><td class="l-tb">9 仙人掌</td><td class="l-rel">男方-舅公</td></tr>
+<tr><td class="l-nm filled">武美姬</td><td class="l-tb">22 山茶花</td><td class="l-rel">男方－爸爸員工</td></tr>
+<tr><td class="l-nm filled">蕭允誠</td><td class="l-tb">14 小雛菊</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">蕭宇軒</td><td class="l-tb">7 迷迭香</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">蕭素女</td><td class="l-tb">25 梔子花</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">謝伊凡</td><td class="l-tb">23 百合</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">謝宏杰（宗翰）</td><td class="l-tb">8 常春藤</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">謝瑞貞</td><td class="l-tb">24 海芋</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">徐大舜</td><td class="l-tb">20 小蒼蘭</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">徐慧伶</td><td class="l-tb">23 百合</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">徐正弦</td><td class="l-tb">22 山茶花</td><td class="l-rel">男方－爸爸員工</td></tr>
+<tr><td class="l-nm filled">徐鴻鈞</td><td class="l-tb">2 楓</td><td class="l-rel">男方-姨婆</td></tr>
+<tr><td class="l-nm filled">許咨緯</td><td class="l-tb">14 小雛菊</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">許延亮</td><td class="l-tb">21 繡球花</td><td class="l-rel">男方-爸爸結拜</td></tr>
+<tr><td class="l-nm filled">許秀敏</td><td class="l-tb">22 山茶花</td><td class="l-rel">男方－爸爸員工</td></tr>
+<tr><td class="l-nm filled">楊文瀚</td><td class="l-tb">19 櫻花</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">楊進財</td><td class="l-tb">22 山茶花</td><td class="l-rel">男方-爸爸結拜</td></tr>
+<tr><td class="l-nm filled">楊鑫坤</td><td class="l-tb">21 繡球花</td><td class="l-rel">男方-爸爸結拜</td></tr>
+<tr><td class="l-nm filled">姚宇澤</td><td class="l-tb">11 鬱金香</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">姚詠馨</td><td class="l-tb">12 蒲公英</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">葉崇文</td><td class="l-tb">17 滿天星</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">葉彩婕</td><td class="l-tb">24 海芋</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">Yoi/李宥誼</td><td class="l-tb">16 玫瑰花</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">游和紘</td><td class="l-tb">22 山茶花</td><td class="l-rel">男方-爸爸結拜</td></tr>
+<tr><td class="l-nm filled">游淩鈞（幽靈）</td><td class="l-tb">8 常春藤</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">余國淦</td><td class="l-tb">25 梔子花</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">羽辰</td><td class="l-tb">4 木棉</td><td class="l-rel">男方-長輩</td></tr>
+<tr><td class="l-nm filled">袁家祥</td><td class="l-tb">11 鬱金香</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">張劍輝</td><td class="l-tb">26 油桐花</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">張坤輝</td><td class="l-tb">6 鼠尾草</td><td class="l-rel">男方-張家親戚</td></tr>
+<tr><td class="l-nm filled">張寓科Yorick</td><td class="l-tb">13 洋甘菊</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">張峻凱</td><td class="l-tb">10 向日葵</td><td class="l-rel">男方－表弟</td></tr>
+<tr><td class="l-nm filled">張峻源</td><td class="l-tb">10 向日葵</td><td class="l-rel">男方－表弟</td></tr>
+<tr><td class="l-nm filled">張怡翎</td><td class="l-tb">18 薰衣草</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">張敏珠</td><td class="l-tb">主桌</td><td class="l-rel">男方-媒婆</td></tr>
+<tr><td class="l-nm filled">張文達</td><td class="l-tb">4 木棉</td><td class="l-rel">男方-姑丈</td></tr>
+<tr><td class="l-nm filled">張毓凌Polina</td><td class="l-tb">12 蒲公英</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">張添吉</td><td class="l-tb">主桌</td><td class="l-rel">男方-舅舅</td></tr>
+<tr><td class="l-nm filled">張登凱</td><td class="l-tb">7 迷迭香</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">張皓鈞</td><td class="l-tb">20 小蒼蘭</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm filled">張睿善</td><td class="l-tb">6 鼠尾草</td><td class="l-rel">男方-張家親戚</td></tr>
+<tr><td class="l-nm filled">張育綾</td><td class="l-tb">10 向日葵</td><td class="l-rel">男方-表妹</td></tr>
+<tr><td class="l-nm filled">張育貞</td><td class="l-tb">10 向日葵</td><td class="l-rel">男方-表妹</td></tr>
+<tr><td class="l-nm filled">張英華</td><td class="l-tb">10 向日葵</td><td class="l-rel">男方-姑丈</td></tr>
+<tr><td class="l-nm filled">張雅茹</td><td class="l-tb">6 鼠尾草</td><td class="l-rel">男方-張家親戚</td></tr>
+<tr><td class="l-nm filled">鄭榮杰</td><td class="l-tb">1  銀杏</td><td class="l-rel">女方-爸爸堂哥</td></tr>
+<tr><td class="l-nm filled">鄭瑞德</td><td class="l-tb">25 梔子花</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">卓菊蘭</td><td class="l-tb">24 海芋</td><td class="l-rel">男方-協會好友</td></tr>
+<tr><td class="l-nm filled">Ziv</td><td class="l-tb">16 玫瑰花</td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+<tr><td class="l-nm"></td><td class="l-tb"></td><td class="l-rel"></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="foot">
+    <span>Barry ♥ Winnie Wedding Banquet</span>
+    <span class="glyph">✦</span>
+    <span>2026.12.12 Amour 水漾森林 E 廳</span>
+    <span class="glyph">✦</span>
+    <span>童話森林系婚禮接待手冊</span>
+  </div>
+
+</div>
+</body>
+</html>
