@@ -755,68 +755,186 @@
     }
 
     /* =========================================================
-       4. 迷霧森林最後衝刺 · 巨幅金色倒數計時框 (Mist Mode Banner)
+       4. 迷霧森林最後衝刺 · 濃霧遮蔽排名 ＆ 巨幅中央倒數計時框 (Mist Shroud & Giant Countdown)
        ========================================================= */
-    .screen-mist-banner {
+    .screen-mist-shroud-curtain {
       position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(135deg, rgba(35, 20, 10, 0.98) 0%, rgba(55, 28, 14, 0.98) 100%);
-      border: 2px solid #eab308;
-      border-radius: 999px;
-      padding: 6px 24px 6px 30px;
+      inset: 0;
+      z-index: 120;
       display: none;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      justify-content: center;
       align-items: center;
-      gap: 20px;
-      z-index: 150;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7), 0 0 35px rgba(234, 179, 8, 0.65);
-      animation: bannerPulse 1.2s infinite alternate;
+      background: radial-gradient(ellipse at 50% 50%, rgba(240, 246, 242, 0.88) 0%, rgba(205, 225, 215, 0.94) 45%, rgba(12, 24, 16, 0.97) 90%);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      overflow: hidden;
     }
 
-    .screen-mist-banner.active {
+    .screen-mist-shroud-curtain.active {
       display: flex;
+      opacity: 1;
     }
 
-    @keyframes bannerPulse {
-      0% { transform: translateX(-50%) scale(0.99); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(234, 179, 8, 0.4); }
-      100% { transform: translateX(-50%) scale(1.02); box-shadow: 0 16px 50px rgba(0, 0, 0, 0.7), 0 0 45px rgba(234, 179, 8, 0.85); }
+    /* 濃霧內部持續動態微動粒子與晨霧流 */
+    .mist-shroud-fog-bg {
+      position: absolute;
+      inset: -30%;
+      pointer-events: none;
+      background: radial-gradient(ellipse at 30% 40%, rgba(255, 255, 255, 0.45) 0%, rgba(240, 230, 210, 0.25) 35%, transparent 70%),
+                  radial-gradient(ellipse at 70% 60%, rgba(200, 230, 220, 0.4) 0%, transparent 60%);
+      filter: blur(35px);
+      mix-blend-mode: screen;
+      animation: shroudMistDrift 18s ease-in-out infinite alternate;
     }
 
-    .mist-banner-left {
+    @keyframes shroudMistDrift {
+      0% { transform: translate(-4%, -3%) scale(1); }
+      50% { transform: translate(5%, 4%) scale(1.08); }
+      100% { transform: translate(-3%, 5%) scale(1.03); }
+    }
+
+    /* 中央巨幅金色戰況面板 */
+    .mist-giant-centerpiece {
+      position: relative;
+      z-index: 10;
+      background: linear-gradient(145deg, rgba(20, 36, 24, 0.96) 0%, rgba(10, 18, 12, 0.98) 100%);
+      border: 3px solid #eab308;
+      border-radius: 36px;
+      padding: 38px 64px 34px 64px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.85), 0 0 60px rgba(234, 179, 8, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.18);
       display: flex;
       flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 20px;
+      animation: centerpieceFloat 3s ease-in-out infinite alternate;
+      max-width: 860px;
+      width: 90%;
     }
 
-    .mist-headline {
-      font-family: 'Cinzel', 'Noto Serif TC', serif;
-      font-size: 1.15rem;
+    @keyframes centerpieceFloat {
+      0% { transform: scale(0.99) translateY(2px); box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 45px rgba(234,179,8,0.45); }
+      100% { transform: scale(1.01) translateY(-2px); box-shadow: 0 28px 80px rgba(0,0,0,0.9), 0 0 75px rgba(234,179,8,0.7); }
+    }
+
+    .mist-centerpiece-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mist-sparkle-tag {
+      font-size: 0.92rem;
       font-weight: 800;
       color: #fef08a;
-      letter-spacing: 1px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      background: rgba(185, 28, 28, 0.85);
+      border: 1.5px solid #f87171;
+      padding: 4px 18px;
+      border-radius: 999px;
+      letter-spacing: 2px;
+      box-shadow: 0 0 16px rgba(239, 68, 68, 0.6);
+      animation: tagGlow 1s infinite alternate;
     }
 
-    .mist-subtext {
-      font-size: 0.75rem;
+    @keyframes tagGlow {
+      0% { transform: scale(0.98); }
+      100% { transform: scale(1.02); }
+    }
+
+    .mist-giant-title {
+      font-family: 'Cinzel', 'Noto Serif TC', serif;
+      font-size: 2.3rem;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: 3px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 30px rgba(250, 204, 21, 0.7);
+    }
+
+    .mist-giant-desc {
+      font-size: 1.15rem;
       color: #fed7aa;
-      font-weight: 600;
-      margin-top: 1px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    /* 超大呼吸心跳倒數時鐘 */
+    .mist-clock-wrap {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #b91c1c 0%, #881337 60%, #4c0519 100%);
+      border: 5px solid #facc15;
+      box-shadow: 0 0 50px rgba(234, 179, 8, 0.8), inset 0 0 35px rgba(0, 0, 0, 0.75);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: clockHeartbeat 1s infinite;
+    }
+
+    @keyframes clockHeartbeat {
+      0% { transform: scale(0.97); box-shadow: 0 0 40px rgba(234, 179, 8, 0.6), inset 0 0 30px rgba(0, 0, 0, 0.7); }
+      20% { transform: scale(1.05); box-shadow: 0 0 70px rgba(239, 68, 68, 0.95), 0 0 50px rgba(234, 179, 8, 0.85); }
+      40% { transform: scale(0.99); }
+      60% { transform: scale(1.03); }
+      100% { transform: scale(0.97); }
     }
 
     .mist-giant-timer {
       font-family: 'Cinzel', monospace;
-      font-size: 2.1rem;
+      font-size: 7.2rem;
       font-weight: 900;
       color: #ffffff;
-      background: #b91c1c;
-      border: 2px solid #f87171;
-      padding: 2px 18px;
+      line-height: 1;
+      text-shadow: 0 4px 25px rgba(0, 0, 0, 0.9), 0 0 30px rgba(254, 240, 138, 0.9);
+      letter-spacing: -2px;
+    }
+
+    .mist-clock-unit {
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 4px;
+      color: #fef08a;
+      margin-top: -4px;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+    }
+
+    .mist-centerpiece-footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mist-live-odometer {
+      font-size: 1.15rem;
+      color: #fde047;
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 6px 22px;
       border-radius: 999px;
-      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5), 0 0 16px rgba(239, 68, 68, 0.6);
-      letter-spacing: 1.5px;
+      border: 1px solid rgba(250, 204, 21, 0.35);
+    }
+
+    .mist-live-odometer span {
+      font-family: 'Cinzel', monospace;
+      font-size: 1.45rem;
+      color: #ffffff;
+      font-weight: 900;
+      margin-left: 4px;
+      text-shadow: 0 0 10px rgba(250, 204, 21, 0.8);
+    }
+
+    .mist-suspense-hint {
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      font-weight: 600;
+      letter-spacing: 1px;
     }
 
     /* =========================================================
@@ -1116,15 +1234,31 @@
     </section>
   </main>
 
-  <!-- 4. 迷霧森林最後衝刺 · 巨幅金色倒數計時框 -->
-  <div class="screen-mist-banner" id="screenMistBanner">
-    <div class="mist-banner-left">
-      <div class="mist-headline">
-        <span>🌫️</span> 迷霧森林最後衝刺！
+  <!-- 4. 迷霧森林最後衝刺 · 濃霧遮蔽排名 ＆ 巨幅中央倒數計時框 -->
+  <div class="screen-mist-shroud-curtain" id="screenMistShroud">
+    <div class="mist-shroud-fog-bg"></div>
+    <div class="mist-giant-centerpiece" id="screenMistBanner">
+      <div class="mist-centerpiece-header">
+        <span class="mist-sparkle-tag">🔥 盲打衝刺 · 排名全面隱藏 🔥</span>
+        <h2 class="mist-giant-title">🌫️ 迷霧森林 · 最後 30 秒極限衝刺！ 🌫️</h2>
+        <p class="mist-giant-desc">全場起立！瘋狂連擊你的手機！3X 狂暴暴走模式 (+6m/擊)！</p>
       </div>
-      <div class="mist-subtext">🔥 全場進入 3X 狂暴暴走模式 (+6m/擊) · 倒數計時！</div>
+
+      <!-- 超大圓形呼吸心跳倒數時鐘 -->
+      <div class="mist-clock-wrap">
+        <div class="mist-giant-timer" id="screenMistTimer">30</div>
+        <div class="mist-clock-unit">SECONDS</div>
+      </div>
+
+      <div class="mist-centerpiece-footer">
+        <div class="mist-live-odometer">
+          全場累積狂飆總里程：<span id="mistOdometerVal">0</span> m
+        </div>
+        <div class="mist-suspense-hint">
+          ⏳ 倒數歸零立即驅散迷霧 · 定格揭曉前三名神隊伍！ 🏆
+        </div>
+      </div>
     </div>
-    <div class="mist-giant-timer" id="screenMistTimer">30s</div>
   </div>
 
   <!-- 5. 盛大頒獎典禮奧運頒獎台 (比賽結束時全螢幕升起) -->
@@ -1629,9 +1763,9 @@
     }
 
     function handleGameState(state) {
-      const mistOverlay = document.getElementById('screenMistOverlay');
-      const mistBanner = document.getElementById('screenMistBanner');
+      const shroud = document.getElementById('screenMistShroud');
       const mistTimer = document.getElementById('screenMistTimer');
+      const mistOdometer = document.getElementById('mistOdometerVal');
       const toggleText = document.getElementById('mistToggleText');
 
       if (state.mode === 'mist') {
@@ -1641,18 +1775,28 @@
         if (remSec > 0) {
           isMistSprintActive = true;
           isRaceFinished = false;
-          if (mistOverlay) mistOverlay.classList.add('active');
-          if (mistBanner) mistBanner.classList.add('active');
-          if (mistTimer) mistTimer.textContent = `${remSec}s`;
+          closeGrandPodium();
+          if (shroud) shroud.classList.add('active');
+          if (mistTimer) mistTimer.textContent = String(remSec);
+          if (mistOdometer) {
+            const total = getSortedTeams().reduce((sum, t) => sum + (t.meters || 0), 0);
+            mistOdometer.textContent = total.toLocaleString();
+          }
           if (toggleText) toggleText.textContent = '🛑 結束倒數回一般模式';
 
           if (mistCountdownTimer) clearInterval(mistCountdownTimer);
           mistCountdownTimer = setInterval(() => {
             const cur = Math.max(0, Math.ceil((endsAt - Date.now()) / 1000));
-            if (mistTimer) mistTimer.textContent = `${cur}s`;
+            if (mistTimer) mistTimer.textContent = String(cur);
+            if (mistOdometer) {
+              const total = getSortedTeams().reduce((sum, t) => sum + (t.meters || 0), 0);
+              mistOdometer.textContent = total.toLocaleString();
+            }
             if (cur <= 0) {
               clearInterval(mistCountdownTimer);
               mistCountdownTimer = null;
+              // 倒數結束：立即驅散迷霧，盛大升起前三名頒獎台！
+              if (shroud) shroud.classList.remove('active');
               showGrandPodium();
             }
           }, 1000);
@@ -1665,8 +1809,7 @@
         mistCountdownTimer = null;
       }
       isMistSprintActive = false;
-      if (mistOverlay) mistOverlay.classList.remove('active');
-      if (mistBanner) mistBanner.classList.remove('active');
+      if (shroud) shroud.classList.remove('active');
       if (toggleText) toggleText.textContent = '🌫️ 啟動 30 秒倒數衝刺';
 
       if (state.mode === 'finished') {
