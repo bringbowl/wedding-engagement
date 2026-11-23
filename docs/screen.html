@@ -779,45 +779,47 @@
 
     body.mist-anonymous-mode .card-team-title span:first-child::after,
     body.mist-anonymous-mode .lane-team-title::after {
-      content: '🐾 迷霧神秘隊伍 ❓';
+      content: '🐾 迷霧神秘黑馬' !important;
       position: absolute;
       left: 0;
       top: 0;
-      color: #fde047 !important;
+      color: #fef08a !important;
       font-weight: 800;
-      letter-spacing: 2px;
-      filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.9));
+      letter-spacing: 2.5px;
+      filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.85));
       white-space: nowrap;
     }
 
-    /* 徹底消滅動物剪影！統一替換為金色發光神秘問號 ❓，完全無從看出任何動物輪廓 */
-    body.mist-anonymous-mode .card-animal-emoji,
+    /* 徹底移除紅色問號與多餘頭像框，還原純淨高級感 */
+    body.mist-anonymous-mode .card-animal-emoji {
+      display: none !important;
+    }
+
+    /* 右側賽道跑者勳章：化為晶瑩靈動的金光珍珠微光能量球 ✨ */
     body.mist-anonymous-mode .avatar-medallion-box .avatar-emoji {
-      font-size: 0 !important;
+      display: none !important;
+    }
+
+    body.mist-anonymous-mode .avatar-medallion-box {
+      background: radial-gradient(circle at 35% 35%, #ffffff 0%, #fef08a 35%, #f59e0b 70%, #b45309 100%) !important;
+      border: 2.5px solid #ffffff !important;
+      box-shadow: 0 0 20px #fef08a, 0 0 35px rgba(245, 158, 11, 0.9) !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      filter: none !important;
-      width: 100% !important;
-      height: 100% !important;
     }
 
-    body.mist-anonymous-mode .card-animal-emoji::after,
-    body.mist-anonymous-mode .avatar-medallion-box .avatar-emoji::after {
-      content: '❓' !important;
-      font-size: 1.85rem !important;
-      filter: drop-shadow(0 0 10px #facc15) !important;
-      animation: mysteryQuestionPulse 1s ease-in-out infinite alternate !important;
+    body.mist-anonymous-mode .avatar-medallion-box::after {
+      content: '✨' !important;
+      font-size: 1.4rem !important;
+      filter: drop-shadow(0 0 6px #ffffff) !important;
       line-height: 1 !important;
+      animation: starTwinkle 0.8s ease-in-out infinite alternate !important;
     }
 
-    body.mist-anonymous-mode .card-animal-emoji::after {
-      font-size: 2.2rem !important;
-    }
-
-    @keyframes mysteryQuestionPulse {
-      0% { transform: scale(0.92); filter: drop-shadow(0 0 6px #facc15); }
-      100% { transform: scale(1.12); filter: drop-shadow(0 0 16px #fef08a); }
+    @keyframes starTwinkle {
+      0% { transform: scale(0.85) rotate(-10deg); opacity: 0.8; }
+      100% { transform: scale(1.15) rotate(15deg); opacity: 1; }
     }
 
     body.mist-anonymous-mode .card-members-badge,
