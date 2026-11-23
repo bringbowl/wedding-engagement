@@ -790,10 +790,34 @@
       white-space: nowrap;
     }
 
+    /* 徹底消滅動物剪影！統一替換為金色發光神秘問號 ❓，完全無從看出任何動物輪廓 */
     body.mist-anonymous-mode .card-animal-emoji,
     body.mist-anonymous-mode .avatar-medallion-box .avatar-emoji {
-      filter: brightness(0) invert(1) drop-shadow(0 0 12px #facc15) !important;
-      opacity: 0.95;
+      font-size: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      filter: none !important;
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    body.mist-anonymous-mode .card-animal-emoji::after,
+    body.mist-anonymous-mode .avatar-medallion-box .avatar-emoji::after {
+      content: '❓' !important;
+      font-size: 1.85rem !important;
+      filter: drop-shadow(0 0 10px #facc15) !important;
+      animation: mysteryQuestionPulse 1s ease-in-out infinite alternate !important;
+      line-height: 1 !important;
+    }
+
+    body.mist-anonymous-mode .card-animal-emoji::after {
+      font-size: 2.2rem !important;
+    }
+
+    @keyframes mysteryQuestionPulse {
+      0% { transform: scale(0.92); filter: drop-shadow(0 0 6px #facc15); }
+      100% { transform: scale(1.12); filter: drop-shadow(0 0 16px #fef08a); }
     }
 
     body.mist-anonymous-mode .card-members-badge,
@@ -813,8 +837,26 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    body.mist-anonymous-mode .lane-progress-bar {
-      filter: brightness(1.25) drop-shadow(0 0 18px rgba(250, 204, 21, 0.7));
+    /* 跑道進度條顏色按「名次」統一著色，無法透過專屬動物顏色猜測隊伍！ */
+    body.mist-anonymous-mode .sprint-lane:nth-child(1) .lane-progress-bar {
+      background: linear-gradient(90deg, #b45309 0%, #f59e0b 50%, #fef08a 100%) !important;
+      box-shadow: 0 0 24px rgba(250, 204, 21, 0.8) !important;
+    }
+    body.mist-anonymous-mode .sprint-lane:nth-child(2) .lane-progress-bar {
+      background: linear-gradient(90deg, #0369a1 0%, #06b6d4 50%, #67e8f9 100%) !important;
+      box-shadow: 0 0 24px rgba(6, 182, 212, 0.8) !important;
+    }
+    body.mist-anonymous-mode .sprint-lane:nth-child(3) .lane-progress-bar {
+      background: linear-gradient(90deg, #9a3412 0%, #ea580c 50%, #fed7aa 100%) !important;
+      box-shadow: 0 0 24px rgba(234, 88, 12, 0.8) !important;
+    }
+    body.mist-anonymous-mode .sprint-lane:nth-child(4) .lane-progress-bar {
+      background: linear-gradient(90deg, #6b21a8 0%, #a855f7 50%, #e9d5ff 100%) !important;
+      box-shadow: 0 0 24px rgba(168, 85, 247, 0.8) !important;
+    }
+    body.mist-anonymous-mode .sprint-lane:nth-child(5) .lane-progress-bar {
+      background: linear-gradient(90deg, #065f46 0%, #10b981 50%, #a7f3d0 100%) !important;
+      box-shadow: 0 0 24px rgba(16, 185, 129, 0.8) !important;
     }
 
     /* 迷霧層：輕透仙氣晨霧，既有迷霧狂飆氛圍，又讓賽道名次超車看得一清二楚！ */
