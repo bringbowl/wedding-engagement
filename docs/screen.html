@@ -1218,6 +1218,8 @@
       font-weight: 800;
       color: #ffffff;
       line-height: 1.4;
+      word-break: break-all;
+      overflow-wrap: anywhere;
     }
 
     .podium-footer-banner {
@@ -2055,6 +2057,16 @@
       }
     }
 
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
     // 盛大三階奧運頒獎台
     function showGrandPodium() {
       const overlay = document.getElementById('screenPodiumOverlay');
@@ -2081,13 +2093,13 @@
         const pillar = document.createElement('div');
         pillar.className = `podium-pillar ${cfg.cls}`;
         const membersList = (team.members && team.members.length) 
-          ? team.members.join('、') 
+          ? team.members.map(m => escapeHtml(m)).join('、') 
           : '（無登記隊員）';
 
         pillar.innerHTML = `
           <div class="podium-rank-tag">${cfg.medal}</div>
           <div class="podium-animal-avatar">${team.emoji}</div>
-          <div class="podium-team-name">${team.name}</div>
+          <div class="podium-team-name">${escapeHtml(team.name)}</div>
           <div class="podium-meters-tag">${(team.meters || 0).toLocaleString()} m</div>
           <div class="podium-members-box">
             <div class="podium-members-header">獲獎跑者名冊 (${team.members ? team.members.length : 0}人)：</div>
@@ -2243,7 +2255,11 @@
       }
     }
 
+    let isFwAnimating = false;
+    let fwAnimationId = null;
+
     function animateFireworks() {
+      if (!isFwAnimating) return;
       fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
       for (let i = fireworks.length - 1; i >= 0; i--) {
         const p = fireworks[i];
@@ -2251,27 +2267,36 @@
         p.draw();
         if (p.alpha <= 0) fireworks.splice(i, 1);
       }
-      if (fireworks.length > 0) {
-        requestAnimationFrame(animateFireworks);
-      }
+      fwAnimationId = requestAnimationFrame(animateFireworks);
     }
 
     function startFireworks() {
-      if (fwTimer) clearInterval(fwTimer);
+      stopFireworks();
+      isFwAnimating = true;
       spawnFireworksCluster();
       spawnFireworksCluster();
-      animateFireworks();
+      fwAnimationId = requestAnimationFrame(animateFireworks);
       fwTimer = setInterval(() => {
-        spawnFireworksCluster();
-        animateFireworks();
+        if (fireworks.length < 240) {
+          spawnFireworksCluster();
+        }
       }, 900);
     }
 
     function stopFireworks() {
-      if (fwTimer) clearInterval(fwTimer);
-      fwTimer = null;
+      isFwAnimating = false;
+      if (fwTimer) {
+        clearInterval(fwTimer);
+        fwTimer = null;
+      }
+      if (fwAnimationId) {
+        cancelAnimationFrame(fwAnimationId);
+        fwAnimationId = null;
+      }
       fireworks = [];
-      fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
+      if (fwCtx && fwCanvas) {
+        fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
+      }
     }
 
     // =========================================================
@@ -2340,10 +2365,29 @@
       if (chimeTimer) clearTimeout(chimeTimer);
     }
 
+    // 預防現場筆電進入休眠或螢幕關閉 (Screen Wake Lock API)
+    let screenWakeLock = null;
+    async function requestScreenWakeLock() {
+      if ('wakeLock' in navigator) {
+        try {
+          screenWakeLock = await navigator.wakeLock.request('screen');
+        } catch (err) {
+          console.log('Screen WakeLock active/unsupported:', err);
+        }
+      }
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        requestScreenWakeLock();
+      }
+    });
+
     // 啟動入口
     window.addEventListener('DOMContentLoaded', () => {
       initFirebase();
       renderBroadcastScreen();
+      requestScreenWakeLock();
 
       // 檢查是否由 URL 帶入演練模式 (例如 screen.html?demo=1 或 ?test=1)
       const urlParams = new URLSearchParams(window.location.search);
