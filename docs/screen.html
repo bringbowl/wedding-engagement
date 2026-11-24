@@ -1406,6 +1406,9 @@
     <button class="tool-btn" id="audioBtn" onclick="toggleAudio()">
       <span>🎵</span> <span id="audioText">播放大自然與氛圍音</span>
     </button>
+    <button class="tool-btn" id="sandboxBtn" onclick="toggleLocalSandboxSimulation()" style="border-color: #22c55e; color: #86efac;">
+      <span>🧪</span> <span id="sandboxBtnText">本地安全演練 (不影響賓客)</span>
+    </button>
     <button class="tool-btn" id="mistToggleBtn" onclick="toggleMistCountdown()">
       <span>🌫️</span> <span id="mistToggleText">啟動 30 秒倒數衝刺</span>
     </button>
@@ -1522,6 +1525,11 @@
         rtdb.ref('teams').on('value', snap => {
           const cloudTeams = snap.val();
           if (cloudTeams) {
+            if (isLocalSimActive) {
+              // 🛡️ 本地演練中：不干擾演練畫面，僅將雲端數據同步到備份池
+              backupTeamDataMap = cloudTeams;
+              return;
+            }
             teamDataMap = cloudTeams;
             renderBroadcastScreen();
           }
@@ -1529,6 +1537,7 @@
 
         // 監聽賽事狀態 (一般賽跑 / 30秒迷霧衝刺 / 封榜)
         rtdb.ref('gameState').on('value', snap => {
+          if (isLocalSimActive) return; // 🛡️ 本地演練中：完全忽略雲端狀態變更
           const state = snap.val() || { mode: 'normal' };
           handleGameState(state);
         });
@@ -1860,8 +1869,104 @@
     }
 
     // =========================================================
-    // 4. 迷霧森林最後衝刺與頒獎結算狀態處理
+    // 4. 本地安全模擬演練系統 (Local Sandbox Simulation)
+    // 100% 不寫入 Firebase，不更動雲端成績，全場已加入賓客零干擾！
+    // =========================================================
+    let isLocalSimActive = false;
+    let localSimInterval = null;
+    let backupTeamDataMap = null;
+
+    function toggleLocalSandboxSimulation() {
+      if (isLocalSimActive) {
+        stopLocalSandboxSimulation();
+      } else {
+        startLocalSandboxSimulation();
+      }
+    }
+
+    function startLocalSandboxSimulation() {
+      if (isLocalSimActive) return;
+      isLocalSimActive = true;
+
+      // 1. 備份目前真實分數
+      backupTeamDataMap = JSON.parse(JSON.stringify(teamDataMap || {}));
+
+      // 如果尚未有比賽分數，注入預設演練分數以利展示激烈賽況
+      const curSorted = getSortedTeams();
+      if (!curSorted || curSorted.length === 0 || (curSorted[0] && curSorted[0].meters === 0)) {
+        FOREST_ANIMALS.forEach((animal, index) => {
+          teamDataMap[animal.id] = {
+            meters: Math.max(120, 1680 - index * 32 + Math.floor(Math.random() * 40)),
+            membersCount: Math.floor(Math.random() * 4 + 3),
+            members: ['林小兔', '陳阿奇', '熊熊大廚', '森林好友']
+          };
+        });
+      }
+
+      // 2. 更新按鈕文字與狀態條
+      const btn = document.getElementById('sandboxBtnText');
+      if (btn) btn.textContent = '🛑 結束本地安全演練';
+      const toastPill = document.getElementById('liveStatusText');
+      if (toastPill) {
+        toastPill.innerHTML = '<span style="color:#4ade80; font-weight:800;">🛡️ 本地安全演練中 · 不寫入雲端 · 賓客手機零干擾</span>';
+      }
+
+      // 3. 啟動本地迷霧衝刺（30秒）
+      const endsAt = Date.now() + 30000;
+      handleGameState({
+        mode: 'mist',
+        mistEndsAt: endsAt
+      });
+
+      // 4. 模擬動態超車爭奪（每 1.2 秒隨機讓前三名衝刺超車，創造激烈觀賞效果！）
+      if (localSimInterval) clearInterval(localSimInterval);
+      localSimInterval = setInterval(() => {
+        if (!isLocalSimActive) return;
+        const sorted = getSortedTeams();
+        if (sorted.length >= 2) {
+          // 隨機挑選 1 隊猛衝（特別是第 2 或第 3 名，創造超車戲劇張力！）
+          const target = (Math.random() > 0.45 && sorted[1]) ? sorted[1] : (sorted[0] || sorted[2]);
+          if (target && teamDataMap[target.id]) {
+            teamDataMap[target.id].meters = (teamDataMap[target.id].meters || 0) + Math.floor(Math.random() * 80 + 50);
+            renderBroadcastScreen();
+          }
+        }
+      }, 1200);
+    }
+
+    function stopLocalSandboxSimulation() {
+      if (!isLocalSimActive) return;
+      isLocalSimActive = false;
+      if (localSimInterval) {
+        clearInterval(localSimInterval);
+        localSimInterval = null;
+      }
+
+      // 恢復備份之真實數據
+      if (backupTeamDataMap) {
+        teamDataMap = backupTeamDataMap;
+        backupTeamDataMap = null;
+      }
+
+      const btn = document.getElementById('sandboxBtnText');
+      if (btn) btn.textContent = '本地安全演練 (不影響賓客)';
+      const toastPill = document.getElementById('liveStatusText');
+      if (toastPill) {
+        toastPill.textContent = 'LIVE 實時連線中 · 全場 50 隊激戰';
+      }
+
+      // 結束迷霧與頒獎
+      handleGameState({ mode: 'normal' });
+      renderBroadcastScreen();
+    }
+
+    // =========================================================
+    // 5. 迷霧森林最後衝刺與頒獎結算狀態處理
     function toggleMistCountdown() {
+      if (isLocalSimActive) {
+        stopLocalSandboxSimulation();
+        return;
+      }
       if (rtdb) {
         if (!isMistSprintActive) {
           const now = Date.now();
@@ -1920,6 +2025,12 @@
               document.body.classList.remove('mist-anonymous-mode');
               if (shroud) shroud.classList.remove('active');
               showGrandPodium();
+              if (isLocalSimActive) {
+                // 本地模擬在頒獎台展示 12 秒後自動收回
+                setTimeout(() => {
+                  if (isLocalSimActive) stopLocalSandboxSimulation();
+                }, 12000);
+              }
             }
           }, 1000);
           return;
@@ -2233,6 +2344,14 @@
     window.addEventListener('DOMContentLoaded', () => {
       initFirebase();
       renderBroadcastScreen();
+
+      // 檢查是否由 URL 帶入演練模式 (例如 screen.html?demo=1 或 ?test=1)
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('demo') === '1' || urlParams.get('test') === '1' || urlParams.get('sandbox') === '1') {
+        setTimeout(() => {
+          startLocalSandboxSimulation();
+        }, 600);
+      }
     });
   </script>
 </body>
